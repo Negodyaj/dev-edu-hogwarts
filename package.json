@@ -29,10 +29,6 @@
       "react-app/jest"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Negodyaj/dev-edu-hogwarts.git"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -46,9 +42,5 @@
     ]
   },
   "author": "Marvelous Frontend",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Negodyaj/dev-edu-hogwarts/issues"
-  },
-  "homepage": "https://github.com/Negodyaj/dev-edu-hogwarts#readme"
+  "license": "ISC"
 }
