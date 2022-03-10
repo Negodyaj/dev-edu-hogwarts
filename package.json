@@ -12,6 +12,7 @@
     "@types/react-dom": "^17.0.13",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "sass": "^1.49.9",
     "typescript": "^4.6.2",
@@ -29,10 +30,6 @@
       "react-app/jest"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Negodyaj/dev-edu-hogwarts.git"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -47,8 +44,7 @@
   },
   "author": "Marvelous Frontend",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Negodyaj/dev-edu-hogwarts/issues"
-  },
-  "homepage": "https://github.com/Negodyaj/dev-edu-hogwarts#readme"
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.3"
+  }
 }
