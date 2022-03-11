@@ -43,7 +43,8 @@ export const HomeworksPage = () => {
     const revertedArray = tasks.slice().reverse()
 
   return (
-    <div>Домашки
+    <div className='margin-common-content'>
+        Домашки
         {
             revertedArray.map( item =>
                 <HomeworkCard data={item} key={item.id}/>
