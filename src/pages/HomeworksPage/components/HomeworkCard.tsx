@@ -58,7 +58,7 @@ export const HomeworkCard = (props: HomeworkProps) => {
                     общих компонентов, но я пока не знаю вдруг кто что тоже общее создаст,
                     потом перекину =)
                  */}
-                <LinkArrow back={false} text='к заданию' to='homework:id'/>
+                <LinkArrow back={false} text='к заданию' to={`homework:${homework.id}`}/>
             </div>
             <span className='task-status'>
                 {HomeworkStatus[homework.status]}
