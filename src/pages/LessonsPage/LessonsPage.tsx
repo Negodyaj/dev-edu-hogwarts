@@ -1,3 +1,4 @@
+import { TabContainer } from "../../commomComponents/TabContainer/TabContainer";
 import { Lesson, LessonModel } from "./components/Lesson";
 
 export const LessonsPage = () => {
@@ -9,6 +10,7 @@ export const LessonsPage = () => {
 
   return (
     <>
+      <TabContainer/>
       <div>Занятия</div>
       {
         lessons.map(lesson => <Lesson data={lesson} />)
