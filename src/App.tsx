@@ -6,11 +6,12 @@ import { NotificationsPage } from './pages/NotificationsPage/NotificationsPage';
 import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
+import {MainPanel} from './pages/MainPanel/MainPanel';
 
 function App() {
   return (
     <>
-      <aside>
+       {/* <aside>
         <nav>
           <ul>
             <li>
@@ -27,16 +28,17 @@ function App() {
             </li>
           </ul>
         </nav>
-      </aside>
+      </aside>  */}
       <main>
-        <Routes>
+        { <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
           <Route path="lessons" element={<LessonsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
-        </Routes>
+        </Routes> }
+        <MainPanel/>
       </main>
     </>
   );

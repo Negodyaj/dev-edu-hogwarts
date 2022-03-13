@@ -1,0 +1,18 @@
+.panel{
+  max-width: 360px;
+  background-color: white;
+  .panel-container{
+    margin: 42px 42px 0px 73px;
+    .content-container{
+      margin: 0 17px;
+      .logo{
+        padding-right: 13px;
+        
+      }
+      .avatar-block{
+        margin-top: 90px;
+      }
+
+    }
+  }
+}
