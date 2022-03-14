@@ -1,5 +1,5 @@
 $lavender-color: #A786DF;
-$translate-arrow: transform 0.3s ease-in;
+$translate-arrow: transform 0.25s ease;
 
 @mixin flex-end {
   display: flex;
@@ -12,6 +12,7 @@ $translate-arrow: transform 0.3s ease-in;
 
 .drop-down-filter__wrapper {
   @include flex-end;
+  // margin для красоты просмотра в этом PR
   margin: auto;
   font-size: 18px;
   line-height: 18px;
@@ -40,10 +41,6 @@ $translate-arrow: transform 0.3s ease-in;
     transform: rotate(90deg);
   }
 
-  & path {
-    fill: black;
-  }
-
   &.table {
     color: $lavender-color;
 
@@ -55,6 +52,7 @@ $translate-arrow: transform 0.3s ease-in;
 
 .drop-down-filter__list-wrapper {
   top: 28px;
+  margin-right: 6px;
   background-color: #FFF;
   text-align: right;
   position: absolute;
@@ -66,7 +64,6 @@ $translate-arrow: transform 0.3s ease-in;
   // Пока в основных стилях не прописано тут добавила
   box-sizing: border-box;
   z-index: 2;
-  margin-right: 6px;
 }
 
 .drop-down-filter__list {
@@ -101,9 +98,13 @@ $translate-arrow: transform 0.3s ease-in;
     }
 
     &:hover,
+    &.selected
+    {
+      color: $lavender-color;
+    }
+
     &.selected {
       font-weight: 600;
-      color: $lavender-color;
     }
   }
     &::-webkit-scrollbar {
