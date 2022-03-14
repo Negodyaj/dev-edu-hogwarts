@@ -1,38 +1,6 @@
-//common styles
-* {
-  margin: 0;
-  box-sizing: border-box;
-}
-
-// Мне эти стили нужны были визуально посмотреть как все выглядит ок не ок,
-// т.к. это другая задача, то могу удалить как ты проверишь, ну и их в общие надо наверное
-// По макету мне не очень очевидно максимальный ли там ширина этого прямоугольника или нет
-// поэтому оно было так, но на всякий случай решила еще так сделать, как минимум для первого
-// задания, которое и нечестно было делать, т.к. таску эту я не взяла, пока так
-.content-container {
-  background: #FFFFFF;
-  //max-width: 940px;
-  width: 100%;
-  box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
-  border-radius: 15px;
-  padding: 50px 45px 46px 45px;
-}
-
-
-// Отступы для читабельности сейчас и как в макете, только нижний везде разный
-.margin-common-content {
-  margin: 70px 120px 70px 20px;
-}
-//end common
-
-
-// Сделала сетку на глаз, потому что там размеры непонятные, визуально очень похоже
-// могу кнчн поменять + шрифты еще не подключены, т.к. если кто-то подключит
-// то чтобы не было конфликтов
-
 .homework-card-content {
   display: grid;
-  grid-template-columns: auto 3fr 1fr;
+  grid-template-columns: 153px 3fr 1fr;
   font-size: 18px;
 
   &~.homework-card-content{
@@ -40,8 +8,7 @@
   }
 
   .task-number {
-    margin-right: 71px;
-    margin-top: 31px;
+    padding-top: 31px;
   }
 
   .task-status {

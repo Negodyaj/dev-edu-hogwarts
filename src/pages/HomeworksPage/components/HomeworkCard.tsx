@@ -1,5 +1,5 @@
 import './HomeworkCard.scss'
-import {LinkArrow} from "./LinkArrow";
+import {LinkArrow} from "../../../components/LinkArrow/LinkArrow";
 
 export type HomeworkProps = {
     data: HomeworkData
@@ -53,11 +53,6 @@ export const HomeworkCard = (props: HomeworkProps) => {
                 <span className='homework-title'>
                     {homework.title}
                 </span>
-                {/* Сделала компонент, который есть в нескольких местах,
-                    по-хорошему его наверное лучше в отдельную папку для
-                    общих компонентов, но я пока не знаю вдруг кто что тоже общее создаст,
-                    потом перекину =)
-                 */}
                 <LinkArrow back={false} text='к заданию' to={`homework:${homework.id}`}/>
             </div>
             <span className='task-status'>

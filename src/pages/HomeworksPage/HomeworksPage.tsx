@@ -40,7 +40,7 @@ let tasks = [
 ]
 
 export const HomeworksPage = () => {
-    const revertedArray = tasks.slice().reverse()
+  const revertedArray = tasks.slice().reverse();
 
   return (
     <div className='margin-common-content'>
