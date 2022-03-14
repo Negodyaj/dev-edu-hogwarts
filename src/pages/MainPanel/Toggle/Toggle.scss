@@ -6,7 +6,7 @@
   background: #a786df;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
-  .moon {
+  .moonday {
     position: absolute;
     margin: 3px 0px 3px 6px;
   }
@@ -27,5 +27,24 @@
     top: 4px;
     border: #ffffff;
     background: #ffffff;
+
+  }
+  .circlenight{
+    z-index: 2;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 34px;
+    top: 4px;
+    border-radius: 50px;
+    border: #ffffff;
+    background: black;
+
+  }
+  .sunnight{
+    display: none;
+  }
+  .moon{
+    display: none;
   }
 }

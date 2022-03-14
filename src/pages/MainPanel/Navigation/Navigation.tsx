@@ -28,7 +28,7 @@ let buttons = [
     buttonLink:3
   }
 ]
-export const Nagigation =()=>{
+export const Navigation =()=>{
   
   return(
     <div className="wrapper">
