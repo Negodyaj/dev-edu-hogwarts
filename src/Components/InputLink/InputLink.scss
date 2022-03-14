@@ -6,16 +6,13 @@
 
   input {
     font-family: "Raleway";
-    font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    line-height: 21px;
-    color: #8a8a8a;
     align-items: center;
-    padding: 15px 30px;
+    padding: 0 30px;
 
-    width: 525px;
-    height: 51px;
+    flex-grow: 1;
+    line-height: 49px;
     background: #ffffff;
     border: 1px solid #a786df;
     box-sizing: border-box;

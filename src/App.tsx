@@ -6,6 +6,8 @@ import { NotificationsPage } from './pages/NotificationsPage/NotificationsPage';
 import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
+import { InputLink } from './Components/InputLink/InputLink';
+import { InputTextarea } from './Components/InputTextarea/InputTextarea';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         </nav>
       </aside>
       <main>
+        <InputLink placeholder='Ссылка на GitHub или архив' />
+        <InputTextarea placeholder='Напишите комментарий' />
         <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
