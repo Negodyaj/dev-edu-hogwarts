@@ -1,11 +1,11 @@
-import { Link} from "react-router-dom";
-import "../ButtonNavigation/ButtonNavigation.scss";
+import { Link } from "react-router-dom";
+import "./ButtonNavigation.scss";
 export type Button = {
   buttonImage: string
   buttonName: string
-  buttonLink:number
+  buttonLink: number
 }
-enum ButtonLink{
+enum ButtonLink {
   'Уведомления',
   'Занятия',
   'Домашние задания',
@@ -23,12 +23,9 @@ export type ButtonProps = {
 }
 export const ButtonNavigation = (props: ButtonProps) => {
   return (
-    <>
-
-      <li>
-        <img src={props.data.buttonImage}></img>
-        <Link to={Links[props.data.buttonLink]}>{ButtonLink[props.data.buttonLink]}</Link>
-      </li>
-    </>
+    <div className="nav-link">
+      <img src={props.data.buttonImage}></img>
+      <Link to={Links[props.data.buttonLink]}>{ButtonLink[props.data.buttonLink]}</Link>
+    </div>
   )
 }
