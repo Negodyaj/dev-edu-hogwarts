@@ -1,5 +1,6 @@
 import {useState} from "react";
 import './FilterList.scss'
+import {useDetectClickOutside} from "react-detect-click-outside";
 
 export type FilterListProps = {
     data: Array<Filter>
@@ -17,11 +18,16 @@ export const FilterList = (props: FilterListProps) => {
     let [item, setItem] = useState(filter[1])
 
     const toggle = () => {
-      setOpen(!open)
+        setOpen(!open)
     }
+    const  closeDropdown  =  ( )  =>  {
+        setOpen( false ) ;
+    }
+    const ref = useDetectClickOutside({ onTriggered: closeDropdown });
+
 
   return(
-      <div className='drop-down-filter__wrapper'>
+      <div className='drop-down-filter__wrapper' ref={ref}>
           <div className={`drop-down-filter ${props.type === 'table' && 'table'}`}
                role='button'
                onKeyPress={() => toggle()}
