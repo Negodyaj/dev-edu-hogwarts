@@ -6,10 +6,6 @@ $translate-arrow: transform 0.25s ease;
   justify-content: flex-end;
 }
 
-* {
-  margin: 0;
-}
-
 .drop-down-filter__wrapper {
   @include flex-end;
   // margin для красоты просмотра в этом PR
@@ -61,8 +57,6 @@ $translate-arrow: transform 0.25s ease;
   min-width: 140px;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
-  // Пока в основных стилях не прописано тут добавила
-  box-sizing: border-box;
   z-index: 2;
 }
 
