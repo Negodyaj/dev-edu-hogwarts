@@ -7,6 +7,8 @@ import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
 
+
+
 function App() {
   return (
     <>
