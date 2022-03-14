@@ -1,7 +1,6 @@
 $lavender-color: #A786DF;
 $translate-arrow: transform 0.25s ease;
-$padding-zero: 0;
-$border-zero: 0;
+$zero-style: 0;
 $font-size: 18px;
 
 @mixin flex-end {
@@ -11,8 +10,8 @@ $font-size: 18px;
 
 
 button {
-  padding: $padding-zero;
-  border: $border-zero;
+  padding: $zero-style;
+  border: $zero-style;
   background-color: transparent;
   font-size: $font-size;
 }
@@ -69,7 +68,7 @@ button {
 }
 
 .drop-down-filter__list {
-  padding: $padding-zero;
+  padding: $zero-style;
   line-height: $font-size;
   width: max-content;
   min-width: 99px;
@@ -86,14 +85,14 @@ button {
         padding: 9px 0;
 
     &:last-child {
-      border: $border-zero;
+      border: $zero-style;
       padding-top: 10px;
-      padding-bottom: $padding-zero;
+      padding-bottom: $zero-style;
     }
 
     &:first-child {
       padding-bottom: 10px;
-      padding-top: $padding-zero;
+      padding-top: $zero-style;
     }
 
         &::marker {
