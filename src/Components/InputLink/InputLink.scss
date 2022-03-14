@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+
+.input-link {
+  align-items: center;
+  display: flex;
+
+  input {
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #8a8a8a;
+    align-items: center;
+    padding: 15px 30px;
+
+    width: 525px;
+    height: 51px;
+    background: #ffffff;
+    border: 1px solid #a786df;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+}

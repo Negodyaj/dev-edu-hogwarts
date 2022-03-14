@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+.input-textaria {
+  display: flex;
+  align-items: flex-start;
+  textarea {
+    resize: none;
+    width: 765px;
+    height: 114px;
+    background: #ffffff;
+    border: 1px solid #dbdbdb;
+    box-sizing: border-box;
+    border-radius: 15px;
+    outline: none;
+    -moz-appearance: none;
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    color: #8a8a8a;
+    padding: 30px 40px 40px;
+    overflow: hidden;
+
+    cursor: text;
+  }
+
+  textarea:hover {
+    border: 1px solid #f45b69;
+  }
+
+  textarea:focus-within {
+    border: 1px solid #f45b69;
+  }
+}
+
+.button-fly {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  padding: 0;
+  margin-left: 20px;
+}
+
+.button-fly:hover path {
+  fill: #1a1d1f;
+}
