@@ -28,7 +28,7 @@ export const FilterList = (props: FilterListProps) => {
 
   return(
       <div className='drop-down-filter__wrapper' ref={ref}>
-          <div className={`drop-down-filter ${props.type === 'table' && 'table'}`}
+          <div className={`drop-down-filter ${props.type === 'table' ? 'table' : ''}`}
                role='button'
                onKeyPress={() => toggle()}
                onClick={() => toggle()}>
@@ -43,11 +43,11 @@ export const FilterList = (props: FilterListProps) => {
           {
               open && (
                   <div className='drop-down-filter__list-wrapper'>
-                      <ul className={`drop-down-filter__list ${filter.length > 4 && 'overflow'}`}>
+                      <ul className={`drop-down-filter__list ${filter.length > 4 ? 'overflow' : ''}`}>
                           {
                               filter.map(
                                   elem => <li key={elem.id}
-                                              className={`drop-down-filter__element ${elem.id === item.id && 'selected'}`}
+                                              className={`drop-down-filter__element ${elem.id === item.id ? 'selected' : ''}`}
                                               onClick={() => setItem(elem)}>
                                       {elem.name}
                                   </li>
