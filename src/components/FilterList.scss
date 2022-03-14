@@ -1,0 +1,119 @@
+$lavender-color: #A786DF;
+$translate-arrow: transform 0.3s ease-in;
+
+@mixin flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+* {
+  margin: 0;
+}
+
+.drop-down-filter__wrapper {
+  @include flex-end;
+  margin: auto;
+  font-size: 18px;
+  line-height: 18px;
+  width: fit-content;
+  position: relative;
+}
+
+.drop-down-filter {
+  @include flex-end;
+  min-width: 148px;
+  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+
+  & svg {
+    margin-left: 4px;
+  }
+
+  & .array-down {
+    transition: $translate-arrow;
+    transform: rotate(-90deg);
+  }
+
+  & .array-up {
+    transition: $translate-arrow;
+    transform: rotate(90deg);
+  }
+
+  & path {
+    fill: black;
+  }
+
+  &.table {
+    color: $lavender-color;
+
+    & path {
+      fill: $lavender-color;
+    }
+  }
+}
+
+.drop-down-filter__list-wrapper {
+  top: 28px;
+  background-color: #FFF;
+  text-align: right;
+  position: absolute;
+  padding: 10px 20px;
+  max-height: 152px;
+  min-width: 140px;
+  box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  // Пока в основных стилях не прописано тут добавила
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.drop-down-filter__list {
+  padding: 0;
+  width: max-content;
+  min-width: 99px;
+  max-height: 132px;
+
+  &.overflow {
+    padding-right: 10px;
+    overflow: auto;
+  }
+
+  .drop-down-filter__element {
+    cursor: pointer;
+    border-bottom: 1px solid #DBDBDB;
+    padding: 9px 0;
+
+    &:last-child {
+      border: 0;
+      padding-top: 10px;
+      padding-bottom: 0;
+    }
+
+    &:first-child {
+      padding-bottom: 10px;
+      padding-top: 0;
+    }
+
+    &::marker {
+      content: '';
+    }
+
+    &:hover,
+    &.selected {
+      font-weight: 600;
+      color: $lavender-color;
+    }
+  }
+    &::-webkit-scrollbar {
+      width: 1px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #EBE3F8;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $lavender-color;
+    }
+}
