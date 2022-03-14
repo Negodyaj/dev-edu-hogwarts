@@ -25,47 +25,47 @@ button {
 }
 
 .drop-down-filter {
-  @include flex-end;
-  min-width: 148px;
-  width: 100%;
-  font-weight: 600;
-  cursor: pointer;
+    @include flex-end;
+    min-width: 148px;
+    width: 100%;
+    font-weight: 600;
+    cursor: pointer;
 
-  & svg {
-    margin-left: 4px;
-  }
-
-  & .array-down {
-    transition: $translate-arrow;
-    transform: rotate(-90deg);
-  }
-
-  & .array-up {
-    transition: $translate-arrow;
-    transform: rotate(90deg);
-  }
-
-  &.table {
-    color: $lavender-color;
-
-    & path {
-      fill: $lavender-color;
+    & svg {
+        margin-left: 4px;
     }
-  }
+
+    & .array-down {
+        transition: $translate-arrow;
+        transform: rotate(-90deg);
+    }
+
+    & .array-up {
+        transition: $translate-arrow;
+        transform: rotate(90deg);
+    }
+
+    &.table {
+        color: $lavender-color;
+
+        & path {
+            fill: $lavender-color;
+        }
+    }
 }
 
 .drop-down-filter__list-wrapper {
-  top: 28px;
-  right: 6px;
-  background-color: #FFF;
-  text-align: right;
-  position: absolute;
-  padding: 10px 20px;
-  max-height: 152px;
-  min-width: 140px;
-  box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-  z-index: 2;
+    top: 28px;
+    right: 6px;
+    background-color: #fff;
+    text-align: right;
+    position: absolute;
+    padding: 10px 20px;
+    max-height: 152px;
+    min-width: 140px;
+    box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    z-index: 2;
 }
 
 .drop-down-filter__list {
@@ -75,15 +75,15 @@ button {
   min-width: 99px;
   max-height: 132px;
 
-  &.overflow {
-    padding-right: 10px;
-    overflow: auto;
-  }
+    &.overflow {
+        padding-right: 10px;
+        overflow: auto;
+    }
 
-  .drop-down-filter__element {
-    cursor: pointer;
-    border-bottom: 1px solid #DBDBDB;
-    padding: 9px 0;
+    .drop-down-filter__element {
+        cursor: pointer;
+        border-bottom: 1px solid #dbdbdb;
+        padding: 9px 0;
 
     &:last-child {
       border: $border-zero;
@@ -96,29 +96,28 @@ button {
       padding-top: $padding-zero;
     }
 
-    &::marker {
-      content: '';
-    }
+        &::marker {
+            content: "";
+        }
 
-    &:hover,
-    &.selected
-    {
-      color: $lavender-color;
-    }
+        &:hover,
+        &.selected {
+            color: $lavender-color;
+        }
 
-    &.selected {
-      font-weight: 600;
+        &.selected {
+            font-weight: 600;
+        }
     }
-  }
     &::-webkit-scrollbar {
-      width: 1px;
+        width: 1px;
     }
 
     &::-webkit-scrollbar-track {
-      background-color: #EBE3F8;
+        background-color: #ebe3f8;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $lavender-color;
+        background-color: $lavender-color;
     }
 }
