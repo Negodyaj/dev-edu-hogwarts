@@ -1,17 +1,25 @@
 $lavender-color: #A786DF;
 $translate-arrow: transform 0.25s ease;
+$padding-zero: 0;
+$border-zero: 0;
+$font-size: 18px;
 
 @mixin flex-end {
   display: flex;
   justify-content: flex-end;
 }
 
+
+button {
+  padding: $padding-zero;
+  border: $border-zero;
+  background-color: transparent;
+  font-size: $font-size;
+}
+
 .drop-down-filter__wrapper {
   @include flex-end;
-  // margin для красоты просмотра в этом PR
-  margin: auto;
-  font-size: 18px;
-  line-height: 18px;
+  font-size: $font-size;
   width: fit-content;
   position: relative;
 }
@@ -61,7 +69,8 @@ $translate-arrow: transform 0.25s ease;
 }
 
 .drop-down-filter__list {
-  padding: 0;
+  padding: $padding-zero;
+  line-height: $font-size;
   width: max-content;
   min-width: 99px;
   max-height: 132px;
@@ -77,14 +86,14 @@ $translate-arrow: transform 0.25s ease;
     padding: 9px 0;
 
     &:last-child {
-      border: 0;
+      border: $border-zero;
       padding-top: 10px;
-      padding-bottom: 0;
+      padding-bottom: $padding-zero;
     }
 
     &:first-child {
       padding-bottom: 10px;
-      padding-top: 0;
+      padding-top: $padding-zero;
     }
 
     &::marker {
