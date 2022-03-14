@@ -13,7 +13,27 @@ export const TabContainer = () => {
     icon: Icons.Computer,
     text: 'Базовый курс',
     id: 1
-  }
+  },
+  {
+    icon: Icons.Cake,
+    text: 'Базовый курс',
+    id: 1
+  },
+  {
+    icon: Icons.Calendar,
+    text: 'Базовый курс',
+    id: 1
+  },
+  {
+    icon: Icons.Chevron,
+    text: 'Базовый курс',
+    id: 1
+  },
+  {
+    icon: Icons.Cookie,
+    text: 'Базовый курс',
+    id: 1
+  },
 ]
 
   return (
