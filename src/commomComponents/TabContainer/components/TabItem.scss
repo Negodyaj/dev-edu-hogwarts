@@ -2,6 +2,7 @@
   //item-style
   box-shadow: 4px 7px 15px 0px #00000014;
   width: 126px;
+  min-width: 126px;
   height: 72px;
   display: flex;
   flex-direction: column;
@@ -12,9 +13,7 @@
   cursor: pointer;
   //font-style
   font-size: 16px;
-  font-family: Raleway;
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'Raleway';
   line-height: 19px;
 
 }
@@ -29,18 +28,14 @@
   &::after {
     content: '';
     position: absolute;
-    top: 12px;
-    left: 20px;
-    // border-left: 50px solid #A786DF;
-    // border-right: 50px solid #A786DF;
-    // border-top: 100px solid #A786DF;
-
+    bottom: -12px;
+    left: 63px;
     width: 0; 
     height: 0;
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
-    border-top: 100px solid #A786DF;
-    z-index: -1;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 12px solid #A786DF;
+    box-shadow: 4px 7px 15px 0px #00000014;
   }
 }
 

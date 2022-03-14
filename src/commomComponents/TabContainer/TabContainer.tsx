@@ -40,7 +40,7 @@ export const TabContainer = () => {
     <>
       <div className="tab-container">
         {
-          tabData.map(item => (<TabItem data={item}/>))
+          tabData.map(item => (<TabItem data={item} key={item.id}/>))
         }
       </div>    
     </>
