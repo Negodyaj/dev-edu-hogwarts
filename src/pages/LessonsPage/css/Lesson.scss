@@ -2,6 +2,7 @@
   font-family: 'Raleway', sans-serif;
   font-size: 18px;
   line-height: 23px;
+  box-sizing: border-box;
   
 }
 .font-400{
@@ -11,9 +12,13 @@
   font-weight: 600;
 }
 
+.isActive{
+  transform: rotate(180deg);
+}
+
 .lessons-container{
   border-radius: 15px;
-  
+  position: relative;
   width: 940px;
   margin: 0 auto;
   background-color: white ;
@@ -26,13 +31,22 @@
 }
 
 .lesson-container{
-  width: 765px;
+  width: 775px;
   padding: 50px 120px 0px 45px;
-  position: relative;
+  
+  &.active{
+    svg {
+      
+    }
+    button{
+      transform: rotateZ(180deg);
+    }
+  }
   .header-container {
     padding-bottom: 30px;
     border-bottom: 1px solid #DBDBDB;
     display: flex;
+    width: 775px;
     .lesson-main-info{
       display: flex;
       justify-content: space-around;
@@ -58,9 +72,16 @@
       background-color: white;
       position: absolute;
       right: 45px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out
+
     }
   }
   .content-container{
+    // transition: all 0.5s ease-in-out;
+    // height: 0;
+    // overflow: hidden;
+    width: 775px;
     padding-top: 30px;
     padding-bottom: 30px;
     border-bottom: 1px solid #DBDBDB;
@@ -72,6 +93,7 @@
       .video-link{
         grid-column: 2;
         margin-left: 59px;
+        text-decoration: none;
         
         
       }
