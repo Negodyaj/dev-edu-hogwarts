@@ -1,4 +1,5 @@
 * {
+  margin: 0;
   box-sizing: border-box;
 }
 
@@ -9,11 +10,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.content-container {
+  background: #FFFFFF;
+  width: 100%;
+  box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
+  border-radius: 15px;
+  padding: 50px 45px 46px 45px;
 }
 
+.margin-common-content {
+  margin: 70px 120px 70px 20px;
+}
 .flex-container {
   display: flex;
 }
