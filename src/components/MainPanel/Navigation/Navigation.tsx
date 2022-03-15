@@ -1,7 +1,7 @@
 import { Route, Link, Routes } from "react-router-dom";
 import './Navigation.scss';
 import { ButtonNavigation } from "../ButtonNavigation/ButtonNavigation";
-import { Icons } from "../Navigation/Icons/enumicons";
+import { Icons } from "../../SvgIcon/enumIcons";
 import { useState } from "react";
 let buttons = [
   {
@@ -21,7 +21,7 @@ let buttons = [
     buttonLink: 2
   },
   {
-    buttonImage: Icons.Settings,
+    buttonImage: Icons.Cake,
     buttonName: 'Настройки',
     buttonLink: 3
   }
