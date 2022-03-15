@@ -1,39 +1,42 @@
 import { Route, Link, Routes } from "react-router-dom";
 import './Navigation.scss';
 import { ButtonNavigation } from "../ButtonNavigation/ButtonNavigation";
-import iconNotification from "../../images/Bell_Notification.svg";
-import iconLessons from "../../images/Folder_Code.svg";
-import hw from "../../images/Calendar_Days.svg";
-import settings from "../../images/Settings.svg";
+import { Icons } from "../Navigation/Icons/enumicons";
+import { useState } from "react";
 let buttons = [
   {
-    buttonImage: iconNotification,
+    buttonImage: Icons.Notifications,
     buttonName: 'Уведомления',
     buttonLink: 0
   },
   {
-    buttonImage: iconLessons,
+    buttonImage: Icons.Lessons,
     buttonName: 'Занятия',
     buttonLink: 1
 
   },
   {
-    buttonImage: hw,
+    buttonImage: Icons.Homeworks,
     buttonName: 'Домашние задания',
     buttonLink: 2
   },
   {
-    buttonImage: settings,
+    buttonImage: Icons.Settings,
     buttonName: 'Настройки',
     buttonLink: 3
   }
 ]
-export const Navigation = () => {
 
+export const Navigation = () => {
+  const [activeButton, setActiveButton] = useState<number>(0);
+  function handleClick(buttonLink: number) {
+    setActiveButton(buttonLink);
+  }
+  
   return (
     <nav>
       {
-        buttons.map(item => <ButtonNavigation data={item}></ButtonNavigation>)
+        buttons.map(item => <ButtonNavigation data={item} key={item.buttonLink} activeButton={activeButton} onClick={handleClick}></ButtonNavigation>)
       }
     </nav>
   )
