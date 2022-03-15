@@ -10,23 +10,18 @@ export const LessonsPage = () => {
     {id: 1, name: 'Занятие 1', date: '10.02.2022', theme: 'В этом модуле вас ждут 10 видеолекций, которые помогут вам начать разговаривать на английском языке как настоящий разработчик.', videoLink: '', additionalInfo: '' },
   ];
 
-  const toggle = document.querySelector(".circle")
-
+  // const toggle = document.querySelector(".circle")
+  // const onElementClick = (id:number) => {
+  //   setActiveLesson(id === activeLesson ? 0 : id)
+  // }
   function onElementClick (id:number) {
     // if (id === activeLesson) {
     //   setActiveLesson(0);
     // }
     // else
     setActiveLesson(id === activeLesson ? 0 : id)
-    // toggle (setActiveLesson(id) ? )
-    if (toggle?.classList.contains("isActive"))
-    {
-      toggle.classList.remove("isActive")
-    }
-    else{
-      // lessons[id-1].      
-      toggle?.classList.add("isActive")
-    }
+    
+    
   }
 
   return (
