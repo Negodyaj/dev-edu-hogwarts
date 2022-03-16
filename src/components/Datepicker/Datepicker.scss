@@ -1,9 +1,15 @@
+$lavender-color: #A786DF;
+$hover-color: #eee;
+$box-shadow-color: rgba(0, 0, 0, 0.1);
+$light-lavender-color: #d8bbf5;
 
-.date-picker{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
+@mixin border-padding-zero {
+  border: 0;
+  padding: 0;
+}
+
+.form-input {
+  max-height: 56px;
   max-width: 438px;
   width: 100%;
   background: #FFFFFF;
@@ -11,28 +17,29 @@
   border-radius: 5px;
   padding: 14px 20px 15px 22px;
   transition: box-shadow 0.3s ease;
+  margin-top: 10px;
+}
 
-  .form-control {
-    border: 0;
+.date-picker{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+
+  & .form-control {
+    @include border-padding-zero;
     outline: 0;
-    padding: 0;
     width: 100%;
     font-weight: 400;
     font-size: 18px;
     line-height: 25px;
   }
 
-  button{
-    height: 100%;
+  & button{
+    @include border-padding-zero;
     background-color: transparent;
-    border: 0;
     cursor: pointer;
   }
-
-}
-
-.date-picker>input.form-control:focus + .date-picker {
-  box-shadow: 0 0 0 2px rgba(167, 134, 223, 0.49);
 }
 
 .rdt {
@@ -46,7 +53,7 @@
   margin-top: 1px;
   z-index: 99999 !important;
   background: #fff;
-  box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 7px 15px $box-shadow-color;
   border-radius: 15px;
 }
 .rdtOpen .rdtPicker {
@@ -78,12 +85,12 @@
 .rdtPicker td.rdtMinute:hover,
 .rdtPicker td.rdtSecond:hover,
 .rdtPicker .rdtTimeToggle:hover {
-  background: #eeeeee;
+  background: $hover-color;
   cursor: pointer;
 }
 .rdtPicker td.rdtOld,
 .rdtPicker td.rdtNew {
-  color: #d8bbf5;
+  color: $light-lavender-color;
 }
 .rdtPicker td.rdtToday {
   position: relative;
@@ -92,7 +99,7 @@
   content: '';
   display: inline-block;
   border-left: 7px solid transparent;
-  border-bottom: 7px solid #A786DF;
+  border-bottom: 7px solid $lavender-color;
   border-top-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   bottom: 4px;
@@ -101,7 +108,7 @@
 
 .rdtPicker td.rdtActive,
 .rdtPicker td.rdtActive:hover {
-  background-color: #A786DF;
+  background-color: $lavender-color;
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
@@ -113,21 +120,21 @@
 .rdtPicker td.rdtDisabled,
 .rdtPicker td.rdtDisabled:hover {
   background: none;
-  color: #c7b3de;
+  color: $light-lavender-color;
   cursor: not-allowed;
 }
 
 .rdtPicker td span.rdtOld {
-  color: #c7b3de;
+  color: $light-lavender-color;
 }
 .rdtPicker td span.rdtDisabled,
 .rdtPicker td span.rdtDisabled:hover {
   background: none;
-  color: #c7b3de;
+  color: $light-lavender-color;
   cursor: not-allowed;
 }
 .rdtPicker th {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid $box-shadow-color;
 }
 .rdtPicker .dow {
   width: 14.2857%;
@@ -157,27 +164,22 @@
 .rdtPicker th.rdtDisabled,
 .rdtPicker th.rdtDisabled:hover {
   background: none;
-  color: #A786DF;
+  color: $lavender-color;
   cursor: not-allowed;
 }
 .rdtPicker thead tr:first-of-type th {
   cursor: pointer;
 }
 .rdtPicker thead tr:first-of-type th:hover {
-  background: #eeeeee;
+  background: $hover-color;
 }
 
 .rdtPicker tfoot {
   border-top: 1px solid #f9f9f9;
 }
 
-//.rdtPicker button {
-//  border: none;
-//  background: none;
-//  cursor: pointer;
-//}
 .rdtPicker button:hover {
-  background-color: #eee;
+  background-color: $hover-color;
 }
 
 .rdtPicker thead button {
@@ -193,7 +195,7 @@ td.rdtYear {
 }
 td.rdtMonth:hover,
 td.rdtYear:hover {
-  background: #eee;
+  background: $hover-color;
 }
 
 .rdtCounters {
@@ -230,7 +232,7 @@ td.rdtYear:hover {
   user-select: none;
 }
 .rdtCounter .rdtBtn:hover {
-  background: #eee;
+  background: $hover-color;
 }
 .rdtCounter .rdtCount {
   height: 20%;
