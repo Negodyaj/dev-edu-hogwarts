@@ -8,19 +8,18 @@ $font-size: 18px;
   justify-content: flex-end;
 }
 
-
-button {
-  padding: $zero-style;
-  border: $zero-style;
-  background-color: transparent;
-  font-size: $font-size;
-}
-
 .drop-down-filter__wrapper {
   @include flex-end;
   font-size: $font-size;
   width: fit-content;
   position: relative;
+
+  & button {
+    padding: $zero-style;
+    border: $zero-style;
+    background-color: transparent;
+    font-size: $font-size;
+  }
 }
 
 .drop-down-filter {
