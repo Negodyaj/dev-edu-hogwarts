@@ -12,6 +12,7 @@ button {
     line-height: 21px;
     border-radius: 5px;
     cursor: pointer;
+    margin: 20px 50px;
     
 }
 
@@ -23,13 +24,13 @@ button {
         background:#8A8A8A;
     }
 
-    :hover {
-        background: #8663C2;
-    }
+}
+.light:hover {
+  background: #8663C2;
+}
 
-    :active {
-        background:#8663C2;
-    }
+.light:active {
+  background:#8663C2;
 }
 
 .dark {
@@ -42,33 +43,20 @@ button {
         color: #8A8A8A;
     }
 
-    :hover {
-        background: #A786DF;
-    }
-
-    :active {
-        background: #A786DF;
-    }
 }
+
+.dark:hover {
+  background: #A786DF;
+}
+
+.dark:active {
+  background: #A786DF;
+}
+
 .rectangular-button {
     width: 238px;
     height: 51px;
 }
-
-// .rectangular-button-light:hover {
-//     background: #8663C2;
-// }
-// .rectangular-button-light:active {
-//     background:#8663C2;
-// }
-
-
-// .rectangular-button-dark:hover {
-//     background: #A786DF;
-// }
-// .rectangular-button-dark:active {
-//     background: #A786DF;
-// }
 
 .button-publish {
 width: 182px;

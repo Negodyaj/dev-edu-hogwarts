@@ -1,5 +1,5 @@
 export const HomeworksPage = () => {
   return (
-    <div>Домашки</div>
+    <div>Домашки</div>   
   )
 }
