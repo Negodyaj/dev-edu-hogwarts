@@ -1,9 +1,12 @@
 import './Buttons.scss';
-export const ButtonRectangularLight = () => {
-    return(
-        <button className="rectangular-button light">Зарегистрироваться</button>
-    );
+
+function Button (props) {
+  return(
+    <button className={props.className}>{props.text}</button>
+);
 }
+
+export const ButtonRectangularLight = <Button className="rectangular-button light", text="Зарегистрироваться"/>
 
 export const ButtonRectangularDark=()=> {
 return (
