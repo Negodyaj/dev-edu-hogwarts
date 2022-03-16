@@ -1,4 +1,5 @@
 import { Lesson, LessonModel } from "./components/Lesson";
+import { RadioGroup } from "../../components/RadioGroup/RadioGroup"
 
 export const LessonsPage = () => {
   const lessons: LessonModel[] = [
@@ -9,6 +10,7 @@ export const LessonsPage = () => {
 
   return (
     <>
+      <RadioGroup/>
       <div>Занятия</div>
       {
         lessons.map(lesson => <Lesson data={lesson} />)
