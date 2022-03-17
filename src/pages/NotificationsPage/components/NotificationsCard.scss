@@ -1,0 +1,69 @@
+.notification-card-content{
+  padding-left:30px;
+  font-family: 'Raleway';
+  padding-right: 31px;
+  padding-top:50px;
+  padding-bottom: 30px;
+}
+.notification-card{
+  display: flex;
+  align-items: center;
+  max-width: 864px;
+  border-bottom: 2px solid #c3748800;
+  position: relative;
+  img{
+    width: 45px;
+    height: 45px;
+    margin-left: 15px;
+  }
+}
+
+  .notification-card:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 28px;
+    border-bottom: 1px solid #DBDBDB;
+    width: calc(100% - 60px);
+  }
+.sender-name{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  margin-bottom: 5px;
+}
+.sender-role{
+  font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+margin-bottom: 11px;
+}
+.messege{
+  padding: 16px 125px 16px 15px;
+  font-weight: 400;
+font-size: 18px;
+line-height: 23px;
+margin-left:-15px;
+margin-right: -15px;
+background-color:  #FBC6CB;
+}
+.top-flex-container{
+  display: flex;
+  justify-content: space-between;
+}
+.date, .time{
+  font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+color: #8A8A8A;
+}
+.button-read{
+  min-width: 8px;
+  cursor: pointer;
+  height: 8px;
+  background-color: #F45B69;
+  border-radius: 50px;
+}
+.button-read-clicked{
+display: none;
+}
