@@ -1,4 +1,4 @@
-import { TabContainer } from "../../commomComponents/TabContainer/TabContainer";
+import { TabContainer } from "../../components/TabContainer/TabContainer";
 import { Lesson, LessonModel } from "./components/Lesson";
 
 export const LessonsPage = () => {

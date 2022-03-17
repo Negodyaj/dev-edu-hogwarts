@@ -1,5 +1,5 @@
 import { TabItem, TabData } from "./components/TabItem" 
-import { Icons} from "../SvgIcon/enumIcons";
+import { Icon } from "../../shared/enums/Icon";
 import './TabContainer.scss' 
 import { useState } from "react";
 
@@ -8,32 +8,32 @@ export const TabContainer = () => {
   
   const tabData: TabData[] = [ 
   {
-    icon: Icons.Barrel,
+    icon: Icon.Barrel,
     text: 'Специализация Backend',
     id: 2,
   },
   {
-    icon: Icons.Computer,
+    icon: Icon.Computer,
     text: 'Базовый курс',
     id: 3,
   },
   {
-    icon: Icons.Cake,
+    icon: Icon.Cake,
     text: 'Базовый курс',
     id: 4,
   },
   {
-    icon: Icons.Calendar,
+    icon: Icon.Calendar,
     text: 'Базовый курс',
     id: 5,
   },
   {
-    icon: Icons.Chevron,
+    icon: Icon.Chevron,
     text: 'Базовый курс',
     id: 6,
   },
   {
-    icon: Icons.Cookie,
+    icon: Icon.Cookie,
     text: 'Базовый курс',
     id: 1,
   },

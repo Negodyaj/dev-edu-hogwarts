@@ -1,9 +1,8 @@
 .tab-item {
-  //item-style
   box-shadow: 4px 7px 15px 0px #00000014;
-  width: 126px;
-  min-width: 126px;
-  height: 72px;
+  width: 150px;
+  min-width: 150px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -11,12 +10,10 @@
   border-radius: 15px;
   transition: ease-in 0.25s;
   cursor: pointer;
-  //font-style
   font-size: 16px;
-  font-family: 'Raleway';
   line-height: 19px;
 
-  .active {
+  &.active-tab {
     background-color: #A786DF;
     color: white;
     position: relative;
@@ -35,7 +32,7 @@
     path {
       stroke: white;
     }
-    .svg-fill-white {
+    .with-color-on-hover {
       fill: white;
     }
   }

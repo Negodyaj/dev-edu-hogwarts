@@ -1,8 +1,8 @@
 import './TabItem.scss' 
 import React, { useState } from "react"; 
  
-import { SvgSwitchGetter } from "../../SvgIcon/SvgSwitchGetter"; 
-import { Icons } from "../../SvgIcon/enumIcons"; 
+import { SvgIcon } from "../../SvgIcon/SvgIcon"; 
+import { Icon } from "../../../shared/enums/Icon"; 
    
 export type tabProps = { 
   data: TabData; 
@@ -13,15 +13,15 @@ export type tabProps = {
 export type TabData = { 
   id: number; 
   text: string; 
-  icon: Icons; 
+  icon: Icon; 
 } 
  
 export const TabItem = (props: tabProps) => { 
  
   return ( 
     <> 
-      <div className={`tab-item ${ props.data.id === props.activeTab ? 'active': '' }`} onClick={() => props.onClick(props.data.id)}> 
-        {SvgSwitchGetter(props.data.icon)} 
+      <div className={`tab-item ${ props.data.id === props.activeTab ? 'active-tab': '' }`} onClick={() => props.onClick(props.data.id)}> 
+        <SvgIcon icon={props.data.icon}/>
         <div>{props.data.text}</div> 
       </div> 
     </> 
