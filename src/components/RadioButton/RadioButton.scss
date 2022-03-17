@@ -6,10 +6,8 @@
   padding-left: 34px;
   position: relative;
   cursor: pointer;
-
-  input:checked + .radio-text::before {
-    border-color: #DBDBDB;
-  }
+  line-height: 24px;
+  display: inline-block;
 
   input:checked + .radio-text::after {
     content: '';
@@ -21,7 +19,7 @@
     background-color: #A786DF;
     position: absolute;
     left: 5px;
-    top: 7px;
+    top: 5px;
   }
 }
 
@@ -29,7 +27,7 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 2px;
+  top: 0;
   display: block;
   width: 24px;
   height: 24px;
