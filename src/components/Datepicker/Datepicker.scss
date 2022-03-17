@@ -11,8 +11,6 @@ $border-radius: 7px;
 
 .form-input {
   max-height: 56px;
-  max-width: 438px;
-  width: 100%;
   background: #FFFFFF;
   border: 1px solid #DBDBDB;
   border-radius: 5px;
@@ -28,6 +26,7 @@ $border-radius: 7px;
 
   & .form-control {
     @include border-padding-zero;
+    font-family: 'Raleway';
     outline: 0;
     width: 100%;
     font-weight: 400;
@@ -48,6 +47,8 @@ $border-radius: 7px;
 
 .rdt {
   position: relative;
+  max-width: 438px;
+  width: 100%;
 }
 
 table {
@@ -58,6 +59,7 @@ table {
   display: none;
   position: absolute;
   max-width: 300px;
+  right: 0;
   width: 100%;
   padding: 5px;
   margin-top: 1px;
@@ -167,7 +169,7 @@ table {
 .rdtPicker th.rdtNext,
 .rdtPicker th.rdtPrev {
   font-size: 21px;
-  vertical-align: top;
+  vertical-align: inherit;
 }
 
 .rdtPrev span,

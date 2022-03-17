@@ -1,4 +1,4 @@
-import {FilterList} from "../../components/FilterList";
+import {FilterList} from "../../components/FilterList/FilterList";
 import {HomeworkCard} from "./components/HomeworkCard";
 import {Datepicker} from "../../components/Datepicker/Datepicker";
 
