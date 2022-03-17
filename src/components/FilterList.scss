@@ -1,17 +1,25 @@
-$lavender-color: #a786df;
+$lavender-color: #A786DF;
 $translate-arrow: transform 0.25s ease;
+$zero-style: 0;
+$font-size: 18px;
 
 @mixin flex-end {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .drop-down-filter__wrapper {
-    @include flex-end;
-    font-size: 18px;
-    line-height: 18px;
-    width: fit-content;
-    position: relative;
+  @include flex-end;
+  font-size: $font-size;
+  width: fit-content;
+  position: relative;
+
+  & button {
+    padding: $zero-style;
+    border: $zero-style;
+    background-color: transparent;
+    font-size: $font-size;
+  }
 }
 
 .drop-down-filter {
@@ -59,10 +67,11 @@ $translate-arrow: transform 0.25s ease;
 }
 
 .drop-down-filter__list {
-    padding: 0;
-    width: max-content;
-    min-width: 99px;
-    max-height: 132px;
+  padding: $zero-style;
+  line-height: $font-size;
+  width: max-content;
+  min-width: 99px;
+  max-height: 132px;
 
     &.overflow {
         padding-right: 10px;
@@ -74,16 +83,16 @@ $translate-arrow: transform 0.25s ease;
         border-bottom: 1px solid #dbdbdb;
         padding: 9px 0;
 
-        &:last-child {
-            border: 0;
-            padding-top: 10px;
-            padding-bottom: 0;
-        }
+    &:last-child {
+      border: $zero-style;
+      padding-top: 10px;
+      padding-bottom: $zero-style;
+    }
 
-        &:first-child {
-            padding-bottom: 10px;
-            padding-top: 0;
-        }
+    &:first-child {
+      padding-bottom: 10px;
+      padding-top: $zero-style;
+    }
 
         &::marker {
             content: "";
