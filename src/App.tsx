@@ -6,39 +6,23 @@ import { NotificationsPage } from './pages/NotificationsPage/NotificationsPage';
 import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
+import {MainPanel} from './components/MainPanel/MainPanel';
 
 function App() {
   return (
-    <>
-      <aside>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Notifications</Link>
-            </li>
-            <li>
-              <Link to="/homeworks">Homeworks</Link>
-            </li>
-            <li>
-              <Link to="/lessons">Lessons</Link>
-            </li>
-            <li>
-              <Link to="/settings">Settings</Link>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+    <div className='flex-container'>
+      <MainPanel/>
       <main>
-        <Routes>
+        { <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
           <Route path="lessons" element={<LessonsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
-        </Routes>
+        </Routes> }
       </main>
-    </>
+    </div>
   );
 }
 
