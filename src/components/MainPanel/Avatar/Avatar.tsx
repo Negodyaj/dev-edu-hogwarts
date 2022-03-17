@@ -1,5 +1,4 @@
 import './Avatar.scss';
-import avatarPhoto from '../../images/studentPhoto.png';
 
 export type AvatarProps={
   data: AvatarData

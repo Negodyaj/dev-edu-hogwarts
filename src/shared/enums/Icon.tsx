@@ -1,4 +1,4 @@
-export const enum Icons{
+export const enum Icon {
   Barrel, 
   Computer, 
   Cake, 

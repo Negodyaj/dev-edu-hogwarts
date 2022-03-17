@@ -16,7 +16,7 @@ let avData = {
 
 export const MainPanel = () => {
   const [isToggled, setIsToggled] = useState<boolean>(false);
-  const handleClick = () => {
+  const handleToggleClick = () => {
     setIsToggled((s) => !s);
   }
   return (
@@ -40,7 +40,7 @@ export const MainPanel = () => {
       </div>
       <Navigation></Navigation>
       <Exit></Exit>
-      <Toggle isToggled={isToggled} onClick={handleClick}></Toggle>
+      <Toggle isToggled={isToggled} onClick={handleToggleClick}></Toggle>
     
     </aside>
   )

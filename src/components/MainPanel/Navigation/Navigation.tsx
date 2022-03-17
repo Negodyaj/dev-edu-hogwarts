@@ -1,42 +1,42 @@
-import { Route, Link, Routes } from "react-router-dom";
 import './Navigation.scss';
 import { ButtonNavigation } from "../ButtonNavigation/ButtonNavigation";
-import { Icons } from "../../SvgIcon/enumIcons";
 import { useState } from "react";
-let buttons = [
-  {
-    buttonImage: Icons.Notifications,
-    buttonName: 'Уведомления',
-    buttonLink: 0
-  },
-  {
-    buttonImage: Icons.Lessons,
-    buttonName: 'Занятия',
-    buttonLink: 1
+import { Icon } from "../../../shared/enums/Icon";
 
-  },
-  {
-    buttonImage: Icons.Homeworks,
-    buttonName: 'Домашние задания',
-    buttonLink: 2
-  },
-  {
-    buttonImage: Icons.Cake,
-    buttonName: 'Настройки',
-    buttonLink: 3
-  }
-]
+export type NavLink = {
+  displayName: string
+  path: string
+  icon: Icon
+}
 
-export const Navigation = () => {
-  const [activeButton, setActiveButton] = useState<number>(0);
-  function handleClick(buttonLink: number) {
-    setActiveButton(buttonLink);
+let buttons: NavLink[] = [
+  {
+    icon: Icon.Notifications,
+    path: '/',
+    displayName: 'Уведомления'
+  },
+  {
+    icon: Icon.Lessons,
+    path: '/lessons',
+    displayName: 'Занятия'
+  },
+  {
+    icon: Icon.Homeworks,
+    path: '/homeworks',
+    displayName: 'Домашние задания'
+  },
+  {
+    icon: Icon.Cake,
+    path: '/settings',
+    displayName: 'Настройки'
   }
-  
+];
+
+export const Navigation = () => {  
   return (
     <nav>
       {
-        buttons.map(item => <ButtonNavigation data={item} key={item.buttonLink} activeButton={activeButton} onClick={handleClick}></ButtonNavigation>)
+        buttons.map(item => <ButtonNavigation data={item} key={item.path}></ButtonNavigation>)
       }
     </nav>
   )
