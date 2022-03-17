@@ -22,8 +22,6 @@ export const Datepicker = () => {
                     <button onClick={() => { setIsOpen(true); openCalendar(); }}
                             onBlur={() => setIsOpen(false)}>
 
-                      {/* #8A8A8A */}
-
                       <SvgLessons/>
 
                     </button>
