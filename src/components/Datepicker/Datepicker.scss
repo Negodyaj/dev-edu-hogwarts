@@ -42,6 +42,10 @@ $border-radius: 7px;
     @include border-padding-zero;
     background-color: transparent;
     cursor: pointer;
+
+    & svg path {
+      stroke: #8a8a8a;
+    }
   }
 }
 
