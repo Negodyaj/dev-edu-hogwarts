@@ -4,35 +4,22 @@ import './Datepicker.scss';
 import 'moment/locale/ru';
 
 export const Datepicker = () => {
-  const [styleFocus, setInputFocus] = useState({
-    boxShadow: ''
-  })
-
-  const deleteBoxShadow = () => {
-    setInputFocus({boxShadow: ''})
-  }
-
-  const setBoxShadow = () => {
-    setInputFocus({boxShadow: '0 0 0 3px #d8bbf5'})
-  }
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <Datetime locale='ru'
               initialValue={new Date()}
               renderInput={(props: string, openCalendar: Function) => {
                 return (
-                  <div className='date-picker form-input' style={styleFocus}>
+                  <div className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}>
 
                     <input type='text' {...props}
                            onChange={(e) => e.preventDefault()}
-                           onFocus={() => setBoxShadow()}
-                           onBlur={() => deleteBoxShadow()}/>
+                           onFocus={() => setIsOpen(true)}
+                           onBlur={() => setIsOpen(false)}/>
 
-                    <button onClick={() => {
-                      setBoxShadow();
-                      openCalendar();
-                    }}
-                            onBlur={() => deleteBoxShadow()}>
+                    <button onClick={() => { setIsOpen(true); openCalendar(); }}
+                            onBlur={() => setIsOpen(false)}>
 
                       {/* Место для вашей иконки, а пока для просмотра пускай такая висит */}
 
