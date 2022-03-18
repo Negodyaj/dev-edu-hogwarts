@@ -1,15 +1,12 @@
+@import './src/style/colors';
+
 .link-arrow {
   display: flex;
-  align-items: center;
   gap: 4px;
   font-weight: 400;
   font-size: 18px;
-  color: #643173;
+  color: $link-color;
   text-decoration: none;
-
-  & svg {
-    margin-bottom: -6px;
-  }
 
   .link-arrow_left {
     transform: rotateY(180deg);
