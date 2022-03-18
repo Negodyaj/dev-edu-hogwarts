@@ -29,6 +29,16 @@ let buttons: NavLink[] = [
     icon: Icon.Cake,
     path: '/settings',
     displayName: 'Настройки'
+  },
+  {
+    icon: Icon.Calendar,
+    path: '/courses',
+    displayName: 'Курсы'
+  },
+  {
+    icon: Icon.Lessons,
+    path: '/edit-courses',
+    displayName: 'Редактировать курсы'
   }
 ];
 

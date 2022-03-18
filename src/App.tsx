@@ -7,6 +7,7 @@ import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
 import {MainPanel} from './components/MainPanel/MainPanel';
+import {CoursesPage} from "./pages/CoursesPage/CoursesPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="homeworks" element={<HomeworksPage />} />
           <Route path="lessons" element={<LessonsPage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="courses" element={<CoursesPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
         </Routes> }
