@@ -1,5 +1,5 @@
-import './TabItem.scss' 
 import React, { useState } from "react"; 
+import './TabItem.scss' 
  
 import { SvgIcon } from "../../SvgIcon/SvgIcon"; 
 import { Icon } from "../../../shared/enums/Icon"; 

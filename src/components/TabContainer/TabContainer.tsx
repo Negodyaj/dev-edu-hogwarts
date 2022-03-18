@@ -1,5 +1,4 @@
-import { TabItem, TabData } from "./components/TabItem" 
-import { Icon } from "../../shared/enums/Icon";
+import { TabItem, TabData } from "./TabItem/TabItem" 
 import './TabContainer.scss' 
 import { useState } from "react";
 
