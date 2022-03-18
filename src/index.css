@@ -10,12 +10,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+::-moz-selection{
+  background-color: #EBE3F8;
+}
+
+::selection{
+  background-color: #EBE3F8;
+}
+
 .content-container {
   background: #FFFFFF;
   width: 100%;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
   border-radius: 15px;
-  padding: 50px 45px 46px 45px;
+  padding: 50px 45px;
 }
 
 .margin-common-content {
