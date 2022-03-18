@@ -26,4 +26,4 @@ export const TabItem = (props: tabProps) => {
       </div> 
     </> 
   ) 
-  };
+};

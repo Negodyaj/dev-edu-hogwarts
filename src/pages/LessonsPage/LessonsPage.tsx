@@ -1,4 +1,5 @@
-import { TabContainer } from "../../components/TabContainer/TabContainer";
+import { TabContainer, TabContainerProps } from "../../components/TabContainer/TabContainer";
+import { Icon } from "../../shared/enums/Icon";
 import { Lesson, LessonModel } from "./components/Lesson";
 
 export const LessonsPage = () => {
@@ -10,7 +11,14 @@ export const LessonsPage = () => {
 
   return (
     <>
-      <TabContainer/>
+      <TabContainer tabContainerData={ [
+        {id: 1, icon: Icon.Cookie, text: 'Базовый курс'},
+        {id: 2, icon: Icon.Calendar, text: 'Специализация Backend'},
+        {id: 3, icon: Icon.Computer, text: 'Специализация Frontend'},
+        {id: 4, icon: Icon.Cake, text: 'Специализация QA'},
+        ] }
+      />
+      
       <div>Занятия</div>
       {
         lessons.map(lesson => <Lesson data={lesson} />)
