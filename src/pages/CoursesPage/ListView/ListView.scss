@@ -1,0 +1,38 @@
+@import './src/style/colors';
+
+.flex-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  & a {
+    margin-top: -20px;
+    margin-bottom: 20px;
+  }
+}
+
+.t-head {
+  padding-bottom: 30px;
+  border-bottom: 1px solid $medium-gray;
+  border-top: 1px solid $medium-gray;
+}
+
+.grid-table-container {
+  display: grid;
+  grid-template-columns: minmax(max-content, 154px) minmax(max-content, 578px) minmax(max-content, 120px);
+  padding-top: 30px;
+  padding-left: 30px;
+
+  &:first-child {
+    flex-basis: auto;
+  }
+
+  .nums {
+    padding-left: 18px;
+  }
+
+  .lesson-name {
+    font-weight: 600;
+  }
+
+}
