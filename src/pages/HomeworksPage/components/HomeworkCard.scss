@@ -1,0 +1,38 @@
+.homework-card-content {
+  display: grid;
+  grid-template-columns: 153px 3fr 1fr;
+  font-size: 18px;
+
+  &~.homework-card-content{
+    margin-top: 30px;
+  }
+
+  .task-number {
+    padding-top: 31px;
+  }
+
+  .task-status {
+    place-self: end;
+    margin-bottom: 40px;
+  }
+
+  .homework-title {
+    display: block;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 29px;
+    margin-top: 40px;
+    margin-bottom: 13px;
+  }
+
+  .homework-dates {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+    line-height: 21px;
+
+    &+.homework-dates {
+      margin-left: 43px;
+    }
+  }
+}
