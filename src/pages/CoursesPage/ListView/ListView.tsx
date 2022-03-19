@@ -1,37 +1,71 @@
 import {LinkWithUnderline} from "../../../components/LinkWithUnderline/LinkWithUnderline";
 import './ListView.scss'
+import {ListViewItem} from "./ListViewItem/ListViewItem";
+import {Draggable, DraggableProvided, Droppable, DroppableProvided} from "react-beautiful-dnd";
 
 export type ListViewProps = {
   data: Array<ListViewLessons>
+  groupId: number
 }
 
 export type ListViewLessons = {
   id: number
-  lessonNumber: number
+  lessonNumber: number | string
   lessonName: string
-  hoursCount: number
+  hoursCount: number | string
 }
 
 export const ListView = (props: ListViewProps) => {
   return (
     <div className='content-container flex-content-container'>
       <LinkWithUnderline text='Редактировать' path='/edit'/>
-        <div className='grid-table-container t-head'>
-          <span>Тема</span>
-          <span>Название</span>
-          <span>Часы</span>
-        </div>
+      <ListViewItem
+        head={true}
+        index={NaN}
+        lesson={{
+          id: 0,
+          lessonName: 'Название',
+          lessonNumber: 'Тема',
+          hoursCount: 'Часы',
+        }}
+        innerRef={null}
+        prop1={null}
+        prop2={null}
+      />
 
-      {
-        props.data.map(item =>
-          <div key={item.id} className='grid-table-container'>
-            <span className='nums'>{item.lessonNumber}</span>
-            <span className='lesson-name'>{item.lessonName}</span>
-            <span className='nums'>{item.hoursCount}</span>
-          </div>
-        )
-      }
 
+      <Droppable droppableId={'drop-1'}>
+        {
+          (provided: DroppableProvided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {
+                props.data.map((item, index) =>
+
+                  <Draggable draggableId={item.lessonName}
+                             index={index}
+                             key={item.id}>
+                    {
+                      (provided1: DraggableProvided) => (
+                        <ListViewItem
+                          key={item.id}
+                          head={false}
+                          index={index}
+                          lesson={item}
+                          innerRef={provided1.innerRef}
+                          prop1={{...provided1.draggableProps}}
+                          prop2={provided1.dragHandleProps}
+                        />
+                      )
+                    }
+                  </Draggable>
+
+                )
+              }
+              {provided.placeholder}
+            </div>
+          )
+        }
+      </Droppable>
     </div>
   )
 }

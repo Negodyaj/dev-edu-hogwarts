@@ -19,16 +19,20 @@
 
 .grid-table-container {
   display: grid;
-  grid-template-columns: minmax(max-content, 154px) minmax(max-content, 578px) minmax(max-content, 120px);
+  text-align: left;
+  grid-template-columns: minmax(max-content, 154px) minmax(250px, 578px) minmax(max-content, 120px);
   padding-top: 30px;
-  padding-left: 30px;
+
+  & span {
+    margin-left: 30px;
+  }
 
   &:first-child {
     flex-basis: auto;
   }
 
   .nums {
-    padding-left: 18px;
+    margin-left: 48px;
   }
 
   .lesson-name {

@@ -1,4 +1,5 @@
 import {ListView} from "./ListView/ListView";
+import {DragDropContext} from "react-beautiful-dnd";
 
 const lessons = [
   {
@@ -40,9 +41,20 @@ const lessons = [
 ]
 
 export const CoursesPage = () => {
+  //
+  // const onDragStart = () => {
+  //
+  // }
+
+  const onDragEnd = () => {
+
+  }
+
   return (
-    <div className='margin-common-content'>
-      <ListView data={lessons}/>
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className='margin-common-content'>
+        <ListView data={lessons} groupId={1}/>
+      </div>
+    </DragDropContext>
   )
 }
