@@ -16,7 +16,6 @@
     font-size: 18px;
     line-height: 27px;
     padding: 30px 40px;
-
     cursor: text;
   }
 }
@@ -26,6 +25,10 @@
   border: 0;
   padding: 0;
   margin-left: 20px;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  background: #A786DF;
 
   &:hover {
     background-color: #8663C2;
