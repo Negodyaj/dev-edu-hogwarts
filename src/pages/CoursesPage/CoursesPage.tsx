@@ -1,5 +1,6 @@
 import {ListView} from "./ListView/ListView";
-import {DragDropContext} from "react-beautiful-dnd";
+import {DragDropContext, DragUpdate} from "react-beautiful-dnd";
+import {useState} from "react";
 
 const lessons = [
   {
@@ -41,19 +42,33 @@ const lessons = [
 ]
 
 export const CoursesPage = () => {
-  //
-  // const onDragStart = () => {
-  //
-  // }
+  const [lessonsData, setLessonsData] = useState(lessons); // Это типа данные, которые нам придут
 
-  const onDragEnd = () => {
+  const onDragEnd = (result: DragUpdate) => {
+    const {destination, source, draggableId} = result;
 
+    if(!destination) {
+      return;
+    }
+
+    if(
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index) {
+      return;
+    }
+
+    const newLessonsArray = Array.from(lessonsData);
+    newLessonsArray.splice(source.index,1);
+    const dragElem = Object.assign([...lessonsData].filter(item => item.lessonName === draggableId)[0]);
+    newLessonsArray.splice(destination.index, 0, dragElem);
+
+    setLessonsData(() => [...newLessonsArray]);
   }
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className='margin-common-content'>
-        <ListView data={lessons} groupId={1}/>
+        <ListView data={lessonsData} groupId={1}/>
       </div>
     </DragDropContext>
   )

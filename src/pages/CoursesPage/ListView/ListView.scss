@@ -22,6 +22,17 @@
   text-align: left;
   grid-template-columns: minmax(max-content, 154px) minmax(250px, 578px) minmax(max-content, 120px);
   padding-top: 30px;
+  font-size: 18px;
+
+  &:active:not(.t-head){
+    position: relative;
+    background: #F3F3F3;
+    box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    margin-top: 10px;
+    padding: 10px 0 10px 30px;
+    margin-left: -30px;
+  }
 
   & span {
     margin-left: 30px;
@@ -39,4 +50,21 @@
     font-weight: 600;
   }
 
+  .draggable-pointer {
+    display: inline-block;
+    padding: 3px;
+    height: 24px;
+    margin-left: -48px;
+    margin-right: 18px;
+
+    & span {
+      display: block;
+      border-radius: 3px;
+      background-color: $dark-gray;
+      width: 18px;
+      height: 2px;
+      margin: 3px 0 0 0;
+
+    }
+  }
 }

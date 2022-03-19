@@ -34,7 +34,7 @@ export const ListView = (props: ListViewProps) => {
       />
 
 
-      <Droppable droppableId={'drop-1'}>
+      <Droppable droppableId={`drop-${props.groupId}`}>
         {
           (provided: DroppableProvided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -47,7 +47,6 @@ export const ListView = (props: ListViewProps) => {
                     {
                       (provided1: DraggableProvided) => (
                         <ListViewItem
-                          key={item.id}
                           head={false}
                           index={index}
                           lesson={item}
