@@ -14,8 +14,12 @@
     padding: 15px 30px;
 }
 
+a {
+  text-decoration: none;
+} 
+
 .btn-fill {
-    line-height: 51px;
+    //line-height: 51px;
     background: #a786df;
     color: #ffffff;
 
@@ -30,7 +34,7 @@
 }
 
 .btn-white-with-border {
-    line-height: 49px;
+    //line-height: 49px;
     background: #ffffff;
     border: 1px solid #a786df;
     color: #000000;
@@ -53,3 +57,5 @@
     border: 0;
     background: none;
 }
+
+
