@@ -26,7 +26,7 @@ export const MainPanel = () => {
   return (
     <aside className={`main-panel ${ isCollapsed ? 'collapsed': '' }`}>
       <CollapseButton onClick={()=>setIsCollapsed(!isCollapsed)}/>
-      <div className='logo-container'>
+      <div className='logo-container flex-center'>
         <SvgLogo/>
         <SvgLogoName/>
       </div>
@@ -34,8 +34,10 @@ export const MainPanel = () => {
         <Avatar data={avData} />
       </div>
       <Navigation/>
-      <Exit></Exit>
-      <Toggle isToggled={isToggled} onClick={handleClick}></Toggle>
+      <div className='bottom-part'>
+        <Exit/>
+        <Toggle isToggled={isToggled} onClick={handleClick}></Toggle>
+      </div>
     
     </aside>
   )

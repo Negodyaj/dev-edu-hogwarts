@@ -34,7 +34,7 @@ let buttons: NavLink[] = [
 
 export const Navigation = () => {  
   return (
-    <nav>
+    <nav className='main-nav-pannel'>
       {
         buttons.map(item => <ButtonNavigation data={item} key={item.path}></ButtonNavigation>)
       }

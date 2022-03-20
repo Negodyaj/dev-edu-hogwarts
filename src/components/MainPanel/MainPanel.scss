@@ -1,40 +1,37 @@
 .main-panel {
-  width: 360px;
+  min-width: 360px;
   background-color: white;
-  height: 100vh;
-  padding: 42px 42px 70px 90px;
+  padding: 42px 42px 70px 67px;
   position: relative;
-  overflow: hidden;
   transition: ease-out 0,5;
   box-shadow: 4px 7px 15px #0000001A;
-
-  .panel-container {
-      margin: 42px 42px 0px 73px;
-  }
-  
-  .content-container {
-      margin: 0 17px;
-  }
-  
+  min-height: 1024px;
+  height: 100vh;
   
   .avatar-block {
-      margin-top: 90px;
+    padding: 52px 10px 25px 23px;
   }
   
   .logo-container {
     min-width: 151px;
-    display: flex;
-    align-items: center;
-    padding-left: 1px;
+    padding-left: 24px;
   }
+
   .logo {
     margin-right: 13px;
     width: 40px;
     height: 21px;
   }
+  
   .logo-name {
     width: 138px;
     height: 15px;
+  }
+
+  .bottom-part {
+    position: absolute;
+    top: 870px;
+    padding-left: 13px;
   }
 }
 
@@ -52,6 +49,7 @@
 }
 
 .collapsed {
+  min-width: 94px;
   width: 94px;
   padding-left: 24px;
   .collapse-button {

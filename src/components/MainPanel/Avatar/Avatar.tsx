@@ -11,7 +11,7 @@ export type AvatarData={
 }
 
 
-export const  Avatar=(props: AvatarProps)=>{
+export const Avatar=(props: AvatarProps)=>{
   return (
     <>
     <div className="wrapper">
