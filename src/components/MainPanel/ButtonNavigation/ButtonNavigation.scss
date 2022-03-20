@@ -2,9 +2,7 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 18px;
-  padding: 13px 17px;
-  display: flex;
-  align-items: center;
+  padding: 13px 15px;
   color: black;
 
   & .links-name {
@@ -29,3 +27,4 @@
 .nav-link + .nav-link {
   margin-top: 35px;
 }
+
