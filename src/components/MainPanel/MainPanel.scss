@@ -3,10 +3,11 @@
   background-color: white;
   padding: 42px 42px 70px 67px;
   position: relative;
-  transition: ease-out 0,5;
+  transition: ease-in-out 0.75s;
   box-shadow: 4px 7px 15px #0000001A;
   min-height: 1024px;
   height: 100vh;
+  overflow: hidden;
   
   &>.top-part {
     padding-left: 23px;
@@ -56,21 +57,24 @@
     min-width: 94px;
     width: 94px;
     padding: 42px 20px 0 20px;
+
     .collapse-button {
       display: block;
     }
+
     .left-chevron {
-      transform: rotate(180deg);
+      transform: scale(-1, 1);
+      transition: ease-in-out 1s;
     }
   }
 
   .links-name {
     display: none;
-    padding: 15px 13px;
   }
 
   .logo-name, .bottom-part>.exit>div, .avatar-name, .avatar-role {
-    display: none;
+      transform: scale(0, 1);
+      transition: ease-in-out 0.5s;
   }
   
   .top-part {
