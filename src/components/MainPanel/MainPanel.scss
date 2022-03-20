@@ -8,22 +8,26 @@
   min-height: 1024px;
   height: 100vh;
   
+  &>.top-part {
+    padding-left: 23px;
+    padding-bottom: 57px;
+  }
   .avatar-block {
-    padding: 52px 10px 25px 23px;
+    padding: 52px 10px 0 0;
   }
   
   .logo-container {
     min-width: 151px;
-    padding-left: 24px;
+    padding-left: 1px;
   }
 
   .logo {
-    margin-right: 13px;
     width: 40px;
     height: 21px;
   }
   
   .logo-name {
+    margin-left: 13px;
     width: 138px;
     height: 15px;
   }
@@ -33,29 +37,49 @@
     top: 870px;
     padding-left: 13px;
   }
-}
 
-.main-panel {
   @media (min-width: 359px) {
     .collapse-button {
         display: none;
     }
   }
+  
   &:hover {
   .collapse-button {
     display: block;
     }
   }
+
 }
 
 .collapsed {
-  min-width: 94px;
-  width: 94px;
-  padding-left: 24px;
-  .collapse-button {
-    display: block;
+  &.main-panel {
+    min-width: 94px;
+    width: 94px;
+    padding: 42px 20px 0 20px;
+    .collapse-button {
+      display: block;
+    }
+    .left-chevron {
+      transform: rotate(180deg);
+    }
   }
-  .left-chevron {
-    transform: rotate(180deg);
+
+  .links-name {
+    display: none;
+    padding: 15px 13px;
   }
+
+  .logo-name, .bottom-part>.exit>div, .avatar-name, .avatar-role {
+    display: none;
+  }
+  
+  .top-part {
+    padding-left: 4px;
+  }
+  
+  &.bottom-part>button {
+    margin-left: -16px;
+  }
+  
 }

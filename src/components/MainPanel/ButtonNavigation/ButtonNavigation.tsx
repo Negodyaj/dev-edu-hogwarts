@@ -17,7 +17,9 @@ export const ButtonNavigation = (props: ButtonProps) => {
       className={`nav-link ${props.data.path === location.pathname ? 'active' : ''}`}
     >
       <SvgIcon icon={props.data.icon} />
-      {props.data.displayName}
+      <div className="links-name">
+        {props.data.displayName}
+      </div>
     </Link>
   );
 }

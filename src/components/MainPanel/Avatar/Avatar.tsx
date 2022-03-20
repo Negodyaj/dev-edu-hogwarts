@@ -13,12 +13,10 @@ export type AvatarData={
 
 export const Avatar=(props: AvatarProps)=>{
   return (
-    <>
-    <div className="wrapper">
+    <div className='user-avatar-block'>
       <img src={props.data.photo}></img>
       <div className='avatar-name'>{props.data.name}</div>
       <div className='avatar-role'>{props.data.role}</div>
     </div>
-    </>
   )
 }
