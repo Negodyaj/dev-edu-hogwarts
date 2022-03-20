@@ -10,5 +10,5 @@ export const enum Icon {
   Homeworks,
   Settings,
   Exit,
-  
+  Bell,
 }

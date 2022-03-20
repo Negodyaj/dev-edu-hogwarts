@@ -11,7 +11,7 @@ export type NavLink = {
 
 let buttons: NavLink[] = [
   {
-    icon: Icon.Notifications,
+    icon: Icon.Bell,
     path: '/',
     displayName: 'Уведомления'
   },

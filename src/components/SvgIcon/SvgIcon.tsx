@@ -10,6 +10,7 @@ import { SvgChevron } from "./SvgFiles/SvgChevron";
 import { SvgComputer } from "./SvgFiles/SvgComputer";
 import { SvgCookie } from "./SvgFiles/SvgCookie";
 import { SvgExit } from './SvgFiles/SvgExit';
+import { SvgBell } from './SvgFiles/SvgBell';
 
 export type SvgIconProps = {
   icon: Icon;
@@ -38,7 +39,9 @@ export const SvgIcon = (props: SvgIconProps) => {
     case Icon.Settings:
       return <SvgSettings />;
     case Icon.Exit:
-      return <SvgExit/>
+        return <SvgExit/>
+    case Icon.Bell:
+        return <SvgBell/>
     default:
       return <></>;
   }
