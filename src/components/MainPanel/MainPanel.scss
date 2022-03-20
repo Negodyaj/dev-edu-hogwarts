@@ -6,6 +6,8 @@
   position: relative;
   overflow: hidden;
   transition: ease-out 0,5;
+  box-shadow: 4px 7px 15px #0000001A;
+
   .panel-container {
       margin: 42px 42px 0px 73px;
   }
@@ -33,41 +35,6 @@
   .logo-name {
     width: 138px;
     height: 15px;
-  }
-}
-
-.collapse-button {
-  padding: 0;
-  border: none;
-  background-color: transparent;
-  width: 29px;
-  height: 46px;
-  overflow: hidden;
-  position: absolute;
-  right: 0;
-  top: 198px;
-  font-size: 0;
-  transition: ease 0.25s;
-  cursor: pointer;
-
-  &>.left-part {
-    align-items: center;
-    background-color: #A786DF;
-    height: 46px;
-    width: 46px;
-    border-radius: 50%;
-    display: flex;
-    position: relative;
-    padding-left: 3px;
-  }
-
-  &>.right-part {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 6px;
-    height: 46px;
-    background-color: #A786DF;
   }
 }
 
