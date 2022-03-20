@@ -34,15 +34,11 @@ let notifications = [
   }
 ]
 export const NotificationsPage = () => {
-  const [isClicked, setIsClicked] = useState<number>(0);
-  const handleClick = (id:number) => {
-    setIsClicked(id);
-    
-  }
+
   return (
     <div className="margin-common-content">
       {
-        notifications.map(item=><NotificationsCard  onClick={handleClick} data={item} key={item.id} currentMessege={isClicked} ></NotificationsCard>)
+        notifications.map(item=><NotificationsCard  data={item} key={item.id}   ></NotificationsCard>)
       }
     </div>
   );
