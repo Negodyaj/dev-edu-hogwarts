@@ -7,25 +7,32 @@ import {
 
 export type ListViewItemProps = {
   lesson: ListViewLessons
-  index: number
-  head: boolean
-  innerRef: DraggableProvided['innerRef'] | null
-  prop1: DraggableProvidedDraggableProps | null
-  prop2?: DraggableProvidedDragHandleProps | undefined | null
+  index?: number
+  head?: boolean
+  dragSettings?: {
+    innerRef: DraggableProvided['innerRef'] | null
+    prop1: DraggableProvidedDraggableProps | null
+    prop2: DraggableProvidedDragHandleProps | undefined | null
+    snapshot: boolean
+    isDragDisabled: boolean
+  } | null
 }
 
 export const ListViewItem = (props: ListViewItemProps) => {
+
   return (
     <div
-      className={`grid-table-container ${props.head ? 't-head' : ''}`}
-      ref={props.innerRef}
-      {...props.prop1}
-      {...props.prop2}
+      className={`grid-table-container ${props.head ? 't-head' : ''} ${props.dragSettings?.snapshot ? 'dragging' : ''}`}
+      ref={props.dragSettings?.innerRef}
+      {...props.dragSettings?.prop1}
     >
             <span className={`${!props.head ? 'nums flex-container' : ''}`}>
               {
+                props.dragSettings?.isDragDisabled &&
                 !props.head &&
-                <div className='draggable-pointer'>
+                <div className='draggable-pointer'
+                     {...props.dragSettings?.prop2}
+                >
                   <span></span>
                   <span></span>
                   <span></span>

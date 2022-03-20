@@ -1,5 +1,5 @@
 import './App.scss';
-import { Route, Link, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { HomeworksPage } from './pages/HomeworksPage/HomeworksPage';
 import { LessonsPage } from './pages/LessonsPage/LessonsPage';
 import { NotificationsPage } from './pages/NotificationsPage/NotificationsPage';
@@ -8,6 +8,7 @@ import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
 import {MainPanel} from './components/MainPanel/MainPanel';
 import {CoursesPage} from "./pages/CoursesPage/CoursesPage";
+import {EditCoursesPage} from "./pages/CoursesPage/EditCoursesPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="lessons" element={<LessonsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="courses" element={<CoursesPage />} />
+          <Route path="edit-courses" element={<EditCoursesPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
         </Routes> }

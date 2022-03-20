@@ -9,6 +9,10 @@
     margin-top: -20px;
     margin-bottom: 20px;
   }
+
+  .link-arrow {
+    place-self: baseline;
+  }
 }
 
 .t-head {
@@ -23,19 +27,27 @@
   grid-template-columns: minmax(max-content, 154px) minmax(250px, 578px) minmax(max-content, 120px);
   padding-top: 30px;
   font-size: 18px;
+  line-height: 24px;
 
-  &:active:not(.t-head){
-    position: relative;
+  // В будущем перенести стили в styled component, используя snapshot
+  // не удалять комментарий до лучших времен :^)
+  // тображаются они сча как-то криво, но на другом варианте испытаний все ок
+  // так что скорее всего все исправится и далее, есть скрин
+  &.dragging {
     background: #F3F3F3;
     box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 10px 0 10px 30px;
     margin-left: -30px;
   }
 
   & span {
     margin-left: 30px;
+
+    &:focus {
+      outline: 0;
+    }
   }
 
   &:first-child {

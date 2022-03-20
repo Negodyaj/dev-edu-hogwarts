@@ -1,11 +1,14 @@
 import {LinkWithUnderline} from "../../../components/LinkWithUnderline/LinkWithUnderline";
 import './ListView.scss'
 import {ListViewItem} from "./ListViewItem/ListViewItem";
-import {Draggable, DraggableProvided, Droppable, DroppableProvided} from "react-beautiful-dnd";
+import {Draggable, DraggableProvided, DraggableStateSnapshot, Droppable, DroppableProvided} from "react-beautiful-dnd";
+import {LinkArrow} from "../../../components/LinkArrow/LinkArrow";
+import {useNavigate} from "react-router-dom";
 
 export type ListViewProps = {
   data: Array<ListViewLessons>
   groupId: number
+  edit: boolean
 }
 
 export type ListViewLessons = {
@@ -16,23 +19,29 @@ export type ListViewLessons = {
 }
 
 export const ListView = (props: ListViewProps) => {
+
+  const linkType = () => {
+    if (props.edit) {
+      return <LinkArrow back={true} text={'Назад'} to={'courses'}/>
+    } else {
+      return <LinkWithUnderline text='Редактировать' path='edit-courses'/>
+    }
+  }
+
   return (
     <div className='content-container flex-content-container'>
-      <LinkWithUnderline text='Редактировать' path='/edit'/>
+      {
+        linkType()
+      }
       <ListViewItem
         head={true}
-        index={NaN}
         lesson={{
           id: 0,
           lessonName: 'Название',
           lessonNumber: 'Тема',
           hoursCount: 'Часы',
         }}
-        innerRef={null}
-        prop1={null}
-        prop2={null}
       />
-
 
       <Droppable droppableId={`drop-${props.groupId}`}>
         {
@@ -43,16 +52,23 @@ export const ListView = (props: ListViewProps) => {
 
                   <Draggable draggableId={item.lessonName}
                              index={index}
-                             key={item.id}>
+                             key={item.id}
+                             isDragDisabled={!props.edit}
+                  >
                     {
-                      (provided1: DraggableProvided) => (
+                      (provided1: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                         <ListViewItem
-                          head={false}
                           index={index}
                           lesson={item}
-                          innerRef={provided1.innerRef}
-                          prop1={{...provided1.draggableProps}}
-                          prop2={provided1.dragHandleProps}
+                          dragSettings={
+                            {
+                              innerRef: provided1.innerRef,
+                              prop1: {...provided1.draggableProps},
+                              prop2: provided1.dragHandleProps,
+                              snapshot: snapshot.isDragging,
+                              isDragDisabled: props.edit,
+                            }
+                          }
                         />
                       )
                     }

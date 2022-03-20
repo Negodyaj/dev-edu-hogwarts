@@ -8,6 +8,9 @@ export type LinkWithUnderlineProps = {
 
 export const LinkWithUnderline = (props: LinkWithUnderlineProps) => {
   return(
-      <Link to={`/${props.path}`} className='link-with-text-decoration'>{props.text}</Link>
+      <Link to={`/${props.path}`} className='link-with-text-decoration'>
+        {props.text}
+        <span></span>
+      </Link>
   )
 }
