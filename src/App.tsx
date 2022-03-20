@@ -6,6 +6,7 @@ import { NotificationsPage } from './pages/NotificationsPage/NotificationsPage';
 import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
+import { InputText } from './Components/InputText/InputText';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         </nav>
       </aside>
       <main>
+        <InputText placeholder='Введите название'/>
         <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
