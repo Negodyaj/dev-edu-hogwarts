@@ -1,5 +1,37 @@
+.avatar-img {
+  position: relative;
+
+  img {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .svg-fond {
+    z-index: 0;
+    background: #8a8a8a;
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    line-height: 45px;
+
+    svg {
+      height: 10px;
+      width: 10px;
+    }
+  }
+}
+.wrapper {
+  padding-top: 45px;
+}
+
 .avatar-name {
-  font-family: 'Raleway';
+  font-family: "Raleway";
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
@@ -7,7 +39,7 @@
   margin: 15px 0px 10px;
 }
 .avatar-role {
-  font-family: 'Raleway';
+  font-family: "Raleway";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
