@@ -51,6 +51,21 @@
     }
   }
 
+  & input {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    border: 0;
+    padding: 0;
+    height: fit-content;
+    max-width: fit-content;
+    width: 100%;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
   .nums {
     padding-left: 48px;
   }

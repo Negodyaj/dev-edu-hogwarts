@@ -4,6 +4,7 @@ import {
   DraggableProvidedDraggableProps,
   DraggableProvidedDragHandleProps
 } from "react-beautiful-dnd";
+import {useState} from "react";
 
 export type ListViewItemProps = {
   lesson: ListViewLessons
@@ -20,6 +21,9 @@ export type ListViewItemProps = {
 
 export const ListViewItem = (props: ListViewItemProps) => {
   const headItemStyleName = props.head ? 'title-head__item' : '';
+  const [hoursCount, setHoursCount] = useState(props.lesson.hoursCount);
+  const [lessonName, setLessonName] = useState(props.lesson.lessonName);
+  const [lessonNumber, setLessonNumber] = useState(props.lesson.lessonNumber);
 
   return (
     <div
@@ -40,9 +44,23 @@ export const ListViewItem = (props: ListViewItemProps) => {
                   <span></span>
                 </div>
               }
-              {props.lesson.lessonNumber}</span>
-      <span className={`${!props.head ? 'lesson-name' : ''} ${headItemStyleName}`}>{props.lesson.lessonName}</span>
-      <span className={`${!props.head ? 'nums' : ''} ${headItemStyleName}`}>{props.lesson.hoursCount}</span>
+              { props.head || !props.dragSettings?.isDragDisabled ?
+                lessonNumber :
+                <input type="text" value={lessonNumber} onChange={(e) => setLessonNumber(e.currentTarget.value)}/>
+              }
+            </span>
+      <span className={`${!props.head ? 'lesson-name' : ''} ${headItemStyleName}`}>
+        { props.head || !props.dragSettings?.isDragDisabled ?
+          lessonName :
+          <input type="text" value={lessonName} onChange={(e) => setLessonName(e.currentTarget.value)}/>
+        }
+      </span>
+      <span className={`${!props.head ? 'nums' : ''} ${headItemStyleName}`}>
+        { props.head || !props.dragSettings?.isDragDisabled ?
+          hoursCount :
+          <input type="text" value={hoursCount} onChange={(e) => setHoursCount(e.currentTarget.value)}/>
+        }
+      </span>
     </div>
   );
 }
