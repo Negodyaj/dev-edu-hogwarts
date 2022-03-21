@@ -1,22 +1,21 @@
 import {LinkWithUnderline} from "../../../components/LinkWithUnderline/LinkWithUnderline";
-import './ListView.scss'
+import './ListView.scss';
 import {ListViewItem} from "./ListViewItem/ListViewItem";
 import {Draggable, DraggableProvided, DraggableStateSnapshot, Droppable, DroppableProvided} from "react-beautiful-dnd";
 import {LinkArrow} from "../../../components/LinkArrow/LinkArrow";
-import {useNavigate} from "react-router-dom";
 
 export type ListViewProps = {
   data: Array<ListViewLessons>
   groupId: number
   edit: boolean
-}
+};
 
 export type ListViewLessons = {
   id: number
   lessonNumber: number | string
   lessonName: string
   hoursCount: number | string
-}
+};
 
 export const ListView = (props: ListViewProps) => {
 
@@ -26,7 +25,7 @@ export const ListView = (props: ListViewProps) => {
     } else {
       return <LinkWithUnderline text='Редактировать' path='edit-courses'/>
     }
-  }
+  };
 
   return (
     <div className='content-container flex-content-container'>
@@ -82,5 +81,5 @@ export const ListView = (props: ListViewProps) => {
         }
       </Droppable>
     </div>
-  )
+  );
 }

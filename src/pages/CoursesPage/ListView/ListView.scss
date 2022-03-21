@@ -15,47 +15,44 @@
   }
 }
 
-.t-head {
-  padding-bottom: 30px;
+.title-head__item {
+  padding: 30px 0;
   border-bottom: 1px solid $medium-gray;
   border-top: 1px solid $medium-gray;
 }
 
 .grid-table-container {
   display: grid;
-  text-align: left;
-  grid-template-columns: minmax(max-content, 154px) minmax(250px, 578px) minmax(max-content, 120px);
-  padding-top: 30px;
+  grid-template-columns: 30px minmax(max-content, 154px) minmax(250px, 578px) minmax(max-content, 120px);
+  grid-template-areas: "drag theme name hours";
+  margin-top: 30px;
   font-size: 18px;
   line-height: 24px;
+  margin-left: -30px;
 
-  // В будущем перенести стили в styled component, используя snapshot
-  // не удалять комментарий до лучших времен :^)
-  // тображаются они сча как-то криво, но на другом варианте испытаний все ок
-  // так что скорее всего все исправится и далее, есть скрин
+  &.title-head {
+    margin-top: 0;
+  }
+
   &.dragging {
-    background: #F3F3F3;
+    background: $light-gray;
+    transform: scale(1.1, 1);
     box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
     margin-top: 20px;
-    padding: 10px 0 10px 30px;
-    margin-left: -30px;
+    padding: 10px 0 30px 0;
   }
 
-  & span {
-    margin-left: 30px;
+  & span:not(.nums, .draggable-pointer>span) {
+    padding-left: 30px;
 
     &:focus {
       outline: 0;
     }
   }
 
-  &:first-child {
-    flex-basis: auto;
-  }
-
   .nums {
-    margin-left: 48px;
+    padding-left: 48px;
   }
 
   .lesson-name {
