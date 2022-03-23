@@ -53,7 +53,7 @@ export const Lesson = (props: LessonProps) => {
         </svg>
         </button>
       </div>
-      {isLessonIdCorrect ? (<div className="content-container">
+      {isLessonIdCorrect ? (<div className="accordion-content-container">
         <div className="video-container grid">
           <div className='video-txt container-250'>Ссылка на видео</div>
           
