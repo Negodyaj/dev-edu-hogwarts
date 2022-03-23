@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { Lesson, LessonModel } from "./components/Lesson";
+import { RadioGroup } from "../../components/RadioGroup/RadioGroup"
+import { RadioButton, RadioData } from "../../components/RadioGroup/RadioButton/RadioButton";
+
+
 
 
 export const LessonsPage = () => {
@@ -26,11 +30,24 @@ export const LessonsPage = () => {
 
   return (
     <>
-      <div className="lessons-container">
+      <RadioGroup radioData={ [
         {
-          lessons.map(lesson => <Lesson data={lesson} id={lesson.id} key={lesson.id} activeLessonId={activeLesson} onClick={onElementClick}/>)
-        }
-
+          value: 1,
+          text: 'Группа 1',
+          numberOfRadioGroup: 1,
+        },
+        {
+          value: 2,
+          text: 'Группа 2',
+          numberOfRadioGroup: 1,
+        },
+      ] }
+      />
+      
+      <div className="lessons-container">
+      {
+        lessons.map(lesson => <Lesson data={lesson} id={lesson.id} key={lesson.id} activeLessonId={activeLesson} onClick={onElementClick}/>)
+      }
       </div>
     </>
   )
