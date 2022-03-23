@@ -36,7 +36,7 @@ let notifications = [
 export const NotificationsPage = () => {
 
   return (
-    <div className="margin-common-content">
+    <div className="card-container">
       {
         notifications.map(item=><NotificationsCard  data={item} key={item.id}   ></NotificationsCard>)
       }
