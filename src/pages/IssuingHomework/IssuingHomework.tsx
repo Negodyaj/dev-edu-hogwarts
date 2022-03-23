@@ -3,6 +3,7 @@ import {FilterList} from "../../components/FilterList";
 import {Link} from "react-router-dom";
 import './IssuingHomework.scss'
 import {useRef} from "react";
+import {RadioGroup} from "../../components/RadioGroup/RadioGroup";
 
 export type AddTaskFormData = {
   name: string
@@ -17,6 +18,21 @@ export type AddTaskFormData = {
   task:number
   groupId: number
 }
+
+const groups = [
+  {
+    id: 1,
+    text: 'gr 1',
+  },
+  {
+    id: 2,
+    text: 'gr 2',
+  },
+  {
+    id: 3,
+    text: 'gr 3',
+  }
+]
 
 export const IssuingHomework = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<AddTaskFormData>();
@@ -42,15 +58,7 @@ export const IssuingHomework = () => {
       <span>Новое задание</span>
       <div className='homework-form_area'>
         Номер группы:
-        <label>
-          <input type="radio" {...register("groupId", { required: true })}/>group 1
-        </label>
-        <label>
-          <input type="radio" {...register("groupId", { required: true })}/>group 2
-        </label>
-        <label>
-          <input type="radio" {...register("groupId", { required: true })}/>group 3
-        </label>
+        <RadioGroup radioData={groups}/>
       </div>
       <div className='homework-form_area'>
         Номер задания:
@@ -70,11 +78,11 @@ export const IssuingHomework = () => {
       </div>
       <div className='homework-form_area'>
         Название задания
-        <input type="text" {...register("name", { required: true })}/>
+        <input type="text" placeholder='Введите название' {...register("name", { required: true })}/>
       </div>
       <div className='homework-form_area'>
         Описание задания
-        <textarea placeholder={'Введите текст'} {...register("description", { required: true })}/>
+        <textarea placeholder='Введите текст' {...register("description", { required: true })}/>
       </div>
       <div>
         <button type="submit" onClick={(e) => {
