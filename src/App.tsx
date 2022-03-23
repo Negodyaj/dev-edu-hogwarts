@@ -9,6 +9,8 @@ import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
 import {MainPanel} from './components/MainPanel/MainPanel';
 import {IssuingHomework} from "./pages/IssuingHomework/IssuingHomework";
 
+
+
 function App() {
   return (
     <div className='flex-container'>
