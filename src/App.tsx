@@ -1,5 +1,5 @@
 import './App.scss';
-import { Route, Link, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { HomeworksPage } from './pages/HomeworksPage/HomeworksPage';
 import { LessonsPage } from './pages/LessonsPage/LessonsPage';
 import { NotificationsPage } from './pages/NotificationsPage/NotificationsPage';
@@ -7,6 +7,7 @@ import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
 import {MainPanel} from './components/MainPanel/MainPanel';
+import {IssuingHomework} from "./pages/IssuingHomework/IssuingHomework";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="settings" element={<SettingsPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
+          <Route path="issuing-homework" element={<IssuingHomework />} />
         </Routes> }
       </main>
     </div>
