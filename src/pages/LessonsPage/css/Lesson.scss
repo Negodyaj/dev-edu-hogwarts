@@ -23,6 +23,9 @@
   margin: 0 auto;
   background-color: white ;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
+  & > *:not(:first-child) {
+    border-top: 1px solid #DBDBDB;
+  }
 }
 .grid{
   display: grid;
@@ -31,8 +34,10 @@
 }
 
 .lesson-container{
-  width: 775px;
-  padding: 50px 120px 0px 45px;
+  
+  padding-top: 50px;
+  margin-left: 45px;
+  margin-right: 120px;
   
   &.active{
     svg {
@@ -44,9 +49,8 @@
   }
   .header-container {
     padding-bottom: 30px;
-    border-bottom: 1px solid #DBDBDB;
-    display: flex;
-    width: 775px;
+       
+    display: flex;    
     .lesson-main-info{
       display: flex;
       justify-content: space-around;
@@ -77,16 +81,14 @@
 
     }
   }
+  
   .content-container{
-    // transition: all 0.5s ease-in-out;
-    // height: 0;
-    // overflow: hidden;
+    
     width: 775px;
     padding-top: 30px;
     padding-bottom: 30px;
-    border-bottom: 1px solid #DBDBDB;
-    .video-container{
-      // display: flex;
+    border-top: 1px solid #DBDBDB;
+    .video-container{      
       .video-txt{
         grid-column: 1;
       }
@@ -98,8 +100,7 @@
         
       }
     }
-    .additional-container{
-      // display: flex;
+    .additional-container{      
       .additional-txt{
         grid-column: 1;
       }
