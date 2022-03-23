@@ -1,0 +1,38 @@
+main {
+  background-color: #F6F7F9;
+  flex-grow: 1;
+}
+
+.new-lesson-page-container {
+  padding: 90px 145px 76px 67px;
+  line-height: 21.13px;
+  font-size: 18px;
+  font-weight: 500;
+
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  line-height: 28.6px;
+  font-size: 22px;
+
+  a {
+    color: #643173;
+  }
+}
+
+.radio-line {
+  margin-top: 51px;
+  margin-bottom: 40px;
+}
+
+.lessons-input {
+  margin-top: 60px;
+  line-height: 27px;
+}
+
+.buttons-container {
+  margin-top: 70px;
+}
