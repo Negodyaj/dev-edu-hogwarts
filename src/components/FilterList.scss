@@ -29,6 +29,24 @@ $font-size: 18px;
     font-weight: 600;
     cursor: pointer;
 
+  & input {
+    font-weight: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    text-align: end;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    max-width: fit-content;
+    width: 100%;
+    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
     & svg {
         margin-left: 4px;
     }

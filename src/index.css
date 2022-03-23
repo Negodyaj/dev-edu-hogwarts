@@ -10,6 +10,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.form-container {
+  padding-top: 90px;
+  padding-left: 65px;
+}
+
 .content-container {
   background: #FFFFFF;
   width: 100%;

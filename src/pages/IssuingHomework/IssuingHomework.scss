@@ -1,0 +1,41 @@
+.secret-input {
+  display: none;
+}
+
+form {
+  font-weight: 500;
+  font-size: 18px;
+
+  & span {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 51px;
+  }
+
+  .homework-form_dates {
+    display: flex;
+    column-gap: 70px;
+    margin-top: 60px;
+  }
+
+  .homework-form_area {
+    margin-top: 40px;
+
+    & .drop-down-filter__wrapper {
+      display: inline-block;
+      margin-left: 17px;
+
+      .drop-down-filter {
+        font-weight: 700;
+      }
+    }
+  }
+
+  & button {
+    margin-top: 70px;
+
+    &~button {
+      margin-left: 30px;
+    }
+  }
+}
