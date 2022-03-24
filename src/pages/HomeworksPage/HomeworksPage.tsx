@@ -1,4 +1,4 @@
-import { CheckboxGroup } from "../../Components/checkbox/CheckBoxGroup/CheckBoxGroup"
+import { CheckboxGroup } from "../../Components/CheckBoxGroup/CheckBoxGroup"
 
 export const HomeworksPage = () => {
   return (

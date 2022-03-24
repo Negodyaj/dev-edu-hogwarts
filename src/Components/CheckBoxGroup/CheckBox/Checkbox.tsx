@@ -1,4 +1,4 @@
-import "./checkbox.scss"
+import "./Checkbox.scss"
 
 export type checkboxProps = {
 data: checkboxData;

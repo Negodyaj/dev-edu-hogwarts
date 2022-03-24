@@ -1,4 +1,4 @@
-import { CheckboxBtn, checkboxData } from "../checkbox";
+import { CheckboxBtn, checkboxData } from "../CheckBoxGroup/CheckBox/Checkbox";
 
 export type checkboxGroupProps = {
   checkboxArr: Array <checkboxData>
