@@ -29,6 +29,11 @@ let buttons: NavLink[] = [
     icon: Icon.Cake,
     path: '/settings',
     displayName: 'Настройки'
+  },
+  {
+    icon: Icon.Cake,
+    path: '/register',
+    displayName: 'Регистрация'
   }
 ];
 
