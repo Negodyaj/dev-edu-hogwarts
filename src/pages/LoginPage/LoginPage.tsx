@@ -11,19 +11,19 @@ export type LoginFormData = {
 
 export const LoginPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
-  const [course, setCourse] = useState<any>();
+  const [course, setCourse] = useState<any>({});
 
   useEffect(() => {
     baseWretch()
-    .url('api/Course/1/simple')
+    .url('api/Courses/1/simple')
     .get()
-    .json(data => setCourse(data))
+    .json((data: any) => setCourse(data))
   }, []);
 
   const onSubmit = (data: LoginFormData) => baseWretch()
     .url(loginUrl)
     .post(data)
-    .text(token => setToken(token));
+    .text((token: string) => setToken(token));
 
 
 
