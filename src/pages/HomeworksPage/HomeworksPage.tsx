@@ -46,7 +46,6 @@ export const HomeworksPage = () => {
   return (
     <div className='margin-common-content'>
       Домашки
-      {/*<Datepicker/>*/}
       <FilterList data={[
         {
           id: 1, name: 'Все'

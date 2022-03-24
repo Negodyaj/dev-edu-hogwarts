@@ -1,11 +1,12 @@
-import {useState} from 'react';
+import {forwardRef, useState} from 'react';
 import Datetime from 'react-datetime';
 import './Datepicker.scss';
 import 'moment/locale/ru';
 import {SvgLessons} from "../SvgIcon/SvgFiles/SvgLessons";
-import {UseFormRegisterReturn} from "react-hook-form";
+import {UseFormRegister} from "react-hook-form";
+import {AddTaskFormData} from "../../pages/IssuingHomework/IssuingHomework";
 
-export const Datepicker = (props: UseFormRegisterReturn) => {
+const Datepicker = forwardRef<HTMLInputElement,{ label: string } & ReturnType<UseFormRegister<AddTaskFormData>>>((props, ref) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -20,15 +21,16 @@ export const Datepicker = (props: UseFormRegisterReturn) => {
                            onChange={props.onChange}
                            onFocus={() => setIsOpen(true)}
                            onBlur={props.onBlur}
+                           ref={ref}
                     />
 
                     <button className='date-picker__button'
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setIsOpen(true);
-                        openCalendar();
-                      }}
-                      onBlur={() => setIsOpen(false)}>
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setIsOpen(true);
+                              openCalendar();
+                            }}
+                            onBlur={() => setIsOpen(false)}>
 
                       <SvgLessons/>
 
@@ -39,4 +41,6 @@ export const Datepicker = (props: UseFormRegisterReturn) => {
               dateFormat="DD.MM.YYYY"
               timeFormat={false}/>
   );
-}
+})
+
+export default Datepicker;
