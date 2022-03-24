@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import '../components/NotificationsCard.scss';
-import { LinkArrow } from './LinkArrow';
+import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
 export type NotificationData = {
   id: number
   sender: string,
@@ -37,7 +37,7 @@ export const NotificationsCard = (props: NotificationsProps) => {
           </div>
         </div>
         <div className="messege">{props.data.messege}</div>
-        <LinkArrow goTo={`${props.data.id}`}></LinkArrow>
+        <LinkArrow back={false} text={'перейти'} to={`${props.data.id}`}  ></LinkArrow>
       </div>
     </div>
 
