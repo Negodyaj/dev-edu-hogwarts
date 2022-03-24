@@ -29,7 +29,7 @@ export const LoginPage = () => {
 
   return (
     <>
-    { course.name }
+    {/* { course.name } */}
       <br /><br /><br /><br />
       <form onSubmit={handleSubmit(onSubmit)}>
         <input placeholder="example@mail.ru" {...register("email", { required: true })} />

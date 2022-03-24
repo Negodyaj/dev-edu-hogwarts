@@ -1,5 +1,10 @@
+import { LoginPage } from "../LoginPage/LoginPage"
+
 export const SettingsPage = () => {
   return (
-    <div>Настройки</div>
+    <>
+      <div>Настройки</div>
+      <LoginPage/>
+    </>
   )
 }
