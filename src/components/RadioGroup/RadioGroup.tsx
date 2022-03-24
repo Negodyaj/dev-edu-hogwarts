@@ -10,7 +10,7 @@ export const RadioGroup = (radioProps: RadioProps) => {
   return (
       <div className="radio-group">
         {
-          radioProps.radioData.map((item) => (<RadioButton key={item.id} numberOfRadioGroup={radioProps.radioData.length} data={item} />))
+          radioProps.radioData.map((item) => (<RadioButton key={item.value} numberOfRadioGroup={radioProps.radioData.length} data={item} />))
         }
       </div>
   );

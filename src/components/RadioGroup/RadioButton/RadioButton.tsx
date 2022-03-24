@@ -6,16 +6,15 @@ export type RadioProps = {
 }
 
 export type RadioData = {
-  id: number
   text: string
-  // value: number
+  value: number
 }
  
 export const RadioButton = (props: RadioProps) => { 
  
   return ( 
     <label className="radio-button" >
-      <input type="radio" name={`radio${props.numberOfRadioGroup}`} value={props.data.id}/>
+      <input type="radio" name={`radio${props.numberOfRadioGroup}`} value={props.data.value}/>
       <span className="radio-text">{props.data.text}</span>
     </label>
   ) 
