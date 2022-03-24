@@ -11,7 +11,7 @@ export type LoginFormData = {
 
 export const LoginPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
-  const [course, setCourse] = useState<any>();
+  const [course, setCourse] = useState<any>({});
 
   useEffect(() => {
     baseWretch()
