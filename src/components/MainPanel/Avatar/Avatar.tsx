@@ -1,5 +1,6 @@
 import "./Avatar.scss";
 import { Icon } from "../../../shared/enums/Icon";
+import { SvgIcon } from "../../SvgIcon/SvgIcon";
 
 export type AvatarProps = {
   data: AvatarData;
@@ -11,8 +12,6 @@ export type AvatarData = {
   role: string;
 };
 
-const AvatarPicture=Icon.Picture;
-
 export const Avatar = (props: AvatarProps) => {
   return (
     <>
@@ -20,7 +19,7 @@ export const Avatar = (props: AvatarProps) => {
         <div className="avatar-img">
           <img className="photo" src={props.data.photo}></img>
           <div className="svg-fond">
-            <{AvatarPicture}/>
+          <SvgIcon icon={Icon.Picture}/>
                 </div>
         </div>
         <div className="wrapper">
