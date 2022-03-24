@@ -1,7 +1,6 @@
 $accent-purple: #A786DF;
-*{
-  box-sizing: border-box;
-}
+
+
 .register-form-wrapper{
   width: 1080px;
   background-color: #F6F7F9;
@@ -41,6 +40,11 @@ form {
 }
 .asterisk {
   color: $accent-purple;
+  
+}
+.attention{
+  color: red;
+  margin-top: 10px;
 }
 p{
   font-size: 16px;
