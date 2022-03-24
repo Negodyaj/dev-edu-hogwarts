@@ -1,12 +1,12 @@
-*{
-  font-family: 'Raleway', sans-serif;
-  font-size: 18px;
-  line-height: 23px;
-  box-sizing: border-box;
-  
-}
+//*{
+//  font-family: 'Raleway', sans-serif;
+//  font-size: 18px;
+//  line-height: 23px;
+//  box-sizing: border-box;
+//
+//}
 .font-400{
-  font-weight: 400px;
+  font-weight: 400;
 }
 .font-600{
   font-weight: 600;
@@ -71,7 +71,7 @@
       height: 40px;
       border-radius: 50%;   
       border: 1px solid #DBDBDB;
-      line-height: 0px;
+      line-height: 0;
       text-align: center;
       background-color: white;
       position: absolute;

@@ -2,19 +2,21 @@
   display: none;
 }
 
-form {
+.homework-form {
   font-weight: 500;
   font-size: 18px;
 
-  & span:not(& label>span) {
+  & span:not(& label>span, .rdtPrev span,
+.rdtNext span) {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 51px;
   }
 
   .homework-form_dates {
-    display: flex;
-    column-gap: 70px;
+    display: grid;
+    grid-template-columns: minmax(auto, 400px) minmax(auto, 400px);
+    gap: 70px;
     margin-top: 60px;
   }
 
@@ -31,11 +33,11 @@ form {
     }
   }
 
-  & button {
-    margin-top: 70px;
-
-    &~button {
-      margin-left: 30px;
-    }
-  }
+  //& button {
+  //  margin-top: 70px;
+  //
+  //  &~button {
+  //    margin-left: 30px;
+  //  }
+  //}
 }

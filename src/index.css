@@ -6,14 +6,18 @@
 body {
   margin: 0;
   background-color: #F6F7F9;
-  font-family: 'Raleway';
+  font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  width: 100%;
+}
+
 .form-container {
-  padding-top: 90px;
   padding-left: 65px;
+  padding-top: 90px;
 }
 
 .content-container {

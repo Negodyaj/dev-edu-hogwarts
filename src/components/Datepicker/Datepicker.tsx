@@ -3,24 +3,32 @@ import Datetime from 'react-datetime';
 import './Datepicker.scss';
 import 'moment/locale/ru';
 import {SvgLessons} from "../SvgIcon/SvgFiles/SvgLessons";
+import {UseFormRegisterReturn} from "react-hook-form";
 
-export const Datepicker = () => {
+export const Datepicker = (props: UseFormRegisterReturn) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <Datetime locale='ru'
               initialValue={new Date()}
-              renderInput={(props: string, openCalendar: Function) => {
+              renderInput={(propsInput: string, openCalendar: Function) => {
                 return (
-                  <div className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}>
+                  <div className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}
+                       onBlur={() => setIsOpen(false)}>
 
-                    <input type='text' {...props}
-                           onChange={(e) => e.preventDefault()}
+                    <input type='text' {...propsInput}
+                           onChange={props.onChange}
                            onFocus={() => setIsOpen(true)}
-                           onBlur={() => setIsOpen(false)}/>
+                           onBlur={props.onBlur}
+                    />
 
-                    <button onClick={() => { setIsOpen(true); openCalendar(); }}
-                            onBlur={() => setIsOpen(false)}>
+                    <button className='date-picker__button'
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsOpen(true);
+                        openCalendar();
+                      }}
+                      onBlur={() => setIsOpen(false)}>
 
                       <SvgLessons/>
 

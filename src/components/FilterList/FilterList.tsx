@@ -1,4 +1,4 @@
-import {ReactElement, useState} from "react";
+import {useState} from "react";
 import './FilterList.scss';
 import {useDetectClickOutside} from "react-detect-click-outside";
 
@@ -6,6 +6,7 @@ export type FilterListProps = {
   data: Array<Filter>
   type: string
   refData?: React.MutableRefObject<HTMLInputElement | null>
+  callback: Function
 };
 
 export type Filter = {
@@ -52,7 +53,10 @@ export const FilterList = (props: FilterListProps) => {
                   elem =>
                     <li key={elem.id}
                         className={`drop-down-filter__element ${elem.id === item.id ? 'selected' : ''}`}
-                        onClick={() => setItem(elem)}
+                        onClick={() => {
+                          setItem(elem);
+                          props.callback(elem.id.toString());
+                        }}
                     >
                       {elem.name}
                     </li>

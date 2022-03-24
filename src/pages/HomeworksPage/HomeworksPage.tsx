@@ -1,6 +1,5 @@
 import {FilterList} from "../../components/FilterList/FilterList";
 import {HomeworkCard} from "./components/HomeworkCard";
-import {Datepicker} from "../../components/Datepicker/Datepicker";
 
 let tasks = [
   {
@@ -47,7 +46,7 @@ export const HomeworksPage = () => {
   return (
     <div className='margin-common-content'>
       Домашки
-      <Datepicker/>
+      {/*<Datepicker/>*/}
       <FilterList data={[
         {
           id: 1, name: 'Все'
@@ -58,7 +57,7 @@ export const HomeworksPage = () => {
         {
           id: 3, name: 'Этот месяц'
         }
-      ]} type=''/>
+      ]} type='' callback={() => {}}/>
       <FilterList data={[
         {
           id: 1, name: 'Все'
@@ -75,7 +74,7 @@ export const HomeworksPage = () => {
         {
           id: 5, name: 'Это десятилетие'
         },
-      ]} type='table'/>
+      ]} type='table' callback={() => {}}/>
 
       {
         revertedArray.map(item =>
