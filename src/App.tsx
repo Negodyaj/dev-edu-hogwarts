@@ -8,6 +8,8 @@ import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
 import {MainPanel} from './components/MainPanel/MainPanel';
 
+
+
 function App() {
   return (
     <div className='flex-container'>
