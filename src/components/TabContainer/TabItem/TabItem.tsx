@@ -4,19 +4,19 @@ import './TabItem.scss'
 import { SvgIcon } from "../../SvgIcon/SvgIcon"; 
 import { Icon } from "../../../shared/enums/Icon"; 
    
-export type tabProps = { 
-  data: TabData; 
-  activeTab: number; 
-  onClick: (id: number) => void; 
+export type TabProps = { 
+  data: TabData
+  activeTab: number
+  onClick: (id: number) => void
 } 
      
 export type TabData = { 
-  id: number; 
-  text: string; 
-  icon: Icon; 
+  id: number
+  text: string
+  icon: Icon
 } 
  
-export const TabItem = (props: tabProps) => { 
+export const TabItem = (props: TabProps) => { 
  
   return ( 
     <> 

@@ -3,10 +3,10 @@ import './TabContainer.scss'
 import { useState } from "react";
 
 export type TabContainerProps = {
-  tabContainerData: Array<TabData>;
+  tabContainerData: TabData[]
 }
 
-export const TabContainer = (propsArr: TabContainerProps) => {
+export const TabContainer = (props: TabContainerProps) => {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   function onTabClick(id: number) {
@@ -17,7 +17,7 @@ export const TabContainer = (propsArr: TabContainerProps) => {
     <>
       <div className="tab-container">
         {
-          propsArr.tabContainerData.map((item) => (<TabItem data={item} key={item.id} activeTab={activeTab} onClick={onTabClick}/>))
+          props.tabContainerData.map((item) => (<TabItem data={item} key={item.id} activeTab={activeTab} onClick={onTabClick}/>))
         }
       </div>
     </>
