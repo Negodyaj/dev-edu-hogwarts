@@ -7,13 +7,13 @@ export type ButtonProps = {
   type: ButtonType;
   icon?: Icon;
   url?: string;
-  link?:"btn-link";
+  link?: "btn-link";
 };
 
 export enum ButtonType {
   White,
   Colored,
-  Text
+  Text,
 }
 
 export const Button = (props: ButtonProps) => {
@@ -36,19 +36,17 @@ export const Button = (props: ButtonProps) => {
     buttonImg = <SvgIcon icon={props.icon} />;
   }
 
-  if (props.url) {
-    return (
-        <a href={props.url} className={`btn ${buttonClass}`} >
-          {props.text}
-          {buttonImg}
-        </a>
-    );
-  }
-
-  return (
+  return (props.url ? (
+    <a href={props.url} className={`btn ${buttonClass}`}>
+      {props.text}
+      {buttonImg}
+    </a>
+  ) : (
     <button className={`btn ${buttonClass}`}>
       {props.text}
       {buttonImg}
     </button>
-  );
+  ));
 };
+
+{/* <Button text="Зарегистрироваться" type={ButtonType.White} icon={Icon.Plus} url="#" /> */}
