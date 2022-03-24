@@ -1,10 +1,6 @@
-@import './src/style/colors';
+@import "./src/style/colors";
 
-.flex-content-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
+.content-container {
   & a {
     margin-top: -20px;
     margin-bottom: 20px;
@@ -16,53 +12,59 @@
 }
 
 .title-head__item {
-  padding: 30px 0;
+  padding: 0;
   border-bottom: 1px solid $medium-gray;
   border-top: 1px solid $medium-gray;
+  text-align: center;
+  line-height: 79px;
+
+  &.lesson-name-head {
+    padding-left: 81px;
+    text-align: left;
+  }
 }
 
 .grid-table-container {
   display: grid;
-  grid-template-columns: 30px minmax(max-content, 154px) minmax(250px, 578px) minmax(max-content, 120px);
-  grid-template-areas: "drag theme name hours";
-  margin-top: 30px;
+  grid-template-columns: 102px 1fr 136px;
   font-size: 18px;
-  line-height: 24px;
-  margin-left: -30px;
+  margin-top: 20px;
+  height: 44px;
+  line-height: 44px;
 
   &.title-head {
     margin-top: 0;
+    height: 81px;
+    line-height: 23px;
   }
 
   &.dragging {
-    background: $light-gray;
-    transform: scale(1.1, 1);
-    box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.15);
-    border-radius: 15px;
-    margin-top: 20px;
-    padding: 10px 0 30px 0;
-
+    position: relative;
+    
     & input {
       background: $light-gray;
     }
-  }
-
-  & span:not(.nums, .draggable-pointer>span) {
-    padding-left: 30px;
-
-    &:focus {
-      outline: 0;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: -29px;
+      right: 0;
+      top: 0;
+      height: 100%;
+      background: $light-gray;
+      box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.15);
+      border-radius: 15px;      
     }
   }
 
-  & input {
+  input {
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
     border: 0;
     padding: 0;
     height: fit-content;
-    max-width: fit-content;
     width: 100%;
 
     &:focus {
@@ -71,19 +73,26 @@
   }
 
   .nums {
-    padding-left: 48px;
+    text-align: center;
+    align-items: center;
+    position: relative;
+
+    input {
+      text-align: center;
+    }
   }
 
   .lesson-name {
     font-weight: 600;
+    padding-left: 81px;
+    position: relative;
   }
 
   .draggable-pointer {
     display: inline-block;
     padding: 3px;
     height: 24px;
-    margin-left: -48px;
-    margin-right: 23px;
+    position: absolute;
 
     & span {
       display: block;
@@ -92,7 +101,6 @@
       width: 18px;
       height: 2px;
       margin: 3px 0 0 0;
-
     }
   }
 }

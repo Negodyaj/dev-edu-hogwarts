@@ -28,7 +28,7 @@ export const ListView = (props: ListViewProps) => {
   };
 
   return (
-    <div className='content-container flex-content-container'>
+    <div className='content-container'>
       {
         linkType()
       }

@@ -1,10 +1,10 @@
-import {ListViewLessons} from "../ListView";
+import { ListViewLessons } from "../ListView";
 import {
   DraggableProvided,
   DraggableProvidedDraggableProps,
   DraggableProvidedDragHandleProps
 } from "react-beautiful-dnd";
-import {useState} from "react";
+import { useState } from "react";
 
 export type ListViewItemProps = {
   lesson: ListViewLessons
@@ -31,34 +31,33 @@ export const ListViewItem = (props: ListViewItemProps) => {
       ref={props.dragSettings?.innerRef}
       {...props.dragSettings?.prop1}
     >
-      <span></span>
-            <span className={`${!props.head ? 'nums flex-container' : ''} ${headItemStyleName}`}>
-              {
-                props.dragSettings?.isDragDisabled &&
-                !props.head &&
-                <div className='draggable-pointer'
-                     {...props.dragSettings?.prop2}
-                >
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              }
-              { props.head || !props.dragSettings?.isDragDisabled ?
-                lessonNumber :
-                <input type="text" value={lessonNumber} onChange={(e) => setLessonNumber(e.currentTarget.value)}/>
-              }
-            </span>
-      <span className={`${!props.head ? 'lesson-name' : ''} ${headItemStyleName}`}>
-        { props.head || !props.dragSettings?.isDragDisabled ?
+      <span className={`${!props.head ? 'nums flex-container' : ''} ${headItemStyleName}`}>
+        {
+          props.dragSettings?.isDragDisabled &&
+          !props.head &&
+          <div className='draggable-pointer'
+            {...props.dragSettings?.prop2}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        }
+        {props.head || !props.dragSettings?.isDragDisabled ?
+          lessonNumber :
+          <input type="text" value={lessonNumber} onChange={(e) => setLessonNumber(e.currentTarget.value)} />
+        }
+      </span>
+      <span className={`${props.head ? 'lesson-name-head' : 'lesson-name'} ${headItemStyleName}`}>
+        {props.head || !props.dragSettings?.isDragDisabled ?
           lessonName :
-          <input type="text" value={lessonName} onChange={(e) => setLessonName(e.currentTarget.value)}/>
+          <input type="text" value={lessonName} onChange={(e) => setLessonName(e.currentTarget.value)} />
         }
       </span>
       <span className={`${!props.head ? 'nums' : ''} ${headItemStyleName}`}>
-        { props.head || !props.dragSettings?.isDragDisabled ?
+        {props.head || !props.dragSettings?.isDragDisabled ?
           hoursCount :
-          <input type="text" value={hoursCount} onChange={(e) => setHoursCount(e.currentTarget.value)}/>
+          <input type="text" value={hoursCount} onChange={(e) => setHoursCount(e.currentTarget.value)} />
         }
       </span>
     </div>
