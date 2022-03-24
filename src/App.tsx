@@ -10,6 +10,8 @@ import {MainPanel} from './components/MainPanel/MainPanel';
 import {CoursesPage} from "./pages/CoursesPage/CoursesPage";
 import {EditCoursesPage} from "./pages/CoursesPage/EditCoursesPage";
 
+
+
 function App() {
   return (
     <div className='flex-container'>

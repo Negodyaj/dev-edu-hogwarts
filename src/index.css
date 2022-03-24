@@ -5,6 +5,7 @@
 
 body {
   margin: 0;
+  background-color: #F6F7F9;
   font-family: 'Raleway';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -29,6 +30,7 @@ body {
 .margin-common-content {
   margin: 70px 120px 70px 20px;
 }
+
 .flex-container {
   display: flex;
 }
