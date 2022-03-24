@@ -5,6 +5,8 @@ import { baseWretch } from "../../services/base-wretch.service"
 import { Console } from "console";
 import { loginUrl } from "../../shared/consts";
 import { setToken } from "../../services/auth.service";
+import { RadioButton } from "../../components/RadioGroup/RadioButton/RadioButton";
+import { RadioGroup } from "../../components/RadioGroup/RadioGroup";
 
 export type LessonsData = {
   date: string
@@ -25,8 +27,8 @@ export const AddingNewLessonPage = () => {
       // .url("api/Course/1/simple")
       .url("api/group")
       .get()
-      // .json( data => {console.log(data); setGroups(data)});
-      .json( data => setGroups(data));
+      .json( data => {console.log(data); setGroups(data)});
+      // .json( data => setGroups(data));
     }, []);
 
     const onSubmit = (data: LessonsData) => baseWretch()
@@ -44,9 +46,7 @@ export const AddingNewLessonPage = () => {
         <a href="">Список сохраненных занятий</a>
       </div>
       <div className="radio-line">Номер группы:</div>
-      {/* { groups.map(item => <div>item.name</div>)} */}
-      {/* {groups[0].name} */}
-      {/* <div className="radio-line">{groups[1].name}</div> */}
+      {/* <RadioGroup radioData={groups}/>  */}
       <div className="">Номер занятия:</div>
       <div className="lessons-input">
         <div>Дата проведения занятия</div>
