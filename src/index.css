@@ -20,9 +20,17 @@ main {
   padding-top: 90px;
 }
 
+::-moz-selection{
+  background-color: #EBE3F8;
+}
+
+::selection{
+  background-color: #EBE3F8;
+}
+
 .content-container {
   background: #FFFFFF;
-  width: 100%;
+  width: 940px;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
   border-radius: 15px;
   padding: 50px 45px;
