@@ -15,7 +15,7 @@ export const CheckboxBtn = (props: checkboxProps) => {
   return (
     <label className="custom-checkbox" > 
       <input type="checkbox" name={`checkbox${props.data.numberOfChecboxGroup}`} value={props.data.value}/> 
-      <span className="checkbox-text">{props.data.text}</span> 
+      <span className="custom-checkbox-text">{props.data.text}</span> 
     </label>
 
   )
