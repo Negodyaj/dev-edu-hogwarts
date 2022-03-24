@@ -53,8 +53,7 @@
     "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-router-dom": "^5.3.3",
     "react-beautiful-dnd": "^13.1.0",
-    "react-router-dom": "^6.2.2"
-    "@types/react-router-dom": "^5.3.3",
+    "react-router-dom": "^6.2.2",
     "wretch": "^1.7.9"
   }
 }
