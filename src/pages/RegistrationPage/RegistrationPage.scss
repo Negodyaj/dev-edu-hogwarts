@@ -1,6 +1,7 @@
 $accent-purple: #A786DF;
 
 
+
 .register-form-wrapper{
   width: 1080px;
   background-color: #F6F7F9;
@@ -29,6 +30,14 @@ input:not([type="checkbox"]) {
 }
 form {
   margin-top: 20px;
+}
+.flex-container{
+  display: flex;
+  align-items: flex-start;
+  label {
+    margin-top: 0;
+  }
+  
 }
 .flex-column{
   display: flex;
@@ -74,4 +83,5 @@ p{
 .buttons{  
   margin-top: 70px;
   margin-bottom: 30px;
-} 
+}
+

@@ -1,5 +1,4 @@
 import './RegistrationPage.scss';
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { setToken } from "../../services/auth.service";
 import { baseWretch } from "../../services/base-wretch.service"
@@ -19,22 +18,10 @@ export type RegisterFormData = {
 export const RegistrationPage = () => {
 
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormData>();
-  const onSubmit = () => baseWretch()
+  const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
+  const onSubmit = (data: RegisterFormData) => baseWretch()
     .url(registerUrl)
-    .post({
-      "firstName": "Artur",
-      "lastName": "Khamatnurov",
-      "patronymic": "Valeryevich",
-      "email": "arturk32h@mail.com",
-      "username": "string",
-      "password": "stringst",
-      "city": "SaintPetersburg",
-      "birthDate": "01.01.2020",
-      "gitHubAccount": "string",
-      "photo": "https://klike.net/uploads/posts/2021-01/1611131113_2.jpg",
-      "phoneNumber": "string"
-    }).text(token => setToken(token));
+    .post({ ...data, username: 'string', birthdate: '12.12.1999', city: 1 }).text(token => setToken(token));
 
 
 
@@ -75,7 +62,9 @@ export const RegistrationPage = () => {
           </div>
           <div className='flex-column'>
             <label htmlFor="patronymic">Отчество</label>
-            <input type="text" placeholder='Сергеевич' name='patronymic' id='patronymic' />
+            <input type="text" placeholder='Сергеевич'  {...register("patronymic", {
+              required: true
+            })} />
           </div>
         </div>
         <div className="flex-column">
@@ -85,14 +74,14 @@ export const RegistrationPage = () => {
         <div className='flex-row'>
           <div className='flex-column'>
             <label htmlFor="password">Пароль<span className='asterisk'> *</span></label>
-            <input type="password" id="password" {...register("password", {
+            <input type="password"  {...register("password", {
               required: true
             })} />
             {errors?.password?.type === "required" && <p className='attention'>Обязательно для заполнения</p>}
           </div>
           <div className="flex-column">
             <label htmlFor="repeat-password">Повторить пароль<span className='asterisk'> *</span></label>
-            <input type="password" id="repeat-password" />
+            <input type="password" />
           </div>
         </div>
         <div className="flex-row">
@@ -105,8 +94,10 @@ export const RegistrationPage = () => {
             {errors?.email?.type === "required" && <p className='attention'>Обязательно для заполнения</p>}
           </div>
           <div className="flex-column">
-            <label htmlFor="phone-num">Телефон</label>
-            <input type="tel" name="phone-num" id="phone-num" />
+            <label htmlFor="phoneNumber">Телефон</label>
+            <input type="tel" placeholder='+7(999)888-77-66' {...register("phoneNumber", {
+              required: true
+            })} />
           </div>
         </div>
         <p><span className='attention'>* </span>Поля обязательные для заполнения</p>
@@ -114,12 +105,14 @@ export const RegistrationPage = () => {
           <button className='reg-button' type='submit'>Зарегистрироваться</button>
           <button className='cancel-button'>Отмена</button>
         </div>
-        <div className='flex-row'></div>
-        <input type="checkbox" id="policy" name="policy" />
-        <label htmlFor="policy" id='policy-label'>
-          Настоящим подтверждаю, что я ознакомлен <br />
-          и согласен с условиями политики конфиденциальности
-        </label>
+        <div className='flex-container'>
+          <input type="checkbox" name="policy" />
+          <label htmlFor="policy" id='policy-label'>
+            Настоящим подтверждаю, что я ознакомлен <br />
+            и согласен с условиями политики конфиденциальности
+          </label>
+
+        </div>
       </form>
     </div>
   )
