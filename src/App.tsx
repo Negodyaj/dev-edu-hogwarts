@@ -7,6 +7,7 @@ import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
 import {MainPanel} from './components/MainPanel/MainPanel';
+import { SettingsPassword } from './pages/SettingsPage/SettingsPassword';
 
 
 
@@ -19,10 +20,12 @@ function App() {
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
           <Route path="lessons" element={<LessonsPage />} />
-          <Route path="settings" element={<SettingsPage />} />
+          <Route path="settings" element={<SettingsPage  />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
-        </Routes> }
+          <Route  path="/settings/change-password" element={<SettingsPassword />} />
+        </Routes>
+         }
       </main>
     </div>
   );
