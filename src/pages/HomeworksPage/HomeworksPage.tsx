@@ -1,6 +1,6 @@
 import {FilterList} from "../../components/FilterList/FilterList";
 import {HomeworkCard} from "./components/HomeworkCard";
-import {Datepicker} from "../../components/Datepicker/Datepicker";
+ import {Datepicker} from "../../components/Datepicker/Datepicker";
 
 let tasks = [
   {
@@ -47,7 +47,7 @@ export const HomeworksPage = () => {
   return (
     <div className='margin-common-content'>
       Домашки
-      <Datepicker/>
+      {/* <Datepicker/> */}
       <FilterList data={[
         {
           id: 1, name: 'Все'

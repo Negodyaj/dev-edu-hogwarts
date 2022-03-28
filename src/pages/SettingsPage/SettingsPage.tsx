@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider, useFormContext, Controller } from 'react-hook-form';
 import '../SettingsPage/SettingsPage.scss';
 import '../SettingsPage/SettingsPage.scss'
   ; import { baseWretch } from '../../services/base-wretch.service';
@@ -14,6 +14,8 @@ import { NavLink } from 'react-router-dom';
 import { LinkArrow } from '../../components/LinkArrow/LinkArrow';
 import { text } from 'stream/consumers';
 import { SvgPencil } from '../../components/SvgIcon/SvgFiles/SvgPencil';
+import { Datepicker } from '../../components/Datepicker/Datepicker';
+import { date } from 'yup';
 export type UserFormData = {
   id: 1,
   firstName: string,
@@ -30,8 +32,13 @@ export type UserFormData = {
 
 
 export const SettingsPage = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<UserFormData>();
-
+  const methods = useForm<UserFormData>({
+    defaultValues: {
+      birthDate: ""
+    },
+    mode: "onChange"
+  });
+  const { register, handleSubmit,control, formState: { errors } } = methods;
   const token = getToken();
 
   const userId = getIdFromToken(token);
@@ -69,7 +76,8 @@ export const SettingsPage = () => {
     <div className='settings-container'>
       <div className='settings-container-info'>
         <div className='settings'>Настройки аккаунта</div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
           <div className='flex-container'>
           <div>
           <div className='data-block'>
@@ -78,7 +86,7 @@ export const SettingsPage = () => {
             className='lstName'
               defaultValue={user.lastName}
               type="text"
-              {...register('lastName', {
+              {...methods.register('lastName', {
                 required: true,
                 maxLength: 20,
                 pattern: /^[a-zа-яё]+$/i
@@ -93,7 +101,7 @@ export const SettingsPage = () => {
           </div>
           <div className='data-block'>
             <p>Имя</p>
-            <input defaultValue={user.firstName} {...register('firstName',{
+            <input defaultValue={user.firstName} {...methods.register('firstName',{
                required: true,
                maxLength: 20,
                pattern: /^[a-zа-яё]+$/i
@@ -108,7 +116,7 @@ export const SettingsPage = () => {
           </div>
           <div className='data-block'>
             <p>Отчество</p>
-            <input defaultValue={user.patronymic} {...register('patronymic',{
+            <input defaultValue={user.patronymic} {...methods.register('patronymic',{
               required: true,
               maxLength: 30,
               pattern:  /^[a-zа-яё]+$/i
@@ -123,7 +131,8 @@ export const SettingsPage = () => {
           </div>
           <div className='data-block'>
             <p>Дата рождения</p>
-            <input type="date" id="datepicker"  {...register('birthDate')} />
+            <Datepicker control={control} name="birthDate" rules={{ required: true }}></Datepicker>
+          
           </div>
          
               <div className='data-block'>
@@ -162,7 +171,7 @@ export const SettingsPage = () => {
               <img className='settings-photo' src={photo}></img>
               <div className='data-block'>
                 <p>Ссылка на гитхаб</p>
-                <input defaultValue={user.gitHubAccount} {...register('gitHubAccount',{
+                <input defaultValue={user.gitHubAccount} {...methods.register('gitHubAccount',{
                   required:true,
                   pattern: /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/
                 })}></input>
@@ -170,7 +179,7 @@ export const SettingsPage = () => {
               </div>
               <div className='data-block'>
                 <p>Мобилочка</p>
-                <input type='tel' defaultValue={user.phoneNumber} {...register('phoneNumber',{
+                <input type='tel' defaultValue={user.phoneNumber} {...methods.register('phoneNumber',{
                   required:true,
                   pattern:/^[ 0-9]+$/
                 })}></input>
@@ -179,6 +188,7 @@ export const SettingsPage = () => {
             </div>
             </div>
         </form>
+        </FormProvider>
       </div>
       
 
