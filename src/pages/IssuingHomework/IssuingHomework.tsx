@@ -46,7 +46,7 @@ export const IssuingHomework = () => {
 
     const formData = {
       ...data,
-      links: '/',
+      links: '',
       isRequired: true,
       homework: {
         startDate: convertDate(data.homework.startDate),
