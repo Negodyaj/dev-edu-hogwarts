@@ -1,7 +1,7 @@
 @import "./src/style/colors";
 
 .content-container {
-  & a {
+  &>a {
     margin-top: -20px;
     margin-bottom: 20px;
 
@@ -10,7 +10,7 @@
     }
   }
 
-  .link-arrow {
+  &.link-arrow {
     place-self: baseline;
   }
 }

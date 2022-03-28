@@ -1,9 +1,11 @@
-import {useForm} from "react-hook-form";
+import {useForm, FormProvider, Controller} from "react-hook-form";
 import './IssuingHomework.scss'
-import {useEffect, useRef, useState} from "react";
 import {RadioGroup} from "../../components/RadioGroup/RadioGroup";
-import {FilterList} from "../../components/FilterList/FilterList";
 import Datepicker from "../../components/Datepicker/Datepicker";
+import {Button, ButtonType} from "../../components/Button/Button";
+import {baseWretch} from "../../services/base-wretch.service";
+import {addNewTaskUrl} from "../../shared/consts";
+import moment from "moment";
 
 export type AddTaskFormData = {
   name: string
@@ -12,7 +14,6 @@ export type AddTaskFormData = {
     startDate: string
     endDate: string
   }
-  task:number
   groupId: number
 }
 
@@ -32,67 +33,93 @@ const groups = [
 ]
 
 export const IssuingHomework = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<AddTaskFormData>();
-  const [secretValue, setSecretValue] = useState('');
-
-  // Тестовая ссылка, смотрела в консоли форму
-  // const refForm = useRef(null);
+  const method = useForm<AddTaskFormData>()
 
   // Мне с бека пока нечего тащить, группы не достать,
-  //  номера заданий из групп не достать ибо в существующих сча в бд тоже нет заданий)
+  // номера заданий из групп не достать ибо в существующих сча в бд тоже нет заданий)
 
+  const convertDate = (date: string) => {
+    return moment(new Date(date)).format('DD.MM.YYYY').toString()
+  }
 
-  // const onSubmit = (data: AddTaskFormData) => baseWretch()
-  //   .url(addNewTaskUrl)
-  //   .post(data)
+  const onSubmit = (data: AddTaskFormData) => {
+
+    const formData = {
+      ...data,
+      links: '/',
+      isRequired: true,
+      homework: {
+        startDate: convertDate(data.homework.startDate),
+        endDate: convertDate(data.homework.endDate)
+      }
+    }
+
+    baseWretch()
+      .url(addNewTaskUrl)
+      .post(formData)
+  }
 
   // Нет эндпоинта
-  const saveDraft = () => {};
+  // const saveDraft = () => {
+  // };
 
-  return(
-    <form className='form-container homework-form'>
-      <span>Новое задание</span>
+  return (
+    <FormProvider {...method}>
+    <form className='form-container homework-form' onSubmit={method.handleSubmit(onSubmit)}>
+      <span className='homework-form_title'>Новое задание</span>
 
       <div className='homework-form_area'>
         Номер группы:
-        <RadioGroup radioData={groups}/>
+        <RadioGroup radioData={groups} name='groupId'/>
       </div>
 
       <div className='homework-form_area'>
         Номер задания:
         {/* Не ясно как это передавать, точнее в теле метода нет такого поля) */}
-        <input className='secret-input' type="text" value={secretValue}  {...register("task", { required: true })}/>
+        <span className='homework-form_task'>1</span>
       </div>
 
       <div className='homework-form_dates'>
         <div>
           Дата выдачи задания
-          <Datepicker label="homework.startDate" {...register("homework.startDate")} required={true}/>
+          <Controller
+            name="homework.startDate"
+            control={method.control}
+            rules={{required: true}}
+            render={({field}) => <Datepicker field={field}/>}
+          />
         </div>
         <div>
           Срок сдачи задания
-          <Datepicker label="homework.endDate" {...register("homework.endDate")} required={true}/>
+          <Controller
+            name="homework.endDate"
+            control={method.control}
+            rules={{required: true}}
+            render={({field}) => <Datepicker field={field}/>}
+          />
         </div>
       </div>
 
       <div className='homework-form_area'>
         Название задания
-        <input className='form-input' type="text" placeholder='Введите название' {...register("name", { required: true })}/>
-        {errors.name && "нада название"}
+        <input className='form-input' type="text"
+               placeholder='Введите название' {...method.register("name", {required: true})}/>
       </div>
 
       <div className='homework-form_area'>
         Описание задания
-        <textarea className='form-input' placeholder='Введите текст' {...register("description", { required: true })}/>
+        <textarea className='form-input' placeholder='Введите текст' {...method.register("description", {required: true})}/>
       </div>
 
       <div>
-        <button type="submit">Опубликовать</button>
-        <button type="button" onClick={() => saveDraft}>Сохранить как черновик</button>
-        {/* Линка обратно */}
-        <button type="reset">Отмена</button>
+
+        <Button text='Опубликовать' type={ButtonType.Colored}/>
+        <Button text='Сохранить как черновик' type={ButtonType.White}/>
+        <Button text='Отмена' type={ButtonType.Text} url={'/'}/>
+
       </div>
 
     </form>
+    </FormProvider>
   )
 }

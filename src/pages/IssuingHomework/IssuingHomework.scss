@@ -6,11 +6,16 @@
   font-weight: 500;
   font-size: 18px;
 
-  & span:not(& label>span, .rdtPrev span,
-.rdtNext span) {
+
+  & .homework-form_title {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 51px;
+  }
+
+  .homework-form_task {
+    font-weight: inherit;
+    margin-left: 50px;
   }
 
   .homework-form_dates {

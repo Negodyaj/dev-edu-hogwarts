@@ -1,27 +1,28 @@
-import {forwardRef, useState} from 'react';
+import {useState} from 'react';
 import Datetime from 'react-datetime';
 import './Datepicker.scss';
 import 'moment/locale/ru';
 import {SvgLessons} from "../SvgIcon/SvgFiles/SvgLessons";
-import {UseFormRegister} from "react-hook-form";
-import {AddTaskFormData} from "../../pages/IssuingHomework/IssuingHomework";
 
-const Datepicker = forwardRef<HTMLInputElement,{ label: string } & ReturnType<UseFormRegister<AddTaskFormData>>>((props, ref) => {
+type DPprops = {
+  field?: any
+}
+
+const Datepicker = (props: DPprops) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <Datetime locale='ru'
+              {...props.field}
               initialValue={new Date()}
               renderInput={(propsInput: string, openCalendar: Function) => {
                 return (
                   <div className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}
                        onBlur={() => setIsOpen(false)}>
 
-                    <input type='text' {...propsInput}
-                           onChange={props.onChange}
+                    <input type='text'
                            onFocus={() => setIsOpen(true)}
-                           onBlur={props.onBlur}
-                           ref={ref}
+                           {...propsInput}
                     />
 
                     <button className='date-picker__button'
@@ -39,8 +40,9 @@ const Datepicker = forwardRef<HTMLInputElement,{ label: string } & ReturnType<Us
                 )
               }}
               dateFormat="DD.MM.YYYY"
-              timeFormat={false}/>
+              timeFormat={false}
+    />
   );
-})
+}
 
 export default Datepicker;

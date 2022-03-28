@@ -1,8 +1,9 @@
-import './RadioButton.scss' 
+import './RadioButton.scss'
+import {useFormContext} from "react-hook-form";
 
 export type RadioProps = {
   data: RadioData
-  numberOfRadioGroup: number;
+  nameOfRadioGroup: string
 }
 
 export type RadioData = {
@@ -10,11 +11,12 @@ export type RadioData = {
   value: number
 }
  
-export const RadioButton = (props: RadioProps) => { 
+export const RadioButton = (props: RadioProps) => {
+  const { register } = useFormContext();
  
   return ( 
     <label className="radio-button" >
-      <input type="radio" name={`radio${props.numberOfRadioGroup}`} value={props.data.value}/>
+      <input type="radio" value={props.data.value} {...register(`${props.nameOfRadioGroup}`)}/>
       <span className="radio-text">{props.data.text}</span>
     </label>
   ) 
