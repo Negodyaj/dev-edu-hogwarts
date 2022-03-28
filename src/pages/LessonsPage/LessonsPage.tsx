@@ -33,12 +33,12 @@ export const LessonsPage = () => {
       <RadioGroup radioData={ [
         {
           value: 1,
-          text: 'Группа 1',
+          name: 'Группа 1',
           numberOfRadioGroup: 1,
         },
         {
           value: 2,
-          text: 'Группа 2',
+          name: 'Группа 2',
           numberOfRadioGroup: 1,
         },
       ] }

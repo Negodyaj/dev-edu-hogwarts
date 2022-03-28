@@ -11,11 +11,11 @@ export type LoginFormData = {
 
 export const LoginPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
-  const [course, setCourse] = useState<any>();
+  const [course, setCourse] = useState<any>({});
 
   useEffect(() => {
     baseWretch()
-    .url('api/Course/1/simple')
+    .url('api/Courses/1/simple')
     .get()
     .json(data => setCourse(data))
   }, []);
@@ -29,7 +29,7 @@ export const LoginPage = () => {
 
   return (
     <>
-    {/* { course.name } */}
+    { course.name }
       <br /><br /><br /><br />
       <form onSubmit={handleSubmit(onSubmit)}>
         <input placeholder="example@mail.ru" {...register("email", { required: true })} />
