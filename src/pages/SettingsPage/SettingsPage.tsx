@@ -16,6 +16,7 @@ import { text } from 'stream/consumers';
 import { SvgPencil } from '../../components/SvgIcon/SvgFiles/SvgPencil';
 import { Datepicker } from '../../components/Datepicker/Datepicker';
 import { date } from 'yup';
+import  {LoginFormData} from '../LoginPage/LoginPage';
 export type UserFormData = {
   id: 1,
   firstName: string,
