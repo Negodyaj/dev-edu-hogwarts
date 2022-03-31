@@ -1,4 +1,4 @@
-import { Icon } from '../../shared/enums/Icon';
+import { Icon } from "../../shared/enums/Icon";
 import { SvgNotifications } from "./SvgFiles/SvgNotifications";
 import { SvgLessons } from "./SvgFiles/SvgLessons";
 import { SvgHomeWorks } from "./SvgFiles/SvgHomeworks";
@@ -11,10 +11,12 @@ import { SvgComputer } from "./SvgFiles/SvgComputer";
 import { SvgCookie } from "./SvgFiles/SvgCookie";
 import { SvgExit } from './SvgFiles/SvgExit';
 import { SvgBell } from './SvgFiles/SvgBell';
+import { SvgPicture } from "./SvgFiles/SvgPicture";
+import { SvgPlus } from './SvgFiles/SvgPlus';
 
 export type SvgIconProps = {
   icon: Icon;
-}
+};
 
 export const SvgIcon = (props: SvgIconProps) => {
   switch (props.icon) {
@@ -42,7 +44,11 @@ export const SvgIcon = (props: SvgIconProps) => {
         return <SvgExit/>
     case Icon.Bell:
         return <SvgBell/>
+    case Icon.Picture:
+      return <SvgPicture />;
+    case Icon.Plus:
+      return <SvgPlus />;
     default:
       return <></>;
   }
-}
+};
