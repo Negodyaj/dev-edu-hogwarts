@@ -11,7 +11,7 @@ export const RadioGroup = (props: RadioProps) => {
     <>
       <div className="radio-group">
         {
-          props.radioData.map((item) => (<RadioButton data={item} />))
+          props.radioData.map((item) => (<RadioButton key={item.id} data={item} />))
         }
       </div>    
     </>

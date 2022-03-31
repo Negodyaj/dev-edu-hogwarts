@@ -29,7 +29,8 @@ export const AddingNewLessonPage = () => {
     }, []);
 
     const onSubmit = (data: LessonsData) => baseWretch()
-      .url("/api/Lesson")
+    // непонятный метод пост
+      .url(`/api/Groups/${groups.id}/lesson/{lessonId}`)
       .post(data)
       .json(res => res.json());
 

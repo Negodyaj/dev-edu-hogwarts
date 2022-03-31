@@ -23,7 +23,8 @@ export const LoginPage = () => {
   const onSubmit = (data: LoginFormData) => baseWretch()
     .url(loginUrl)
     .post(data)
-    .text(token => setToken(token));
+    .text(token => setToken(token)
+    );
 
 
 

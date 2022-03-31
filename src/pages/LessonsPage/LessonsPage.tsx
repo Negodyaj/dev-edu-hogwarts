@@ -29,26 +29,10 @@ export const LessonsPage = () => {
   }
 
   return (
-    <>
-      <RadioGroup radioData={ [
-        {
-          value: 1,
-          name: 'Группа 1',
-          numberOfRadioGroup: 1,
-        },
-        {
-          value: 2,
-          name: 'Группа 2',
-          numberOfRadioGroup: 1,
-        },
-      ] }
-      />
-      
-      <div className="lessons-container">
+    <div className="lessons-container">
       {
         lessons.map(lesson => <Lesson data={lesson} id={lesson.id} key={lesson.id} activeLessonId={activeLesson} onClick={onElementClick}/>)
       }
       </div>
-    </>
   )
 }
