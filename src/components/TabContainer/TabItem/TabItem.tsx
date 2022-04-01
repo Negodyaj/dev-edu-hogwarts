@@ -3,6 +3,7 @@ import './TabItem.scss'
  
 import { SvgIcon } from "../../SvgIcon/SvgIcon"; 
 import { Icon } from "../../../shared/enums/Icon"; 
+import { TabData } from "../../../models/TabData";
    
 export type TabProps = { 
   data: TabData
@@ -10,11 +11,7 @@ export type TabProps = {
   onClick: (id: number) => void
 } 
      
-export type TabData = { 
-  id: number
-  text: string
-  icon: Icon
-} 
+
  
 export const TabItem = (props: TabProps) => { 
  
