@@ -33,7 +33,7 @@ export const LessonsPage = () => {
         {id: 2, icon: Icon.Calendar, text: 'Специализация Backend'},
         {id: 3, icon: Icon.Computer, text: 'Специализация Frontend'},
         {id: 4, icon: Icon.Cake, text: 'Специализация QA'},
-        ] }
+        ] } selectedTab={0}
       />
       
       <div>Занятия</div>
