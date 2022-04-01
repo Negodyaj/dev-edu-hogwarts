@@ -5,8 +5,7 @@ import {useDetectClickOutside} from "react-detect-click-outside";
 export type FilterListProps = {
   data: Array<Filter>
   type: string
-  innerRef?: React.MutableRefObject<HTMLInputElement | null>
-  callback: Function
+  callback?: Function
 };
 
 export type Filter = {
@@ -30,7 +29,6 @@ export const FilterList = (props: FilterListProps) => {
   return (
     <div className='drop-down-filter__wrapper' ref={clickOutside}>
       <div className={`drop-down-filter ${props.type}`}
-           ref={props.innerRef}
            onKeyPress={() => toggle()}
            onClick={() => toggle()}
            data-lesson-id={item.id}
@@ -53,10 +51,7 @@ export const FilterList = (props: FilterListProps) => {
                   elem =>
                     <li key={elem.id}
                         className={`drop-down-filter__element ${elem.id === item.id ? 'selected' : ''}`}
-                        onClick={() => {
-                          setItem(elem);
-                          props.callback(elem.id.toString());
-                        }}
+                        onClick={() => setItem(elem)}
                     >
                       {elem.name}
                     </li>

@@ -56,7 +56,7 @@ export const HomeworksPage = () => {
         {
           id: 3, name: 'Этот месяц'
         }
-      ]} type='' callback={() => {}}/>
+      ]} type=''/>
       <FilterList data={[
         {
           id: 1, name: 'Все'
@@ -73,7 +73,7 @@ export const HomeworksPage = () => {
         {
           id: 5, name: 'Это десятилетие'
         },
-      ]} type='table' callback={() => {}}/>
+      ]} type='table'/>
 
       {
         revertedArray.map(item =>
