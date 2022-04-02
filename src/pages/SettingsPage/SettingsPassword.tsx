@@ -5,7 +5,6 @@ import { baseWretch } from "../../services/base-wretch.service";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import '../SettingsPage/SettingsPage.scss';
-import { LoginFormData, password } from "../LoginPage/LoginPage";
 
 export type FormPasswordData = {
   oldPassword: string,
@@ -30,7 +29,7 @@ export const SettingsPassword = () => {
     //   }
     // });
     .res((res) => {
-      if (res.status==403){
+      if (res.status == 403) {
         setIsOk(true);
       }
       console.log(res)
@@ -48,9 +47,8 @@ export const SettingsPassword = () => {
 
 
   });
-  console.log(password)
+
   const formOptions = { resolver: yupResolver(validationSchema()) };
-  console.log(password);
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormPasswordData>(formOptions);
 
   return (

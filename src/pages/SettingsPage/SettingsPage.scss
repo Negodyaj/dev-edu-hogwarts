@@ -15,7 +15,7 @@ p {
   line-height: 21px;
 }
 .data-block {
-  margin-bottom: 28px;
+  margin-bottom: 29px;
   input,
   .goto-change-password {
     width: 437px;
@@ -28,6 +28,7 @@ p {
   }
 }
 .goto-change-password {
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;

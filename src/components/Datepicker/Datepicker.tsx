@@ -6,22 +6,22 @@ import { SvgLessons } from "../SvgIcon/SvgFiles/SvgLessons";
 import {  useFormContext, useController, UseControllerProps } from 'react-hook-form';
 import {UserFormData} from '../../pages/SettingsPage/SettingsPage';
 
+export type DPProps={
+  field : any;
+};
 
 
-
-export const Datepicker = (props: UseControllerProps<UserFormData>) => {
+export const Datepicker = (props: DPProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const methods = useFormContext();
-  const { field } = useController(props);
   return (
     <Datetime locale='ru'
-      {...props}
+      {...props.field}
       initialValue={new Date()}
       renderInput={(props: string, openCalendar: Function) => {
         return (
           <div className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}>
 
-            <input {...field} d type='text' {...methods.register('birthDate')}  {...props}
+            <input  type='text' {...props}
 
 
             />
