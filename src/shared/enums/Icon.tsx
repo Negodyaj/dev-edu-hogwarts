@@ -9,5 +9,8 @@ export const enum Icon {
   Lessons,
   Homeworks,
   Settings,
+  Picture,
+  Plus
+  Settings,
   Pencil
 }
