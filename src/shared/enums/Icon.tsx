@@ -10,7 +10,6 @@ export const enum Icon {
   Homeworks,
   Settings,
   Picture,
-  Plus
-  Settings,
+  Plus,
   Pencil
 }
