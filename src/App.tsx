@@ -1,5 +1,5 @@
 import './App.scss';
-import { Route, Link, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { HomeworksPage } from './pages/HomeworksPage/HomeworksPage';
 import { LessonsPage } from './pages/LessonsPage/LessonsPage';
 import { NotificationsPage } from './pages/NotificationsPage/NotificationsPage';
@@ -8,28 +8,16 @@ import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
 import { InputLink } from './Components/InputLink/InputLink';
 import { InputTextarea } from './Components/InputTextarea/InputTextarea';
+import {MainPanel} from './components/MainPanel/MainPanel';
+import {CoursesPage} from "./pages/CoursesPage/CoursesPage";
+import {EditCoursesPage} from "./pages/CoursesPage/EditCoursesPage";
+
+
 
 function App() {
   return (
-    <>
-      <aside>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Notifications</Link>
-            </li>
-            <li>
-              <Link to="/homeworks">Homeworks</Link>
-            </li>
-            <li>
-              <Link to="/lessons">Lessons</Link>
-            </li>
-            <li>
-              <Link to="/settings">Settings</Link>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+    <div className='flex-container'>
+      <MainPanel/>
       <main>
         <InputLink placeholder='Ссылка на GitHub или архив' />
         <InputTextarea placeholder='Напишите комментарий' />
@@ -38,11 +26,13 @@ function App() {
           <Route path="homeworks" element={<HomeworksPage />} />
           <Route path="lessons" element={<LessonsPage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="courses" element={<CoursesPage />} />
+          <Route path="edit-courses" element={<EditCoursesPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
-        </Routes>
+        </Routes> 
       </main>
-    </>
+    </div>
   );
 }
 

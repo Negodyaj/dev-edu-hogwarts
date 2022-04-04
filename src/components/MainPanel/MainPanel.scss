@@ -1,0 +1,23 @@
+.main-panel {
+  max-width: 360px;
+  background-color: white;
+  height: 100vh;
+  padding: 42px 42px 70px 90px;
+
+  .panel-container {
+    margin: 42px 42px 0px 73px;
+  }
+
+  .content-container {
+    margin: 0 17px;
+  }
+
+  .logo {
+    padding-right: 13px;
+  }
+
+  .avatar-block {
+    position: relative;
+    margin-top: 90px;
+  }
+}
