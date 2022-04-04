@@ -8,14 +8,16 @@ import { Button, ButtonType } from "../../components/Button/Button";
 
 export type GroupFormData = {
   name: string;
-  teacher: string;
-  tutor: string;
+  teacherId: number;
+  tutorId: number;
+  // teacher: string[];
+  // tutor: string[];
 };
 
 export type User = {
   id: number;
   firstName: string;
-  secondName: string;
+  lastName: string;
   roles: string[];
 };
 
@@ -27,11 +29,17 @@ export const NewGroupePage = () => {
   } = useForm<GroupFormData>();
   const [users, setUsers] = useState<any>([]);
 
-  let tutors: User[];
+  let tutors: User[]=[];
 
-  const getTutors = (users as User[]).forEach((user) => {
-    if (user.roles.includes("tutor")) tutors.push(user);
-  });
+  (users as User[]).forEach(user => {
+    if (user.roles.includes("Tutor"))
+    tutors.push(user);});
+
+  let teachers:User[]=[];
+
+  (users as User[]).forEach(user=> {
+    if (user.roles.includes("Teacher")) 
+    teachers.push(user);});
 
   useEffect(() => {
     baseWretch()
@@ -40,28 +48,8 @@ export const NewGroupePage = () => {
       .json((data) => {
         setUsers(data);
       });
-    getTutors;
   }, []);
 
-  //   } )
-
-  // }
-  // const arrayTutors=tutors();
-
-  // const tutors=()=> {
-  //   (users as User[]).map((user) => {
-  //     if (user.roles.includes('tutor'))
-  //     return user;
-  //   } )
-
-  // }
-
-  // useEffect(() => {
-  //   baseWretch()
-  //   .url(UsersUrl)
-  //   .get()
-  //   .json(data => setTutor(data))
-  // }, []);
 
   const onSubmit = (data: GroupFormData) =>
     baseWretch()
@@ -82,17 +70,27 @@ export const NewGroupePage = () => {
           {errors.name && <span>Вы не указали название</span>}
           <div className="teachers-list">
             <span>Преподаватель:</span>
-            {tutors}
-            {/* {(tutors[0] as User).firstName} */}
-            {/* <label>
-        <input type="checkbox">
-        <span>Фамилия Имя</span>
-  </label>*/}
-
-            {/* { users[0].firstName } */}
+            {teachers.map((teacher)=>(
+              <label>
+              <input
+              key={teacher.id}
+              type="checkbox"
+              value={teacher.id}
+              {...register("teacherId", { required: 'Выберите преподавателя' })}/>
+              {teacher.firstName + ' ' + teacher.lastName}
+              </label>))}
           </div>
           <div className="tutors-list">
             <span>Тьютор:</span>
+            {tutors.map((tutor)=>(
+              <label>
+              <input
+              key={tutor.id}
+              type="checkbox"
+              value={tutor.id}
+              {...register("tutorId", { required: 'Выберите тьютора' })}/>
+              {tutor.firstName+' ' + tutor.lastName}
+              </label>))}
           </div>
           <button type="submit">Сохранить</button>
           <Button type={ButtonType.Text} text="Отмена" />
