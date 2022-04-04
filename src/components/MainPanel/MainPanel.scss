@@ -4,19 +4,20 @@
     padding: 42px 42px 70px 90px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 
-    .panel-container {
-        margin: 42px 42px 0px 73px;
-    }
+  .panel-container {
+    margin: 42px 42px 0px 73px;
+  }
 
-    .content-container {
-        margin: 0 17px;
-    }
+  .content-container {
+    margin: 0 17px;
+  }
 
-    .logo {
-        padding-right: 13px;
-    }
-    
-    .avatar-block {
-        margin-top: 90px;
-    }
+  .logo {
+    padding-right: 13px;
+  }
+
+  .avatar-block {
+    position: relative;
+    margin-top: 90px;
+  }
 }

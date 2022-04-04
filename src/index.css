@@ -5,22 +5,44 @@
 
 body {
   margin: 0;
+  background-color: #F6F7F9;
   font-family: 'Raleway';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+::-moz-selection{
+  background-color: #EBE3F8;
+}
+
+::selection{
+  background-color: #EBE3F8;
+}
+
 .content-container {
   background: #FFFFFF;
-  width: 100%;
+  width: 940px;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
   border-radius: 15px;
-  padding: 50px 45px 46px 45px;
+  padding: 50px 45px;
 }
 
 .margin-common-content {
   margin: 70px 120px 70px 20px;
 }
+
 .flex-container {
   display: flex;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #8a8a8a;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #8a8a8a;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #8a8a8a;
 }

@@ -10,9 +10,6 @@ export type ButtonProps = {
 
 export const ButtonNavigation = (props: ButtonProps) => {
   const location = useLocation();
-  console.log('current button:');
-  console.log(props.data.path);
-  console.log(location);
 
   return (
     <Link

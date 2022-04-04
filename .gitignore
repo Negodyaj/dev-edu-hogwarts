@@ -3,7 +3,6 @@
 # dependencies
 /node_modules
 /.pnp
-/.idea
 .pnp.js
 
 # testing
@@ -22,7 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-/.idea/.gitignore
-/.idea/dev-edu-hogwarts.iml
-/.idea/modules.xml
-/.idea/vcs.xml
