@@ -10,14 +10,12 @@ import {MainPanel} from './components/MainPanel/MainPanel';
 import {CoursesPage} from "./pages/CoursesPage/CoursesPage";
 import {EditCoursesPage} from "./pages/CoursesPage/EditCoursesPage";
 
-
-
 function App() {
   return (
     <div className='flex-container'>
       <MainPanel/>
       <main>
-        { <Routes>
+        <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
           <Route path="lessons" element={<LessonsPage />} />
@@ -26,7 +24,7 @@ function App() {
           <Route path="edit-courses" element={<EditCoursesPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
-        </Routes> }
+        </Routes> 
       </main>
     </div>
   );
