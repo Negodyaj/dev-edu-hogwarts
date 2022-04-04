@@ -1,11 +1,7 @@
-import { TabContainer, TabContainerProps } from "../../components/TabContainer/TabContainer";
-import { Icon } from "../../shared/enums/Icon";
 import { useState } from "react";
 import { Lesson, LessonModel } from "./components/Lesson";
-import { RadioGroup } from "../../components/RadioGroup/RadioGroup"
-import { RadioButton, RadioData } from "../../components/RadioGroup/RadioButton/RadioButton";
-
-
+import {TabContainer} from "../../components/TabContainer/TabContainer";
+import {Icon} from "../../shared/enums/Icon";
 
 
 export const LessonsPage = () => {
