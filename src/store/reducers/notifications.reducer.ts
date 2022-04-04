@@ -1,11 +1,13 @@
 import { Reducer } from 'redux';
-import { LOAD_TABS, NotificationsPageAction, SELECT_TAB } from '../../actions/notifications.actions';
+import { SET_CURRENT_USER, LOAD_TABS, NotificationsPageAction, SELECT_TAB } from '../../actions/notifications.actions';
+import { UserResponse } from '../../models/responses/UserResponse';
 import { TabData } from '../../models/TabData';
 import { Icon } from '../../shared/enums/Icon';
 
 export interface NotificationsPageState {
   tabs: TabData[];
   selectedTab: number;
+  currentUser?: UserResponse;
 }
 
 const tabsMock = [
@@ -26,7 +28,8 @@ const tabsMock = [
 
 const initialState: NotificationsPageState = {
   tabs: [],
-  selectedTab: 1
+  selectedTab: 1,
+  currentUser: undefined
 };
 
 export const notificationsPageReducer: Reducer<NotificationsPageState, NotificationsPageAction> = 
@@ -42,6 +45,12 @@ export const notificationsPageReducer: Reducer<NotificationsPageState, Notificat
         return {
           ...state,
           tabs: tabsMock
+        }
+      }
+      case SET_CURRENT_USER: {
+        return {
+          ...state,
+          currentUser: action.payload
         }
       }
       default:

@@ -11,14 +11,12 @@ import {CoursesPage} from "./pages/CoursesPage/CoursesPage";
 import {EditCoursesPage} from "./pages/CoursesPage/EditCoursesPage";
 import {IssuingHomework} from "./pages/IssuingHomework/IssuingHomework";
 
-
-
 function App() {
   return (
     <div className='flex-container'>
       <MainPanel/>
       <main>
-        { <Routes>
+        <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
           <Route path="lessons" element={<LessonsPage />} />
@@ -28,7 +26,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
           <Route path="issuing-homework" element={<IssuingHomework />} />
-        </Routes> }
+        </Routes>
       </main>
     </div>
   );
