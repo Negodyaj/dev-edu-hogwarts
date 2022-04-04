@@ -5,8 +5,11 @@
   padding: 13px 15px;
   color: black;
   
+  & svg {
+    flex-shrink: 0;
+  }
+
   & .links-name {
-    overflow: hidden;
     margin-left: 15px;
     width: 175px;
     transition: width 0.5s ease-in-out, margin 0.4s ease-in-out, opacity .3s ease-in-out;
@@ -30,6 +33,6 @@
 }
 
 .nav-link + .nav-link {
-  margin-top: 35px;
+  margin-top: 23px;
 }
 

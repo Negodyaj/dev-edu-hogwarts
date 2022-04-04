@@ -1,35 +1,33 @@
 .main-panel {
+  min-width: 360px;
   width: 360px;
   background-color: white;
   padding: 42px 42px 70px 67px;
   position: relative;
-  transition: width ease-in-out 0.5s, padding ease-in-out 0.5s;
+  transition: width ease-in-out 0.5s, padding-left ease-in-out 0.5s, margin ease-in-out 0.5s;
   box-shadow: 4px 7px 15px #0000001A;
   height: 100vh;
   overflow: hidden;
+  margin-right: 20px;
+  white-space: nowrap;
   
   &>.top-part {
     padding-left: 23px;
     padding-bottom: 57px;
   }
   .avatar-block {
-    padding: 52px 10px 0 0;
+    padding-top: 52px;
+    width: fit-content;
   }
   
-  .logo-container {
-    min-width: 151px;
-    padding-left: 1px;
-  }
-
   .logo {
-    width: 40px;
-    height: 21px;
+    flex-shrink: 0;
+    font-size: 0;
   }
   
   .logo-name {
     margin-left: 13px;
-    width: 138px;
-    height: 15px;
+    flex-shrink: 0;
   }
 
   .bottom-part {
@@ -54,7 +52,12 @@
 .collapsed {
   &.main-panel {
     width: 94px;
+    min-width: 94px;
     padding: 42px 20px 0 20px;
+
+    .avatar-block {
+      margin: 0 auto;
+    }
 
     .collapse-button {
       display: block;
@@ -62,23 +65,25 @@
 
     .left-chevron {
       transform: scale(-1, 1);
-      transition: ease-in-out 1s;
+      transition: ease-in-out 0,75s;
     }
   }
-
-  .nav-link .links-name {
-    width: 0;
-    margin-left: 0;
-    opacity: 0;
-  }
-
-  .logo-name, .bottom-part>.exit>div, .avatar-name, .avatar-role {
-      transform: scale(0, 1);
-      transition: ease-in-out 0.5s;
-  }
   
+  .nav-link .links-name, .bottom-part>.exit>div, .avatar-name, .avatar-role, .logo-name, .wrapper {
+    width: 0;
+    font-size: 0;
+    margin-left: 0;
+    margin-right: 0;
+    opacity: 0;
+    
+  }
+  .logo-container {
+    justify-content: center;
+    flex-shrink: 0;
+  }
   .top-part {
-    padding-left: 4px;
+    padding-left: 0;
+    margin: 0 auto;
   }
   
   &.bottom-part>button {
