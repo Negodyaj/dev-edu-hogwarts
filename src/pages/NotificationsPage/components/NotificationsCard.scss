@@ -1,9 +1,6 @@
 .card-container {
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
   border-radius: 15px;
-  margin: 118px 120px 0px 20px;
-  width: 100%;
-}
 .notification-card-content {
   padding-left: 30px;
   font-family: "Raleway";
@@ -12,7 +9,7 @@
   padding-bottom: 26px;
 }
 .notification-card-content:last-child{
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 .notification-card {
   display: flex;
@@ -24,6 +21,7 @@
     width: 45px;
     height: 45px;
     margin-left: 15px;
+    margin-bottom:100px;
   }
 }
 
@@ -31,9 +29,9 @@
   content: "";
   position: absolute;
   top: 100%;
-  left: 28px;
+  left: 56px;
   border-bottom: 1px solid #dbdbdb;
-  width: calc(100% - 60px);
+  width: calc(100% - 85px);
 }
 .sender-name {
   font-weight: 700;
@@ -99,4 +97,13 @@
 }
 .round{
   padding-left: 22px;
+  margin-bottom: 100px;
+}}
+.content-container a {
+  margin-top: 8px !important;
+  margin-bottom: 0px !important;
+
+}
+.link-arrow{
+  max-width: 101px;
 }

@@ -20,7 +20,7 @@ export const NotificationsCard = (props: NotificationsProps) => {
     setCollapsed(!isCollapsed);
   }
   return (
-    <div className="notification-card">
+    <div className="notification-card ">
       <div className="round">
       <input id='isChecked' type='checkbox' onClick={handleClick} checked={isCollapsed}  className={`button-read${isCollapsed==true?  `-clicked` : ``  }`} ></input>
       </div>
