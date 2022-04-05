@@ -1,10 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import {useState} from 'react';
 import Datetime from 'react-datetime';
 import './Datepicker.scss';
 import 'moment/locale/ru';
-import { SvgLessons } from "../SvgIcon/SvgFiles/SvgLessons";
-import {  useFormContext, useController, UseControllerProps } from 'react-hook-form';
-import {UserFormData} from '../../pages/SettingsPage/SettingsPage';
+import {SvgLessons} from "../SvgIcon/SvgFiles/SvgLessons";
 
 type DPprops = {
   field?: any
@@ -13,13 +11,10 @@ type DPprops = {
 const Datepicker = (props: DPprops) => {
   const [isOpen, setIsOpen] = useState(false)
 
-
-export const Datepicker = (props: DPProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <Datetime locale='ru'
               {...props.field}
-              initialValue={new Date()}
+              initialValue={new Date().getDate}
               renderInput={(propsInput: string, openCalendar: Function) => {
                 return (
                   <div className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}
@@ -38,7 +33,7 @@ export const Datepicker = (props: DPProps) => {
                             }}
                             onBlur={() => setIsOpen(false)}>
 
-            />
+                      <SvgLessons/>
 
                     </button>
                   </div>

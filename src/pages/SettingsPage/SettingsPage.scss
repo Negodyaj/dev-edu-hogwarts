@@ -115,3 +115,10 @@ display: none;
 .is-invalid{
   background-color: red;
 }
+.max-width-datepicker{
+  max-width: 438px;
+}
+input:focus { 
+  outline: none !important;
+  border-color: #A786DF;
+}

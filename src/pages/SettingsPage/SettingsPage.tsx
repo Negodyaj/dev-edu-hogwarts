@@ -8,7 +8,7 @@ import '../../components/SvgIcon/SvgIcon';
 import { Link } from "react-router-dom";
 import photo from '../../components/images/avatar_settings.png';
 import { SvgPencil } from '../../components/SvgIcon/SvgFiles/SvgPencil';
-import { Datepicker } from '../../components/Datepicker/Datepicker';
+import  Datepicker  from '../../components/Datepicker/Datepicker';
 
 export type UserFormData = {
   id: 1,
@@ -25,6 +25,7 @@ export type UserFormData = {
 }
 
 export const SettingsPage = () => {
+
   const methods = useForm<UserFormData>({
     defaultValues: {
       birthDate: ""
@@ -41,8 +42,25 @@ export const SettingsPage = () => {
       .get()
       .json((data: any) => setUser(data))
   }, []);
+   
+  const FormattingDate=(str: string)=>{
+    var conv = str.toString();
+    var splitted = conv.split(" ");
+     var r = splitted.slice(1,4);
+     var temp = r[1];
+     r[1]=r[0];
+     r[0]=temp;
+     var res = '';
+     for(let i =0; i<=r.length-1; i++){
+       res += r[i];
+       if(i!=r.length-1){
+         res += "/";
+       }
+     }
+     return res;
+  }
 
-  const onSubmit = (data: UserFormData) => baseWretch()
+  const onSubmit  = (data: UserFormData) => baseWretch()
     .url('api/Users/' + userId)
     .put({
       id: user.id,
@@ -51,7 +69,7 @@ export const SettingsPage = () => {
       patronymic: data.patronymic,
       email: data.email,
       password: data.password,
-      birthDate: data.birthDate,
+      birthDate: FormattingDate(data.birthDate),
       gitHubAccount: data.gitHubAccount,
       phoneNumber: data.phoneNumber,
       city: 1,
@@ -115,7 +133,7 @@ export const SettingsPage = () => {
                 </div>
                 <div className='data-block'>
                   <p>Дата рождения</p>
-                  <div className='date-picker-settings'>
+                  <div className='date-picker-settings max-width-datepicker'>
                     <Controller
                       name="birthDate"
                       control={methods.control}
@@ -137,7 +155,7 @@ export const SettingsPage = () => {
                       <div className='circle-password'></div>
                       <div className='circle-password'></div>
                     </div>
-                    {/* <Link to={'/settings/change-password'}><SvgPencil></SvgPencil></Link> */}
+                    <Link to={'#'}><SvgPencil></SvgPencil></Link>
                   </div>
                 </div>
                 <div className='data-block'>
@@ -155,7 +173,7 @@ export const SettingsPage = () => {
               <div className='margin-left-inputs'>
                 <img className='settings-photo' src={photo}></img>
                 <div className='data-block'>
-                  <p>Ссылочка</p>
+                  <p>Ссылка на GitHub</p>
                   <input defaultValue={user.gitHubAccount} {...methods.register('gitHubAccount', {
                     required: true,
                     pattern: /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/
@@ -163,7 +181,7 @@ export const SettingsPage = () => {
                   {errors?.gitHubAccount?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
                 </div>
                 <div className='data-block'>
-                  <p>Мобилочка</p>
+                  <p>Телефон</p>
                   <input type='tel' defaultValue={user.phoneNumber} {...methods.register('phoneNumber', {
                     required: true,
                     pattern: /^[ 0-9]+$/
