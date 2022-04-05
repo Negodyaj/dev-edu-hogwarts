@@ -14,7 +14,7 @@ const Datepicker = (props: DPprops) => {
   return (
     <Datetime locale='ru'
               {...props.field}
-              initialValue={new Date().getDate}
+              initialValue={new Date()}
               renderInput={(propsInput: string, openCalendar: Function) => {
                 return (
                   <div className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}
