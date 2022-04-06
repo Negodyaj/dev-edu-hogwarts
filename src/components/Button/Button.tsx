@@ -5,30 +5,52 @@ import { Icon } from "../../shared/enums/Icon";
 export type ButtonProps = {
   text: string;
   type: ButtonType;
+  model: ButtonModel;
   icon?: Icon;
   url?: string;
   link?: "btn-link";
 };
 
-export enum ButtonType {
+export enum ButtonModel {
   White,
   Colored,
   Text,
 }
 
+export enum ButtonType {
+submit='submit',
+reset='reset',
+button='button'
+}
+
 export const Button = (props: ButtonProps) => {
   const buttonClass = (() => {
-    switch (props.type) {
-      case ButtonType.White:
+    switch (props.model) {
+      case ButtonModel.White:
         return "btn-white-with-border";
-      case ButtonType.Colored:
+      case ButtonModel.Colored:
         return "btn-fill";
-      case ButtonType.Text:
+      case ButtonModel.Text:
         return "btn-text";
       default:
         return "";
     }
   })();
+
+  
+// export const Button = (props: ButtonProps) => {
+//   const buttonClass = (() => {
+//     switch (props.type) {
+//       case ButtonType.button:
+//         return "btn-white-with-border";
+//       case ButtonType.reset:
+//         return "btn-fill";
+//       case ButtonType.submit:
+//         return "btn-text";
+//       default:
+//         return "";
+//     }
+//   })();
 
   let buttonImg;
 
@@ -42,7 +64,7 @@ export const Button = (props: ButtonProps) => {
       {buttonImg}
     </a>
   ) : (
-    <button className={`btn ${buttonClass}`}>
+    <button className={`btn ${buttonClass}`} type={props.type}>
       {props.text}
       {buttonImg}
     </button>

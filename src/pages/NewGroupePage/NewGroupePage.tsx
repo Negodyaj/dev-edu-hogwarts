@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { setToken } from "../../services/auth.service";
 import { baseWretch } from "../../services/base-wretch.service";
 import { UsersUrl } from "../../shared/consts";
 import { AddNewGroupUrl } from "../../shared/consts";
-import { Button, ButtonType } from "../../components/Button/Button";
+import { Button, ButtonModel, ButtonType } from "../../components/Button/Button";
 
 export type GroupFormData = {
   name: string;
   teacherId: number;
   tutorId: number;
+  courseId: 0;
+  groupStatusId: "Forming";
+  startDate: "string";
+  endDate: "string";
+  timetable: "string";
+  paymentPerMonth: 0;
   // teacher: string[];
   // tutor: string[];
 };
@@ -24,6 +29,7 @@ export type User = {
 export const NewGroupePage = () => {
   const {
     register,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<GroupFormData>();
@@ -33,13 +39,19 @@ export const NewGroupePage = () => {
 
   (users as User[]).forEach(user => {
     if (user.roles.includes("Tutor"))
+    if (tutors.length<8) 
     tutors.push(user);});
 
   let teachers:User[]=[];
 
   (users as User[]).forEach(user=> {
-    if (user.roles.includes("Teacher")) 
+    if (user.roles.includes("Teacher"))
+    if (teachers.length<8) 
     teachers.push(user);});
+
+
+  // const atLeastOne = () =>
+  //   getValues("teacherId").length ? true : "Вы не выбрали преподавателя";
 
   useEffect(() => {
     baseWretch()
@@ -51,11 +63,12 @@ export const NewGroupePage = () => {
   }, []);
 
 
-  const onSubmit = (data: GroupFormData) =>
+  const onSubmit = (data: GroupFormData) => {
     baseWretch()
       .url(AddNewGroupUrl)
       .post(data)
-      .text((token) => setToken(token));
+      // .text((token) => setToken(token));
+  }
 
   return (
     <>
@@ -76,9 +89,10 @@ export const NewGroupePage = () => {
               key={teacher.id}
               type="checkbox"
               value={teacher.id}
-              {...register("teacherId", { required: 'Выберите преподавателя' })}/>
+              {...register("teacherId", { required: true })}/>
               {teacher.firstName + ' ' + teacher.lastName}
               </label>))}
+              {errors.teacherId && <span>Вы не выбрали преподавателя</span>}
           </div>
           <div className="tutors-list">
             <span>Тьютор:</span>
@@ -88,12 +102,15 @@ export const NewGroupePage = () => {
               key={tutor.id}
               type="checkbox"
               value={tutor.id}
-              {...register("tutorId", { required: 'Выберите тьютора' })}/>
+              {...register("tutorId", { required: true })}/>
               {tutor.firstName+' ' + tutor.lastName}
               </label>))}
+              {errors.tutorId && <span>Вы не выбрали тьютора</span>}
           </div>
-          <button type="submit">Сохранить</button>
-          <Button type={ButtonType.Text} text="Отмена" />
+          {/* <button type="submit">Сохранить</button> */}
+          <Button model={ButtonModel.Colored} text='Сохранить' type={ButtonType.submit}/>
+          <Button model={ButtonModel.Text} text='Отмена' type={ButtonType.reset}/>
+          {/* <button type="reset" >Отмена </button> */}
         </form>
       </div>
     </>
