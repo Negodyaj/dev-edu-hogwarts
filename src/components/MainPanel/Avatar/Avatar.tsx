@@ -23,8 +23,8 @@ export const Avatar = (props: AvatarProps) => {
                 </div>
         </div>
         <div className="wrapper">
-        <div className="avatar-name">{props.data.name}</div>
-        <div className="avatar-role">{props.data.role}</div>
+        <div className="avatar-name transition-styles">{props.data.name}</div>
+        <div className="avatar-role transition-styles">{props.data.role}</div>
       </div>
     </>
   );

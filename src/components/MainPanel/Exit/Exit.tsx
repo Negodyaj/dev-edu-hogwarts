@@ -4,9 +4,9 @@ import { SvgExit } from '../../SvgIcon/SvgFiles/SvgExit';
 
 export const Exit = () => {
   return (
-    <a className="exit flex-center" href='#'>
+    <a className='exit flex-center' href='#'>
       <SvgExit/>
-      <div>Выйти</div>
+      <div className=' transition-styles'>Выйти</div>
     </a>
   )
 }

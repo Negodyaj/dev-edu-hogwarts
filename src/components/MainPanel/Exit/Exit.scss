@@ -4,7 +4,7 @@
   line-height: 21px;
   text-decoration: none;
   color: black;
-}
-.exit-icon {
-  margin-right: 15px;
+  & > div {
+    margin-left: 15px;
+  }
 }

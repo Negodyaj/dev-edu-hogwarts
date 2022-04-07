@@ -14,10 +14,10 @@ export const ButtonNavigation = (props: ButtonProps) => {
   return (
     <Link
       to={props.data.path}
-      className={`nav-link flex-center ${props.data.path === location.pathname ? 'active' : ''}`}
+      className={`nav-link flex-center transition-styles ${props.data.path === location.pathname ? 'active' : ''}`}
     >
       <SvgIcon icon={props.data.icon} />
-      <span className="links-name">
+      <span className="links-name transition-styles">
         {props.data.displayName}
       </span>
     </Link>
