@@ -37,21 +37,6 @@ export const Button = (props: ButtonProps) => {
     }
   })();
 
-  
-// export const Button = (props: ButtonProps) => {
-//   const buttonClass = (() => {
-//     switch (props.type) {
-//       case ButtonType.button:
-//         return "btn-white-with-border";
-//       case ButtonType.reset:
-//         return "btn-fill";
-//       case ButtonType.submit:
-//         return "btn-text";
-//       default:
-//         return "";
-//     }
-//   })();
-
   let buttonImg;
 
   if (props.icon) {

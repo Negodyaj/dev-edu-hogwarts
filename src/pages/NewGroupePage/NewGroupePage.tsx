@@ -1,3 +1,4 @@
+import "./NewGroupePage.scss";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { baseWretch } from "../../services/base-wretch.service";
@@ -29,7 +30,6 @@ export type User = {
 export const NewGroupePage = () => {
   const {
     register,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<GroupFormData>();
@@ -49,9 +49,6 @@ export const NewGroupePage = () => {
     if (teachers.length<8) 
     teachers.push(user);});
 
-
-  // const atLeastOne = () =>
-  //   getValues("teacherId").length ? true : "Вы не выбрали преподавателя";
 
   useEffect(() => {
     baseWretch()
