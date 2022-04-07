@@ -1,9 +1,4 @@
-
-// import '../../LessonsPage/css/Lesson.scss';
 import styles from '../../LessonsPage/css/Lesson.scss';
-// import { ArrowSvgSelector } from './images/Arrow';
-import '../../LessonsPage/fonts/fonts.scss';
-// import { useState } from 'react';
 import '../components/Toggle';
 import classNames from 'classnames';
 

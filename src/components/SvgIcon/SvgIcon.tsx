@@ -11,6 +11,7 @@ import { SvgComputer } from "./SvgFiles/SvgComputer";
 import { SvgCookie } from "./SvgFiles/SvgCookie";
 import { SvgPicture } from "./SvgFiles/SvgPicture";
 import { SvgPlus } from './SvgFiles/SvgPlus';
+import {SvgArrow} from "./SvgFiles/SvgArrow";
 
 export type SvgIconProps = {
   icon: Icon;
@@ -42,6 +43,8 @@ export const SvgIcon = (props: SvgIconProps) => {
       return <SvgPicture />;
     case Icon.Plus:
       return <SvgPlus />;
+    case Icon.Arrow:
+      return <SvgArrow />;
     default:
       return <></>;
   }

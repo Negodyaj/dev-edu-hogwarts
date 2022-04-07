@@ -18,10 +18,12 @@ const Datepicker = (props: DPprops) => {
               renderInput={(propsInput: string, openCalendar: Function) => {
                 return (
                   <div className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}
+                       onFocus={() => setIsOpen(true)}
                        onBlur={() => setIsOpen(false)}>
 
                     <input type='text'
                            onFocus={() => setIsOpen(true)}
+                           onBlur={() => setIsOpen(false)}
                            {...propsInput}
                     />
 

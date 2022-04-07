@@ -1,5 +1,5 @@
-
 import "./InputLink.scss";
+import "../InputTextarea/InputTextarea.scss"
 
 export type InputLinkProps = {
   placeholder: string
@@ -8,7 +8,7 @@ export type InputLinkProps = {
 export const InputLink = (props: InputLinkProps) => {
   return (
     <div className="input-link">
-      <input placeholder={props.placeholder}></input>
+      <input placeholder={props.placeholder}/>
       <button className="button-fly">
         <svg xmlns="http://www.w3.org/2000/svg" >
           <path d="M19.6015 22.9848C19.211 23.3753 19.211 24.0084 19.6015 24.399C19.992 24.7895 20.6252 24.7895 21.0157 24.399L19.6015 22.9848ZM25.8619 19.5528C26.2524 19.1623 26.2524 18.5291 25.8619 18.1386C25.4713 17.7481 24.8382 17.7481 24.4476 18.1386L25.8619 19.5528ZM21.0157 24.399L25.8619 19.5528L24.4476 18.1386L19.6015 22.9848L21.0157 24.399Z" fill="white" />

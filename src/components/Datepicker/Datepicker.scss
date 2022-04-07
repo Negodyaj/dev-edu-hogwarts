@@ -1,8 +1,5 @@
-$lavender-color: #A786DF;
-$hover-color: #eee;
-$dark-gray: #8A8A8A;
-$box-shadow-color: rgba(0, 0, 0, 0.1);
-$light-lavender-color: #d8bbf5;
+@import "src/style/colors";
+
 $border-radius: 7px;
 
 @mixin border-padding-zero {
@@ -18,21 +15,21 @@ $border-radius: 7px;
   font-weight: inherit;
   font-size: inherit;
   min-height: 56px;
-  background: #FFFFFF;
-  border: 1px solid #DBDBDB;
+  background: $white;
+  border: 1px solid $medium-gray;
+  outline-color: transparent;
   border-radius: 5px;
   padding: 14px 20px 15px 22px;
-  transition: box-shadow 0.3s ease;
   margin-top: 10px;
-
-  &:focus {
-    outline: 0;
-    box-shadow: 0 0 0 3px #d8bbf5;
-  }
+  transition: outline-color .3s ease;
 
   &::placeholder {
     font-weight: 400;
     color: $dark-gray;
+  }
+
+  &:focus {
+    outline: 1px solid $lavender-color;
   }
 }
 
@@ -51,7 +48,7 @@ $border-radius: 7px;
   }
 
   &.active-dp {
-    box-shadow: 0 0 0 3px #d8bbf5;
+    outline: 1px solid $lavender-color;
   }
 
   & .date-picker__button{
@@ -61,7 +58,7 @@ $border-radius: 7px;
     height: 24px;
 
     & svg path {
-      stroke: #8a8a8a;
+      stroke: $dark-gray;
     }
   }
 }
@@ -84,8 +81,8 @@ table {
   padding: 5px;
   margin-top: 1px;
   z-index: 99 !important;
-  background: #fff;
-  box-shadow: 4px 7px 15px $box-shadow-color;
+  background: $white;
+  box-shadow: 4px 7px 15px $box-shadow-datepicker-color;
   border-radius: 15px;
 }
 .rdtOpen .rdtPicker {
@@ -123,7 +120,7 @@ table {
 .rdtPicker td.rdtMinute:hover,
 .rdtPicker td.rdtSecond:hover,
 .rdtPicker .rdtTimeToggle:hover {
-  background: $hover-color;
+  background: $hover-datepicker-color;
   border-radius: $border-radius;
   cursor: pointer;
 }
@@ -139,7 +136,7 @@ table {
   display: inline-block;
   border-left: 7px solid transparent;
   border-bottom: 7px solid $lavender-color;
-  border-top-color: rgba(0, 0, 0, 0.2);
+  border-top-color: $box-shadow-datepicker-table-color;
   position: absolute;
   bottom: 4px;
   right: 4px;
@@ -150,11 +147,11 @@ table {
   background-color: $lavender-color;
   color: #fff;
   border-radius: $border-radius;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -1px 0 $box-shadow-datepicker-table-color;
 }
 
 .rdtPicker td.rdtActive.rdtToday:before {
-  border-bottom-color: #fff;
+  border-bottom-color: $white;
 }
 
 .rdtPicker td.rdtDisabled,
@@ -176,7 +173,7 @@ table {
   cursor: not-allowed;
 }
 .rdtPicker th {
-  border-bottom: 1px solid $box-shadow-color;
+  border-bottom: 1px solid $box-shadow-datepicker-color;
 }
 .rdtPicker .dow {
   width: 14.2857%;
@@ -213,16 +210,16 @@ table {
   cursor: pointer;
 }
 .rdtPicker thead tr:first-of-type th:hover {
-  background: $hover-color;
+  background: $hover-datepicker-color;
   border-radius: $border-radius;
 }
 
 .rdtPicker tfoot {
-  border-top: 1px solid #f9f9f9;
+  border-top: 1px solid $light-gray;
 }
 
 .rdtPicker button:hover {
-  background-color: $hover-color;
+  background-color: $hover-datepicker-color;
 }
 
 .rdtPicker thead button {
@@ -239,7 +236,7 @@ td.rdtYear {
 td.rdtMonth:hover,
 td.rdtYear:hover {
   border-radius: $border-radius;
-  background: $hover-color;
+  background: $hover-datepicker-color;
 }
 
 .rdtCounters {
@@ -276,7 +273,7 @@ td.rdtYear:hover {
   user-select: none;
 }
 .rdtCounter .rdtBtn:hover {
-  background: $hover-color;
+  background: $hover-datepicker-color;
 }
 .rdtCounter .rdtCount {
   height: 20%;

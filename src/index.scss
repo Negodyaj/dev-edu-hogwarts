@@ -1,3 +1,5 @@
+@import "src/style/colors";
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -5,13 +7,14 @@
 
 body {
   margin: 0;
-  background-color: #F6F7F9;
+  background-color: $background-color;
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 main {
+  position: relative;
   width: 100%;
 }
 
@@ -21,37 +24,33 @@ main {
 }
 
 ::-moz-selection{
-  background-color: #EBE3F8;
+  background-color: $selection-color;
 }
 
 ::selection{
-  background-color: #EBE3F8;
+  background-color: $selection-color;
 }
 
 .content-container {
-  background: #FFFFFF;
+  background: $white;
   width: 940px;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
   border-radius: 15px;
   padding: 50px 45px;
 }
 
-.margin-common-content {
-  margin: 70px 120px 70px 20px;
-}
-
 .flex-container {
   display: flex;
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #8a8a8a;
+  color: $dark-gray;
   opacity: 1; /* Firefox */
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #8a8a8a;
+  color: $dark-gray;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
-  color: #8a8a8a;
+  color: $dark-gray;
 }

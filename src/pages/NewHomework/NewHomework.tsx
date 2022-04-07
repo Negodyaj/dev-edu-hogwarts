@@ -1,5 +1,5 @@
 import {useForm, FormProvider, Controller} from "react-hook-form";
-import './IssuingHomework.scss'
+import './NewHomework.scss'
 import {RadioGroup} from "../../components/RadioGroup/RadioGroup";
 import Datepicker from "../../components/Datepicker/Datepicker";
 import {Button, ButtonType} from "../../components/Button/Button";
@@ -19,7 +19,7 @@ export type AddTaskFormData = {
 
 const groups = [
   {
-    value: 1,
+    value: 510,
     text: 'gr 1',
   },
   {
@@ -32,7 +32,7 @@ const groups = [
   }
 ]
 
-export const IssuingHomework = () => {
+export const NewHomework = () => {
   const method = useForm<AddTaskFormData>()
 
   // Мне с бека пока нечего тащить, группы не достать,
@@ -75,7 +75,6 @@ export const IssuingHomework = () => {
 
       <div className='homework-form_area'>
         Номер задания:
-        {/* Не ясно как это передавать, точнее в теле метода нет такого поля) */}
         <span className='homework-form_task'>1</span>
       </div>
 
