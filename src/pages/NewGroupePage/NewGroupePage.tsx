@@ -8,12 +8,12 @@ import { Button, ButtonModel, ButtonType } from "../../components/Button/Button"
 
 export type GroupFormData = {
   name: string;
-  teacherId: number;
-  tutorId: number;
+  teacherId: number[];
+  tutorId: number[];
   courseId: 0;
   groupStatusId: "Forming";
-  startDate: "string";
-  endDate: "string";
+  startDate: "2022-04-07T17:33:42.399Z";
+  endDate: "2022-04-07T17:33:42.399Z";
   timetable: "string";
   paymentPerMonth: 0;
   // teacher: string[];
