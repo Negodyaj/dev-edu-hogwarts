@@ -17,15 +17,15 @@ export const LoginPage = () => {
 
   useEffect(() => {
     baseWretch()
-    .url('api/Course/1/simple')
+    .url('api/Courses/1/simple')
     .get()
-    .json(data => setCourse(data))
+    .json((data: any) => setCourse(data))
   }, []);
 
   const onSubmit = (data: LoginFormData) => baseWretch()
     .url(loginUrl)
     .post(data)
-    .text(token => setToken(token));
+    .text((token: string) => setToken(token));
 
   const { email, password } = useSelector((state: AppState) => state.loginPageState);
 

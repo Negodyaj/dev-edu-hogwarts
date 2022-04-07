@@ -12,5 +12,6 @@ export const enum Icon {
   Bell,
   Settings,
   Picture,
-  Plus
+  Plus,
+  Pencil
 }
