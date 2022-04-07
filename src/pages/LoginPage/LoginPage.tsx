@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { setToken } from "../../services/auth.service";
 import { baseWretch } from "../../services/base-wretch.service"
 import { loginUrl } from "../../shared/consts";
+import { AppState } from "../../store/store";
 
 export type LoginFormData = {
   email: string
@@ -11,31 +13,31 @@ export type LoginFormData = {
 
 export const LoginPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
-  const [course, setCourse] = useState<any>();
+  const [course, setCourse] = useState<any>({});
 
   useEffect(() => {
     baseWretch()
-    .url('api/Course/1/simple')
+    .url('api/Courses/1/simple')
     .get()
-    .json(data => setCourse(data))
+    .json((data: any) => setCourse(data))
   }, []);
 
   const onSubmit = (data: LoginFormData) => baseWretch()
     .url(loginUrl)
     .post(data)
-    .text(token => setToken(token));
+    .text((token: string) => setToken(token));
 
-
+  const { email, password } = useSelector((state: AppState) => state.loginPageState);
 
   return (
     <>
     { course.name }
       <br /><br /><br /><br />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="example@mail.ru" {...register("email", { required: true })} />
+        <input placeholder="example@mail.ru" {...register("email", { required: true })} defaultValue={email} />
         {errors.email && <span>вы не указали почту</span>}
         <br />
-        <input type={"password"} {...register("password", { required: true })} />
+        <input type={"password"} {...register("password", { required: true })} defaultValue={password} />
         {errors.password && <span>пароль введи, жопошник</span>}
         <br />
         <button type="submit">Вход</button>

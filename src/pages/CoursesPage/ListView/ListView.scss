@@ -1,0 +1,115 @@
+@import "./src/style/colors";
+
+.content-container {
+  &>a {
+    margin-top: -20px;
+    margin-bottom: 20px;
+
+    &.link-with-text-decoration {
+      align-self: flex-end;
+    }
+  }
+
+  &.link-arrow {
+    place-self: baseline;
+  }
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-head__item {
+  padding: 0;
+  border-bottom: 1px solid $medium-gray;
+  border-top: 1px solid $medium-gray;
+  text-align: center;
+  line-height: 79px;
+
+  &.lesson-name-head {
+    padding-left: 81px;
+    text-align: left;
+  }
+}
+
+.grid-table-container {
+  display: grid;
+  grid-template-columns: 102px 1fr 136px;
+  font-size: 18px;
+  margin-top: 20px;
+  height: 44px;
+  line-height: 44px;
+
+  &.title-head {
+    margin-top: 0;
+    height: 81px;
+    line-height: 23px;
+  }
+
+  &.dragging {
+    position: relative;
+    
+    & input {
+      background: $light-gray;
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: -29px;
+      right: 0;
+      top: 0;
+      height: 100%;
+      background: $light-gray;
+      box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.15);
+      border-radius: 15px;      
+    }
+  }
+
+  input {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    border: 0;
+    padding: 0;
+    height: fit-content;
+    width: 100%;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .nums {
+    text-align: center;
+    place-self: center;
+    position: relative;
+
+    input {
+      text-align: center;
+    }
+  }
+
+  .lesson-name {
+    font-weight: 600;
+    padding-left: 81px;
+    position: relative;
+  }
+
+  .draggable-pointer {
+    display: inline-block;
+    padding: 3px;
+    height: 24px;
+    position: absolute;
+
+    & span {
+      display: block;
+      border-radius: 3px;
+      background-color: $dark-gray;
+      width: 18px;
+      height: 2px;
+      margin: 3px 0 0 0;
+    }
+  }
+}

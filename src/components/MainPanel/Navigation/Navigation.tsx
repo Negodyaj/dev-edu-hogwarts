@@ -11,7 +11,7 @@ export type NavLink = {
 
 let buttons: NavLink[] = [
   {
-    icon: Icon.Notifications,
+    icon: Icon.Bell,
     path: '/',
     displayName: 'Уведомления'
   },
@@ -31,6 +31,16 @@ let buttons: NavLink[] = [
     displayName: 'Настройки'
   },
   {
+    icon: Icon.Calendar,
+    path: '/courses',
+    displayName: 'Курсы'
+  },
+  {
+    icon: Icon.Lessons,
+    path: '/edit-courses',
+    displayName: 'Редактировать курсы'
+  },
+  {
     icon: Icon.Cake,
     path: '/register',
     displayName: 'Регистрация'
@@ -39,7 +49,7 @@ let buttons: NavLink[] = [
 
 export const Navigation = () => {  
   return (
-    <nav>
+    <nav className='main-nav-pannel'>
       {
         buttons.map(item => <ButtonNavigation data={item} key={item.path}></ButtonNavigation>)
       }
