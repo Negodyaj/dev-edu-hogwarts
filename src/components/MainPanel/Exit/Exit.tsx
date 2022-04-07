@@ -6,7 +6,7 @@ export const Exit = () => {
   return (
     <a className='exit flex-center' href='#'>
       <SvgExit/>
-      <div className=' transition-styles'>Выйти</div>
+      <span className='exit-text transition-styles'>Выйти</span>
     </a>
   )
 }

@@ -4,7 +4,11 @@
 }
 
 .transition-styles {
-  transition: width 0.5s ease-in-out, margin-left 0.4s ease-in-out, ease-in-out, padding-left ease-in-out 0.4s, font-size ease-in-out 0.3s, opacity 0.3s ease-in-out ;
+  transition: width 0.5s ease-in-out, 
+              margin-left 0.4s ease-in-out, 
+              padding-left ease-in-out 0.4s, 
+              font-size ease-in-out 0.3s, 
+              opacity 0.3s ease-in-out ;
 }
 
 .main-panel {
@@ -89,6 +93,7 @@
     .avatar-block {
       margin-left: 5px;
       width: 45px;
+      pointer-events: none;
     }
 
     .collapse-button {
@@ -107,9 +112,12 @@
     margin-left: 7px;
   }
 
-  .nav-link .links-name, .bottom-part>.exit>div, .avatar-name, .avatar-role, .logo-name {
+  .nav-link .links-name, 
+  .exit-text, 
+  .avatar-name, 
+  .avatar-role, 
+  .logo-name {
     width: 0;
-    font-size: 0;
     margin-left: 0;
     margin-right: 0;
     opacity: 0;
