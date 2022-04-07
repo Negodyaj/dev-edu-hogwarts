@@ -1,6 +1,9 @@
+@import "src/style/colors";
+
 .homework-card-content {
   display: grid;
-  grid-template-columns: 153px 3fr 1fr;
+  grid-template-columns: 153px 2.5fr 1.5fr;
+  grid-template-rows: auto;
   font-size: 18px;
 
   &~.homework-card-content{
@@ -14,6 +17,8 @@
   .task-status {
     place-self: end;
     margin-bottom: 40px;
+    text-align: end;
+    grid-column: 3;
   }
 
   .homework-title {
@@ -34,5 +39,38 @@
     &+.homework-dates {
       margin-left: 43px;
     }
+  }
+
+  .homework-description-title {
+    display: block;
+    font-weight: 600;
+    margin: 40px 0 20px;
+  }
+
+  p + p {
+    margin-top: 15px;
+  }
+
+  &.one-card-content {
+    grid-template-columns: 153px 590px ;
+
+    & .task-status {
+      grid-column: 2;
+      place-self: baseline;
+      margin-bottom: 0;
+    }
+
+    .homework-title {
+      margin-bottom: 0;
+    }
+
+    .homework-github-link {
+      display: block;
+      font-weight: 600;
+      font-size: 22px;
+      color: $link-color;
+      text-decoration: underline;
+    }
+
   }
 }

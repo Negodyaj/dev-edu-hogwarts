@@ -1,45 +1,38 @@
 import './HomeworkCard.scss'
 import {LinkArrow} from "../../../components/LinkArrow/LinkArrow";
+import {Homework} from "../../../models/responses/HomeworksResponse";
+import { InputLink } from '../../../components/InputLink/InputLink';
 
 export type HomeworkProps = {
-    data: HomeworkData
+    data?: Homework
+    taskNumber?: number
+    oneCard?: boolean
 }
-
-export type HomeworkData = {
-    id: number
-    taskNumber: number
-    title: string
-    dateBeginning: string
-    dateEnd: string
-    status: number
-    elseData: string
-}
-
 
 // Не знала лучше enum или array,
 // или вообще по-другому
 
 enum HomeworkStatus {
-    "Сдано",
-    "Не сделано",
-    "В проверке",
-    "Исправить",
-    "Сдано с опозданием"
+    Unchecked = "Не сделано",
+    // "Не сделано",
+    // "В проверке",
+    // "Исправить",
+    // "Сдано с опозданием"
 }
 
 export const HomeworkCard = (props: HomeworkProps) => {
     const homework = props.data;
 
     return (
-        <div className='homework-card-content content-container'>
-            <span className='task-number'>Задание {homework.taskNumber}</span>
+        <div className={`homework-card-content content-container ${props.oneCard ? 'one-card-content' : ''}`}>
+            <span className='task-number'>Задание {props.taskNumber}</span>
             <div className='homework-card-description'>
                 <div className='homework-dates'>
                     <span>
                         Дата выдачи
                      </span>
                     <span>
-                        {homework.dateBeginning}
+                        {homework?.startDate}
                     </span>
                 </div>
                 <div className='homework-dates'>
@@ -47,16 +40,36 @@ export const HomeworkCard = (props: HomeworkProps) => {
                         Срок сдачи
                     </span>
                     <span>
-                        {homework.dateEnd}
+                        {homework?.endDate}
                     </span>
                 </div>
                 <span className='homework-title'>
-                    {homework.title}
+                    {homework?.task.name}
                 </span>
-                <LinkArrow back={false} text='к заданию' to={`homeworks/${homework.id}`}/>
+                {
+                  props.oneCard &&
+                  <>
+                    <span className='homework-description-title'>Описание задания</span>
+                      {
+                          homework?.task.description.split('\n').map( (par, index) =>
+                          <p key={index}>{par}</p>
+                          )
+                      }
+                      <span className='homework-description-title'>Ссылка на выполненное задание:</span>
+                      {
+                          homework?.task.links
+                            ? <a className='homework-github-link' href={homework?.task.links}>Ссылка на GitHub</a>
+                            : <InputLink placeholder={'Ссылка на GitHub или архив'}/>
+                      }
+                      <span className='homework-description-title'>Результат выполненного задания:</span>
+                  </>
+                }
+                {
+                    !props.oneCard && <LinkArrow back={false} text='к заданию' to={`homeworks/${homework?.id}`}/>
+                }
             </div>
             <span className='task-status'>
-                {HomeworkStatus[homework.status]}
+                {HomeworkStatus.Unchecked}
             </span>
         </div>
     )
