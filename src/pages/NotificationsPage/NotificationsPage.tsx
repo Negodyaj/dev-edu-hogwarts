@@ -1,33 +1,45 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentUser, loadTabs, selectTab } from "../../actions/notifications.actions";
-import { TabContainer } from "../../components/TabContainer/TabContainer";
-import { UserResponse } from "../../models/responses/UserResponse";
-import { baseWretch } from "../../services/base-wretch.service";
-import { AppState } from "../../store/store";
+import senderPhoto from './images/avatar.png';
+import {NotificationsCard} from '../NotificationsPage/components/NotificationsCard';
+import React, { useState, useEffect } from 'react';
+let notifications = [
+  {
+    id: 1,
+    senderPhoto: senderPhoto,
+    sender: 'Антон Ефременков',
+    senderRole: 'предподаватель',
+    messege: 'Идейные соображения высшего порядка, а также укрепление и развитие структуры играет важную роль в формировании...',
+    date: '12.02.22',
+    time: ' 12:34'
 
+  },
+  {
+    id: 2,
+    senderPhoto: senderPhoto,
+    sender: 'Антон Ефременков',
+    senderRole: 'предподаватель',
+    messege: 'Повседневная практика показывает, что укрепление и развитие структуры обеспечивает широкому кругу (специалистов) участие в формировании...',
+    date: '10.02.22',
+    time: '10:02'
+
+  },
+  {
+    id: 3,
+    senderPhoto: senderPhoto,
+    sender: 'Антон Ефременков',
+    senderRole: 'предподаватель',
+    messege: 'Равным образом рамки и место обучения кадров влечет за собой процесс внедрения и модернизации системы обучения кадров...',
+    date: '12.02.22',
+    time: '19:10'
+
+  }
+]
 export const NotificationsPage = () => {
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(loadTabs());
-  }, []);
-
-  useEffect(() => {
-    baseWretch()
-      .url('api/Users/2604')
-      .get()
-      .json(data => dispatch(setCurrentUser(data as UserResponse)));
-  }, []);
-
-  const { tabs, selectedTab, currentUser } = useSelector((state: AppState) => state.notificationsPageState );
   return (
-    <>
-      <div>Уведомления</div>
-      {currentUser?.email}
-      <button onClick={() => {dispatch(selectTab(selectedTab - 1))}}>Left</button>
-      <button onClick={() => {dispatch(selectTab(selectedTab + 1))}}>Right</button>
-      <TabContainer tabContainerData={tabs} selectedTab={selectedTab}/>
-    </>
-  )
+    <div className="card-container content-container">
+      {
+        notifications.map(item=><NotificationsCard  data={item} key={item.id}   ></NotificationsCard>)
+      }
+    </div>
+  );
 }
