@@ -39,6 +39,11 @@ let buttons: NavLink[] = [
     icon: Icon.Lessons,
     path: '/edit-courses',
     displayName: 'Редактировать курсы'
+  },
+  {
+    icon: Icon.Cake,
+    path: '/register',
+    displayName: 'Регистрация'
   }
 ];
 

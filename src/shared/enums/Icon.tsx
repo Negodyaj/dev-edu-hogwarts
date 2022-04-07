@@ -1,9 +1,9 @@
 export const enum Icon {
-  Barrel, 
-  Computer, 
-  Cake, 
-  Cookie, 
-  Calendar, 
+  Barrel,
+  Computer,
+  Cake,
+  Cookie,
+  Calendar,
   Chevron,
   Notifications,
   Lessons,
@@ -13,5 +13,6 @@ export const enum Icon {
   Settings,
   Picture,
   Plus,
-  Pencil
+  Pencil,
+  Tick
 }
