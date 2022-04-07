@@ -30,12 +30,12 @@ export const AddingNewLessonPage = () => {
 
     const onSubmit = (data: LessonsData) => baseWretch()
     // непонятный метод пост
-      .url(`/api/Groups/${groups.id}/lesson/{lessonId}`)
+      .url("api/Lessons")
       .post(data)
       .json(res => res.json());
 
       const onClickSave = (data: LessonsData) => baseWretch()
-      .url("/api/Lesson")
+      .url("api/Lesson")
       .post(data)
       .json(res => res.json());
 
@@ -55,7 +55,8 @@ export const AddingNewLessonPage = () => {
       </div>
       <div className="lessons-input">
         <div>Название занятия</div> 
-        <input type={"text"} placeholder="Введите название" {...register("topic.id", { required: true })}/>
+        <input type={"text"} placeholder="Введите название" {...register("topic.id", { required: false })}/>
+        {/* <input type={"text"} placeholder="Введите название" {...register("topic.id", { required: true })}/> */}
         {/* {errors.date && <span>вы не указали название!</span>} */}
       </div>
       <div className="lessons-input">
