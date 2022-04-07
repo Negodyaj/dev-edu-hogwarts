@@ -1,11 +1,7 @@
-import { TabContainer, TabContainerProps } from "../../components/TabContainer/TabContainer";
-import { Icon } from "../../shared/enums/Icon";
 import { useState } from "react";
 import { Lesson, LessonModel } from "./components/Lesson";
-import { RadioGroup } from "../../components/RadioGroup/RadioGroup"
-import { RadioButton, RadioData } from "../../components/RadioGroup/RadioButton/RadioButton";
-
-
+import {TabContainer} from "../../components/TabContainer/TabContainer";
+import {Icon} from "../../shared/enums/Icon";
 
 
 export const LessonsPage = () => {
@@ -37,7 +33,7 @@ export const LessonsPage = () => {
         {id: 2, icon: Icon.Calendar, text: 'Специализация Backend'},
         {id: 3, icon: Icon.Computer, text: 'Специализация Frontend'},
         {id: 4, icon: Icon.Cake, text: 'Специализация QA'},
-        ] }
+        ] } selectedTab={0}
       />
       
       <div>Занятия</div>

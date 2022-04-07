@@ -28,7 +28,7 @@ export const ListView = (props: ListViewProps) => {
   };
 
   return (
-    <div className='content-container'>
+    <div className='content-container flex-column'>
       {
         linkType()
       }
@@ -55,15 +55,15 @@ export const ListView = (props: ListViewProps) => {
                              isDragDisabled={!props.edit}
                   >
                     {
-                      (provided1: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+                      (draggableProvided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                         <ListViewItem
                           index={index}
                           lesson={item}
                           dragSettings={
                             {
-                              innerRef: provided1.innerRef,
-                              prop1: {...provided1.draggableProps},
-                              prop2: provided1.dragHandleProps,
+                              innerRef: draggableProvided.innerRef,
+                              prop1: {...draggableProvided.draggableProps},
+                              prop2: draggableProvided.dragHandleProps,
                               snapshot: snapshot.isDragging,
                               isDragDisabled: props.edit,
                             }

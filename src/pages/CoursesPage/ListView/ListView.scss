@@ -1,14 +1,23 @@
 @import "./src/style/colors";
 
 .content-container {
-  & a {
+  &>a {
     margin-top: -20px;
     margin-bottom: 20px;
+
+    &.link-with-text-decoration {
+      align-self: flex-end;
+    }
   }
 
-  .link-arrow {
+  &.link-arrow {
     place-self: baseline;
   }
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
 .title-head__item {
@@ -74,7 +83,7 @@
 
   .nums {
     text-align: center;
-    align-items: center;
+    place-self: center;
     position: relative;
 
     input {

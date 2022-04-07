@@ -8,6 +8,7 @@
   cursor: pointer;
   line-height: 24px;
   display: inline-block;
+  margin-left: 50px;
 
   input:checked + .radio-text::after {
     content: '';
@@ -34,8 +35,4 @@
   border: 1px solid #DBDBDB;
   box-sizing: border-box;
   border-radius: 50%;
-}
-
-.radio-button + .radio-button {
-  margin-left: 84px;
 }
