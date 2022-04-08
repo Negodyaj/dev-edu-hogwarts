@@ -1,19 +1,22 @@
 .notification-card {
   display: flex;
   align-items: center;
-  max-width: 864px;
-  border-bottom: 2px solid #c3748800;
   position: relative;
+  padding-left: -14px;
+
+  &:last-child .notification-card-content {
+    margin-bottom: 0;
+  }
+
+  & + .notification-card {
+    padding-top: 30px;
+    border-top: 1px solid #dbdbdb;
+  }
 
   .notification-card-content {
-    padding: 50px 31px 26px 30px;
+    padding-left: 30px;
+    margin-bottom: 26px;
     font-family: inherit;
-    border-bottom: 1px solid #dbdbdb;
-
-    &:last-child {
-      padding-bottom: 30px;
-      border: 0;
-    }
   }
 
   & > img {
@@ -24,14 +27,15 @@
   }
 }
 
-.notification-card:not(:last-child):after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 56px;
-  border-bottom: 1px solid #dbdbdb;
-  width: calc(100% - 85px);
-}
+//.notification-card:not(:last-child):after {
+//  content: "";
+//  position: absolute;
+//  top: 100%;
+//  left: 56px;
+//  border-bottom: 1px solid #dbdbdb;
+//  width: calc(100% - 85px);
+//}
+
 .sender-name {
   font-weight: 700;
   font-size: 18px;
@@ -97,8 +101,8 @@
 }
 
 .round {
-  padding-left: 22px;
   margin-bottom: 100px;
+  margin-left: -28px;
 }
 
 .notification-card-content > a {

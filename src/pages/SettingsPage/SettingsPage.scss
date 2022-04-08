@@ -1,5 +1,11 @@
 .settings-container {
-  margin: 70px 0px 0px 65px;
+  margin: 70px 0 0 65px;
+
+  & > img{
+    position: absolute;
+    top: 149px;
+    left: 864px;
+  }
 }
 .settings {
   font-weight: 600;
@@ -51,11 +57,7 @@ margin-bottom: 180px;
 .circle-password:not(:last-child) {
   margin-right: 10px;
 }
-img{
-  position: absolute;
-  top: 149px;
-  left: 864px;
-}
+
 .submit-button{
   margin-top:70px;
   font-weight: 400;
@@ -86,7 +88,6 @@ margin-bottom: 50px;
 margin-top: 50px;
 }
 .grid-container{
-  column-gap: 47px;
   row-gap:30px;
   column-gap:20px;
   display: grid;

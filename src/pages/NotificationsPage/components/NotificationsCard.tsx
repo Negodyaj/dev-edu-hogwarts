@@ -22,9 +22,9 @@ export const NotificationsCard = (props: NotificationsProps) => {
   return (
     <div className="notification-card ">
       <div className="round">
-      <input id='isChecked' type='checkbox' onClick={handleClick} checked={isCollapsed}  className={`button-read${isCollapsed==true?  `-clicked` : ``  }`} ></input>
+      <input id='isChecked' type='checkbox' onClick={handleClick} checked={isCollapsed}  className={`button-read${isCollapsed === true ?  `-clicked` : ``  }`} />
       </div>
-      <img src={props.data.senderPhoto}></img>
+      <img src={props.data.senderPhoto}/>
       <div className="notification-card-content">
         <div className="top-flex-container">
           <div>
@@ -37,7 +37,7 @@ export const NotificationsCard = (props: NotificationsProps) => {
           </div>
         </div>
         <div className="messege">{props.data.messege}</div>
-        <LinkArrow back={false} text={'перейти'} to={`${props.data.id}`}  ></LinkArrow>
+        <LinkArrow back={false} text={'перейти'} to={`${props.data.id}`} />
       </div>
     </div>
 
