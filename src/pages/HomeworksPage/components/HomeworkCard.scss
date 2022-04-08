@@ -1,5 +1,11 @@
 @import "src/style/colors";
 
+@mixin links-common {
+  display: block;
+  color: $link-color;
+  text-decoration: underline;
+}
+
 .homework-card-content {
   display: grid;
   grid-template-columns: 153px 2.5fr 1.5fr;
@@ -47,7 +53,8 @@
     margin: 40px 0 20px;
   }
 
-  p + p {
+  p + p,
+  .homework-useful-link + .homework-useful-link {
     margin-top: 15px;
   }
 
@@ -65,12 +72,16 @@
     }
 
     .homework-github-link {
-      display: block;
       font-weight: 600;
       font-size: 22px;
-      color: $link-color;
-      text-decoration: underline;
+      @include links-common;
+    }
+
+    .homework-useful-link {
+      @include links-common;
+      overflow-wrap: break-word;
     }
 
   }
+
 }
