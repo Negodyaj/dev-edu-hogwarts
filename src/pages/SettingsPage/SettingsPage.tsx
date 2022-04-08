@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import photo from '../../components/images/avatar_settings.png';
 import { SvgPencil } from '../../components/SvgIcon/SvgFiles/SvgPencil';
 import Datepicker from '../../components/Datepicker/Datepicker';
-import { Button , ButtonType} from '../../components/Button/Button';
+import { Button , ButtonModel, ButtonType} from '../../components/Button/Button';
 
 export type UserFormData = {
   id: 1,
@@ -192,8 +192,10 @@ export const SettingsPage = () => {
                 {errors?.phoneNumber?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
               </div>
             </div>
-            <button type="submit" className='submit-button btn-fill'>Сохранить</button>
-            <button type='reset' className='reset-button'>Отмена</button>
+            <div className='styles-for-settings-buttons'>
+                <Button text={'Сохранить'} type={ButtonType.submit} model={ButtonModel.Colored}></Button>
+                <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text}></Button>
+                </div>
           </form>
         </FormProvider>
       </div>
