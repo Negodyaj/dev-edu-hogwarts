@@ -1,23 +1,22 @@
-.card-container {
-  box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
-  border-radius: 15px;
-.notification-card-content {
-  padding-left: 30px;
-  font-family: "Raleway";
-  padding-right: 31px;
-  padding-top: 50px;
-  padding-bottom: 26px;
-}
-.notification-card-content:last-child{
-  padding-bottom: 30px;
-}
 .notification-card {
   display: flex;
   align-items: center;
   max-width: 864px;
   border-bottom: 2px solid #c3748800;
   position: relative;
-  img {
+
+  .notification-card-content {
+    padding: 50px 31px 26px 30px;
+    font-family: inherit;
+    border-bottom: 1px solid #dbdbdb;
+
+    &:last-child {
+      padding-bottom: 30px;
+      border: 0;
+    }
+  }
+
+  & > img {
     width: 45px;
     height: 45px;
     margin-left: 15px;
@@ -76,6 +75,7 @@
 .button-read-clicked {
   visibility: collapse;
 }
+
 .button-read {
   min-width: 6px;
   cursor: pointer;
@@ -95,15 +95,13 @@
   background-color: #f45b69;
   border-radius: 50px;
 }
-.round{
+
+.round {
   padding-left: 22px;
   margin-bottom: 100px;
-}}
-.content-container a {
-  margin-top: 8px !important;
-  margin-bottom: 0px !important;
-
 }
-.link-arrow{
-  max-width: 101px;
+
+.notification-card-content > a {
+  margin-top: 8px;
+  margin-bottom: 0;
 }
