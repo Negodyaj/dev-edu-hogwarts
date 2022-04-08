@@ -7,6 +7,10 @@
   line-height: 29px;
   margin-bottom: 50px;
   position: relative;
+
+}
+.margin-top-settings{
+  margin-top:0px;
 }
 p {
   margin-bottom: 10px;
@@ -38,8 +42,7 @@ p {
   margin-left: 20px;
 }
 .settings-photo {
-margin-left: 79px;
-margin-bottom: 180px;
+margin-left: 98px;
 }
 .circle-password {
   width: 8px;
@@ -51,12 +54,8 @@ margin-bottom: 180px;
 .circle-password:not(:last-child) {
   margin-right: 10px;
 }
-img{
-  position: absolute;
-  top: 149px;
-  left: 864px;
-}
-.submit-button{
+
+.submit-button {
   margin-top:70px;
   font-weight: 400;
 font-size: 18px;
@@ -68,6 +67,21 @@ padding: 15px 30px;
 border:none;
 color:#A786DF;
 background: #F6F7F9;
+cursor: pointer;
+}
+.reset-button{
+  margin-top:70px;
+  font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+  width: 190px;
+  height: 51px;
+border-radius: 5px;
+padding: 15px 30px;
+border:none;
+color:#A786DF;
+background: #F6F7F9;
+cursor: pointer;
 }
 .submit-button:hover{
   width: 190px;

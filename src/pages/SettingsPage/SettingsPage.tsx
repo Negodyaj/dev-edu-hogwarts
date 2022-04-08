@@ -143,12 +143,12 @@ export const SettingsPage = () => {
                   </div>
                 </div>
               </div>
-              <img className='settings-photo' src={photo}></img>
+              <img className='settings-photo' src={photo}></img>  
 
             </div>
             <div className='grid-container'>
             <div className='data-block password'>
-              <p>Пароль</p>
+              <p className='margin-top-settings'>Пароль</p>
               <div className='goto-change-password'>
                 <div>
                   <div className='circle-password'></div>
@@ -164,7 +164,7 @@ export const SettingsPage = () => {
               </div>
             </div>
             <div className='data-block email'>
-              <p>Email</p>
+              <p className='margin-top-settings'>Email</p>
               <input defaultValue={user.email} {...register('email', {
                 required: true,
                 pattern: /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/
@@ -175,7 +175,7 @@ export const SettingsPage = () => {
            
 
               <div className='data-block git-hub'>
-                <p>Ссылка на GitHub</p>
+                <p className='margin-top-settings'>Ссылка на GitHub</p>
                 <input defaultValue={user.gitHubAccount} {...methods.register('gitHubAccount', {
                   required: true,
                   pattern: /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/
@@ -183,7 +183,7 @@ export const SettingsPage = () => {
                 {errors?.gitHubAccount?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
               </div>
               <div className='data-block phone'>
-                <p>Телефон</p>
+                <p className='margin-top-settings'>Телефон</p>
                 <input type='tel' defaultValue={user.phoneNumber} {...methods.register('phoneNumber', {
                   required: true,
                   pattern: /^[ 0-9]+$/
@@ -191,9 +191,8 @@ export const SettingsPage = () => {
                 {errors?.phoneNumber?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
               </div>
             </div>
-         
-            <button type="submit" className='submit-button'>Сохранить</button>
-            <button type='reset' className='submit-button'>Отмена</button>
+            <button type="submit" className='submit-button btn-fill'>Сохранить</button>
+            <button type='reset' className='reset-button'>Отмена</button>
           </form>
         </FormProvider>
       </div>
