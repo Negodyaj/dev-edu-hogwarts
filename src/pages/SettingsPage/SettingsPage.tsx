@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import photo from '../../components/images/avatar_settings.png';
 import { SvgPencil } from '../../components/SvgIcon/SvgFiles/SvgPencil';
 import Datepicker from '../../components/Datepicker/Datepicker';
+import { Button , ButtonType} from '../../components/Button/Button';
 
 export type UserFormData = {
   id: 1,

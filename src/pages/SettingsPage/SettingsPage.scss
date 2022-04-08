@@ -1,5 +1,6 @@
 .settings-container {
   margin: 70px 0px 0px 65px;
+
 }
 .settings {
   font-weight: 600;
@@ -7,16 +8,10 @@
   line-height: 29px;
   margin-bottom: 50px;
   position: relative;
-
+  
 }
 .margin-top-settings{
   margin-top:0px;
-}
-p {
-  margin-bottom: 10px;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 21px;
 }
 .data-block {
   margin-bottom: 29px;
@@ -30,7 +25,14 @@ p {
     border: 1px solid #dbdbdb;
     border-radius: 5px;
   }
+  p {
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+  }
 }
+
 .goto-change-password {
   height: 56px;
   display: flex;
@@ -41,9 +43,11 @@ p {
 .margin-left-inputs {
   margin-left: 20px;
 }
+
 .settings-photo {
 margin-left: 98px;
 }
+
 .circle-password {
   width: 8px;
   height: 8px;
@@ -51,6 +55,7 @@ margin-left: 98px;
   border-radius: 50px;
   display: inline-block;
 }
+
 .circle-password:not(:last-child) {
   margin-right: 10px;
 }
