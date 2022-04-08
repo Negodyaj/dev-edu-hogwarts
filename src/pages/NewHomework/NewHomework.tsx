@@ -6,6 +6,13 @@ import {Button, ButtonModel, ButtonType} from "../../components/Button/Button";
 import {baseWretch} from "../../services/base-wretch.service";
 import {addNewTaskUrl} from "../../shared/consts";
 import moment from "moment";
+import {SvgIcon} from "../../components/SvgIcon/SvgIcon";
+import {Icon} from "../../shared/enums/Icon";
+import {useRef} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {AppState} from "../../store/store";
+import {AddLink, SetValueInInput} from "../../actions/newHomeworkForm.action";
+import {AddedLink} from "./components/AddedLink";
 
 export type AddTaskFormData = {
   name: string
@@ -19,7 +26,7 @@ export type AddTaskFormData = {
 
 const groups = [
   {
-    value: 1,
+    value: 510,
     text: 'gr 1',
   },
   {
@@ -33,10 +40,23 @@ const groups = [
 ]
 
 export const NewHomework = () => {
-  const method = useForm<AddTaskFormData>()
+  const method = useForm<AddTaskFormData>();
+  const dispatch = useDispatch();
+
+  const {links, inputLinkValue} = useSelector((state: AppState) => state.newHomeworkFormState);
+  let refLinkName = useRef<any>({});
 
   // Мне с бека пока нечего тащить, группы не достать,
   // номера заданий из групп не достать ибо в существующих сча в бд тоже нет заданий)
+
+  const addLink = () => {
+    if(
+      inputLinkValue &&
+      /^[a-z]+:\/\//i.test(inputLinkValue) &&
+      !links.includes(inputLinkValue)
+    )
+      dispatch(AddLink(refLinkName.current.value));
+  }
 
   const convertDate = (date: string) => {
     return moment(new Date(date)).format('DD.MM.YYYY').toString()
@@ -46,7 +66,7 @@ export const NewHomework = () => {
 
     const formData = {
       ...data,
-      links: '',
+      links: links.join(' [link] '),
       isRequired: true,
       homework: {
         startDate: convertDate(data.homework.startDate),
@@ -59,67 +79,94 @@ export const NewHomework = () => {
       .post(formData)
   }
 
+  console.log('rerender', links)
   // Нет эндпоинта
   // const saveDraft = () => {
   // };
 
   return (
     <FormProvider {...method}>
-    <form className='form-container homework-form' onSubmit={method.handleSubmit(onSubmit)}>
-      <span className='homework-form_title'>Новое задание</span>
+      <form className='form-container homework-form' onSubmit={method.handleSubmit(onSubmit)}>
+        <span className='homework-form_title'>Новое задание</span>
 
-      <div className='homework-form_area'>
-        Номер группы:
-        <RadioGroup radioData={groups} name='groupId'/>
-      </div>
+        <div className='homework-form_area'>
+          Номер группы:
+          <RadioGroup radioData={groups} name='groupId'/>
+        </div>
 
-      <div className='homework-form_area'>
-        Номер задания:
-        {/* Не ясно как это передавать, точнее в теле метода нет такого поля) */}
-        <span className='homework-form_task'>1</span>
-      </div>
+        <div className='homework-form_area'>
+          Номер задания:
+          <span className='homework-form_task'>1</span>
+        </div>
 
-      <div className='homework-form_dates'>
-        <div>
-          Дата выдачи задания
-          <Controller
-            name="homework.startDate"
-            control={method.control}
-            rules={{required: true}}
-            render={({field}) => <Datepicker field={field}/>}
+        <div className='homework-form_dates'>
+          <div>
+            Дата выдачи задания
+            <Controller
+              name="homework.startDate"
+              control={method.control}
+              rules={{required: true}}
+              render={({field}) => <Datepicker field={field}/>}
+            />
+          </div>
+          <div>
+            Срок сдачи задания
+            <Controller
+              name="homework.endDate"
+              control={method.control}
+              rules={{required: true}}
+              render={({field}) => <Datepicker field={field}/>}
+            />
+          </div>
+        </div>
+
+        <div className='homework-form_area'>
+          Название задания
+          <input className='form-input' type="text"
+                 placeholder='Введите название'
+                 {...method.register("name", {required: true})}
           />
         </div>
-        <div>
-          Срок сдачи задания
-          <Controller
-            name="homework.endDate"
-            control={method.control}
-            rules={{required: true}}
-            render={({field}) => <Datepicker field={field}/>}
+
+        <div className='homework-form_area'>
+          Описание задания
+          <textarea className='form-input'
+                    placeholder='Введите текст'
+                    {...method.register("description", {required: true})}
           />
         </div>
-      </div>
 
-      <div className='homework-form_area'>
-        Название задания
-        <input className='form-input' type="text"
-               placeholder='Введите название' {...method.register("name", {required: true})}/>
-      </div>
+        <div className='homework-form_area'>
+          Полезные ссылки
+          {
+            links.length > 0 && links.map((item, index) =>
+                <AddedLink key={index} itemNumber={index} source={item}/>
+              )
+          }
+          <div className='form-input_link__container'>
+            <textarea className='form-input form-input_link'
+                      ref={refLinkName}
+                      value={inputLinkValue}
+                      onChange={event => dispatch(SetValueInInput(event.target.value))}
+                      placeholder='Вставьте ссылку'
+            />
+            <div onClick={addLink}
+                 className='form-input_link__button'
+            >
+              <SvgIcon icon={Icon.Plus}/>
+            </div>
+          </div>
+        </div>
 
-      <div className='homework-form_area'>
-        Описание задания
-        <textarea className='form-input' placeholder='Введите текст' {...method.register("description", {required: true})}/>
-      </div>
+        <div className='buttons-group'>
 
-      <div>
+          <Button text='Опубликовать' type={ButtonType.submit} model={ButtonModel.Colored}/>
+          <Button text='Сохранить как черновик' type={ButtonType.submit} model={ButtonModel.White}/>
+          <Button text='Отмена' type={ButtonType.reset} model={ButtonModel.Text} url={'/'}/>
 
-        <Button text='Опубликовать' type={ButtonType.submit} model={ButtonModel.Colored}/>
-        <Button text='Сохранить как черновик' type={ButtonType.submit} model={ButtonModel.White}/>
-        <Button text='Отмена' type={ButtonType.reset} model={ButtonModel.Text} url={'/'}/>
+        </div>
 
-      </div>
-
-    </form>
+      </form>
     </FormProvider>
   )
 }

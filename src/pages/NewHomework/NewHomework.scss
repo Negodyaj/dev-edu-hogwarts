@@ -1,11 +1,10 @@
-.secret-input {
-  display: none;
-}
+@import "./src/style/colors";
 
 .homework-form {
   font-weight: 500;
   font-size: 18px;
-
+  max-width: fit-content;
+  margin: 0;
 
   & .homework-form_title {
     font-size: 22px;
@@ -36,18 +35,71 @@
         font-weight: 700;
       }
     }
-
-    &>textarea {
-      min-height: 83px;
-      margin-bottom: 70px;
-    }
   }
 
-  //& button {
-  //  margin-top: 70px;
-  //
-  //  &~button {
-  //    margin-left: 30px;
-  //  }
-  //}
+  & textarea.form-input {
+    min-height: 83px;
+    resize: none;
+  }
+
+  .buttons-group {
+    margin: 70px 0;
+  }
+
+  .form-link {
+    max-width: 815px;
+    color: $lavender-color;
+    text-decoration: underline;
+    overflow-wrap: break-word;
+  }
+
+  .form-input_link__container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 10px;
+
+    & + .form-input_link__container {
+      margin-top: 20px;
+      padding: 0;
+    }
+
+    .form-input_link {
+      margin: 0;
+    }
+
+    .form-input_link__button {
+      place-self: baseline;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      background-color: $lavender-color;
+      border-radius: 50%;
+      margin-left: 20px;
+      width: 45px;
+      height: 45px;
+
+      &:hover {
+        background-color: $lavender-button-hover;
+      }
+
+    }
+
+    .form-input_link__delete-link {
+      cursor: pointer;
+
+      & > svg {
+        width: 30px;
+        height: 30px;
+        margin-top: 5px;
+        margin-left: 20px;
+
+        path {
+          stroke: $lavender-color;
+        }
+      }
+    }
+
+  }
 }
