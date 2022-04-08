@@ -15,7 +15,7 @@ body {
 
 main {
   position: relative;
-  width: 100%;
+  flex-grow: 1;
 }
 
 .form-container {
@@ -37,6 +37,7 @@ main {
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
   border-radius: 15px;
   padding: 50px 45px;
+  transition: width ease-in-out 0.5s;
 }
 
 .flex-container {

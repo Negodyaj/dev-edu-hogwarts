@@ -4,3 +4,4 @@ export const loginUrl = 'sign-in';
 export const lessonsUrl = 'lessons';
 export const addNewTaskUrl = 'api/tasks/teacher';
 export const getHomeworkById = (id: number) => `api/homeworks/${id}`;
+export const registerUrl = 'register';
