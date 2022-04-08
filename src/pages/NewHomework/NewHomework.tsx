@@ -1,8 +1,8 @@
-import {useForm, FormProvider, Controller} from "react-hook-form";
-import './IssuingHomework.scss'
+import {Controller, FormProvider, useForm} from "react-hook-form";
+import './NewHomework.scss'
 import {RadioGroup} from "../../components/RadioGroup/RadioGroup";
 import Datepicker from "../../components/Datepicker/Datepicker";
-import {Button, ButtonType} from "../../components/Button/Button";
+import {Button, ButtonModel, ButtonType} from "../../components/Button/Button";
 import {baseWretch} from "../../services/base-wretch.service";
 import {addNewTaskUrl} from "../../shared/consts";
 import moment from "moment";
@@ -32,7 +32,7 @@ const groups = [
   }
 ]
 
-export const IssuingHomework = () => {
+export const NewHomework = () => {
   const method = useForm<AddTaskFormData>()
 
   // Мне с бека пока нечего тащить, группы не достать,
@@ -113,9 +113,9 @@ export const IssuingHomework = () => {
 
       <div>
 
-        <Button text='Опубликовать' type={ButtonType.Colored}/>
-        <Button text='Сохранить как черновик' type={ButtonType.White}/>
-        <Button text='Отмена' type={ButtonType.Text} url={'/'}/>
+        <Button text='Опубликовать' type={ButtonType.submit} model={ButtonModel.Colored}/>
+        <Button text='Сохранить как черновик' type={ButtonType.submit} model={ButtonModel.White}/>
+        <Button text='Отмена' type={ButtonType.reset} model={ButtonModel.Text} url={'/'}/>
 
       </div>
 
