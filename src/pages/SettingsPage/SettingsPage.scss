@@ -1,5 +1,10 @@
 .settings-container {
-  margin: 70px 0px 0px 65px;
+  margin: 70px 0 0 65px;
+
+  &>input:focus {
+    outline: none !important;
+    border-color: #A786DF;
+  }
 }
 .settings {
   font-weight: 600;
@@ -86,7 +91,6 @@ margin-bottom: 50px;
 margin-top: 50px;
 }
 .grid-container{
-  column-gap: 47px;
   row-gap:30px;
   column-gap:20px;
   display: grid;
@@ -125,10 +129,7 @@ display: none;
 .max-width-datepicker{
   max-width: 438px;
 }
-input:focus { 
-  outline: none !important;
-  border-color: #A786DF;
-}
+
 .password{
   grid-row: 1/2;
   grid-column: 1/2;
