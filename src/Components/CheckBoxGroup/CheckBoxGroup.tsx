@@ -1,10 +1,10 @@
-import { CheckboxBtn, checkboxData } from "../CheckBoxGroup/CheckBox/Checkbox";
+import { CheckboxBtn, CheckboxData } from "../CheckBoxGroup/CheckBox/Checkbox";
 
-export type checkboxGroupProps = {
-  checkboxArr: Array <checkboxData>
+export type CheckboxGroupProps = {
+  checkboxArr:  CheckboxData[]
 }
 
-export const CheckboxGroup = (props:checkboxGroupProps) =>{
+export const CheckboxGroup = (props:CheckboxGroupProps) =>{
   return (
     <div>
       {

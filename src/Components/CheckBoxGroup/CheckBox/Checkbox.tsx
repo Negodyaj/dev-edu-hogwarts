@@ -1,20 +1,20 @@
 import "./Checkbox.scss"
 
-export type checkboxProps = {
-data: checkboxData;
+export type CheckboxProps = {
+data: CheckboxData;
 
 }
 
-export type checkboxData = {
-  numberOfChecboxGroup: number;
+export type CheckboxData = {
+  name: string;
   value: number;
   text: string;
 }
 
-export const CheckboxBtn = (props: checkboxProps) => {
+export const CheckboxBtn = (props: CheckboxProps) => {
   return (
     <label className="custom-checkbox" > 
-      <input type="checkbox" name={`checkbox${props.data.numberOfChecboxGroup}`} value={props.data.value}/> 
+      <input type="checkbox" name={props.data.name} value={props.data.value}/> 
       <span className="custom-checkbox-text">{props.data.text}</span> 
     </label>
 
