@@ -1,5 +1,46 @@
 .settings-container {
   margin: 70px 0px 0px 65px;
+  .avatar-text{
+    top: 0;
+    position: initial;
+  }
+  .submit-button {
+    margin-top:70px;
+    font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+    width: 190px;
+    height: 51px;
+  border-radius: 5px;
+  padding: 15px 30px;
+  border:none;
+  color:#A786DF;
+  background: #F6F7F9;
+  cursor: pointer;
+  }
+  .reset-button{
+    margin-top:70px;
+    font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+    width: 190px;
+    height: 51px;
+  border-radius: 5px;
+  padding: 15px 30px;
+  border:none;
+  color:#A786DF;
+  background: #F6F7F9;
+  cursor: pointer;
+  }
+  .submit-button:hover{
+    width: 190px;
+    height: 51px;
+  border-radius: 5px;
+  padding: 15px 30px;
+  border:none;
+  background: #A786DF;
+  color:#ffffff;
+  }
 }
 .styles-for-settings-buttons{
   button{
@@ -50,7 +91,10 @@
 }
 
 .settings-photo {
-margin-left: 98px;
+position: relative;
+margin-left: 99px;
+margin-top: 36px;
+cursor: pointer;
 }
 
 .circle-password {
@@ -65,43 +109,7 @@ margin-left: 98px;
   margin-right: 10px;
 }
 
-.submit-button {
-  margin-top:70px;
-  font-weight: 400;
-font-size: 18px;
-line-height: 21px;
-  width: 190px;
-  height: 51px;
-border-radius: 5px;
-padding: 15px 30px;
-border:none;
-color:#A786DF;
-background: #F6F7F9;
-cursor: pointer;
-}
-.reset-button{
-  margin-top:70px;
-  font-weight: 400;
-font-size: 18px;
-line-height: 21px;
-  width: 190px;
-  height: 51px;
-border-radius: 5px;
-padding: 15px 30px;
-border:none;
-color:#A786DF;
-background: #F6F7F9;
-cursor: pointer;
-}
-.submit-button:hover{
-  width: 190px;
-  height: 51px;
-border-radius: 5px;
-padding: 15px 30px;
-border:none;
-background: #A786DF;
-color:#ffffff;
-}
+
 .title{
   font-weight: 600;
 font-size: 22px;
