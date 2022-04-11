@@ -11,20 +11,12 @@ export type GroupFormData = {
   name: string;
   teacherId: number[];
   tutorId: number[];
-  // courseId: number;
   groupStatusId: string;
   startDate: string;
   endDate: string;
   timetable: string;
   paymentPerMonth: number;
 };
-
-// courseId= 0;
-// groupStatusId: "Forming";
-// startDate: "2022-04-07T17:33:42.399Z";
-// endDate: "2022-04-07T17:33:42.399Z";
-// timetable: "string";
-// paymentPerMonth: 0;
 
 export type User = {
   id: number;
@@ -40,7 +32,6 @@ export const NewGroupePage = () => {
     formState: { errors },
   } = useForm<GroupFormData>({
     defaultValues: {
-      // courseId: 0,
       groupStatusId: "Forming",
       startDate: "21.03.2000",
       endDate: "01.01.2010",
@@ -122,7 +113,6 @@ export const NewGroupePage = () => {
               </div>
           </div>
           <div className="default-value">
-            {/* <input {...register("courseId")}/> */}
             <input {...register("groupStatusId")}/>
             <input {...register("startDate")}/>
             <input {...register("endDate")}/>
