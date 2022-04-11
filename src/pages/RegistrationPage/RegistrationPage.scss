@@ -6,6 +6,14 @@ $accent-purple: #A786DF;
   width: 1080px;
   background-color: #F6F7F9;
   padding: 70px 120px 80px 65px;
+  input:not([type="checkbox"]) {
+    width: 438px;
+    height: 56px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #DBDBDB;  
+    padding: 15px 20px
+  }
 }
 h2{
   font-size: 22px;
@@ -19,14 +27,6 @@ label{
 input {
   font-size: 18px;
   font-weight: 400;
-}
-input:not([type="checkbox"]) {
-  width: 438px;
-  height: 56px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: 1px solid #DBDBDB;  
-  padding: 15px 20px
 }
 form {
   margin-top: 20px;
