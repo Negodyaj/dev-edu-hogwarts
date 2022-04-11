@@ -1,6 +1,5 @@
 import { Reducer } from 'redux';
-import { LessonPageAction, LOAD_LESSONS } from '../../actions/lessons.actions';
-import { SET_CURRENT_USER, LOAD_TABS, NotificationsPageAction, SELECT_TAB } from '../../actions/notifications.actions';
+import { LessonPageAction, LOAD_LESSONS, SELECT_TAB, LOAD_TABS } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
 import { UserResponse } from '../../models/responses/UserResponse';
 import { TabData } from '../../models/TabData';
@@ -32,7 +31,9 @@ const lessonsMock: LessonModel[] = [
 export interface LessonPageState {
   tabs: TabData[]
   selectedTab: number
-  lessons?: LessonResponse[]
+  // lessons?: LessonResponse[] заменить!!
+  lessons: LessonModel[]
+  
 }
 
 const initialState: LessonPageState = {

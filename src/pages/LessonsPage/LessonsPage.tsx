@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Lesson, LessonModel } from "./components/Lesson";
 import {TabContainer} from "../../components/TabContainer/TabContainer";
 import {Icon} from "../../shared/enums/Icon";
+import { useDispatch } from "react-redux";
+import { loadTabs } from "../../actions/notifications.actions";
+import { baseWretch } from "../../services/base-wretch.service";
 
 
 export const LessonsPage = () => {
   const [activeLesson, setActiveLesson] = useState(0);
   
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(loadTabs());
+  }, []);
 
 
-
+  useEffect(() => {
+    baseWretch()
+    .url('api/Users/2604')
+    .get()
+    .json(data => dispatch(getCurrentUser(data as UserResponse)));
+  }, []);
   // const toggle = document.querySelector(".circle")
   // const onElementClick = (id:number) => {
   //   setActiveLesson(id === activeLesson ? 0 : id)
