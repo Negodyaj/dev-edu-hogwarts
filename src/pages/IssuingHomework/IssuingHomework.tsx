@@ -112,10 +112,10 @@ export const IssuingHomework = () => {
       </div>
 
       <div>
-
+{/* 
         <Button text='Опубликовать' type={ButtonType.Colored}/>
         <Button text='Сохранить как черновик' type={ButtonType.White}/>
-        <Button text='Отмена' type={ButtonType.Text} url={'/'}/>
+        <Button text='Отмена' type={ButtonType.Text} url={'/'}/> */}
 
       </div>
 
