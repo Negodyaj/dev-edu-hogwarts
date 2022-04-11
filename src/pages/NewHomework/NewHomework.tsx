@@ -8,7 +8,7 @@ import {addNewTaskUrl} from "../../shared/consts";
 import moment from "moment";
 import {SvgIcon} from "../../components/SvgIcon/SvgIcon";
 import {Icon} from "../../shared/enums/Icon";
-import {useRef} from "react";
+import {useMemo, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppState} from "../../store/store";
 import {AddLink, SetValueInInput} from "../../actions/newHomeworkForm.action";
@@ -44,13 +44,22 @@ export const NewHomework = () => {
   const dispatch = useDispatch();
 
   const {links, inputLinkValue} = useSelector((state: AppState) => state.newHomeworkFormState);
-  let refLinkName = useRef<any>({});
+  let refLinkName = useRef<any>({})
+
+  const memoizeMapLinks = useMemo(() => {
+    return links.map((item, index) => {
+      console.log('render links')
+      return (
+        <AddedLink key={index} itemNumber={index} source={item}/>
+      )
+    })
+  }, [links])
 
   // Мне с бека пока нечего тащить, группы не достать,
   // номера заданий из групп не достать ибо в существующих сча в бд тоже нет заданий)
 
   const addLink = () => {
-    if(
+    if (
       inputLinkValue &&
       /^[a-z]+:\/\//i.test(inputLinkValue) &&
       !links.includes(inputLinkValue)
@@ -79,7 +88,7 @@ export const NewHomework = () => {
       .post(formData)
   }
 
-  console.log('rerender', links)
+  console.log('rerender')
   // Нет эндпоинта
   // const saveDraft = () => {
   // };
@@ -139,9 +148,7 @@ export const NewHomework = () => {
         <div className='homework-form_area'>
           Полезные ссылки
           {
-            links.length > 0 && links.map((item, index) =>
-                <AddedLink key={index} itemNumber={index} source={item}/>
-              )
+            links.length > 0 && memoizeMapLinks
           }
           <div className='form-input_link__container'>
             <textarea className='form-input form-input_link'
