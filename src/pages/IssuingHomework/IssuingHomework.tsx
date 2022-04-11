@@ -112,11 +112,9 @@ export const IssuingHomework = () => {
       </div>
 
       <div>
-
         <Button text='Опубликовать' model={ButtonModel.Colored} type={ButtonType.submit}/>
         <Button text='Сохранить как черновик' model={ButtonModel.White} type={ButtonType.submit}/>
         <Button text='Отмена' model={ButtonModel.Text} url={'/'} type={ButtonType.button}/>
-
       </div>
 
     </form>
