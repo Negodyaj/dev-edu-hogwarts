@@ -10,6 +10,7 @@ import {MainPanel} from './components/MainPanel/MainPanel';
 import {CoursesPage} from "./pages/CoursesPage/CoursesPage";
 import {EditCoursesPage} from "./pages/CoursesPage/EditCoursesPage";
 import {IssuingHomework} from "./pages/IssuingHomework/IssuingHomework";
+import {NewGroupePage} from "./pages/NewGroupePage/NewGroupePage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
           <Route path="issuing-homework" element={<IssuingHomework />} />
+          <Route path="group" element={<NewGroupePage />} />
         </Routes>
       </main>
     </div>

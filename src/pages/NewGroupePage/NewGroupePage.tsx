@@ -5,20 +5,26 @@ import { baseWretch } from "../../services/base-wretch.service";
 import { UsersUrl } from "../../shared/consts";
 import { AddNewGroupUrl } from "../../shared/consts";
 import { Button, ButtonModel, ButtonType } from "../../components/Button/Button";
+import moment from "moment";
 
 export type GroupFormData = {
   name: string;
   teacherId: number[];
   tutorId: number[];
-  courseId: 0;
-  groupStatusId: "Forming";
-  startDate: "2022-04-07T17:33:42.399Z";
-  endDate: "2022-04-07T17:33:42.399Z";
-  timetable: "string";
-  paymentPerMonth: 0;
-  // teacher: string[];
-  // tutor: string[];
+  // courseId: number;
+  groupStatusId: string;
+  startDate: string;
+  endDate: string;
+  timetable: string;
+  paymentPerMonth: number;
 };
+
+// courseId= 0;
+// groupStatusId: "Forming";
+// startDate: "2022-04-07T17:33:42.399Z";
+// endDate: "2022-04-07T17:33:42.399Z";
+// timetable: "string";
+// paymentPerMonth: 0;
 
 export type User = {
   id: number;
@@ -32,21 +38,30 @@ export const NewGroupePage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<GroupFormData>();
+  } = useForm<GroupFormData>({
+    defaultValues: {
+      // courseId: 0,
+      groupStatusId: "Forming",
+      startDate: "21.03.2000",
+      endDate: "01.01.2010",
+      timetable: "string",
+      paymentPerMonth: 0
+    }
+  });
   const [users, setUsers] = useState<any>([]);
 
   let tutors: User[]=[];
 
   (users as User[]).forEach(user => {
     if (user.roles.includes("Tutor"))
-    if (tutors.length<8) 
+    if (tutors.length<6) 
     tutors.push(user);});
 
   let teachers:User[]=[];
 
   (users as User[]).forEach(user=> {
     if (user.roles.includes("Teacher"))
-    if (teachers.length<8) 
+    if (teachers.length<6) 
     teachers.push(user);});
 
 
@@ -59,12 +74,10 @@ export const NewGroupePage = () => {
       });
   }, []);
 
-
   const onSubmit = (data: GroupFormData) => {
     baseWretch()
       .url(AddNewGroupUrl)
       .post(data)
-      // .text((token) => setToken(token));
   }
 
   return (
@@ -72,14 +85,15 @@ export const NewGroupePage = () => {
       <div>
         <h1>Новая группа</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <span>Название</span>
+          <h2>Название</h2>
           <input
             placeholder="Введите название"
             {...register("name", { required: true })}
           />
           {errors.name && <span>Вы не указали название</span>}
           <div className="teachers-list">
-            <span>Преподаватель:</span>
+            <h2>Преподаватель:</h2>
+            <div className="list">
             {teachers.map((teacher)=>(
               <label>
               <input
@@ -90,9 +104,11 @@ export const NewGroupePage = () => {
               {teacher.firstName + ' ' + teacher.lastName}
               </label>))}
               {errors.teacherId && <span>Вы не выбрали преподавателя</span>}
+              </div>
           </div>
           <div className="tutors-list">
-            <span>Тьютор:</span>
+            <h2>Тьютор:</h2>
+            <div className="list">
             {tutors.map((tutor)=>(
               <label>
               <input
@@ -103,11 +119,18 @@ export const NewGroupePage = () => {
               {tutor.firstName+' ' + tutor.lastName}
               </label>))}
               {errors.tutorId && <span>Вы не выбрали тьютора</span>}
+              </div>
           </div>
-          {/* <button type="submit">Сохранить</button> */}
+          <div className="default-value">
+            {/* <input {...register("courseId")}/> */}
+            <input {...register("groupStatusId")}/>
+            <input {...register("startDate")}/>
+            <input {...register("endDate")}/>
+            <input {...register("timetable")}/>
+            <input {...register("paymentPerMonth")}/>
+          </div>
           <Button model={ButtonModel.Colored} text='Сохранить' type={ButtonType.submit}/>
           <Button model={ButtonModel.Text} text='Отмена' type={ButtonType.reset}/>
-          {/* <button type="reset" >Отмена </button> */}
         </form>
       </div>
     </>
