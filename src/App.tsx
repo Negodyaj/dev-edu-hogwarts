@@ -16,6 +16,7 @@ function App() {
     <div className='flex-container'>
       <MainPanel/>
       <main>
+        <InputText placeholder='Введите название'/>
         <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
