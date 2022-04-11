@@ -7,9 +7,12 @@ import { Link } from "react-router-dom";
 import photo from '../../components/images/avatar_settings.png';
 import { SvgPencil } from '../../components/SvgIcon/SvgFiles/SvgPencil';
 import Datepicker from '../../components/Datepicker/Datepicker';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
+import { AvatarComponent } from '../../components/AvatarComponent/AvatarComponent';
+import { Avatar } from '../../components/MainPanel/Avatar/Avatar';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
-import moment from 'moment';
 
 export type UserFormData = {
   id: 1,
@@ -124,11 +127,13 @@ export const SettingsPage = () => {
                   </div>
                 </div>
               </div>
-              <img className='settings-photo' src={photo}></img>
+              <div className='settings-photo'>
+                <AvatarComponent photo='http://localhost:3000/static/media/avatar_settings.f04f5af1751b20e8efb2.png'></AvatarComponent>
+              </div>
             </div>
             <div className='grid-container'>
               <div className='data-block password'>
-                <p>Пароль</p>
+                <p className='margin-top-settings'>Пароль</p>
                 <div className='goto-change-password'>
                   <div>
                     <div className='circle-password'></div>
@@ -171,9 +176,10 @@ export const SettingsPage = () => {
                 {errors?.phoneNumber?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
               </div>
             </div>
-
-            <button type="submit" className='submit-button'>Сохранить</button>
-            <button type='reset' className='submit-button'>Отмена</button>
+            <div className='styles-for-settings-buttons'>
+              <Button text={'Сохранить'} type={ButtonType.submit} model={ButtonModel.Colored}></Button>
+              <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text}></Button>
+            </div>
           </form>
         </FormProvider>
       </div>
