@@ -1,0 +1,79 @@
+.toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background: #a786df;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  border: none;
+  margin-top: 27px;
+  margin-left: 2px;
+  
+  
+  .moon-day {
+    position: absolute;
+    margin: 3px 0px 3px 6px;
+    top: 0;
+    left: 0;
+
+  }
+  .sun {
+    z-index: 1px;
+    position: absolute;
+    left: 30px;
+    top: 3px;
+  }
+  .circle {
+    z-index: 2px;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 4px;
+    border-radius: 50px;
+    top: 4px;
+    border: #ffffff;
+    background: #ffffff;
+    transition: all 0.2s ease-in-out 0s;
+  }
+  .circle-night{
+    z-index: 3px;
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 34px;
+    top: 4px;
+    border-radius: 50px;
+    transition: all 0.2s ease-in-out 0s;
+    border: #ffffff;
+    background: black;
+
+  }
+  .sun-night{
+    z-index: 0;
+    position: absolute;
+    left: 30px;
+    top: 3px;
+    
+  }
+  .sun-night path{
+    stroke: transparent;
+    fill: transparent;
+    transition: fill, stroke 0.2s ease-in 0s;
+  }
+  .sun-night .transparent{
+    stroke: transparent;
+    fill: transparent;
+    transition: all 0.2s ease-in 0s;
+  }
+  .moon path{
+    stroke: transparent;
+    fill: transparent;
+    transition: fill, stroke 0.2s ease-in 0s;
+   
+  }
+
+}
+.toggle-container{
+  display: flex;
+}
+

@@ -1,13 +1,58 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background-color: #F6F7F9;
+  font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+main {
+  flex-grow: 1;
+}
+
+.form-container {
+  padding-left: 65px;
+  padding-top: 90px;
+}
+
+::-moz-selection{
+  background-color: #EBE3F8;
+}
+
+::selection{
+  background-color: #EBE3F8;
+}
+
+.content-container {
+  background: #FFFFFF;
+  width: 940px;
+  box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
+  border-radius: 15px;
+  padding: 50px 45px;
+  transition: width ease-in-out 0.5s;
+}
+
+.margin-common-content {
+  margin: 70px 120px 70px 20px;
+}
+
+.flex-container {
+  display: flex;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #8a8a8a;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #8a8a8a;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #8a8a8a;
 }

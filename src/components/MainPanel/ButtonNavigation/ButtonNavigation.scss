@@ -1,0 +1,40 @@
+.nav-link {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 13px 15px;
+  color: black;
+  display: flex;
+  transition: width 0.5s ease-in-out, opacity 0.3s ease-in-out;
+  width: 262px;
+  
+  & svg {
+    flex-shrink: 0;
+  }
+
+  & .links-name {
+    margin-left: 15px;
+    width: 175px;
+    opacity: 1;
+    white-space: nowrap;
+  }
+}
+
+.nav-link.active,
+.nav-link:hover {
+  background-color: #a786df;
+  border-radius: 5px;
+  color: white;
+
+  path {
+    stroke: white;
+  }
+  .with-color-on-hover{
+    fill: white;
+  }
+}
+
+.nav-link + .nav-link {
+  margin-top: 23px;
+}
+

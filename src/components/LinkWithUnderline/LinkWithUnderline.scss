@@ -1,0 +1,19 @@
+@import '../../style/colors';
+
+.link-with-text-decoration {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  font-weight: 600;
+  font-size: 18px;
+  color: $link-color;
+  text-decoration: none;
+
+  & span {
+    display: block;
+    background-color: $link-color;
+    width: 100%;
+    height: 1px;
+    margin: -2px 0 4px 0;
+  }
+}
