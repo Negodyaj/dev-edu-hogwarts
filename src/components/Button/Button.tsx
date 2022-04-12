@@ -4,11 +4,12 @@ import { Icon } from "../../shared/enums/Icon";
 
 export type ButtonProps = {
   text: string;
-  type: ButtonType;
+  type?: ButtonType;
   model: ButtonModel;
   icon?: Icon;
   url?: string;
   link?: "btn-link";
+  width?: string;
 };
 
 export enum ButtonModel {
@@ -43,13 +44,14 @@ export const Button = (props: ButtonProps) => {
     buttonImg = <SvgIcon icon={props.icon} />;
   }
 
+
   return (props.url ? (
-    <a href={props.url} className={`btn ${buttonClass}`}>
+    <a href={props.url} className={`btn ${buttonClass}`} style={{width:`${props.width}`}}>
       {props.text}
       {buttonImg}
     </a>
   ) : (
-    <button className={`btn ${buttonClass}`} type={props.type}>
+    <button className={`btn ${buttonClass}`} type={props.type} style={{width:`${props.width}`}}>
       {props.text}
       {buttonImg}
     </button>
