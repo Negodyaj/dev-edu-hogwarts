@@ -14,7 +14,7 @@ export type AddTaskFormData = {
     startDate: string
     endDate: string
   }
-  groupId: number
+  groupId: number   
 }
 
 const groups = [
@@ -112,11 +112,9 @@ export const IssuingHomework = () => {
       </div>
 
       <div>
-
-        <Button text='Опубликовать' type = {ButtonType.button} model={ButtonModel.Colored}/>
-        <Button text='Сохранить как черновик' type = {ButtonType.button} model={ButtonModel.White} />
-        <Button text='Отмена' type={ButtonType.reset} model={ButtonModel.Text} url={'/'}/>
-
+        <Button text='Опубликовать' model={ButtonModel.Colored} type={ButtonType.submit}/>
+        <Button text='Сохранить как черновик' model={ButtonModel.White} type={ButtonType.submit}/>
+        <Button text='Отмена' model={ButtonModel.Text} url={'/'} type={ButtonType.button}/>
       </div>
 
     </form>

@@ -9,6 +9,10 @@ import { Link } from "react-router-dom";
 import photo from '../../components/images/avatar_settings.png';
 import { SvgPencil } from '../../components/SvgIcon/SvgFiles/SvgPencil';
 import Datepicker from '../../components/Datepicker/Datepicker';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
+import { AvatarComponent } from '../../components/AvatarComponent/AvatarComponent';
+import { Avatar } from '../../components/MainPanel/Avatar/Avatar';
+import moment from 'moment';
 
 export type UserFormData = {
   id: 1,
@@ -43,21 +47,8 @@ export const SettingsPage = () => {
       .json((data: any) => setUser(data))
   }, []);
 
-  const FormattingDate = (str: string) => {
-    var conv = str.toString();
-    var splitted = conv.split(" ");
-    var r = splitted.slice(1, 4);
-    var temp = r[1];
-    r[1] = r[0];
-    r[0] = temp;
-    var res = '';
-    for (let i = 0; i <= r.length - 1; i++) {
-      res += r[i];
-      if (i != r.length - 1) {
-        res += "/";
-      }
-    }
-    return res;
+  const convertDate = (date: string) => {
+    return moment(new Date(date)).format('DD.MM.YYYY').toString()
   }
 
   const onSubmit = (data: UserFormData) => baseWretch()
@@ -69,7 +60,7 @@ export const SettingsPage = () => {
       patronymic: data.patronymic,
       email: data.email,
       password: data.password,
-      birthDate: FormattingDate(data.birthDate),
+      birthDate: convertDate(data.birthDate),
       gitHubAccount: data.gitHubAccount,
       phoneNumber: data.phoneNumber,
       city: 1,
@@ -143,39 +134,38 @@ export const SettingsPage = () => {
                   </div>
                 </div>
               </div>
-              <img className='settings-photo' src={photo}></img>
-
-            </div>
-            <div className='grid-container'>
-            <div className='data-block password'>
-              <p>Пароль</p>
-              <div className='goto-change-password'>
-                <div>
-                  <div className='circle-password'></div>
-                  <div className='circle-password'></div>
-                  <div className='circle-password'></div>
-                  <div className='circle-password'></div>
-                  <div className='circle-password'></div>
-                  <div className='circle-password'></div>
-                  <div className='circle-password'></div>
-                  <div className='circle-password'></div>
-                </div>
-                <Link to={'#'}><SvgPencil></SvgPencil></Link>
+              <div className='settings-photo'>
+                <AvatarComponent photo='http://localhost:3000/static/media/avatar_settings.f04f5af1751b20e8efb2.png'></AvatarComponent>
               </div>
             </div>
-            <div className='data-block email'>
-              <p>Email</p>
-              <input defaultValue={user.email} {...register('email', {
-                required: true,
-                pattern: /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/
-              })}></input>
-              {errors?.email?.type === "required" && <p className='error-message'>Введите данные</p>}
-              {errors?.email?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
-            </div>
-           
-
+            <div className='grid-container'>
+              <div className='data-block password'>
+                <p className='margin-top-settings'>Пароль</p>
+                <div className='goto-change-password'>
+                  <div>
+                    <div className='circle-password'></div>
+                    <div className='circle-password'></div>
+                    <div className='circle-password'></div>
+                    <div className='circle-password'></div>
+                    <div className='circle-password'></div>
+                    <div className='circle-password'></div>
+                    <div className='circle-password'></div>
+                    <div className='circle-password'></div>
+                  </div>
+                  <Link to={'#'}><SvgPencil></SvgPencil></Link>
+                </div>
+              </div>
+              <div className='data-block email'>
+                <p className='margin-top-settings'>Email</p>
+                <input defaultValue={user.email} {...register('email', {
+                  required: true,
+                  pattern: /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/
+                })}></input>
+                {errors?.email?.type === "required" && <p className='error-message'>Введите данные</p>}
+                {errors?.email?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
+              </div>
               <div className='data-block git-hub'>
-                <p>Ссылка на GitHub</p>
+                <p className='margin-top-settings'>Ссылка на GitHub</p>
                 <input defaultValue={user.gitHubAccount} {...methods.register('gitHubAccount', {
                   required: true,
                   pattern: /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/
@@ -183,7 +173,7 @@ export const SettingsPage = () => {
                 {errors?.gitHubAccount?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
               </div>
               <div className='data-block phone'>
-                <p>Телефон</p>
+                <p className='margin-top-settings'>Телефон</p>
                 <input type='tel' defaultValue={user.phoneNumber} {...methods.register('phoneNumber', {
                   required: true,
                   pattern: /^[ 0-9]+$/
@@ -191,9 +181,10 @@ export const SettingsPage = () => {
                 {errors?.phoneNumber?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
               </div>
             </div>
-         
-            <button type="submit" className='submit-button'>Сохранить</button>
-            <button type='reset' className='submit-button'>Отмена</button>
+            <div className='styles-for-settings-buttons'>
+              <Button text={'Сохранить'} type={ButtonType.submit} model={ButtonModel.Colored}></Button>
+              <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text}></Button>
+            </div>
           </form>
         </FormProvider>
       </div>

@@ -58,4 +58,3 @@ export const Button = (props: ButtonProps) => {
   ));
 };
 
-{/* <Button text="Зарегистрироваться" type={ButtonType.White} icon={Icon.Plus} url="#" /> */}
