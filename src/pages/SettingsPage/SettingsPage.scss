@@ -1,5 +1,52 @@
 .settings-container {
   margin: 70px 0px 0px 65px;
+  .avatar-text{
+    top: 0;
+    position: initial;
+  }
+  .submit-button {
+    margin-top:70px;
+    font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+    width: 190px;
+    height: 51px;
+  border-radius: 5px;
+  padding: 15px 30px;
+  border:none;
+  color:#A786DF;
+  background: #F6F7F9;
+  cursor: pointer;
+  }
+  .reset-button{
+    margin-top:70px;
+    font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+    width: 190px;
+    height: 51px;
+  border-radius: 5px;
+  padding: 15px 30px;
+  border:none;
+  color:#A786DF;
+  background: #F6F7F9;
+  cursor: pointer;
+  }
+  .submit-button:hover{
+    width: 190px;
+    height: 51px;
+  border-radius: 5px;
+  padding: 15px 30px;
+  border:none;
+  background: #A786DF;
+  color:#ffffff;
+  }
+}
+.styles-for-settings-buttons{
+  button{
+    width: 190px;
+    margin-top: 70px;
+  }
 }
 .settings {
   font-weight: 600;
@@ -7,12 +54,10 @@
   line-height: 29px;
   margin-bottom: 50px;
   position: relative;
+  
 }
-p {
-  margin-bottom: 10px;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 21px;
+.margin-top-settings{
+  margin-top:0px;
 }
 .data-block {
   margin-bottom: 29px;
@@ -26,7 +71,14 @@ p {
     border: 1px solid #dbdbdb;
     border-radius: 5px;
   }
+  p {
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+  }
 }
+
 .goto-change-password {
   height: 56px;
   display: flex;
@@ -37,10 +89,14 @@ p {
 .margin-left-inputs {
   margin-left: 20px;
 }
+
 .settings-photo {
-margin-left: 79px;
-margin-bottom: 180px;
+position: relative;
+margin-left: 99px;
+margin-top: 36px;
+cursor: pointer;
 }
+
 .circle-password {
   width: 8px;
   height: 8px;
@@ -48,36 +104,12 @@ margin-bottom: 180px;
   border-radius: 50px;
   display: inline-block;
 }
+
 .circle-password:not(:last-child) {
   margin-right: 10px;
 }
-img{
-  position: absolute;
-  top: 149px;
-  left: 864px;
-}
-.submit-button{
-  margin-top:70px;
-  font-weight: 400;
-font-size: 18px;
-line-height: 21px;
-  width: 190px;
-  height: 51px;
-border-radius: 5px;
-padding: 15px 30px;
-border:none;
-color:#A786DF;
-background: #F6F7F9;
-}
-.submit-button:hover{
-  width: 190px;
-  height: 51px;
-border-radius: 5px;
-padding: 15px 30px;
-border:none;
-background: #A786DF;
-color:#ffffff;
-}
+
+
 .title{
   font-weight: 600;
 font-size: 22px;
