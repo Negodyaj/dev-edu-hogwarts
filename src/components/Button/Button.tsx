@@ -46,7 +46,7 @@ export const Button = (props: ButtonProps) => {
 
 
   return (props.url ? (
-    <a href={props.url} className={`btn ${buttonClass}`} style={{width:`${props.width}`}}>
+    <a href={props.url} className={`btn ${buttonClass}`}>
       {props.text}
       {buttonImg}
     </a>

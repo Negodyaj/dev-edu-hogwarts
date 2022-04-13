@@ -1,0 +1,31 @@
+.editing-page {
+  margin-left: 65px;
+
+  h1 {
+    padding: 90px 0 50px 0;
+    font-size: 22px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+}
+
+.default-value {
+  display: none;
+}
+
+.teachers-list, .tutors-list {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 261px auto;
+}
+
+label {
+  padding-bottom: 20px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 305px 305px;
+}

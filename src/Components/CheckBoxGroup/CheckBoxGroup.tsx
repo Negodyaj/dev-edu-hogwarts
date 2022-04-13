@@ -6,11 +6,11 @@ export type CheckboxGroupProps = {
 
 export const CheckboxGroup = (props:CheckboxGroupProps) =>{
   return (
-    <div>
+    <>
       {
         props.checkboxArr.map( (item) => (<CheckboxBtn data = {item}/>)) 
 
       }
-    </div>
+    </>
   )
 }
