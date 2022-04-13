@@ -2,8 +2,6 @@ import { useForm, FormProvider, Controller } from 'react-hook-form';
 import '../SettingsPage/SettingsPage.scss';
 import '../SettingsPage/SettingsPage.scss';
 import { baseWretch } from '../../services/base-wretch.service';
-import { useEffect, useState } from 'react';
-import { getToken, getIdFromToken } from '../../services/auth.service';
 import '../../components/SvgIcon/SvgIcon';
 import { Link } from "react-router-dom";
 import photo from '../../components/images/avatar_settings.png';
@@ -13,6 +11,8 @@ import { Button, ButtonModel, ButtonType } from '../../components/Button/Button'
 import { AvatarComponent } from '../../components/AvatarComponent/AvatarComponent';
 import { Avatar } from '../../components/MainPanel/Avatar/Avatar';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
 
 export type UserFormData = {
   id: 1,
@@ -36,25 +36,18 @@ export const SettingsPage = () => {
     },
     mode: "onChange"
   });
-  const { register, handleSubmit, control, formState: { errors } } = methods;
-  const token = getToken();
-  const userId = getIdFromToken(token);
-  const [user, setUser] = useState<any>({});
-  useEffect(() => {
-    baseWretch()
-      .url('api/Users/' + userId)
-      .get()
-      .json((data: any) => setUser(data))
-  }, []);
+
+  const { register, formState: { errors } } = methods;
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState);
 
   const convertDate = (date: string) => {
     return moment(new Date(date)).format('DD.MM.YYYY').toString()
   }
 
   const onSubmit = (data: UserFormData) => baseWretch()
-    .url('api/Users/' + userId)
+    .url('api/Users/' + currentUser?.id)
     .put({
-      id: user.id,
+      id: data.id,
       firstName: data.firstName,
       lastName: data.lastName,
       patronymic: data.patronymic,
@@ -64,7 +57,7 @@ export const SettingsPage = () => {
       gitHubAccount: data.gitHubAccount,
       phoneNumber: data.phoneNumber,
       city: 1,
-      username: user.username
+      username: data.username
     });
 
   return (
@@ -79,7 +72,7 @@ export const SettingsPage = () => {
                   <p>Фамилия</p>
                   <input
                     className='lstName'
-                    defaultValue={user.lastName}
+                    defaultValue={currentUser?.lastName}
                     type="text"
                     {...methods.register('lastName', {
                       required: true,
@@ -95,7 +88,7 @@ export const SettingsPage = () => {
                 </div>
                 <div className='data-block'>
                   <p>Имя</p>
-                  <input defaultValue={user.firstName} {...methods.register('firstName', {
+                  <input defaultValue={currentUser?.firstName} {...methods.register('firstName', {
                     required: true,
                     maxLength: 20,
                     pattern: /^[a-zа-яё]+$/i
@@ -109,7 +102,7 @@ export const SettingsPage = () => {
                 </div>
                 <div className='data-block'>
                   <p>Отчество</p>
-                  <input defaultValue={user.patronymic} {...methods.register('patronymic', {
+                  <input defaultValue={currentUser?.patronymic} {...methods.register('patronymic', {
                     required: true,
                     maxLength: 30,
                     pattern: /^[a-zа-яё]+$/i
@@ -155,26 +148,28 @@ export const SettingsPage = () => {
                   <Link to={'#'}><SvgPencil></SvgPencil></Link>
                 </div>
               </div>
-              <div className='data-block email'>
-                <p className='margin-top-settings'>Email</p>
-                <input defaultValue={user.email} {...register('email', {
+              <div className='data-block '>
+                <p>Email</p>
+                <input defaultValue={currentUser?.email} {...register('email', {
                   required: true,
                   pattern: /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/
                 })}></input>
                 {errors?.email?.type === "required" && <p className='error-message'>Введите данные</p>}
                 {errors?.email?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
               </div>
+
+
               <div className='data-block git-hub'>
-                <p className='margin-top-settings'>Ссылка на GitHub</p>
-                <input defaultValue={user.gitHubAccount} {...methods.register('gitHubAccount', {
+                <p>Ссылка на GitHub</p>
+                <input defaultValue={currentUser?.gitHubAccount} {...methods.register('gitHubAccount', {
                   required: true,
                   pattern: /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/
                 })}></input>
                 {errors?.gitHubAccount?.type === "pattern" && <p className='error-message'>Проверьте корректность данных</p>}
               </div>
               <div className='data-block phone'>
-                <p className='margin-top-settings'>Телефон</p>
-                <input type='tel' defaultValue={user.phoneNumber} {...methods.register('phoneNumber', {
+                <p>Телефон</p>
+                <input type='tel' defaultValue={currentUser?.phoneNumber} {...methods.register('phoneNumber', {
                   required: true,
                   pattern: /^[ 0-9]+$/
                 })}></input>
