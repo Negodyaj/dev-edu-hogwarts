@@ -1,4 +1,4 @@
-export type HomeworkCardData = {
+export type HomeworkCardResponse = {
   task: {
     id: number,
     name: string,

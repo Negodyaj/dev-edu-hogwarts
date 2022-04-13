@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadHWCards } from "../../actions/homeworks.actions";
 import {FilterList} from "../../components/FilterList/FilterList";
 import { TabContainer } from "../../components/TabContainer/TabContainer";
-import { HomeworkCardData } from "../../models/HomeworkCardData";
+import { HomeworkCardResponse } from "../../models/responses/HomeworkCardResponse";
 import { baseWretch } from "../../services/base-wretch.service";
 import { Icon } from "../../shared/enums/Icon";
 import { AppState } from "../../store/store";
@@ -57,11 +57,11 @@ export const HomeworksPage = () => {
 
   useEffect(()=>{
     baseWretch()
-   .url(`api/Homeworks/by-group/510`)
+   .url(`api/Homeworks/by-group/${currentUser?.groups[0].id}`)
    .get()
-   .json((data)=>loadHWCards(data as HomeworkCardData[]));
+   .json((data)=>dispatch(loadHWCards(data as HomeworkCardResponse[])));
   });
-//  const {homeworks} = useSelector((state:AppState)=>state.)
+//  const { homeworkCards } = useSelector((state:AppState) => state.homeworksPageState)
   return (
     <div className='margin-common-content'>
      <TabContainer tabContainerData={ [
