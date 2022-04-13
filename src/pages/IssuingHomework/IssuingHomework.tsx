@@ -2,7 +2,7 @@ import {useForm, FormProvider, Controller} from "react-hook-form";
 import './IssuingHomework.scss'
 import {RadioGroup} from "../../components/RadioGroup/RadioGroup";
 import Datepicker from "../../components/Datepicker/Datepicker";
-import {Button, ButtonType} from "../../components/Button/Button";
+import {Button, ButtonModel, ButtonType} from "../../components/Button/Button";
 import {baseWretch} from "../../services/base-wretch.service";
 import {addNewTaskUrl} from "../../shared/consts";
 import moment from "moment";
@@ -14,7 +14,7 @@ export type AddTaskFormData = {
     startDate: string
     endDate: string
   }
-  groupId: number
+  groupId: number   
 }
 
 const groups = [
@@ -112,11 +112,9 @@ export const IssuingHomework = () => {
       </div>
 
       <div>
-
-        <Button text='Опубликовать' type={ButtonType.Colored}/>
-        <Button text='Сохранить как черновик' type={ButtonType.White}/>
-        <Button text='Отмена' type={ButtonType.Text} url={'/'}/>
-
+        <Button text='Опубликовать' model={ButtonModel.Colored} type={ButtonType.submit}/>
+        <Button text='Сохранить как черновик' model={ButtonModel.White} type={ButtonType.submit}/>
+        <Button text='Отмена' model={ButtonModel.Text} url={'/'} type={ButtonType.button}/>
       </div>
 
     </form>
