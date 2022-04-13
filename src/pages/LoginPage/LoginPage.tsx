@@ -1,6 +1,9 @@
+import { url } from "inspector";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "../../actions/login.actions";
+import { UserResponse } from "../../models/responses/UserResponse";
 import { setToken } from "../../services/auth.service";
 import { baseWretch } from "../../services/base-wretch.service"
 import { loginUrl } from "../../shared/consts";
@@ -12,23 +15,29 @@ export type LoginFormData = {
 }
 
 export const LoginPage = () => {
+
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
   const [course, setCourse] = useState<any>({});
 
+  
   useEffect(() => {
     baseWretch()
     .url('api/Courses/1/simple')
     .get()
     .json((data: any) => setCourse(data))
   }, []);
+  
+  const logIn = (data: LoginFormData) => baseWretch()
+  .url(loginUrl)
+  .post(data)
+  .text((token: string) =>{ setToken(token);});
 
-  const onSubmit = (data: LoginFormData) => baseWretch()
-    .url(loginUrl)
-    .post(data)
-    .text((token: string) => setToken(token));
 
-  const { email, password } = useSelector((state: AppState) => state.loginPageState);
+  const onSubmit=(data:LoginFormData)=>{
+    logIn(data);
+  }
 
+ const {  email,password } = useSelector((state: AppState) => state.loginPageState);
   return (
     <>
     { course.name }

@@ -11,9 +11,26 @@ import {CoursesPage} from "./pages/CoursesPage/CoursesPage";
 import {EditCoursesPage} from "./pages/CoursesPage/EditCoursesPage";
 import {IssuingHomework} from "./pages/IssuingHomework/IssuingHomework";
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from './actions/login.actions';
+import { UserResponse } from './models/responses/UserResponse';
+import { baseWretch } from './services/base-wretch.service';
+import { useEffect } from 'react';
+
 
 function App() {
+
+  const dispatch = useDispatch();
+  const getUser=()=> baseWretch()
+  .url('api/Users/self')
+  .get()
+  .json(data=>dispatch(setCurrentUser(data as UserResponse)));
+  useEffect(()=>{
+    getUser();
+  }, []);
+  
   return (
+     
     <div className='flex-container'>
       <MainPanel/>
       <main>
