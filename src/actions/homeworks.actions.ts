@@ -1,18 +1,15 @@
+import { Dispatch } from "react";
+import { useDispatch } from "react-redux";
+import { ThunkAction } from "redux-thunk";
+import { HomeworkCardData } from "../models/HomeworkCardData";
+
+export const LOAD_HWCARDS = 'homeworks/LOAD_HWCARDS' as const;
 
 
-export const LOAD_HWCARDS = 'notifications/LOAD_HWCARDS' as const;
-export const SELECT_HWCARD = 'notifications/SELECT_HWCARD' as const;
-
-export const loadHWCards = () => ({
-  type: LOAD_HWCARDS
+export const loadHWCards = (hws: HomeworkCardData []) => ({
+  type: LOAD_HWCARDS,
+  response: hws
 });
 
-
-export const selectCard = (id: number) => ({
-  type: SELECT_HWCARD,
-  payload: id,
-});
-
-export type NotificationsPageAction = 
-  ReturnType<typeof loadHWCards> | 
-  ReturnType<typeof selectCard>;
+export type HomeworkPageAction = 
+  ReturnType<typeof loadHWCards>;

@@ -1,4 +1,13 @@
+import { url } from "inspector";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadHWCards } from "../../actions/homeworks.actions";
 import {FilterList} from "../../components/FilterList/FilterList";
+import { TabContainer } from "../../components/TabContainer/TabContainer";
+import { HomeworkCardData } from "../../models/HomeworkCardData";
+import { baseWretch } from "../../services/base-wretch.service";
+import { Icon } from "../../shared/enums/Icon";
+import { AppState } from "../../store/store";
 import {HomeworkCard} from "./components/HomeworkCard";
 
 let tasks = [
@@ -39,47 +48,41 @@ let tasks = [
     elseData: '',
   }
 ]
-
+  
 export const HomeworksPage = () => {
-  const revertedArray = tasks.slice().reverse();
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState);
+  let groups = currentUser?.groups;
+  // const revertedArray = groups.slice().reverse();
 
+  useEffect(()=>{
+    baseWretch()
+   .url(`api/Homeworks/by-group/510`)
+   .get()
+   .json((data)=>loadHWCards(data as HomeworkCardData[]));
+  });
+//  const {homeworks} = useSelector((state:AppState)=>state.)
   return (
     <div className='margin-common-content'>
-      Домашки
-      <FilterList data={[
-        {
-          id: 1, name: 'Все'
-        },
-        {
-          id: 2, name: 'Эта неделя'
-        },
-        {
-          id: 3, name: 'Этот месяц'
-        }
-      ]} type=''/>
-      <FilterList data={[
-        {
-          id: 1, name: 'Все'
-        },
-        {
-          id: 2, name: 'Эта неделя'
-        },
-        {
-          id: 3, name: 'Этот месяц'
-        },
-        {
-          id: 4, name: 'Этот год'
-        },
-        {
-          id: 5, name: 'Это десятилетие'
-        },
-      ]} type='table'/>
-
+     <TabContainer tabContainerData={ [
+        {id:1, icon: Icon.Cookie, text: 'Базовый курс'},
+        {id: 2, icon: Icon.Calendar, text: 'Специализация Backend'}
+        ]} selectedTab={0}></TabContainer>
+        {}
       {
-        revertedArray.map(item =>
-          <HomeworkCard data={item} key={item.id}/>
-        )
+        // revertedArray.map(item =>
+        //   <HomeworkCard data={{
+        //     id: 0,
+        //     taskNumber: 0,
+        //     title: "",
+        //     dateBeginning: "",
+        //     dateEnd: "",
+        //     status: 0,
+        //     elseData: ""
+        //   }} />
+        // )
       }
     </div>
   )
 }
+

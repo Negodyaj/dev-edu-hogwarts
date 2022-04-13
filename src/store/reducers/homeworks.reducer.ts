@@ -1,28 +1,21 @@
 import { Reducer } from "react";
 import { HomeworkCardData } from "../../models/HomeworkCardData"
-import {LOAD_HWCARDS, SELECT_HWCARD,NotificationsPageAction } from '../../actions/homeworks.actions'
+import {LOAD_HWCARDS, HomeworkPageAction } from '../../actions/homeworks.actions'
 
 export interface HomeworkPageState{
-  homeworkCard: HomeworkCardData[],
-  selectedCard: number
+  homeworkCards?: HomeworkCardData[]
 }
 const initialState: HomeworkPageState = {
-  homeworkCard: [],
-  selectedCard: 1
+  homeworkCards: []
 };
-export const homeworksPageReducer: Reducer<HomeworkPageState, NotificationsPageAction> = 
+export const homeworksPageReducer: Reducer<HomeworkPageState, HomeworkPageAction> = 
   ( state = initialState, action ) => {
     switch (action.type) {
       case LOAD_HWCARDS: {
         return {
-          ...state
-        };
-      }
-      case SELECT_HWCARD: {
-        return {
           ...state,
-          selectedCard:action.payload
-        }
+          homeworkCards: action.response
+        };
       }
       default:
         return state;
