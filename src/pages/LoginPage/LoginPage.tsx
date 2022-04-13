@@ -28,9 +28,9 @@ export const LoginPage = () => {
   }, []);
   
   const logIn = (data: LoginFormData) => baseWretch()
-  .url(loginUrl)
-  .post(data)
-  .text((token: string) =>{ setToken(token);});
+    .url(loginUrl)
+    .post(data)
+    .text((token: string) =>{ setToken(token);});
 
 
   const onSubmit=(data:LoginFormData)=>{

@@ -1,7 +1,7 @@
 import { LessonResponse } from "../models/responses/LessonResponse";
 
-export const LOAD_TABS = 'notifications/LOAD_TABS' as const;
-export const SELECT_TAB = 'notifications/SELECT_TAB' as const;
+export const LOAD_TABS = 'lessons/LOAD_TABS' as const;
+export const SELECT_TAB = 'lessons/SELECT_TAB' as const;
 
 export const LOAD_LESSONS = 'lessons/LOAD_LESSONS' as const;
 
@@ -15,11 +15,12 @@ export const selectTab = (id: number) => ({
   payload: id,
 });
 
-export const loadLesson = () => ({
-  type: LOAD_LESSONS
+export const loadLessons = (lessons: LessonResponse[]) => ({
+  type: LOAD_LESSONS,
+  response: lessons
 });
 
 export type LessonPageAction = 
   ReturnType<typeof loadTabs> | 
   ReturnType<typeof selectTab> | 
-  ReturnType<typeof loadLesson>;
+  ReturnType<typeof loadLessons>;

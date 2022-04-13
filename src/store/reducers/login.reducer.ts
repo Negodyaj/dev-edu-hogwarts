@@ -11,7 +11,7 @@ export interface LoginPageState {
 const initialState: LoginPageState = {
   currentUser: undefined,
   email: "Mail@example.ru",
-  password:"        "
+  password: "        "
 };
 
 export const loginPageReducer: Reducer<LoginPageState, LoginPageAction> = 
@@ -19,7 +19,7 @@ export const loginPageReducer: Reducer<LoginPageState, LoginPageAction> =
     switch (action.type) {  
       case SET_CURRENT_USER: {
         return {
-          ... state,
+          ...state,
           currentUser: action.payload
         }
       }    

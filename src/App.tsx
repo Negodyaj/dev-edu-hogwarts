@@ -20,11 +20,12 @@ import { useEffect } from 'react';
 function App() {
 
   const dispatch = useDispatch();
-  const getUser=()=> baseWretch()
+  const getUser = () => baseWretch()
   .url('api/Users/self')
   .get()
-  .json(data=>dispatch(setCurrentUser(data as UserResponse)));
-  useEffect(()=>{
+  .json(data => dispatch(setCurrentUser(data as UserResponse)));
+  
+  useEffect(() => {
     getUser();
   }, []);
   
