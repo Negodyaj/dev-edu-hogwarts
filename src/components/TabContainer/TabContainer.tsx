@@ -3,10 +3,10 @@ import './TabContainer.scss'
 import { useState } from "react";
 import { TabData } from "../../models/TabData";
 import { useDispatch } from "react-redux";
-import { selectTab } from "../../actions/notifications.actions";
+import { selectTab } from "../../actions/lessons.actions";
 
 export type TabContainerProps = {
-  tabContainerData: TabData[]
+  tabContainerData?: TabData[]
   selectedTab: number
 }
 
@@ -21,7 +21,7 @@ export const TabContainer = (props: TabContainerProps) => {
     <>
       <div className="tab-container">
         {
-          props.tabContainerData.map((item) => (<TabItem data={item} key={item.id} activeTab={props.selectedTab} onClick={onTabClick}/>))
+          props.tabContainerData?.map((item) => (<TabItem data={item} key={item.id} activeTab={props.selectedTab} onClick={onTabClick}/>))
         }
       </div>
     </>

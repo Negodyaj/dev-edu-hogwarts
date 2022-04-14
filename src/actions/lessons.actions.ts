@@ -1,4 +1,5 @@
 import { LessonResponse } from "../models/responses/LessonResponse";
+import { TabData } from "../models/TabData";
 
 export const LOAD_TABS = 'lessons/LOAD_TABS' as const;
 export const SELECT_TAB = 'lessons/SELECT_TAB' as const;
@@ -6,8 +7,9 @@ export const SELECT_TAB = 'lessons/SELECT_TAB' as const;
 export const LOAD_LESSONS = 'lessons/LOAD_LESSONS' as const;
 
 
-export const loadTabs = () => ({
-  type: LOAD_TABS
+export const loadTabs = (tabs: TabData[]) => ({
+  type: LOAD_TABS,
+  response: tabs
 });
 
 export const selectTab = (id: number) => ({
