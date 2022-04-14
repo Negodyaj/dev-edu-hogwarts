@@ -15,6 +15,7 @@ import { setCurrentUser } from './actions/login.actions';
 import { UserResponse } from './models/responses/UserResponse';
 import { baseWretch } from './services/base-wretch.service';
 import { useEffect } from 'react';
+import { loadLessonPageTabs } from './actions/lessons.actions';
 
 
 function App() {
@@ -23,7 +24,11 @@ function App() {
   const getUser = () => baseWretch()
   .url('api/Users/self')
   .get()
-  .json(data => dispatch(setCurrentUser(data as UserResponse)));
+  .json(data => {
+    const user = data as UserResponse;
+    dispatch(setCurrentUser(user));
+    dispatch(loadLessonPageTabs(user?.groups));
+  });
   
   useEffect(() => {
     getUser();

@@ -1,3 +1,4 @@
+import { tab } from '@testing-library/user-event/dist/tab';
 import { useSelector } from 'react-redux';
 import { Reducer } from 'redux';
 import { LessonPageAction, LOAD_LESSONS, SELECT_TAB, LOAD_TABS } from '../../actions/lessons.actions';
@@ -49,7 +50,7 @@ export interface LessonPageState {
 
 const initialState: LessonPageState = {
   tabs: [],
-  selectedTab: 1,
+  selectedTab: -1, 
   lessons: [],
 };
 
@@ -63,15 +64,25 @@ export const lessonPageReducer: Reducer<LessonPageState, LessonPageAction> =
         };
       }
       case LOAD_TABS: {
+        let tabs: TabData[] = action.payload.map(group => {
+          let tabData: TabData = {
+            id: group.id, //ask
+            text: group.course.name,
+            icon: Icon.Cookie //заменить
+          }
+          return tabData;
+        });
+
         return {
           ...state,
-          tabs: action.response
+          tabs: tabs,
+          selectedTab: tabs[0]?.id
         }
       }
       case LOAD_LESSONS: {
         return {
           ...state,
-          lessons: action.response 
+          lessons: action.payload 
         }
       }
       default:

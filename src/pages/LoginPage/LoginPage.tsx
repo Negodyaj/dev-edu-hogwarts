@@ -20,12 +20,12 @@ export const LoginPage = () => {
   const [course, setCourse] = useState<any>({});
 
   
-  useEffect(() => {
-    baseWretch()
-    .url('api/Courses/1/simple')
-    .get()
-    .json((data: any) => setCourse(data))
-  }, []);
+  // useEffect(() => {
+  //   baseWretch()
+  //   .url('api/Courses/1/simple')
+  //   .get()
+  //   .json((data: any) => setCourse(data))
+  // }, []);
   
   const logIn = (data: LoginFormData) => baseWretch()
     .url(loginUrl)
