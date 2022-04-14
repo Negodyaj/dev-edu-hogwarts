@@ -9,6 +9,7 @@ import { SvgCalendar } from "./SvgFiles/SvgCalendar";
 import { SvgChevron } from "./SvgFiles/SvgChevron";
 import { SvgComputer } from "./SvgFiles/SvgComputer";
 import { SvgCookie } from "./SvgFiles/SvgCookie";
+import { SvgArrow } from "./SvgFiles/SvgArrow";
 import { SvgPencil } from './SvgFiles/SvgPencil';
 import { SvgExit } from './SvgFiles/SvgExit';
 import { SvgBell } from './SvgFiles/SvgBell';
@@ -41,6 +42,8 @@ export const SvgIcon = (props: SvgIconProps) => {
       return <SvgHomeWorks />;
     case Icon.Settings:
       return <SvgSettings />;
+    case Icon.Arrow:
+        return <SvgArrow />;
     case Icon.Pencil:
       return <SvgPencil/>;
     case Icon.Exit:
