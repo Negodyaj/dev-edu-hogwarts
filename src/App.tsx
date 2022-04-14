@@ -10,6 +10,7 @@ import {MainPanel} from './components/MainPanel/MainPanel';
 import {CoursesPage} from "./pages/CoursesPage/CoursesPage";
 import {EditCoursesPage} from "./pages/CoursesPage/EditCoursesPage";
 import {IssuingHomework} from "./pages/IssuingHomework/IssuingHomework";
+import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from './actions/login.actions';
 import { UserResponse } from './models/responses/UserResponse';
@@ -43,6 +44,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
           <Route path="issuing-homework" element={<IssuingHomework />} />
+          <Route path="homework-review" element={<HomeworkReviewPage />} />
         </Routes>
       </main>
     </div>
