@@ -1,0 +1,87 @@
+$accent-purple: #A786DF;
+
+
+
+.register-form-wrapper{
+  width: 1080px;
+  background-color: #F6F7F9;
+  padding: 70px 120px 80px 65px;
+  input:not([type="checkbox"]) {
+    width: 438px;
+    height: 56px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #DBDBDB;  
+    padding: 15px 20px
+  }
+}
+h2{
+  font-size: 22px;
+  font-weight: 600;
+}
+label{
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 30px;
+}
+input {
+  font-size: 18px;
+  font-weight: 400;
+}
+form {
+  margin-top: 20px;
+}
+.flex-container{
+  display: flex;
+  align-items: flex-start;
+  label {
+    margin-top: 0;
+  }
+  
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+}
+.asterisk {
+  color: $accent-purple;
+  
+}
+.attention{
+  color: red;
+  margin-top: 10px;
+}
+p{
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 36px;
+}
+.reg-button{
+  background-color: $accent-purple;
+  width: 238px;
+  height: 51px;
+  border-radius: 5px;
+  padding: 15px, 30px, 15px, 30px;
+  border: 0px;
+  color: white;
+  margin-right: 80px;  
+}
+.cancel-button {
+  background-color: transparent;
+  color: $accent-purple;
+  border: 0px;
+}
+#policy-label {  
+  font-size: 14px;
+  margin-left: 10px;
+  color: #8A8A8A;  
+}
+.buttons{  
+  margin-top: 70px;
+  margin-bottom: 30px;
+}
+

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Lesson, LessonModel } from "./components/Lesson";
+import {TabContainer} from "../../components/TabContainer/TabContainer";
+import {Icon} from "../../shared/enums/Icon";
 
 
 export const LessonsPage = () => {
@@ -26,11 +28,19 @@ export const LessonsPage = () => {
 
   return (
     <>
+      <TabContainer tabContainerData={ [
+        {id: 1, icon: Icon.Cookie, text: 'Базовый курс'},
+        {id: 2, icon: Icon.Calendar, text: 'Специализация Backend'},
+        {id: 3, icon: Icon.Computer, text: 'Специализация Frontend'},
+        {id: 4, icon: Icon.Cake, text: 'Специализация QA'},
+        ] } selectedTab={0}
+      />
+      
+      <div>Занятия</div>
       <div className="lessons-container">
-        {
-          lessons.map(lesson => <Lesson data={lesson} id={lesson.id} key={lesson.id} activeLessonId={activeLesson} onClick={onElementClick}/>)
-        }
-
+      {
+        lessons.map(lesson => <Lesson data={lesson} id={lesson.id} key={lesson.id} activeLessonId={activeLesson} onClick={onElementClick}/>)
+      }
       </div>
     </>
   )
