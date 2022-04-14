@@ -1,5 +1,5 @@
+import { GroupResponse } from "../models/responses/GroupResponse";
 import { LessonResponse } from "../models/responses/LessonResponse";
-import { TabData } from "../models/TabData";
 
 export const LOAD_TABS = 'lessons/LOAD_TABS' as const;
 export const SELECT_TAB = 'lessons/SELECT_TAB' as const;
@@ -7,9 +7,9 @@ export const SELECT_TAB = 'lessons/SELECT_TAB' as const;
 export const LOAD_LESSONS = 'lessons/LOAD_LESSONS' as const;
 
 
-export const loadTabs = (tabs: TabData[]) => ({
+export const loadLessonPageTabs = (groups: GroupResponse[]) => ({
   type: LOAD_TABS,
-  response: tabs
+  payload: groups
 });
 
 export const selectTab = (id: number) => ({
@@ -19,10 +19,10 @@ export const selectTab = (id: number) => ({
 
 export const loadLessons = (lessons: LessonResponse[]) => ({
   type: LOAD_LESSONS,
-  response: lessons
+  payload: lessons
 });
 
 export type LessonPageAction = 
-  ReturnType<typeof loadTabs> | 
+  ReturnType<typeof loadLessonPageTabs> | 
   ReturnType<typeof selectTab> | 
   ReturnType<typeof loadLessons>;
