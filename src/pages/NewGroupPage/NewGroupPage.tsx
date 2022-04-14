@@ -1,13 +1,13 @@
 import "./NewGroupPage.scss";
+import "../../components/InputTextarea/InputTextarea.scss";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { baseWretch } from "../../services/base-wretch.service";
-import { usersUrl } from "../../shared/consts";
-import { groupUrl } from "../../shared/consts";
-import { coursesUrl } from "../../shared/consts";
 import { Button, ButtonModel, ButtonType } from "../../components/Button/Button";
 import { CheckboxGroup } from "../../components/CheckBoxGroup/CheckBoxGroup";
-import { CheckboxBtn, CheckboxData } from "../../components/CheckBoxGroup/CheckBox/Checkbox";
+import { CheckboxData } from "../../components/CheckBoxGroup/CheckBox/Checkbox";
+import { coursesUrl, groupUrl, usersUrl } from "../../shared/consts";
+import { Filter, FilterList } from "../../components/FilterList/FilterList";
 
 export type GroupFormData = {
   name: string;
@@ -28,12 +28,9 @@ export type User = {
   roles: string[];
 };
 
-
-
 export type Course = {
   id: number;
   name: string;
-  description: string;
 };
 
 export const NewGroupPage = () => {
@@ -80,24 +77,27 @@ export const NewGroupPage = () => {
     baseWretch().url(groupUrl).post(data);
   };
 
-let newTeachers: CheckboxData[]=[];
-let newTutors: CheckboxData[]=[];
-
-teachers.map((teacher)=>{
-  let newTeacher= {
+const newTeachers = teachers.map((teacher)=>{
+  let newTeacher: CheckboxData = {
   name: "teacher",
   value: teacher.id,
   text:  `${teacher.firstName + " " + teacher.lastName}`}
- newTeachers.push(newTeacher)}
-);
+  return newTeacher
+  });
 
-tutors.map((tutor)=>{
-  let newTutor= {
+const newTutors = tutors.map((tutor)=>{
+  let newTutor: CheckboxData = {
   name: "tutor",
   value: tutor.id,
   text:  `${tutor.firstName + " " + tutor.lastName}`}
- newTutors.push(newTutor)}
-);
+  return newTutor
+});
+
+// const newCourse = courses.map((course)=>{
+//   let newCourse:Filter={
+//     id: 
+//   }
+// })
 
   return (
     <>
@@ -105,33 +105,34 @@ tutors.map((tutor)=>{
         <h1>Новая группа</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2>Название</h2>
-          <input
+          <input className="textarea"
             placeholder="Введите название"
             {...register("name", { required: true })}
           />
           {errors.name && <span>Вы не указали название</span>}
-          <h2>Выберите курс</h2>
-          <select {...register("courseId", { required: true })}>
+          <h2>Курс</h2>
+          <FilterList data={courses} type={'__wrapper'} {...register("courseId", { required: true })}/>
+          {/* <select {...register("courseId", { required: true })}>
             {courses.map((course) => (
               <option value={course.id}>{course.name}</option>
             ))}
-          </select>
+          </select> */}
           {errors.courseId && <span>Вы не выбрали курс</span>}
           <div className="teachers-list">
             <h2>Преподаватель:</h2>
             <div className="list">
                 <CheckboxGroup checkboxArr={newTeachers} 
                 {...register("teacherId", { required: true })} />
-                {errors.teacherId && <span>Вы не выбрали преподавателя</span>}
              </div>
+             {errors.teacherId && <span>Вы не выбрали преподавателя</span>}
           </div>
           <div className="tutors-list">
             <h2>Тьютор:</h2>
             <div className="list">
             <CheckboxGroup checkboxArr={newTutors}
               {...register("tutorId", { required: true })}/>
-              {errors.tutorId && <span>Вы не выбрали тьютора</span>}
             </div>
+            {errors.tutorId && <span>Вы не выбрали тьютора</span>}
           </div>
           <div className="default-value">
             <input {...register("groupStatusId")} />
