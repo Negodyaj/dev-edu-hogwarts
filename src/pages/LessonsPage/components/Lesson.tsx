@@ -1,4 +1,3 @@
-
 import styles from '../../LessonsPage/css/Lesson.scss';
 import classNames from 'classnames';
 import { SvgIcon } from '../../../components/SvgIcon/SvgIcon';

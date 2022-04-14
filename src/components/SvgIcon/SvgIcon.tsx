@@ -43,7 +43,7 @@ export const SvgIcon = (props: SvgIconProps) => {
     case Icon.Settings:
       return <SvgSettings />;
     case Icon.Arrow:
-        return <SvgArrow />;
+      return <SvgArrow />;
     case Icon.Pencil:
       return <SvgPencil />;
     case Icon.Exit:
