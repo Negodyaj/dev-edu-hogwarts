@@ -20,7 +20,7 @@ export const loadHomeworks = (homeworks: HomeworkCardResponse[]) => ({
   payload: homeworks,
 });
 
-export type HomeworkPageAction =  
-| ReturnType<typeof loadHomeworkPageTabs>
-| ReturnType<typeof selectTab>
-| ReturnType<typeof loadHomeworks>;
+export type HomeworkPageAction =
+  | ReturnType<typeof loadHomeworkPageTabs>
+  | ReturnType<typeof selectTab>
+  | ReturnType<typeof loadHomeworks>;

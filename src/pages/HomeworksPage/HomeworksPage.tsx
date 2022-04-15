@@ -12,9 +12,7 @@ export const HomeworksPage = () => {
   const { tabs, homeworks, selectedTab } = useSelector(
     (state: AppState) => state.homeworksPageState
   );
-  const { currentUser } = useSelector(
-    (state: AppState) => state.loginPageState
-  );
+
   useEffect(() => {
     if (selectedTab > 0) {
       baseWretch()
@@ -39,16 +37,18 @@ export const HomeworksPage = () => {
   });
   return (
     <>
-      {currentUser?.groups != undefined ? (
-        <div className="margin-common-content">
-          <TabContainer tabContainerData={tabs} selectedTab={selectedTab} />
-          {newHomeworks?.map((hw) => (
-            <HomeworkCard data={hw} />
-          ))}
-        </div>
-      ) : (
-        <div>Домашек нема </div>
-      )}
+      <div className="margin-common-content">
+        <TabContainer tabContainerData={tabs} selectedTab={selectedTab} />
+        {homeworks!.length > 0 ? (
+          <div>
+            {newHomeworks?.map((hw) => (
+              <HomeworkCard data={hw} />
+            ))}
+          </div>
+        ) : (
+          <div>Домашек нема</div>
+        )}
+      </div>
     </>
   );
 };

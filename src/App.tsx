@@ -19,8 +19,9 @@ import { useEffect } from 'react';
 import { loadHomeworkPageTabs } from './actions/homeworks.actions';
 
 function App() {
-  const dispatch = useDispatch();  
-const getUser = () => baseWretch()
+  const dispatch = useDispatch();
+  const getUser = () =>
+    baseWretch()
       .url(`api/Users/self`)
       .get()
       .json((data) => {

@@ -10,7 +10,10 @@ Redux Thunk middleware allows you to write action creators that return a functio
 */
 import thunk from 'redux-thunk';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
-import { homeworkPageReducer, HomeWorkPageState } from './reducers/homeworks.reducer';
+import {
+  homeworkPageReducer,
+  HomeWorkPageState,
+} from './reducers/homeworks.reducer';
 // Import reducers and state type
 import {
   NotificationsPageState,
