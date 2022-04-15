@@ -1,4 +1,16 @@
-import { HomeworkCard } from './components/HomeworkCard';
+import { error } from "console";
+import { url } from "inspector";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadHomeworks } from "../../actions/homeworks.actions";
+import { FilterList } from "../../components/FilterList/FilterList";
+import { TabContainer } from "../../components/TabContainer/TabContainer";
+import { HomeworkCardResponse } from "../../models/responses/HomeworkCardResponse";
+// import { HomeworkCardResponse } from "../../models/responses/HomeworkCardResponse";
+import { baseWretch } from "../../services/base-wretch.service";
+import { Icon } from "../../shared/enums/Icon";
+import { AppState } from "../../store/store";
+import { HomeworkCard, HomeworkData } from "./components/HomeworkCard";
 
 const tasks = [
   {
@@ -44,36 +56,43 @@ export const HomeworksPage = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: AppState) => state.loginPageState);
   let groups = currentUser?.groups;
-  // const revertedArray = groups.slice().reverse();
+   useEffect(() => {
+     baseWretch()
+       .url(`api/Homeworks/by-group/${currentUser?.groups[0].id}`)
+       .get()
+       .json((data) => dispatch(loadHomeworks(data as HomeworkCardResponse[])));
+   },[]);
 
-  useEffect(()=>{
-    baseWretch()
-   .url(`api/Homeworks/by-group/${currentUser?.groups[0].id}`)
-   .get()
-   .json((data)=>dispatch(loadHWCards(data as HomeworkCardResponse[])));
-  });
-//  const { homeworkCards } = useSelector((state:AppState) => state.homeworksPageState)
+
+  const { homeworks } = useSelector((state: AppState) => state.homeworksPageState);
+  const newHomeworks = homeworks?.map((item,index) => {
+    let newLessons: HomeworkData = {
+      id: item.id,
+      taskNumber: index+1,
+      title: item.task.name,
+      dateBeginning: item.startDate,
+      dateEnd: item.endDate,
+      status: 1,
+      elseData: "wertyu"
+    }
+    return newLessons
+  })
+
   return (
+    <>
+    {currentUser?.groups!= undefined ?
     <div className='margin-common-content'>
-     <TabContainer tabContainerData={ [
-        {id:1, icon: Icon.Cookie, text: 'Базовый курс'},
-        {id: 2, icon: Icon.Calendar, text: 'Специализация Backend'}
-        ]} selectedTab={0}></TabContainer>
-        {}
+      <TabContainer tabContainerData={[
+        { id: 1, icon: Icon.Cookie, text: 'Базовый курс' },
+        { id: 2, icon: Icon.Calendar, text: 'Специализация Backend' }
+      ]} selectedTab={0}></TabContainer>
       {
-        // revertedArray.map(item =>
-        //   <HomeworkCard data={{
-        //     id: 0,
-        //     taskNumber: 0,
-        //     title: "",
-        //     dateBeginning: "",
-        //     dateEnd: "",
-        //     status: 0,
-        //     elseData: ""
-        //   }} />
-        // )
+        newHomeworks?.map(hw => <HomeworkCard data={hw} />)
       }
     </div>
-  );
-};
+    :
+    <div>Домашек нема </div>}
+    </>
+  )
+}
 

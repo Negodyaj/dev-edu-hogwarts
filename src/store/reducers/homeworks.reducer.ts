@@ -1,19 +1,9 @@
-import { Reducer } from "react";
-import { HomeworkCardResponse } from "../../models/responses/HomeworkCardResponse";
-import {LOAD_HWCARDS,LOAD_TABS,SELECT_TAB, HomeworkPageAction } from '../../actions/homeworks.actions'
-import { Icon } from "../../shared/enums/Icon";
-import { TabData } from "../../models/TabData";
+import { Reducer } from 'redux';
+import { HomeworkPageAction, SELECT_TAB, LOAD_TABS, LOAD_HOMEWORKS } from '../../actions/homeworks.actions';
+import { HomeworkCardResponse } from '../../models/responses/HomeworkCardResponse';
+import { TabData } from '../../models/TabData';
+import { Icon } from '../../shared/enums/Icon';
 
-export interface HomeworkPageState{
-  tabs?:TabData[],
-  selectedTab:number,
-  homeworkCards?: HomeworkCardResponse[],
-}
-const initialState: HomeworkPageState = {
-  homeworkCards: [],
-  selectedTab:1,
-  tabs:[],
-};
 const tabsMock = [
   {
     id: 1,
@@ -29,26 +19,43 @@ const tabsMock = [
     icon: Icon.Computer
   }
 ];
-export const homeworksPageReducer: Reducer<HomeworkPageState, HomeworkPageAction> = 
-  ( state = initialState, action ) => {
+
+
+
+export interface HomeWorkPageState {
+  tabs: TabData[]
+  selectedTab: number
+  homeworks?: HomeworkCardResponse[]
+
+
+}
+
+const initialState: HomeWorkPageState = {
+  tabs: [],
+  selectedTab: 1,
+  homeworks: []
+};
+
+export const homeworkPageReducer: Reducer<HomeWorkPageState, HomeworkPageAction> =
+  (state = initialState, action) => {
     switch (action.type) {
-      case LOAD_HWCARDS: {
+      case SELECT_TAB: {
         return {
           ...state,
-          homeworkCards: action.response
+          selectedTab: action.payload
         };
       }
       case LOAD_TABS: {
         return {
           ...state,
           tabs: tabsMock
-        };
+        }
       }
-      case SELECT_TAB: {
+      case LOAD_HOMEWORKS: {
         return {
           ...state,
-          selectedTab: action.payload
-        };
+          homeworks: action.response
+        }
       }
       default:
         return state;

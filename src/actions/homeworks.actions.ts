@@ -1,23 +1,26 @@
 import { HomeworkCardResponse } from "../models/responses/HomeworkCardResponse";
 
-export const LOAD_TABS ='homeworks/LOAD_TABS' as const;
-export const SELECT_TAB ='homeworks/SELECT_TAB' as const;
-export const LOAD_HWCARDS = 'homeworks/LOAD_HWCARDS' as const;
+export const LOAD_TABS = 'homeworks/LOAD_TABS' as const;
+export const SELECT_TAB = 'homeworks/SELECT_TAB' as const;
+
+export const LOAD_HOMEWORKS = 'homeworks/LOAD_HOMEWORKS' as const;
 
 
-export const loadHWCards = (hws: HomeworkCardResponse []) => ({
-  type: LOAD_HWCARDS,
-  response: hws
-});
 export const loadTabs = () => ({
   type: LOAD_TABS
 });
 
-export const selectTabs = (id: number) => ({
+export const selectTab = (id: number) => ({
   type: SELECT_TAB,
-  payload: id
+  payload: id,
 });
-export type HomeworkPageAction = 
-  ReturnType<typeof loadHWCards>|
-  ReturnType<typeof loadTabs>|
-  ReturnType<typeof selectTabs>;
+
+export const loadHomeworks = (homeworks: HomeworkCardResponse[]) => ({
+  type: LOAD_HOMEWORKS,
+  response: homeworks
+});
+
+export type HomeworkPageAction =
+  ReturnType<typeof loadTabs> |
+  ReturnType<typeof selectTab> |
+  ReturnType<typeof loadHomeworks>;
