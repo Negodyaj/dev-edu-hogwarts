@@ -4,16 +4,18 @@ import './RadioGroup.scss';
 export type RadioProps = {
   radioData: Array<RadioData>;
   name: string;
+  callback?: (value: number) => void;
 };
 
-export const RadioGroup = (radioProps: RadioProps) => {
+export const RadioGroup = (props: RadioProps) => {
   return (
     <div className="radio-group">
-      {radioProps.radioData.map((item) => (
+      {props.radioData.map((item) => (
         <RadioButton
           key={item.value}
-          nameOfRadioGroup={radioProps.name}
+          nameOfRadioGroup={props.name}
           data={item}
+          callback={props.callback}
         />
       ))}
     </div>
