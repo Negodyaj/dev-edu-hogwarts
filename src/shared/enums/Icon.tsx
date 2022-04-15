@@ -8,11 +8,12 @@ export const enum Icon {
   Notifications,
   Lessons,
   Homeworks,
+  Arrow,
   Exit,
   Bell,
   Settings,
   Picture,
   Plus,
   Pencil,
-  Tick
+  Tick,
 }

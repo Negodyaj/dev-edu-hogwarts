@@ -1,16 +1,6 @@
-import { url } from "inspector";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loadHWCards } from "../../actions/homeworks.actions";
-import {FilterList} from "../../components/FilterList/FilterList";
-import { TabContainer } from "../../components/TabContainer/TabContainer";
-import { HomeworkCardResponse } from "../../models/responses/HomeworkCardResponse";
-import { baseWretch } from "../../services/base-wretch.service";
-import { Icon } from "../../shared/enums/Icon";
-import { AppState } from "../../store/store";
-import {HomeworkCard} from "./components/HomeworkCard";
+import { HomeworkCard } from './components/HomeworkCard';
 
-let tasks = [
+const tasks = [
   {
     id: 4,
     taskNumber: 4,
@@ -23,7 +13,8 @@ let tasks = [
   {
     id: 3,
     taskNumber: 3,
-    title: 'Покрыть тестами первые три домашки Покрыть тестами первые три домашки Покрыть тестами первые три домашки',
+    title:
+      'Покрыть тестами первые три домашки Покрыть тестами первые три домашки Покрыть тестами первые три домашки',
     dateBeginning: '10.10.2022',
     dateEnd: '01.11.2022',
     status: 2,
@@ -46,9 +37,9 @@ let tasks = [
     dateEnd: '05.11.2022',
     status: 0,
     elseData: '',
-  }
-]
-  
+  },
+];
+
 export const HomeworksPage = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: AppState) => state.loginPageState);
@@ -83,6 +74,6 @@ export const HomeworksPage = () => {
         // )
       }
     </div>
-  )
-}
+  );
+};
 

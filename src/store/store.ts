@@ -12,20 +12,21 @@ import thunk from 'redux-thunk';
 import { HomeworkPageState, homeworksPageReducer } from './reducers/homeworks.reducer';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
 // Import reducers and state type
-import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
+import {
+  NotificationsPageState,
+  notificationsPageReducer,
+} from './reducers/notifications.reducer';
 
 // Create an interface for the application state
 export interface AppState {
-  notificationsPageState: NotificationsPageState,
-  loginPageState: LoginPageState,
-  // homeworkPageState: HomeworkPageState
+  notificationsPageState: NotificationsPageState;
+  loginPageState: LoginPageState;
 }
 
 // Create the root reducer
 const rootReducer = combineReducers<AppState>({
   notificationsPageState: notificationsPageReducer,
   loginPageState: loginPageReducer,
-  // homeworkPageState: homeworksPageReducer
 });
 
 // Create a configure store function of type `AppState`
@@ -33,5 +34,3 @@ export default function configureStore(): Store<AppState, any> {
   const store = createStore(rootReducer, undefined, applyMiddleware(thunk));
   return store;
 }
-
-
