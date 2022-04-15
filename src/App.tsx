@@ -16,16 +16,20 @@ import { setCurrentUser } from './actions/login.actions';
 import { UserResponse } from './models/responses/UserResponse';
 import { baseWretch } from './services/base-wretch.service';
 import { useEffect } from 'react';
+import { loadHomeworkPageTabs } from './actions/homeworks.actions';
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    //const getUser = () =>
-    baseWretch()
-      .url('api/Users/self')
+  const dispatch = useDispatch();  
+const getUser = () => baseWretch()
+      .url(`api/Users/self`)
       .get()
-      .json((data) => dispatch(setCurrentUser(data as UserResponse)));
-    //getUser();
+      .json((data) => {
+        const user = data as UserResponse;
+        dispatch(setCurrentUser(user));
+        dispatch(loadHomeworkPageTabs(user?.groups));
+      });
+  useEffect(() => {
+    getUser();
   }, []);
 
   return (

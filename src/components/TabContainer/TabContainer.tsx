@@ -2,16 +2,15 @@ import { TabItem } from './TabItem/TabItem';
 import './TabContainer.scss';
 import { TabData } from '../../models/TabData';
 import { useDispatch } from 'react-redux';
-import { selectTab } from '../../actions/notifications.actions';
+import { selectTab } from '../../actions/homeworks.actions';
 
 export type TabContainerProps = {
-  tabContainerData: TabData[];
+  tabContainerData?: TabData[];
   selectedTab: number;
 };
 
 export const TabContainer = (props: TabContainerProps) => {
   const dispatch = useDispatch();
-
   function onTabClick(id: number) {
     dispatch(selectTab(id));
   }
@@ -19,7 +18,7 @@ export const TabContainer = (props: TabContainerProps) => {
   return (
     <>
       <div className="tab-container">
-        {props.tabContainerData.map((item) => (
+        {props.tabContainerData?.map((item) => (
           <TabItem
             data={item}
             key={item.id}
