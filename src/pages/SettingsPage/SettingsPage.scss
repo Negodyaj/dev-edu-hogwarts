@@ -5,6 +5,56 @@
     outline: none !important;
     border-color: #A786DF;
   }
+  .avatar-text{
+    top: 0;
+    position: initial;
+  }
+  .submit-button {
+    margin-top:70px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    width: 190px;
+    height: 51px;
+    border-radius: 5px;
+    padding: 15px 30px;
+    border:none;
+    color:#A786DF;
+    background: #F6F7F9;
+    cursor: pointer;
+  }
+  .reset-button{
+    margin-top:70px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    width: 190px;
+    height: 51px;
+    border-radius: 5px;
+    padding: 15px 30px;
+    border:none;
+    color:#A786DF;
+    background: #F6F7F9;
+    cursor: pointer;
+  }
+  .submit-button:hover{
+    width: 190px;
+    height: 51px;
+    border-radius: 5px;
+    padding: 15px 30px;
+    border:none;
+    background: #A786DF;
+    color:#ffffff;
+  }
+  p{
+    margin-top: 0px;
+  }
+}
+.styles-for-settings-buttons{
+  button{
+    width: 190px;
+    margin-top: 70px;
+  }
 }
 .settings {
   font-weight: 600;
@@ -19,6 +69,9 @@ p {
   font-size: 18px;
   line-height: 21px;
 }
+.margin-top-settings{
+  margin-top:0px;
+}
 .data-block {
   margin-bottom: 29px;
   input,
@@ -32,6 +85,7 @@ p {
     border-radius: 5px;
   }
 }
+
 .goto-change-password {
   height: 56px;
   display: flex;
@@ -42,10 +96,14 @@ p {
 .margin-left-inputs {
   margin-left: 20px;
 }
+
 .settings-photo {
-margin-left: 79px;
-margin-bottom: 180px;
+position: relative;
+margin-left: 99px;
+margin-top: 36px;
+cursor: pointer;
 }
+
 .circle-password {
   width: 8px;
   height: 8px;
@@ -53,36 +111,11 @@ margin-bottom: 180px;
   border-radius: 50px;
   display: inline-block;
 }
+
 .circle-password:not(:last-child) {
   margin-right: 10px;
 }
-img{
-  position: absolute;
-  top: 149px;
-  left: 864px;
-}
-.submit-button{
-  margin-top:70px;
-  font-weight: 400;
-font-size: 18px;
-line-height: 21px;
-  width: 190px;
-  height: 51px;
-border-radius: 5px;
-padding: 15px 30px;
-border:none;
-color:#A786DF;
-background: #F6F7F9;
-}
-.submit-button:hover{
-  width: 190px;
-  height: 51px;
-border-radius: 5px;
-padding: 15px 30px;
-border:none;
-background: #A786DF;
-color:#ffffff;
-}
+
 .title{
   font-weight: 600;
 font-size: 22px;
@@ -129,7 +162,10 @@ display: none;
 .max-width-datepicker{
   max-width: 438px;
 }
-
+input:focus { 
+  outline: none !important;
+  border-color: #A786DF;
+}
 .password{
   grid-row: 1/2;
   grid-column: 1/2;

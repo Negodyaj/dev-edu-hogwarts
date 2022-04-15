@@ -1,14 +1,15 @@
-import "./Button.scss";
-import { SvgIcon } from "../SvgIcon/SvgIcon";
-import { Icon } from "../../shared/enums/Icon";
+import './Button.scss';
+import { SvgIcon } from '../SvgIcon/SvgIcon';
+import { Icon } from '../../shared/enums/Icon';
 
 export type ButtonProps = {
   text: string;
-  type: ButtonType;
+  type?: ButtonType;
   model: ButtonModel;
   icon?: Icon;
   url?: string;
-  link?: "btn-link";
+  link?: 'btn-link';
+  width?: string;
 };
 
 export enum ButtonModel {
@@ -18,22 +19,22 @@ export enum ButtonModel {
 }
 
 export enum ButtonType {
-submit='submit',
-reset='reset',
-button='button'
+  submit = 'submit',
+  reset = 'reset',
+  button = 'button',
 }
 
 export const Button = (props: ButtonProps) => {
   const buttonClass = (() => {
     switch (props.model) {
       case ButtonModel.White:
-        return "btn-white-with-border";
+        return 'btn-white-with-border';
       case ButtonModel.Colored:
-        return "btn-fill";
+        return 'btn-fill';
       case ButtonModel.Text:
-        return "btn-text";
+        return 'btn-text';
       default:
-        return "";
+        return '';
     }
   })();
 
@@ -43,16 +44,19 @@ export const Button = (props: ButtonProps) => {
     buttonImg = <SvgIcon icon={props.icon} />;
   }
 
-  return (props.url ? (
+  return props.url ? (
     <a href={props.url} className={`btn ${buttonClass}`}>
       {props.text}
       {buttonImg}
     </a>
   ) : (
-    <button className={`btn ${buttonClass}`} type={props.type}>
+    <button
+      className={`btn ${buttonClass}`}
+      type={props.type}
+      style={{ width: `${props.width}` }}
+    >
       {props.text}
       {buttonImg}
     </button>
-  ));
+  );
 };
-
