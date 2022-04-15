@@ -13,8 +13,8 @@ import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
 // Import reducers and state type
 import {
   newHomeworkFormReducer,
-  NewHomeworkFormState
-} from "./reducers/newHomeworkForm.reducer";
+  NewHomeworkFormState,
+} from './reducers/newHomeworkForm.reducer';
 import {
   NotificationsPageState,
   notificationsPageReducer,
@@ -36,6 +36,5 @@ const rootReducer = combineReducers<AppState>({
 
 // Create a configure store function of type `AppState`
 export default function configureStore(): Store<AppState, any> {
-  const store = createStore(rootReducer, undefined, applyMiddleware(thunk));
-  return store;
+  return createStore(rootReducer, undefined, applyMiddleware(thunk));
 }

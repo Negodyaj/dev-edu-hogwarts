@@ -15,7 +15,7 @@ import { SvgExit } from './SvgFiles/SvgExit';
 import { SvgBell } from './SvgFiles/SvgBell';
 import { SvgPicture } from './SvgFiles/SvgPicture';
 import { SvgPlus } from './SvgFiles/SvgPlus';
-import { SvgCross } from "./SvgFiles/SvgCross";
+import { SvgCross } from './SvgFiles/SvgCross';
 
 export type SvgIconProps = {
   icon: Icon;
