@@ -49,8 +49,8 @@ const tasks = [
     dateEnd: '05.11.2022',
     status: 0,
     elseData: '',
-  },
-];
+  }
+]
 
 export const HomeworksPage = () => {
   const dispatch = useDispatch();
