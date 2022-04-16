@@ -1,19 +1,19 @@
 export type Filter = {
-  id: number
-  name: string
+  id: number;
+  name: string;
 };
 
 export const DateFilterList: Filter[] = [
   {
     id: 1,
-    name: 'Все'
+    name: 'Все',
   },
   {
     id: 2,
-    name: 'Эта неделя'
+    name: 'Эта неделя',
   },
   {
     id: 3,
-    name: 'Этот месяц'
-  }
+    name: 'Этот месяц',
+  },
 ];

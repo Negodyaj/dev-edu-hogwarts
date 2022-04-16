@@ -1,19 +1,18 @@
-import {useState} from "react";
+import { useState } from 'react';
 import './FilterList.scss';
-import {useDetectClickOutside} from "react-detect-click-outside";
-import {SvgArrow} from "../SvgIcon/SvgFiles/SvgArrow";
-import {Filter} from "../../models/DataFilterList";
+import { useDetectClickOutside } from 'react-detect-click-outside';
+import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
+import { Filter } from '../../models/DataFilterList';
 
 export type FilterListProps = {
-  data: Array<Filter>
-  type: string
-  callback?: Function
+  data: Array<Filter>;
+  type: string;
 };
 
 export const FilterList = (props: FilterListProps) => {
   const filter = props.data;
-  let [isOpen, setIsOpen] = useState<boolean>(false);
-  let [item, setItem] = useState<Filter>(filter[0]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [item, setItem] = useState<Filter>(filter[0]);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -21,40 +20,42 @@ export const FilterList = (props: FilterListProps) => {
   const closeDropdown = () => {
     setIsOpen(false);
   };
-  const clickOutside = useDetectClickOutside({onTriggered: closeDropdown});
+  const clickOutside = useDetectClickOutside({ onTriggered: closeDropdown });
 
   return (
-    <div className='drop-down-filter__wrapper' ref={clickOutside}>
-      <div className={`drop-down-filter ${props.type}`}
-           onKeyPress={() => toggle()}
-           onClick={() => toggle()}
-           data-lesson-id={item.id}
+    <div className="drop-down-filter__wrapper" ref={clickOutside}>
+      <div
+        className={`drop-down-filter ${props.type}`}
+        onKeyPress={() => toggle()}
+        onClick={() => toggle()}
+        data-lesson-id={item.id}
       >
         {item.name}
 
-        <SvgArrow isOpen={isOpen} callback={toggle}/>
+        <SvgArrow isOpen={isOpen} callback={toggle} />
       </div>
 
-      {
-        isOpen && (
-          <div className='drop-down-filter__list-wrapper'>
-            <ul className={`drop-down-filter__list ${filter.length > 4 ? 'overflow' : ''}`}>
-              {
-                filter.map(
-                  elem =>
-                    <li key={elem.id}
-                        className={`drop-down-filter__element ${elem.id === item.id ? 'selected' : ''}`}
-                        onClick={() => setItem(elem)}
-                    >
-                      {elem.name}
-                    </li>
-                )
-              }
-            </ul>
-          </div>
-        )
-      }
-
+      {isOpen && (
+        <div className="drop-down-filter__list-wrapper">
+          <ul
+            className={`drop-down-filter__list ${
+              filter.length > 4 ? 'overflow' : ''
+            }`}
+          >
+            {filter.map((elem) => (
+              <li
+                key={elem.id}
+                className={`drop-down-filter__element ${
+                  elem.id === item.id ? 'selected' : ''
+                }`}
+                onClick={() => setItem(elem)}
+              >
+                {elem.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};

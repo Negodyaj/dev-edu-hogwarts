@@ -1,58 +1,57 @@
 import './Navigation.scss';
-import { ButtonNavigation } from "../ButtonNavigation/ButtonNavigation";
-import { useState } from "react";
-import { Icon } from "../../../shared/enums/Icon";
+import { ButtonNavigation } from '../ButtonNavigation/ButtonNavigation';
+import { Icon } from '../../../shared/enums/Icon';
 
 export type NavLink = {
-  displayName: string
-  path: string
-  icon: Icon
-}
+  displayName: string;
+  path: string;
+  icon: Icon;
+};
 
-let buttons: NavLink[] = [
+const buttons: NavLink[] = [
   {
     icon: Icon.Bell,
     path: '/',
-    displayName: 'Уведомления'
+    displayName: 'Уведомления',
   },
   {
     icon: Icon.Lessons,
     path: '/lessons',
-    displayName: 'Занятия'
+    displayName: 'Занятия',
   },
   {
     icon: Icon.Homeworks,
     path: '/homeworks',
-    displayName: 'Домашние задания'
+    displayName: 'Домашние задания',
   },
   {
     icon: Icon.Cake,
     path: '/settings',
-    displayName: 'Настройки'
+    displayName: 'Настройки',
   },
   {
     icon: Icon.Calendar,
     path: '/courses',
-    displayName: 'Курсы'
+    displayName: 'Курсы',
   },
   {
     icon: Icon.Lessons,
     path: '/edit-courses',
-    displayName: 'Редактировать курсы'
+    displayName: 'Редактировать курсы',
   },
   {
     icon: Icon.Cake,
     path: '/register',
-    displayName: 'Регистрация'
-  }
+    displayName: 'Регистрация',
+  },
 ];
 
-export const Navigation = () => {  
+export const Navigation = () => {
   return (
-    <nav className='main-nav-pannel'>
-      {
-        buttons.map(item => <ButtonNavigation data={item} key={item.path}></ButtonNavigation>)
-      }
+    <nav className="main-nav-pannel">
+      {buttons.map((item) => (
+        <ButtonNavigation data={item} key={item.path}></ButtonNavigation>
+      ))}
     </nav>
-  )
-}
+  );
+};
