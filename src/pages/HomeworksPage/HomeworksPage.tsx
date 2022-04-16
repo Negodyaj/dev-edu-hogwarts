@@ -1,4 +1,3 @@
-import { FilterList } from '../../components/FilterList/FilterList';
 import { HomeworkCard } from './components/HomeworkCard';
 
 const tasks = [
@@ -46,49 +45,6 @@ export const HomeworksPage = () => {
 
   return (
     <div className="margin-common-content">
-      Домашки
-      <FilterList
-        data={[
-          {
-            id: 1,
-            name: 'Все',
-          },
-          {
-            id: 2,
-            name: 'Эта неделя',
-          },
-          {
-            id: 3,
-            name: 'Этот месяц',
-          },
-        ]}
-        type=""
-      />
-      <FilterList
-        data={[
-          {
-            id: 1,
-            name: 'Все',
-          },
-          {
-            id: 2,
-            name: 'Эта неделя',
-          },
-          {
-            id: 3,
-            name: 'Этот месяц',
-          },
-          {
-            id: 4,
-            name: 'Этот год',
-          },
-          {
-            id: 5,
-            name: 'Это десятилетие',
-          },
-        ]}
-        type="table"
-      />
       {revertedArray.map((item) => (
         <HomeworkCard key={item.id} />
       ))}

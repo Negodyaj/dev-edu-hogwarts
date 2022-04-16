@@ -1,5 +1,5 @@
 import { useForm, FormProvider, Controller } from 'react-hook-form';
-import './IssuingHomework.scss';
+import './NewHomework.scss';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import {
