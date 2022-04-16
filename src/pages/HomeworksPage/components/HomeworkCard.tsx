@@ -42,11 +42,7 @@ export const HomeworkCard = (props: HomeworkProps) => {
           <span>{homework.dateEnd}</span>
         </div>
         <span className="homework-title">{homework.title}</span>
-        <LinkArrow
-          back={false}
-          text="к заданию"
-          to={`homeworks/${homework.id}`}
-        />
+        <LinkArrow text="к заданию" to={`homeworks/${homework.id}`} />
       </div>
       <span className="task-status">{HomeworkStatus[homework.status]}</span>
     </div>
