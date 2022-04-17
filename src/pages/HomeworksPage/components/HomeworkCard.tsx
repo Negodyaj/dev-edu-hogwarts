@@ -12,6 +12,7 @@ import { studentHomeworkById, postStudentAnswer } from '../../../shared/consts';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   editHomework,
+  loadAnswer,
   loadStudentHomework,
 } from '../../../actions/homework.actions';
 import { useEffect } from 'react';
@@ -57,7 +58,11 @@ export const HomeworkCard = (props: HomeworkProps) => {
       baseWretch()
         .url(postStudentAnswer(homework?.id))
         .post(dateToPost)
-        .json((res) => dispatch(loadStudentHomework(res as StudentHomework)));
+        .json((res) => {
+          const studentHomework = res as StudentHomework;
+          dispatch(loadStudentHomework(studentHomework));
+          dispatch(loadAnswer(studentHomework.answer));
+        });
     }
   };
 
@@ -71,7 +76,9 @@ export const HomeworkCard = (props: HomeworkProps) => {
         .url(studentHomeworkById(studentHomeworkProgress?.id))
         .put(dateToPost)
         .json((res) => {
-          dispatch(loadStudentHomework(res as StudentHomework));
+          const studentHomework = res as StudentHomework;
+          dispatch(loadStudentHomework(studentHomework));
+          dispatch(loadAnswer(studentHomework.answer));
         });
     }
   };
