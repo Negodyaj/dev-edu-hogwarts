@@ -11,7 +11,6 @@ import {
   HomeworkPageAction,
   LOAD_ANSWER,
 } from '../../actions/homework.actions';
-// import {LOAD_HOMEWORKS} from "../../actions/homeworks.actions";
 
 export interface HomeworkPageState {
   homework?: Homework;
