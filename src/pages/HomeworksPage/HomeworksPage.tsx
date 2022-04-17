@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadHomeworks } from '../../actions/homeworks.actions';
+import { loadHomeworks, selectTab } from '../../actions/homeworks.actions';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { HomeworkCardResponse } from '../../models/responses/HomeworkCardResponse';
 import { baseWretch } from '../../services/base-wretch.service';
@@ -38,7 +38,11 @@ export const HomeworksPage = () => {
   return (
     <>
       <div className="margin-common-content">
-        <TabContainer tabContainerData={tabs} selectedTab={selectedTab} />
+        <TabContainer
+          tabContainerData={tabs}
+          selectedTab={selectedTab}
+          onClick={selectTab}
+        />
         {homeworks!.length > 0 ? (
           <div>
             {newHomeworks?.map((hw) => (
