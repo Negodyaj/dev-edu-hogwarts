@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
 import { HomeworkPage } from './pages/HomeworkPage/HomeworkPage';
+import { HomeworkEditPage } from './pages/HomeworkPage/HomeworkEditPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function App() {
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
           <Route path="homeworks/:id" element={<HomeworkPage />} />
+          <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
           <Route path="lessons" element={<LessonsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="courses" element={<CoursesPage />} />
