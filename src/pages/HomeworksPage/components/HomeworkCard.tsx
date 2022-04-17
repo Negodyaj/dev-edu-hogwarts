@@ -1,27 +1,86 @@
 import './HomeworkCard.scss';
+import { FormProvider, useForm } from 'react-hook-form';
 import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
-import { Homework } from '../../../models/responses/HomeworksResponse';
+import {
+  Homework,
+  StudentHomework,
+  StudentHomeworkStatus,
+} from '../../../models/responses/HomeworksResponse';
 import { InputLink } from '../../../components/InputLink/InputLink';
+import { baseWretch } from '../../../services/base-wretch.service';
+import { studentHomeworkById, postStudentAnswer } from '../../../shared/consts';
+import { useDispatch, useSelector } from 'react-redux';
+import { editHomework } from '../../../actions/homework.actions';
+import { useEffect } from 'react';
+import { AppState } from '../../../store/store';
+import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
+import { useLocation } from 'react-router-dom';
 
 export type HomeworkProps = {
   data?: Homework;
+  dataProgress?: StudentHomework;
   taskNumber?: number;
   oneCard?: boolean;
+  edit?: boolean;
 };
 
-// Не знала лучше enum или array,
-// или вообще по-другому
+export type HomeworkFormData = {
+  answer: string;
+};
 
 enum HomeworkStatus {
-  Unchecked = 'Не сделано',
-  // "Не сделано",
+  NotDone = 'Не сделано',
+  Unchecked = 'Не проверено',
   // "В проверке",
   // "Исправить",
   // "Сдано с опозданием"
 }
 
 export const HomeworkCard = (props: HomeworkProps) => {
-  const homework = props.data;
+  const method = useForm<HomeworkFormData>();
+  const dispatch = useDispatch();
+  const { homework, studentHomeworkProgress, isEdit, answer } = useSelector(
+    (state: AppState) => state.homeworkPageState
+  );
+  const location = useLocation();
+
+  const onSubmit = (data: HomeworkFormData) => {
+    const dateToPost = {
+      ...data,
+      homeworkId: homework?.id,
+    };
+    if (homework?.id) {
+      baseWretch()
+        .url(postStudentAnswer(homework?.id))
+        .post(dateToPost)
+        .json((res) => {
+          console.log(res);
+          // dispatch(loadStudentHomework(res as StudentHomework));
+        });
+    }
+  };
+
+  const onSaveEdit = (data: HomeworkFormData) => {
+    const dateToPost = {
+      ...data,
+      id: studentHomeworkProgress?.id,
+    };
+    if (studentHomeworkProgress?.id) {
+      baseWretch()
+        .url(studentHomeworkById(studentHomeworkProgress?.id))
+        .post(dateToPost)
+        .json((res) => {
+          console.log(res);
+          // dispatch(loadStudentHomework(res as StudentHomework));
+        });
+    }
+  };
+
+  useEffect(() => {
+    const edit = location.pathname.split('/');
+    if (edit[edit.length - 1] === 'edit') dispatch(editHomework(true));
+    else dispatch(editHomework(false));
+  }, [location]);
 
   return (
     <div
@@ -46,6 +105,11 @@ export const HomeworkCard = (props: HomeworkProps) => {
             {homework?.task.description.split('\n').map((par, index) => (
               <p key={index}>{par}</p>
             ))}
+            {homework?.task.links && (
+              <span className="homework-description-title">
+                Полезные ссылки
+              </span>
+            )}
             {homework?.task.links.split(' [link] ').map((par, index) => (
               <a
                 href={par}
@@ -56,16 +120,26 @@ export const HomeworkCard = (props: HomeworkProps) => {
                 {par}
               </a>
             ))}
-            {/*<a href={homework?.task.links} className='homework-github-link' target='_blank'>Ссылка на GitHub</a>*/}
             <span className="homework-description-title">
               Ссылка на выполненное задание:
             </span>
-            {
-              // homework?.task.links
-              //   ? <a className='homework-github-link' href={homework?.task.links}>Ссылка на GitHub</a>
-              //   :
-              <InputLink placeholder={'Ссылка на GitHub или архив'} />
-            }
+            {answer && !isEdit ? (
+              <a href={answer} className="homework-github-link" target="_blank">
+                Ссылка на GitHub
+              </a>
+            ) : (
+              <FormProvider {...method}>
+                <form
+                  onSubmit={method.handleSubmit(isEdit ? onSaveEdit : onSubmit)}
+                >
+                  <InputLink
+                    placeholder={'Ссылка на GitHub или архив'}
+                    inputName="answer"
+                    inputValue={answer}
+                  />
+                </form>
+              </FormProvider>
+            )}
             <span className="homework-description-title">
               Результат выполненного задания:
             </span>
@@ -79,7 +153,20 @@ export const HomeworkCard = (props: HomeworkProps) => {
           />
         )}
       </div>
-      <span className="task-status">{HomeworkStatus.Unchecked}</span>
+      {answer && !isEdit && (
+        <LinkWithUnderline
+          text="Редактировать"
+          path={`homeworks/${homework?.id}/edit`}
+        />
+      )}
+      <span className="task-status">
+        {
+          HomeworkStatus[
+            studentHomeworkProgress?.studentHomeworkStatus ??
+              StudentHomeworkStatus.NotDone
+          ]
+        }
+      </span>
     </div>
   );
 };

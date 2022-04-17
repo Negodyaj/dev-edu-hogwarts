@@ -1,14 +1,23 @@
 import './InputLink.scss';
 import '../InputTextarea/InputTextarea.scss';
+import { useFormContext } from 'react-hook-form';
 
 export type InputLinkProps = {
   placeholder: string;
+  inputName?: string;
+  inputValue?: string;
 };
 
 export const InputLink = (props: InputLinkProps) => {
+  const { register } = useFormContext();
+
   return (
     <div className="input-link">
-      <input placeholder={props.placeholder}></input>
+      <input
+        placeholder={props.placeholder}
+        defaultValue={props.inputValue}
+        {...register(`${props.inputName}`)}
+      />
       <button className="button-fly">
         <svg xmlns="http://www.w3.org/2000/svg">
           <path

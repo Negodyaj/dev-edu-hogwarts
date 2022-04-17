@@ -4,26 +4,24 @@ import { AppState } from '../../store/store';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { wretchHomework } from '../../actions/homework.actions';
-import { Loader } from './Loader';
+// import { Loader } from './Loader';
+// import { getIdFromToken, getToken } from '../../services/auth.service';
 
 export const HomeworkPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { homework, loading } = useSelector(
-    (state: AppState) => state.homeworkPageState
+  const { currentUser } = useSelector(
+    (state: AppState) => state.loginPageState
   );
 
   useEffect(() => {
-    dispatch(wretchHomework(Number(id)));
-  }, []);
-
-  console.log(loading);
-
-  if (loading) return <Loader />;
+    const userId = currentUser?.id;
+    if (userId) dispatch(wretchHomework(Number(id), userId));
+  }, [currentUser]);
 
   return (
-    <div style={{ margin: '70px 20px' }}>
-      <HomeworkCard data={homework} oneCard={true} />
+    <div style={{ marginTop: 50 }}>
+      <HomeworkCard oneCard={true} />
     </div>
   );
 };
