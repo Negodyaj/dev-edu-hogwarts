@@ -10,7 +10,10 @@ import { InputLink } from '../../../components/InputLink/InputLink';
 import { baseWretch } from '../../../services/base-wretch.service';
 import { studentHomeworkById, postStudentAnswer } from '../../../shared/consts';
 import { useDispatch, useSelector } from 'react-redux';
-import { editHomework } from '../../../actions/homework.actions';
+import {
+  editHomework,
+  loadStudentHomework,
+} from '../../../actions/homework.actions';
 import { useEffect } from 'react';
 import { AppState } from '../../../store/store';
 import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
@@ -43,6 +46,7 @@ export const HomeworkCard = (props: HomeworkProps) => {
     (state: AppState) => state.homeworkPageState
   );
   const location = useLocation();
+  console.log(answer);
 
   const onSubmit = (data: HomeworkFormData) => {
     const dateToPost = {
@@ -53,10 +57,7 @@ export const HomeworkCard = (props: HomeworkProps) => {
       baseWretch()
         .url(postStudentAnswer(homework?.id))
         .post(dateToPost)
-        .json((res) => {
-          console.log(res);
-          // dispatch(loadStudentHomework(res as StudentHomework));
-        });
+        .json((res) => dispatch(loadStudentHomework(res as StudentHomework)));
     }
   };
 
@@ -68,10 +69,9 @@ export const HomeworkCard = (props: HomeworkProps) => {
     if (studentHomeworkProgress?.id) {
       baseWretch()
         .url(studentHomeworkById(studentHomeworkProgress?.id))
-        .post(dateToPost)
+        .put(dateToPost)
         .json((res) => {
-          console.log(res);
-          // dispatch(loadStudentHomework(res as StudentHomework));
+          dispatch(loadStudentHomework(res as StudentHomework));
         });
     }
   };

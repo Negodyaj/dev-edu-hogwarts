@@ -65,7 +65,7 @@ export const wretchHomework = (id: number, userId: number) => {
     dispatch(loadHomework(results[0] as Homework));
     if (Array.isArray(results[1])) {
       dispatch(loadStudentHomework(results[1][0]));
-      dispatch(loadAnswer((results[1][0] as StudentHomework).answer));
+      dispatch(loadAnswer((results[1][0] as StudentHomework)?.answer));
     } else {
       dispatch(loadStudentHomework(undefined));
       dispatch(loadAnswer(''));

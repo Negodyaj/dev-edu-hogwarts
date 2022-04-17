@@ -50,6 +50,7 @@ export const homeworkPageReducer: Reducer<
       return {
         ...state,
         studentHomeworkProgress: action.payload,
+        answer: action.payload?.answer ?? '',
       };
     case LOAD_ANSWER:
       return {
