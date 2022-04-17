@@ -59,7 +59,7 @@
   }
 
   &.one-card-content {
-    grid-template-columns: 153px 590px ;
+    grid-template-columns: 153px 560px auto;
 
     & .task-status {
       grid-column: 2;
