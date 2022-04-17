@@ -42,8 +42,6 @@ export const SvgIcon = (props: SvgIconProps) => {
       return <SvgHomeWorks />;
     case Icon.Settings:
       return <SvgSettings />;
-    case Icon.Arrow:
-      return <SvgArrow />;
     case Icon.Pencil:
       return <SvgPencil />;
     case Icon.Exit:

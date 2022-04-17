@@ -1,0 +1,36 @@
+.input-textarea {
+  display: flex;
+  align-items: flex-start;
+  textarea {
+    resize: none;
+    flex-grow: 1;
+    min-height: 114px;
+    background: #ffffff;
+    border: 1px solid #dbdbdb;
+    box-sizing: border-box;
+    border-radius: 15px;
+    outline: none;
+    -moz-appearance: none;
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    padding: 30px 40px;
+    cursor: text;
+  }
+}
+
+.button-fly {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  margin-left: 20px;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  background: #A786DF;
+
+  &:hover {
+    background-color: #8663C2;
+  }
+}
