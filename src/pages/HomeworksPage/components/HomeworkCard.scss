@@ -1,3 +1,5 @@
+@import "src/style/colors";
+
 .homework-card-content {
   display: grid;
   grid-template-columns: 153px 3fr 1fr;
@@ -34,5 +36,9 @@
     &+.homework-dates {
       margin-left: 43px;
     }
+  }
+
+  & path {
+    fill: $link-color;
   }
 }

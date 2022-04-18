@@ -10,7 +10,7 @@ export const LinkArrow = (props: LinkArrowProps) => {
   return (
     <Link className="link-arrow" to={`/${props.to}`}>
       {props.text}
-      <SvgArrow back={false} />
+      <SvgArrow />
     </Link>
   );
 };
