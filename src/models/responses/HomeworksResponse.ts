@@ -12,7 +12,7 @@ export interface Homework {
   };
 }
 
-export interface HomeworkById extends Homework {
+export interface HomeworkWithGroup extends Homework {
   group: {
     id: number;
     name: string;
@@ -24,43 +24,4 @@ export interface HomeworkById extends Homework {
 
 enum GroupStatus {
   Forming = 'Forming',
-}
-
-export interface Group {
-  students: [
-    {
-      id: number;
-      firstName: string;
-      lastName: string;
-      email: string;
-      photo: null;
-    }
-  ];
-  teachers: [
-    {
-      id: number;
-      firstName: string;
-      lastName: string;
-      email: string;
-      photo: null;
-    }
-  ];
-  tutors: [];
-  id: number;
-  name: string;
-  course: {
-    name: string;
-    description: string;
-    groups: null;
-    topics: null;
-    materials: null;
-    tasks: null;
-    id: number;
-    isDeleted: false;
-  };
-  groupStatus: GroupStatus;
-  startDate: string;
-  endDate: string;
-  timetable: string;
-  paymentPerMonth: number;
 }
