@@ -31,9 +31,9 @@ export const FilterList = (props: FilterListProps) => {
       <div className={`drop-down-filter ${props.type}`}
            onKeyPress={() => toggle()}
            onClick={() => toggle()}
-           data-lesson-id={item.id}
+           data-lesson-id={item?.id}
       >
-        {item.name}
+        {item?.name}
 
         <svg width="24" height="24" viewBox="0 0 24 24" className={isOpen ? 'array-down' : 'array-up'}
              onClick={() => toggle()}>
@@ -50,7 +50,7 @@ export const FilterList = (props: FilterListProps) => {
                 filter.map(
                   elem =>
                     <li key={elem.id}
-                        className={`drop-down-filter__element ${elem.id === item.id ? 'selected' : ''}`}
+                        className={`drop-down-filter__element ${elem.id === item?.id ? 'selected' : ''}`}
                         onClick={() => setItem(elem)}
                     >
                       {elem.name}

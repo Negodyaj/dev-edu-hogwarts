@@ -9,7 +9,6 @@ export const CheckboxGroup = (props:CheckboxGroupProps) =>{
     <>
       {
         props.checkboxArr.map( (item) => (<CheckboxBtn data = {item}/>)) 
-
       }
     </>
   )

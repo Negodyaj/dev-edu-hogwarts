@@ -1,3 +1,5 @@
+import React from "react";
+import { useForm, UseFormRegisterReturn } from "react-hook-form";
 import "./Checkbox.scss"
 
 export type CheckboxProps = {
@@ -11,12 +13,10 @@ export type CheckboxData = {
   text: string;
 }
 
-export const CheckboxBtn = (props: CheckboxProps) => {
+export const CheckboxBtn = (props:CheckboxProps) => {
   return (
-    <label className="custom-checkbox" > 
-      <input type="checkbox" name={props.data.name} value={props.data.value}/> 
-      <span className="custom-checkbox-text">{props.data.text}</span> 
-    </label>
-
-  )
-}
+  <label className="custom-checkbox" > 
+  <input type="checkbox" name={props.data.name} value={props.data.value} /> 
+  <span className="custom-checkbox-text">{props.data.text}</span> 
+</label>
+  )};

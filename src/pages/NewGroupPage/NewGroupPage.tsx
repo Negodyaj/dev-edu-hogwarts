@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { baseWretch } from "../../services/base-wretch.service";
 import { Button, ButtonModel, ButtonType } from "../../components/Button/Button";
 import { CheckboxGroup } from "../../components/CheckBoxGroup/CheckBoxGroup";
-import { CheckboxData } from "../../components/CheckBoxGroup/CheckBox/Checkbox";
+import { CheckboxBtn, CheckboxData } from "../../components/CheckBoxGroup/CheckBox/Checkbox";
 import { coursesUrl, groupUrl, usersUrl } from "../../shared/consts";
 import { Filter, FilterList } from "../../components/FilterList/FilterList";
+import { METHODS } from "http";
 
 export type GroupFormData = {
   name: string;
@@ -49,6 +50,7 @@ export const NewGroupPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
 
+
   let tutors: User[] = [];
   let teachers: User[] = [];
 
@@ -62,42 +64,40 @@ export const NewGroupPage = () => {
     baseWretch()
       .url(usersUrl)
       .get()
-      .json((data) => {
-        setUsers(data as User[]);
-      });
-    baseWretch()
-      .url(coursesUrl)
-      .get()
-      .json((data) => {
-        setCourses(data as Course[]);
+      .json((users) => {
+        
+        baseWretch()
+        .url(coursesUrl)
+        .get()
+        .json((data) => {
+          console.log(1);
+          setUsers(users as User[]);
+          setCourses(data as Course[]);
+        });   
       });
   }, []);
+  
+  const newTeachers = teachers.map((teacher)=>{
+    let newTeacher: CheckboxData = {
+    name: "teacherId",
+    value: teacher.id,
+    text:  `${teacher.firstName + " " + teacher.lastName}`}
+    return newTeacher
+    });
+
+    const methods = useForm<CheckboxData[]>();
+  
+  const newTutors = tutors.map((tutor)=>{
+    let newTutor: CheckboxData = {
+    name: "tutorId",
+    value: tutor.id,
+    text:  `${tutor.firstName + " " + tutor.lastName}`}
+    return newTutor
+  });
 
   const onSubmit = (data: GroupFormData) => {
     baseWretch().url(groupUrl).post(data);
   };
-
-const newTeachers = teachers.map((teacher)=>{
-  let newTeacher: CheckboxData = {
-  name: "teacher",
-  value: teacher.id,
-  text:  `${teacher.firstName + " " + teacher.lastName}`}
-  return newTeacher
-  });
-
-const newTutors = tutors.map((tutor)=>{
-  let newTutor: CheckboxData = {
-  name: "tutor",
-  value: tutor.id,
-  text:  `${tutor.firstName + " " + tutor.lastName}`}
-  return newTutor
-});
-
-// const newCourse = courses.map((course)=>{
-//   let newCourse:Filter={
-//     id: 
-//   }
-// })
 
   return (
     <>
@@ -111,7 +111,8 @@ const newTutors = tutors.map((tutor)=>{
           />
           {errors.name && <span>Вы не указали название</span>}
           <h2>Курс</h2>
-          <FilterList data={courses} type={'__wrapper'} {...register("courseId", { required: true })}/>
+          <FilterList data={courses} type='' {...register("courseId", { required: true })}/>
+          
           {/* <select {...register("courseId", { required: true })}>
             {courses.map((course) => (
               <option value={course.id}>{course.name}</option>
@@ -121,8 +122,16 @@ const newTutors = tutors.map((tutor)=>{
           <div className="teachers-list">
             <h2>Преподаватель:</h2>
             <div className="list">
-                <CheckboxGroup checkboxArr={newTeachers} 
-                {...register("teacherId", { required: true })} />
+              {/* {newTeachers.map((teacher)=>(
+                <CheckboxBtn data={teacher} ref={register("teacherId", { required: true })}/>
+              ))
+              } */}
+                {/* <CheckboxGroup checkboxArr={newTeachers}  */}
+                <Controller 
+                name="teacherId"
+                control={methods.control}
+                rules={{ required: true }}
+                render={(checkboxArr}) => <CheckboxGroup checkboxArr={newTeachers} />
              </div>
              {errors.teacherId && <span>Вы не выбрали преподавателя</span>}
           </div>
