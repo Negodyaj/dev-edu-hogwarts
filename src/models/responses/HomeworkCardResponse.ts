@@ -8,6 +8,7 @@ export type HomeworkCardResponse = {
     isDeleted: boolean
   },
   id: number,
+  status: number,
   startDate: string,
   endDate: string
 }

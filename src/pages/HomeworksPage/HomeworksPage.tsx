@@ -1,16 +1,25 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadHomeworks, selectTab } from '../../actions/homeworks.actions';
+import {
+  loadHomeworkAnswers,
+  loadHomeworks,
+  selectTab,
+} from '../../actions/homeworks.actions';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { HomeworkCardResponse } from '../../models/responses/HomeworkCardResponse';
+import { HomeworkStudentAnswer } from '../../models/responses/HomeworkStudentAnswer';
 import { baseWretch } from '../../services/base-wretch.service';
 import { AppState } from '../../store/store';
 import { HomeworkCard, HomeworkData } from './components/HomeworkCard';
 
 export const HomeworksPage = () => {
   const dispatch = useDispatch();
-  const { tabs, homeworks, selectedTab } = useSelector(
+  const { tabs, homeworks, selectedTab, answers } = useSelector(
     (state: AppState) => state.homeworksPageState
+  );
+
+  const { currentUser } = useSelector(
+    (state: AppState) => state.loginPageState
   );
 
   useEffect(() => {
@@ -23,14 +32,46 @@ export const HomeworksPage = () => {
         );
     }
   }, [selectedTab]);
-  const newHomeworks = homeworks?.map((item, index) => {
+
+  useEffect(() => {
+    if (selectedTab > 0) {
+      baseWretch()
+        .url(`api/student-homeworks/by-user/${currentUser?.id}`)
+        .get()
+        .json((data) =>
+          dispatch(loadHomeworkAnswers(data as HomeworkStudentAnswer[]))
+        );
+    }
+  }, [selectedTab]);
+
+  const CheckHWStatus = () => {
+    const complited: Array<string> = [];
+    answers?.forEach((answer) => {
+      complited.push(answer.homework.task.name);
+    });
+
+    homeworks?.forEach((hw) => {
+      for (let i = 0; i <= complited.length; i++) {
+        if (hw.task.name == complited[i]) {
+          hw.status = 0;
+        }
+      }
+    });
+    homeworks?.forEach((hw) => {
+      if (hw.status == null) {
+        hw.status = 1;
+      }
+    });
+    return homeworks;
+  };
+  const newHomeworks = CheckHWStatus()?.map((item, index) => {
     const newHW: HomeworkData = {
       id: item.id,
       taskNumber: index + 1,
       title: item.task.name,
       dateBeginning: item.startDate,
       dateEnd: item.endDate,
-      status: 1,
+      status: item.status,
       elseData: 'wertyu',
     };
     return newHW;

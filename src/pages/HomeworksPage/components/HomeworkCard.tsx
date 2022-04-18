@@ -45,7 +45,11 @@ export const HomeworkCard = (props: HomeworkProps) => {
         <LinkArrow
           back={false}
           text="к заданию"
-          to={`homeworks/${homework.id}`}
+          to={
+            homework.status == 0
+              ? `homeworks/${homework.id}`
+              : `homeworks/${homework.id}/new`
+          }
         />
       </div>
       <span className="task-status">{HomeworkStatus[homework.status]}</span>
