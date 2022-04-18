@@ -16,10 +16,10 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import {
-  AddLink,
-  GetTasksCount,
-  SelectGroup,
-  SetValueInInput,
+  addLink,
+  getTasksCount,
+  selectGroup,
+  setValueInInput,
 } from '../../actions/newHomeworkForm.action';
 import { AddedLink } from './components/AddedLink';
 import { Homework } from '../../models/responses/HomeworksResponse';
@@ -54,13 +54,13 @@ export const NewHomework = () => {
     });
   }, [links]);
 
-  const addLink = () => {
+  const addLinkInForm = () => {
     if (
       inputLinkValue &&
       /^[a-z]+:\/\//i.test(inputLinkValue) &&
       !links.includes(inputLinkValue)
     )
-      dispatch(AddLink(refLinkName.current.value));
+      dispatch(addLink(refLinkName.current.value));
   };
 
   const convertDate = (date: string) => {
@@ -83,7 +83,7 @@ export const NewHomework = () => {
 
   const getGroupId = (groupId: number) => {
     console.log(groupId);
-    dispatch(SelectGroup(groupId));
+    dispatch(selectGroup(groupId));
   };
   // const saveDraft = () => {
   // };
@@ -94,7 +94,7 @@ export const NewHomework = () => {
       baseWretch()
         .url(getHomeworksByGroupId(groupId))
         .get()
-        .json((data) => dispatch(GetTasksCount(data as Homework[])));
+        .json((data) => dispatch(getTasksCount(data as Homework[])));
     }
   }, [selectGroupId]);
 
@@ -170,12 +170,13 @@ export const NewHomework = () => {
               className="form-input form-input_link"
               ref={refLinkName}
               value={inputLinkValue}
-              onChange={(event) =>
-                dispatch(SetValueInInput(event.target.value))
-              }
+              onChange={(event) => {
+                console.log('render input');
+                dispatch(setValueInInput(event.target.value));
+              }}
               placeholder="Вставьте ссылку"
             />
-            <div onClick={addLink} className="form-input_link__button">
+            <div onClick={addLinkInForm} className="form-input_link__button">
               <SvgIcon icon={Icon.Plus} />
             </div>
           </div>

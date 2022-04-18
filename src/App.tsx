@@ -16,7 +16,7 @@ import { setCurrentUser } from './actions/login.actions';
 import { UserResponse } from './models/responses/UserResponse';
 import { baseWretch } from './services/base-wretch.service';
 import { useEffect } from 'react';
-import { LoadGroups } from './actions/newHomeworkForm.action';
+import { loadGroups } from './actions/newHomeworkForm.action';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ function App() {
       .json((data) => {
         const user = data as UserResponse;
         dispatch(setCurrentUser(user));
-        dispatch(LoadGroups(user.groups));
+        dispatch(loadGroups(user.groups));
       });
   }, []);
 

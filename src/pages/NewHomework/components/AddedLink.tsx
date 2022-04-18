@@ -1,4 +1,4 @@
-import { RemoveLink } from '../../../actions/newHomeworkForm.action';
+import { removeLink } from '../../../actions/newHomeworkForm.action';
 import { SvgIcon } from '../../../components/SvgIcon/SvgIcon';
 import { Icon } from '../../../shared/enums/Icon';
 import { useDispatch } from 'react-redux';
@@ -17,7 +17,7 @@ export const AddedLink = (props: AddedLinkProps) => {
         {props.source}
       </a>
       <div
-        onClick={() => dispatch(RemoveLink(props.itemNumber))}
+        onClick={() => dispatch(removeLink(props.itemNumber))}
         className="form-input_link__delete-link"
       >
         <SvgIcon icon={Icon.Cross} />
