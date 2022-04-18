@@ -84,9 +84,9 @@ export const HomeworkCard = (props: HomeworkProps) => {
   };
 
   useEffect(() => {
-    const edit = location.pathname.split('/');
-    if (edit[edit.length - 1] === 'edit') dispatch(editHomework(true));
-    else dispatch(editHomework(false));
+    const pathParts = location.pathname.split('/');
+    const isEditMode = pathParts[pathParts.length - 1] === 'edit';
+    dispatch(editHomework(isEditMode));
   }, [location]);
 
   return (

@@ -4,8 +4,6 @@ import { AppState } from '../../store/store';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { wretchHomework } from '../../actions/homework.actions';
-// import { Loader } from './Loader';
-// import { getIdFromToken, getToken } from '../../services/auth.service';
 
 export const HomeworkPage = () => {
   const dispatch = useDispatch();
