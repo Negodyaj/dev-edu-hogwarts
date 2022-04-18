@@ -66,9 +66,6 @@ export const wretchHomework = (id: number, userId: number) => {
     if (Array.isArray(results[1])) {
       dispatch(loadStudentHomework(results[1][0]));
       dispatch(loadAnswer((results[1][0] as StudentHomework)?.answer));
-    } else {
-      dispatch(loadStudentHomework(undefined));
-      dispatch(loadAnswer(''));
     }
     // const resStudent = await baseWretch()
     //   .url(getStudentHomeworkByHomeworkId(id))
