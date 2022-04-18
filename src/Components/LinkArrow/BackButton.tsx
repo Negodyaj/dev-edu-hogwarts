@@ -6,7 +6,7 @@ export const BackButton = () => {
 
   return (
     <div className="link-arrow" onClick={() => navigate(-1)}>
-      <SvgArrow back={true} />
+      <SvgArrow direction="left" />
       Назад
     </div>
   );

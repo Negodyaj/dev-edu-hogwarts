@@ -68,6 +68,12 @@ main {
   cursor: pointer;
 }
 
+.arrow-right {
+  & path {
+    fill: $link-color;
+  }
+}
+
 .arrow-bottom {
   transform: rotate(90deg);
 }
