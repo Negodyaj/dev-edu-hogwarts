@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Lesson, LessonModel } from "./components/Lesson";
 import {TabContainer} from "../../components/TabContainer/TabContainer";
 import {Icon} from "../../shared/enums/Icon";
 import { date } from "yup/lib/locale";
+import {FilterList} from "../../components/FilterList/FilterList";
 
 
 export const LessonsPage = () => {
@@ -31,29 +32,46 @@ export const LessonsPage = () => {
     }
   })
   
-}
+  const [filter, setFilter] = useState(0);
+  useEffect(() => {
+    console.log('rendered')
+  },lessons)
 
 return (
-    <>
-      <TabContainer tabContainerData={ [
-        {id: 1, icon: Icon.Cookie, text: 'Базовый курс'},
-        {id: 2, icon: Icon.Calendar, text: 'Специализация Backend'},
-        {id: 3, icon: Icon.Computer, text: 'Специализация Frontend'},
-        {id: 4, icon: Icon.Cake, text: 'Специализация QA'},
-        ] } selectedTab={0}
-      />
-      
-      <div>Занятия</div>
-      <select name="period-select" id="period-select">
-        <option selected>Эта неделя</option>
-        <option>Этот месяц</option>
-        <option>Всё время</option>
-      </select>
-      <div className="lessons-container">
-      {
-        lessons.map(lesson => <Lesson data={lesson} id={lesson.id} key={lesson.id} activeLessonId={activeLesson} onClick={onElementClick}/>)
-      }
-      </div>
-    </>
-  )
-  }
+  <>
+    <TabContainer
+      tabContainerData={[
+        { id: 1, icon: Icon.Cookie, text: 'Базовый курс' },
+        { id: 2, icon: Icon.Calendar, text: 'Специализация Backend' },
+        { id: 3, icon: Icon.Computer, text: 'Специализация Frontend' },
+        { id: 4, icon: Icon.Cake, text: 'Специализация QA' },
+      ]}
+      selectedTab={0}
+    />
+
+    <div>Занятия</div>
+    <FilterList data={[
+        {
+          id: 1, name: 'Все'
+        },
+        {
+          id: 2, name: 'Эта неделя'
+        },
+        {
+          id: 3, name: 'Этот месяц'
+        }
+      ]} type=''/>
+    <div className="lessons-container">
+      {lessons.map((lesson) => (
+        <Lesson
+          data={lesson}
+          id={lesson.id}
+          key={lesson.id}
+          activeLessonId={activeLesson}
+          onClick={onElementClick}
+        />
+      ))}
+    </div>
+  </>
+);
+}
