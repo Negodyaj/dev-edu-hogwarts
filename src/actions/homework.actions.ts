@@ -53,7 +53,9 @@ export const wretchHomework = (id: number, userId: number) => {
         .url(studentHomeworksByUserId(userId))
         .get()
         .json((dt) => {
-          return dt.find((item: StudentHomework) => item.homework.id === id);
+          return Array.isArray(dt)
+            ? dt.find((item: StudentHomework) => item.homework.id === id)
+            : dt;
         }),
     ]);
     const resultHomework =
