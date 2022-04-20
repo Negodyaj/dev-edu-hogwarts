@@ -39,9 +39,12 @@ export const SelectList = (props: SelectListProps) => {
   return (
     <div className='drop-down-filter__wrapper' ref={clickOutside}>
       <select id={props.name} className="html-select" {...register(props.name, { required: true })}>
+          {
+          filter.map(item=>
           <option key={item?.id} value={item?.id}>
             {item?.name}
-          </option>
+          </option>)
+          }
       </select>
       <div className={`drop-down-filter ${props.type}`}
            onKeyPress={() => toggle()}
