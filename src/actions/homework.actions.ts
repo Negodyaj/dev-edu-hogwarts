@@ -53,7 +53,7 @@ export const wretchHomework = (id: number, userId: number) => {
         .url(studentHomeworksByUserId(userId))
         .get()
         .json((dt) => {
-          return dt.filter((item: StudentHomework) => item.homework.id === id);
+          return dt.find((item: StudentHomework) => item.homework.id === id);
         }),
     ]);
     const resultHomework =
@@ -66,9 +66,9 @@ export const wretchHomework = (id: number, userId: number) => {
         : undefined;
 
     dispatch(loadHomework(resultHomework));
-    if (Array.isArray(resultStudentHomework)) {
+    if (resultStudentHomework) {
       dispatch(loadStudentHomework(resultStudentHomework));
-      dispatch(loadAnswer((resultStudentHomework as StudentHomework)?.answer));
+      dispatch(loadAnswer(resultStudentHomework?.answer));
     }
     // const resStudent = await baseWretch()
     //   .url(getStudentHomeworkByHomeworkId(id))
