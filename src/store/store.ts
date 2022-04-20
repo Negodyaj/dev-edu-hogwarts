@@ -11,18 +11,21 @@ Redux Thunk middleware allows you to write action creators that return a functio
 import thunk from 'redux-thunk';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
 // Import reducers and state type
-import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
+import {
+  NotificationsPageState,
+  notificationsPageReducer,
+} from './reducers/notifications.reducer';
 
 // Create an interface for the application state
 export interface AppState {
-  notificationsPageState: NotificationsPageState
-  loginPageState: LoginPageState
+  notificationsPageState: NotificationsPageState;
+  loginPageState: LoginPageState;
 }
 
 // Create the root reducer
 const rootReducer = combineReducers<AppState>({
   notificationsPageState: notificationsPageReducer,
-  loginPageState: loginPageReducer
+  loginPageState: loginPageReducer,
 });
 
 // Create a configure store function of type `AppState`
