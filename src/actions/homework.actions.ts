@@ -22,7 +22,7 @@ export const loadingHomework = () => ({
   type: GET_HOMEWORK_BY_ID,
 });
 
-export const loadHomework = (homework: Homework) => ({
+export const loadHomework = (homework: Homework | undefined) => ({
   type: GET_HOMEWORK_BY_ID_SUCCESS,
   payload: homework,
 });
@@ -47,25 +47,28 @@ export const loadStudentHomework = (
 export const wretchHomework = (id: number, userId: number) => {
   return async (dispatch: Dispatch<HomeworkAction>) => {
     dispatch(loadingHomework());
-    const res = await baseWretch().url(getHomeworkById(id)).get().json();
-    dispatch(loadHomework(res as Homework));
-    const resStudent = await baseWretch()
-      .url(studentHomeworksByUserId(userId))
-      .get()
-      .json((dt) => {
-        return dt.filter((item: StudentHomework) => item.homework.id === id);
-      });
-    const results = await Promise.allSettled([res, resStudent]).then((data) =>
-      data.map((item) => {
-        if (item.status === 'fulfilled') return item.value;
-        else item = item.reason;
-        return item;
-      })
-    );
-    dispatch(loadHomework(results[0] as Homework));
-    if (Array.isArray(results[1])) {
-      dispatch(loadStudentHomework(results[1][0]));
-      dispatch(loadAnswer((results[1][0] as StudentHomework)?.answer));
+    const [homework, studentHomework] = await Promise.allSettled([
+      baseWretch().url(getHomeworkById(id)).get().json(),
+      baseWretch()
+        .url(studentHomeworksByUserId(userId))
+        .get()
+        .json((dt) => {
+          return dt.filter((item: StudentHomework) => item.homework.id === id);
+        }),
+    ]);
+    const resultHomework =
+      homework.status === 'fulfilled'
+        ? (homework.value as Homework)
+        : undefined;
+    const resultStudentHomework =
+      studentHomework.status === 'fulfilled'
+        ? (studentHomework.value as StudentHomework)
+        : undefined;
+
+    dispatch(loadHomework(resultHomework));
+    if (Array.isArray(resultStudentHomework)) {
+      dispatch(loadStudentHomework(resultStudentHomework));
+      dispatch(loadAnswer((resultStudentHomework as StudentHomework)?.answer));
     }
     // const resStudent = await baseWretch()
     //   .url(getStudentHomeworkByHomeworkId(id))
