@@ -62,7 +62,6 @@ export const HomeworksPage = () => {
             name: 'Этот месяц',
           },
         ]}
-        type=""
       />
       <FilterList
         data={[
@@ -87,7 +86,7 @@ export const HomeworksPage = () => {
             name: 'Это десятилетие',
           },
         ]}
-        type="table"
+        cssClass="table"
       />
       {revertedArray.map((item) => (
         <HomeworkCard data={item} key={item.id} />

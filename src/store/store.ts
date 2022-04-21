@@ -9,6 +9,10 @@ import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
 Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods dispatch and getState as parameters.
 */
 import thunk from 'redux-thunk';
+import {
+  lessonsPageReducer,
+  LessonsPageState,
+} from './reducers/lessons.reducer';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
 // Import reducers and state type
 import {
@@ -22,9 +26,10 @@ import {
 
 // Create an interface for the application state
 export interface AppState {
-  notificationsPageState: NotificationsPageState;
-  loginPageState: LoginPageState;
   newHomeworkFormState: NewHomeworkFormState;
+  notificationsPageState: NotificationsPageState | undefined;
+  loginPageState: LoginPageState | undefined;
+  lessonsPageState: LessonsPageState | undefined;
 }
 
 // Create the root reducer
@@ -32,6 +37,7 @@ const rootReducer = combineReducers<AppState>({
   notificationsPageState: notificationsPageReducer,
   loginPageState: loginPageReducer,
   newHomeworkFormState: newHomeworkFormReducer,
+  lessonsPageState: lessonsPageReducer,
 });
 
 // Create a configure store function of type `AppState`
