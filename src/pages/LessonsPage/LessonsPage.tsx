@@ -6,6 +6,10 @@ import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import moment from 'moment';
 import { isSameDateOrAfter } from '../../shared/helpers/dateHelpers';
 import { Period } from '../../shared/enums/Period';
+import { filterLessons, setLessons } from '../../actions/lessons.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { LessonsPageState } from '../../store/reducers/lessons.reducer';
 
 const getLessons = (): LessonModel[] => {
   return [
@@ -47,34 +51,35 @@ const lessonsFilterData: FilterItem[] = [
 ];
 
 export const LessonsPage = () => {
+  const dispatch = useDispatch();
   const [activeLesson, setActiveLesson] = useState(0);
-  const [lessons, setLessons] = useState<LessonModel[]>([]);
-  const [filteredLessons, setFilteredLessons] =
-    useState<LessonModel[]>(lessons);
+
+  const { lessons, filteredLessons } = useSelector(
+    (state: AppState) => state.lessonsPageState as LessonsPageState
+  );
 
   useEffect(() => {
     const response = getLessons();
-    setLessons(response);
-    setFilteredLessons(response);
+    dispatch(setLessons(response));
   }, []);
 
   const onElementClick = (id: number) => {
     setActiveLesson(id === activeLesson ? 0 : id);
   };
 
-  const filterLessons = (item: any) => {
-    setFilteredLessons(
-      lessons.filter((lesson) => {
-        const lessonDate = moment(lesson.date, 'DD.MM.YYYY');
-        if (item?.id === Period.Month) {
-          return isSameDateOrAfter(lessonDate, 'months', 1);
-        }
-        if (item?.id === Period.Week) {
-          return isSameDateOrAfter(lessonDate, 'days', 7);
-        }
-        return true;
-      })
-    );
+  const applyLessonsFilter = (item: FilterItem) => {
+    const lessonsToDisplay = lessons.filter((lesson) => {
+      const lessonDate = moment(lesson.date, 'DD.MM.YYYY');
+      if (item?.id === Period.Month) {
+        return isSameDateOrAfter(lessonDate, 'months', 1);
+      }
+      if (item?.id === Period.Week) {
+        return isSameDateOrAfter(lessonDate, 'days', 7);
+      }
+      return true;
+    });
+
+    dispatch(filterLessons(lessonsToDisplay));
   };
 
   return (
@@ -89,7 +94,7 @@ export const LessonsPage = () => {
         selectedTab={0}
       />
       <div>Занятия</div>
-      <FilterList data={lessonsFilterData} callback={filterLessons} />
+      <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />
       <div className="lessons-container">
         {filteredLessons.map((lesson) => (
           <Lesson
