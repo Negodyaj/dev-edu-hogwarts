@@ -16,4 +16,5 @@ export const enum Icon {
   Tick,
   Plus,
   Arrow,
+  Cross,
 }

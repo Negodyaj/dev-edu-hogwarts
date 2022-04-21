@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { setToken } from '../../services/auth.service';
 import { baseWretch } from '../../services/base-wretch.service';
 import { loginUrl } from '../../shared/consts';
+import { LoginPageState } from '../../store/reducers/login.reducer';
 import { AppState } from '../../store/store';
 
 export type LoginFormData = {
@@ -39,7 +40,7 @@ export const LoginPage = () => {
   };
 
   const { email, password } = useSelector(
-    (state: AppState) => state.loginPageState
+    (state: AppState) => state.loginPageState as LoginPageState
   );
   return (
     <>

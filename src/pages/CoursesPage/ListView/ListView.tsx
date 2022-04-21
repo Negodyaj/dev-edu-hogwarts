@@ -8,7 +8,7 @@ import {
   Droppable,
   DroppableProvided,
 } from 'react-beautiful-dnd';
-import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
+import { BackButton } from '../../../components/LinkArrow/BackButton';
 
 export type ListViewProps = {
   data: Array<ListViewLessons>;
@@ -26,7 +26,7 @@ export type ListViewLessons = {
 export const ListView = (props: ListViewProps) => {
   const linkType = () => {
     if (props.edit) {
-      return <LinkArrow back={true} text={'Назад'} to={'courses'} />;
+      return <BackButton />;
     } else {
       return <LinkWithUnderline text="Редактировать" path="edit-courses" />;
     }

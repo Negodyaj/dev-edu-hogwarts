@@ -1,4 +1,4 @@
-@import "src/style/colors";
+@import './src/style/colors';
 
 * {
   margin: 0;
@@ -7,14 +7,13 @@
 
 body {
   margin: 0;
-  background-color: $background-color;
+  background-color: #F6F7F9;
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 main {
-  position: relative;
   flex-grow: 1;
 }
 
@@ -24,15 +23,15 @@ main {
 }
 
 ::-moz-selection{
-  background-color: $selection-color;
+  background-color: #EBE3F8;
 }
 
 ::selection{
-  background-color: $selection-color;
+  background-color: #EBE3F8;
 }
 
 .content-container {
-  background: $white;
+  background: #FFFFFF;
   width: 940px;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
   border-radius: 15px;
@@ -40,18 +39,49 @@ main {
   transition: width ease-in-out 0.5s;
 }
 
+.margin-common-content {
+  margin: 70px 120px 70px 20px;
+}
+
 .flex-container {
   display: flex;
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: $dark-gray;
+  color: #8a8a8a;
   opacity: 1; /* Firefox */
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: $dark-gray;
+  color: #8a8a8a;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
-  color: $dark-gray;
+  color: #8a8a8a;
+}
+
+.link-arrow {
+  display: flex;
+  gap: 4px;
+  font-weight: 400;
+  font-size: 18px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.arrow-right {
+  & path {
+    fill: $link-color;
+  }
+}
+
+.arrow-bottom {
+  transform: rotate(90deg);
+}
+
+.arrow-top {
+  transform: rotate(-90deg);
+}
+
+.arrow-left {
+  transform: rotateY(180deg);
 }

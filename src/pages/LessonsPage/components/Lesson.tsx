@@ -1,7 +1,6 @@
 import styles from '../../LessonsPage/css/Lesson.scss';
 import classNames from 'classnames';
-import { SvgIcon } from '../../../components/SvgIcon/SvgIcon';
-import { Icon } from '../../../shared/enums/Icon';
+import { SvgArrow } from '../../../components/SvgIcon/SvgFiles/SvgArrow';
 
 const cx = classNames.bind(styles);
 
@@ -22,13 +21,13 @@ export type LessonModel = {
 };
 
 export const Lesson = (props: LessonProps) => {
-  console.log(props.id);
   const lesson = props.data;
-  const isLessonIdCorrect = props.activeLessonId === lesson.id;
+  const isExpanded = props.activeLessonId === lesson.id;
 
   const toggleAccordionItem = () => {
     props.onClick(lesson.id);
   };
+
   return (
     <div className="lesson-container">
       <div className="header-container">
@@ -39,13 +38,13 @@ export const Lesson = (props: LessonProps) => {
         <div className="lesson-theme font-600">{lesson.theme}</div>
 
         <button
-          className={cx('circle', { 'is-active': isLessonIdCorrect })}
+          className={cx('circle', { 'is-active': isExpanded })}
           onClick={toggleAccordionItem}
         >
-          <SvgIcon icon={Icon.Arrow} />
+          <SvgArrow direction="bottom" />
         </button>
       </div>
-      {isLessonIdCorrect ? (
+      {isExpanded && (
         <div className="accordion-content-container">
           <div className="video-container grid">
             <div className="video-txt container-250">Ссылка на видео</div>
@@ -60,7 +59,7 @@ export const Lesson = (props: LessonProps) => {
             <div className="additional-info">{lesson.additionalInfo}</div>
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

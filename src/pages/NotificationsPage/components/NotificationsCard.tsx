@@ -42,11 +42,7 @@ export const NotificationsCard = (props: NotificationsProps) => {
           </div>
         </div>
         <div className="messege">{props.data.messege}</div>
-        <LinkArrow
-          back={false}
-          text={'перейти'}
-          to={`${props.data.id}`}
-        ></LinkArrow>
+        <LinkArrow text={'перейти'} to={`${props.data.id}`} />
       </div>
     </div>
   );
