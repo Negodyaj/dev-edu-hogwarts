@@ -16,4 +16,5 @@ export const enum Icon {
   Plus,
   Pencil,
   Tick,
+  Cross,
 }

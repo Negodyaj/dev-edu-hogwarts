@@ -16,12 +16,17 @@ import {
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
 // Import reducers and state type
 import {
+  newHomeworkFormReducer,
+  NewHomeworkFormState,
+} from './reducers/newHomeworkForm.reducer';
+import {
   NotificationsPageState,
   notificationsPageReducer,
 } from './reducers/notifications.reducer';
 
 // Create an interface for the application state
 export interface AppState {
+  newHomeworkFormState: NewHomeworkFormState;
   notificationsPageState: NotificationsPageState | undefined;
   loginPageState: LoginPageState | undefined;
   lessonsPageState: LessonsPageState | undefined;
@@ -31,11 +36,11 @@ export interface AppState {
 const rootReducer = combineReducers<AppState>({
   notificationsPageState: notificationsPageReducer,
   loginPageState: loginPageReducer,
+  newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
 });
 
 // Create a configure store function of type `AppState`
 export default function configureStore(): Store<AppState, any> {
-  const store = createStore(rootReducer, undefined, applyMiddleware(thunk));
-  return store;
+  return createStore(rootReducer, undefined, applyMiddleware(thunk));
 }
