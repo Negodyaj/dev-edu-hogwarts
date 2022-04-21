@@ -45,7 +45,7 @@ export const Lesson = (props: LessonProps) => {
           <SvgIcon icon={Icon.Arrow} />
         </button>
       </div>
-      {isExpanded ? (
+      {isExpanded && (
         <div className="accordion-content-container">
           <div className="video-container grid">
             <div className="video-txt container-250">Ссылка на видео</div>
@@ -60,7 +60,7 @@ export const Lesson = (props: LessonProps) => {
             <div className="additional-info">{lesson.additionalInfo}</div>
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };
