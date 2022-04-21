@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Lesson, LessonModel } from './components/Lesson';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { Icon } from '../../shared/enums/Icon';
+import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
+import moment from 'moment';
+import { isSameDateOrAfter } from '../../shared/helpers/dateHelpers';
+import { Period } from '../../shared/enums/Period';
+import { filterLessons, setLessons } from '../../actions/lessons.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { LessonsPageState } from '../../store/reducers/lessons.reducer';
 
-export const LessonsPage = () => {
-  const [activeLesson, setActiveLesson] = useState(0);
-  const lessons: LessonModel[] = [
+const getLessons = (): LessonModel[] => {
+  return [
     {
       id: 3,
       name: 'Занятие 3',
@@ -19,7 +26,7 @@ export const LessonsPage = () => {
     {
       id: 2,
       name: 'Занятие 2',
-      date: '14.02.2022',
+      date: '14.04.2022',
       theme:
         'Научитесь проектировать быстрые алгоритмы, применять стандартные структуры данных, а главное — мыслить как программист. Знание алгоритмов может повысить ваши шансы на трудоустройство, так как в большинстве компаний задачи на алгоритмы — неотъемлемая часть собеседования и тестового задания.',
       videoLink: '',
@@ -28,25 +35,52 @@ export const LessonsPage = () => {
     {
       id: 1,
       name: 'Занятие 1',
-      date: '10.02.2022',
+      date: '02.04.2022',
       theme:
         'В этом модуле вас ждут 10 видеолекций, которые помогут вам начать разговаривать на английском языке как настоящий разработчик.',
       videoLink: '',
       additionalInfo: '',
     },
   ];
+};
 
-  // const toggle = document.querySelector(".circle")
-  // const onElementClick = (id:number) => {
-  //   setActiveLesson(id === activeLesson ? 0 : id)
-  // }
-  function onElementClick(id: number) {
-    // if (id === activeLesson) {
-    //   setActiveLesson(0);
-    // }
-    // else
+const lessonsFilterData: FilterItem[] = [
+  { id: Period.All, name: 'Все' }, // ToDo: придумать енамы
+  { id: Period.Week, name: 'Эта неделя' },
+  { id: Period.Month, name: 'Этот месяц' },
+];
+
+export const LessonsPage = () => {
+  const dispatch = useDispatch();
+  const [activeLesson, setActiveLesson] = useState(0);
+
+  const { lessons, filteredLessons } = useSelector(
+    (state: AppState) => state.lessonsPageState as LessonsPageState
+  );
+
+  useEffect(() => {
+    const response = getLessons();
+    dispatch(setLessons(response));
+  }, []);
+
+  const onElementClick = (id: number) => {
     setActiveLesson(id === activeLesson ? 0 : id);
-  }
+  };
+
+  const applyLessonsFilter = (item: FilterItem) => {
+    const lessonsToDisplay = lessons.filter((lesson) => {
+      const lessonDate = moment(lesson.date, 'DD.MM.YYYY');
+      if (item?.id === Period.Month) {
+        return isSameDateOrAfter(lessonDate, 'months', 1);
+      }
+      if (item?.id === Period.Week) {
+        return isSameDateOrAfter(lessonDate, 'days', 7);
+      }
+      return true;
+    });
+
+    dispatch(filterLessons(lessonsToDisplay));
+  };
 
   return (
     <>
@@ -59,10 +93,10 @@ export const LessonsPage = () => {
         ]}
         selectedTab={0}
       />
-
       <div>Занятия</div>
+      <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />
       <div className="lessons-container">
-        {lessons.map((lesson) => (
+        {filteredLessons.map((lesson) => (
           <Lesson
             data={lesson}
             id={lesson.id}
