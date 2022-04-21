@@ -1,7 +1,6 @@
 import styles from '../../LessonsPage/css/Lesson.scss';
 import classNames from 'classnames';
-import { SvgIcon } from '../../../components/SvgIcon/SvgIcon';
-import { Icon } from '../../../shared/enums/Icon';
+import { SvgArrow } from '../../../components/SvgIcon/SvgFiles/SvgArrow';
 
 const cx = classNames.bind(styles);
 
@@ -42,7 +41,7 @@ export const Lesson = (props: LessonProps) => {
           className={cx('circle', { 'is-active': isExpanded })}
           onClick={toggleAccordionItem}
         >
-          <SvgIcon icon={Icon.Arrow} />
+          <SvgArrow direction="bottom" />
         </button>
       </div>
       {isExpanded && (
