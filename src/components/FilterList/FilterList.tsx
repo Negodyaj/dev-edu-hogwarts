@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useEffect, useState } from "react";
 import './FilterList.scss';
 import {useDetectClickOutside} from "react-detect-click-outside";
 
@@ -6,6 +6,8 @@ export type FilterListProps = {
   data: Array<Filter>
   type: string
   callback?: Function
+  item?: Filter
+  setItem?: (item:any) => void
 };
 
 export type Filter = {
@@ -16,7 +18,12 @@ export type Filter = {
 export const FilterList = (props: FilterListProps) => {
   const filter = props.data;
   let [isOpen, setIsOpen] = useState<boolean>(false);
-  let [item, setItem] = useState<Filter>(filter[0]);
+  const item = props.item;
+  const setItem = props.setItem
+  // let [item, setItem] = useState<Filter>(filter[0]);
+  // useEffect(() => {
+  //   console.log('rendered')
+  // },[item])
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -31,9 +38,9 @@ export const FilterList = (props: FilterListProps) => {
       <div className={`drop-down-filter ${props.type}`}
            onKeyPress={() => toggle()}
            onClick={() => toggle()}
-           data-lesson-id={item.id}
+           data-lesson-id={item?.id}
       >
-        {item.name}
+        {item?.name}
 
         <svg width="24" height="24" viewBox="0 0 24 24" className={isOpen ? 'array-down' : 'array-up'}
              onClick={() => toggle()}>
@@ -50,8 +57,8 @@ export const FilterList = (props: FilterListProps) => {
                 filter.map(
                   elem =>
                     <li key={elem.id}
-                        className={`drop-down-filter__element ${elem.id === item.id ? 'selected' : ''}`}
-                        onClick={() => setItem(elem)}
+                        className={`drop-down-filter__element ${elem.id === item?.id ? 'selected' : ''}`}
+                        onClick={() => setItem?.(elem)}
                     >
                       {elem.name}
                     </li>
