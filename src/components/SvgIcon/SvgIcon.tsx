@@ -15,6 +15,7 @@ import { SvgExit } from './SvgFiles/SvgExit';
 import { SvgBell } from './SvgFiles/SvgBell';
 import { SvgPicture } from './SvgFiles/SvgPicture';
 import { SvgPlus } from './SvgFiles/SvgPlus';
+import { SvgCross } from './SvgFiles/SvgCross';
 
 export type SvgIconProps = {
   icon: Icon;
@@ -54,6 +55,8 @@ export const SvgIcon = (props: SvgIconProps) => {
       return <SvgPicture />;
     case Icon.Plus:
       return <SvgPlus />;
+    case Icon.Cross:
+      return <SvgCross />;
     default:
       return <></>;
   }

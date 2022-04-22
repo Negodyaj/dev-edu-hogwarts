@@ -3,7 +3,7 @@
   border-radius: 15px;
 .notification-card-content {
   padding-left: 30px;
-  font-family: "Raleway";
+  font-family: "Raleway", sans-serif;
   padding-right: 31px;
   padding-top: 50px;
   padding-bottom: 26px;
@@ -99,8 +99,7 @@
   padding-left: 22px;
   margin-bottom: 100px;
 }}
-.content-container a {
-  margin-top: 8px !important;
-  margin-bottom: 0px !important;
-
+.content-container > a {
+  margin-top: 8px;
+  margin-bottom: 0;
 }

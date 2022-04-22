@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { LinkArrow } from '../../components/LinkArrow/LinkArrow';
 import { baseWretch } from '../../services/base-wretch.service';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import '../SettingsPage/SettingsPage.scss';
 import { useForm } from 'react-hook-form';
+import { BackButton } from '../../components/LinkArrow/BackButton';
 
 export type FormPasswordData = {
   oldPassword: string;
@@ -51,7 +51,7 @@ export const SettingsPassword = () => {
 
   return (
     <div className="settings-container">
-      <LinkArrow back={false} text={'Назад'} to={'settings'}></LinkArrow>
+      <BackButton />
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className="title">Редактирование пароля</p>
         <div className="grid-container">
