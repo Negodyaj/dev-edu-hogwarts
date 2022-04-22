@@ -14,10 +14,10 @@ const initialState: LoginPageState = {
   password: '        ',
 };
 
-export const loginPageReducer: Reducer<
-  LoginPageState | undefined,
-  LoginPageAction
-> = (state = initialState, action) => {
+export const loginPageReducer: Reducer<LoginPageState, LoginPageAction> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
     case SET_CURRENT_USER: {
       return {

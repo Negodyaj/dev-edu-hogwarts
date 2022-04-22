@@ -72,21 +72,6 @@ export const wretchHomework = (id: number, userId: number) => {
       dispatch(loadStudentHomework(resultStudentHomework));
       dispatch(loadAnswer(resultStudentHomework?.answer));
     }
-    // const resStudent = await baseWretch()
-    //   .url(getStudentHomeworkByHomeworkId(id))
-    //   .get()
-    //   .json();
-    // const results = await Promise.allSettled([res, resStudent]).then((data) =>
-    //   data.map((item) => {
-    //     if (item.status === 'fulfilled') return item.value;
-    //     else item = item.reason;
-    //     return item;
-    //   })
-    // );
-    // dispatch(loadHomework(results[0] as Homework));
-    // const studentHomework = results[1] as StudentHomework;
-    // if (studentHomework.answer) dispatch(loadStudentHomework(studentHomework));
-    // else dispatch(loadStudentHomework(undefined));
   };
 };
 

@@ -1,6 +1,7 @@
 import senderPhoto from './images/avatar.png';
-import { NotificationsCard } from '../NotificationsPage/components/NotificationsCard';
 import React from 'react';
+import { NotificationsCard } from './components/NotificationsCard';
+
 const notifications = [
   {
     id: 1,
@@ -37,7 +38,7 @@ export const NotificationsPage = () => {
   return (
     <div className="card-container content-container">
       {notifications.map((item) => (
-        <NotificationsCard data={item} key={item.id}></NotificationsCard>
+        <NotificationsCard data={item} key={item.id} />
       ))}
     </div>
   );
