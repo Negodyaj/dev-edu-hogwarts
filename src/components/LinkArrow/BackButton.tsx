@@ -1,11 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
 
-export const BackButton = () => {
+interface BackButtonProps {
+  path?: string;
+}
+
+export const BackButton = ({ path }: BackButtonProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="link-arrow" onClick={() => navigate(-1)}>
+    // чет мне это не оч нравится)
+    <div
+      className="link-arrow"
+      onClick={() => (typeof path === 'string' ? navigate(path) : navigate(-1))}
+    >
       <SvgArrow direction="left" />
       Назад
     </div>

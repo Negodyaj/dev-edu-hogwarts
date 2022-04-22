@@ -11,19 +11,13 @@ export interface HomeworkAction {
   payload?: any;
 }
 
-export const GET_HOMEWORK_BY_ID = 'homework/GET_HOMEWORK_BY_ID' as const;
 export const GET_STUDENT_HOMEWORK = 'homework/GET_STUDENT_HOMEWORK' as const;
 export const EDIT_HOMEWORK = 'homework/EDIT_HOMEWORK' as const;
 export const LOAD_ANSWER = 'homework/LOAD_ANSWER' as const;
-export const GET_HOMEWORK_BY_ID_SUCCESS =
-  'homework/GET_HOMEWORK_BY_ID_SUCCESS' as const;
-
-export const loadingHomework = () => ({
-  type: GET_HOMEWORK_BY_ID,
-});
+export const GET_HOMEWORK_BY_ID = 'homework/GET_HOMEWORK_BY_ID' as const;
 
 export const loadHomework = (homework: Homework | undefined) => ({
-  type: GET_HOMEWORK_BY_ID_SUCCESS,
+  type: GET_HOMEWORK_BY_ID,
   payload: homework,
 });
 
@@ -46,7 +40,6 @@ export const loadStudentHomework = (
 
 export const wretchHomework = (id: number, userId: number) => {
   return async (dispatch: Dispatch<HomeworkAction>) => {
-    dispatch(loadingHomework());
     const [homework, studentHomework] = await Promise.allSettled([
       baseWretch().url(getHomeworkById(id)).get().json(),
       baseWretch()
@@ -58,26 +51,16 @@ export const wretchHomework = (id: number, userId: number) => {
             : dt;
         }),
     ]);
-    const resultHomework =
-      homework.status === 'fulfilled'
-        ? (homework.value as Homework)
-        : undefined;
-    const resultStudentHomework =
-      studentHomework.status === 'fulfilled'
-        ? (studentHomework.value as StudentHomework)
-        : undefined;
-
-    dispatch(loadHomework(resultHomework));
-    if (resultStudentHomework) {
-      dispatch(loadStudentHomework(resultStudentHomework));
-      dispatch(loadAnswer(resultStudentHomework?.answer));
+    if (homework.status === 'fulfilled')
+      dispatch(loadHomework(homework.value as Homework));
+    if (studentHomework.status === 'fulfilled') {
+      dispatch(loadStudentHomework(studentHomework.value as StudentHomework));
     }
   };
 };
 
 export type HomeworkPageAction =
   | ReturnType<typeof loadHomework>
-  | ReturnType<typeof loadingHomework>
   | ReturnType<typeof loadStudentHomework>
   | ReturnType<typeof editHomework>
   | ReturnType<typeof loadAnswer>;

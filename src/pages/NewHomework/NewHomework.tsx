@@ -49,7 +49,6 @@ export const NewHomework = () => {
 
   const memoizeMapLinks = useMemo(() => {
     return links.map((item, index) => {
-      console.log('render links');
       return <AddedLink key={index} itemNumber={index} source={item} />;
     });
   }, [links]);
@@ -171,7 +170,6 @@ export const NewHomework = () => {
               ref={refLinkName}
               value={inputLinkValue}
               onChange={(event) => {
-                console.log('render input');
                 dispatch(setValueInInput(event.target.value));
               }}
               placeholder="Вставьте ссылку"

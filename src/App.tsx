@@ -22,6 +22,7 @@ import { loadGroups } from './actions/newHomeworkForm.action';
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     baseWretch()
       .url('api/Users/self')
@@ -41,6 +42,7 @@ function App() {
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
           <Route path="homeworks/:id" element={<HomeworkPage />} />
+          <Route path="homeworks/:id/new" element={<HomeworkPage />} />
           <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
           <Route path="lessons" element={<LessonsPage />} />
           <Route path="settings" element={<SettingsPage />} />

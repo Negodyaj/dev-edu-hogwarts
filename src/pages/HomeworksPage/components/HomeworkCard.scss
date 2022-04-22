@@ -60,11 +60,16 @@
 
   &.one-card-content {
     grid-template-columns: 153px 560px auto;
+    position: relative;
 
     & .task-status {
       grid-column: 2;
       place-self: baseline;
       margin-bottom: 0;
+    }
+
+    .homework-card__description {
+      word-break: break-all;
     }
 
     .homework-title {
@@ -82,6 +87,11 @@
       overflow-wrap: break-word;
     }
 
+    & .link-with-text-decoration {
+      position: absolute;
+      top: 50px;
+      right: 45px;
+    }
   }
 
 }

@@ -47,8 +47,13 @@
     background: #A786DF;
     color:#ffffff;
   }
-  p{
+
+  p {
     margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
   }
 }
 .styles-for-settings-buttons{
@@ -65,12 +70,7 @@
   position: relative;
   
 }
-p {
-  margin-bottom: 10px;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 21px;
-}
+
 .data-block {
   margin-bottom: 29px;
   input,

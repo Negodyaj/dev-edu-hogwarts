@@ -62,11 +62,7 @@ export const HomeworkCardContent = () => {
   };
 
   useEffect(() => {
-    console.log(1);
-    if (
-      typeof studentHomeworkProgress?.answer !== 'undefined' &&
-      !location.pathname.includes('edit')
-    )
+    if (answer && !location.pathname.includes('edit'))
       navigate(`/homeworks/${id}`);
     else if (
       !answer &&
