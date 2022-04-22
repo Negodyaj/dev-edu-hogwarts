@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { setToken } from '../../services/auth.service';
@@ -18,15 +18,7 @@ export const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
-  const [course, setCourse] = useState<any>({});
-
-  useEffect(() => {
-    baseWretch()
-      .url('api/Courses/1/simple')
-      .get()
-      .json((data: any) => setCourse(data));
-  }, []);
-
+  const [course] = useState<any>({});
   const logIn = (data: LoginFormData) =>
     baseWretch()
       .url(loginUrl)

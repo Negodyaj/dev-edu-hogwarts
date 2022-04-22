@@ -1,9 +1,9 @@
 /*  Imports from Redux:
- applyMiddleware: Applies middleware to the dispatch method of the Redux store
- combineReducers: Merges reducers into one
- createStore: Creates a Redux store that holds the state tree
- Store: The TS Type used for the store, or state tree
- */
+applyMiddleware: Applies middleware to the dispatch method of the Redux store
+combineReducers: Merges reducers into one
+createStore: Creates a Redux store that holds the state tree
+Store: The TS Type used for the store, or state tree
+*/
 import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
 /*  Thunk
@@ -15,6 +15,11 @@ import {
   LessonsPageState,
 } from './reducers/lessons.reducer';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
+import {
+  homeworksPageReducer,
+  HomeWorkPageState,
+} from './reducers/homeworks.reducer';
+
 // Import reducers and state type
 import {
   homeworkPageReducer,
@@ -31,6 +36,7 @@ import {
 
 // Create an interface for the application state
 export interface AppState {
+  homeworksPageState: HomeWorkPageState;
   newHomeworkFormState: NewHomeworkFormState;
   notificationsPageState: NotificationsPageState | undefined;
   loginPageState: LoginPageState | undefined;
@@ -42,7 +48,7 @@ export interface AppState {
 const rootReducer = combineReducers<AppState>({
   notificationsPageState: notificationsPageReducer,
   loginPageState: loginPageReducer,
-  homeworkPageState: homeworkPageReducer,
+  homeworksPageState: homeworksPageReducer,
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
   homeworkPageState: homeworkPageReducer,

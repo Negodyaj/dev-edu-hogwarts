@@ -18,6 +18,7 @@ import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
 import { HomeworkPage } from './pages/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworkPage/HomeworkEditPage';
+import { loadHomeworkPageTabs } from './actions/homeworks.actions';
 import { loadGroups } from './actions/newHomeworkForm.action';
 
 function App() {
@@ -25,12 +26,13 @@ function App() {
 
   useEffect(() => {
     baseWretch()
-      .url('api/Users/self')
+      .url(`api/Users/self`)
       .get()
       .json((data) => {
         const user = data as UserResponse;
         dispatch(setCurrentUser(user));
         dispatch(loadGroups(user.groups));
+        dispatch(loadHomeworkPageTabs(user.groups));
       });
   }, []);
 

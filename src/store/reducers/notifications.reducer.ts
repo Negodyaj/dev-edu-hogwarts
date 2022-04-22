@@ -7,11 +7,6 @@ import {
 import { TabData } from '../../models/TabData';
 import { Icon } from '../../shared/enums/Icon';
 
-export interface NotificationsPageState {
-  tabs: TabData[];
-  selectedTab: number;
-}
-
 const tabsMock = [
   {
     id: 1,
@@ -29,6 +24,11 @@ const tabsMock = [
     icon: Icon.Computer,
   },
 ];
+
+export interface NotificationsPageState {
+  tabs: TabData[];
+  selectedTab: number;
+}
 
 const initialState: NotificationsPageState = {
   tabs: [],
