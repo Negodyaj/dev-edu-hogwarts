@@ -11,7 +11,7 @@ export const studentHomeworkById = (id: number) =>
 export const studentHomeworksByUserId = (userId: number) => {
   return `api/student-homeworks/by-user/${userId}`;
 };
-// export const editStudentAnswer = (id: number) => {
-//   return `api/student-homeworks/${id}`;
-// };
+export const getHomeworksByGroupId = (groupId: number) => {
+  return `api/Homeworks/by-group/${groupId}`;
+};
 export const registerUrl = 'register';

@@ -1,3 +1,4 @@
+import { FilterList } from '../../components/FilterList/FilterList';
 import { HomeworkCard } from './components/HomeworkCard';
 
 const tasks = [

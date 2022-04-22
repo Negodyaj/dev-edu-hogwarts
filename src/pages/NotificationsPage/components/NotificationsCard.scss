@@ -1,6 +1,21 @@
+.card-container {
+  box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
+  border-radius: 15px;
+.notification-card-content {
+  padding-left: 30px;
+  font-family: "Raleway", sans-serif;
+  padding-right: 31px;
+  padding-top: 50px;
+  padding-bottom: 26px;
+}
+.notification-card-content:last-child{
+  padding-bottom: 30px;
+}
 .notification-card {
   display: flex;
   align-items: center;
+  max-width: 864px;
+  border-bottom: 2px solid #c3748800;
   position: relative;
   padding-left: -14px;
 
@@ -99,4 +114,8 @@
 .round {
   margin-bottom: 100px;
   margin-left: -28px;
+}
+.content-container > a {
+  margin-top: 8px;
+  margin-bottom: 0;
 }

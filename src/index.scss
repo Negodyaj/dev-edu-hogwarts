@@ -14,7 +14,6 @@ body {
 }
 
 main {
-  position: relative;
   flex-grow: 1;
 }
 
@@ -54,4 +53,31 @@ main {
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: $dark-gray;
+}
+
+.link-arrow {
+  display: flex;
+  gap: 4px;
+  font-weight: 400;
+  font-size: 18px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.arrow-right {
+  & path {
+    fill: $link-color;
+  }
+}
+
+.arrow-bottom {
+  transform: rotate(90deg);
+}
+
+.arrow-top {
+  transform: rotate(-90deg);
+}
+
+.arrow-left {
+  transform: rotateY(180deg);
 }

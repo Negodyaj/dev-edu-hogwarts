@@ -9,12 +9,13 @@ import { SvgCalendar } from './SvgFiles/SvgCalendar';
 import { SvgChevron } from './SvgFiles/SvgChevron';
 import { SvgComputer } from './SvgFiles/SvgComputer';
 import { SvgCookie } from './SvgFiles/SvgCookie';
+import { SvgArrow } from './SvgFiles/SvgArrow';
 import { SvgPencil } from './SvgFiles/SvgPencil';
 import { SvgExit } from './SvgFiles/SvgExit';
 import { SvgBell } from './SvgFiles/SvgBell';
 import { SvgPicture } from './SvgFiles/SvgPicture';
 import { SvgPlus } from './SvgFiles/SvgPlus';
-import { SvgArrow } from './SvgFiles/SvgArrow';
+import { SvgCross } from './SvgFiles/SvgCross';
 
 export type SvgIconProps = {
   icon: Icon;
@@ -42,6 +43,8 @@ export const SvgIcon = (props: SvgIconProps) => {
       return <SvgHomeWorks />;
     case Icon.Settings:
       return <SvgSettings />;
+    case Icon.Arrow:
+      return <SvgArrow />;
     case Icon.Pencil:
       return <SvgPencil />;
     case Icon.Exit:
@@ -52,8 +55,8 @@ export const SvgIcon = (props: SvgIconProps) => {
       return <SvgPicture />;
     case Icon.Plus:
       return <SvgPlus />;
-    case Icon.Arrow:
-      return <SvgArrow />;
+    case Icon.Cross:
+      return <SvgCross />;
     default:
       return <></>;
   }

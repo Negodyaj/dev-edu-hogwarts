@@ -18,16 +18,19 @@ import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
 import { HomeworkPage } from './pages/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworkPage/HomeworkEditPage';
+import { loadGroups } from './actions/newHomeworkForm.action';
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    //const getUser = () =>
     baseWretch()
       .url('api/Users/self')
       .get()
-      .json((data) => dispatch(setCurrentUser(data as UserResponse)));
-    //getUser();
+      .json((data) => {
+        const user = data as UserResponse;
+        dispatch(setCurrentUser(user));
+        dispatch(loadGroups(user.groups));
+      });
   }, []);
 
   return (

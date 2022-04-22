@@ -10,6 +10,10 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods dispatch and getState as parameters.
 */
 import thunk from 'redux-thunk';
+import {
+  lessonsPageReducer,
+  LessonsPageState,
+} from './reducers/lessons.reducer';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
 // Import reducers and state type
 import {
@@ -17,14 +21,20 @@ import {
   HomeworkPageState,
 } from './reducers/homework.reducer';
 import {
+  newHomeworkFormReducer,
+  NewHomeworkFormState,
+} from './reducers/newHomeworkForm.reducer';
+import {
   NotificationsPageState,
   notificationsPageReducer,
 } from './reducers/notifications.reducer';
 
 // Create an interface for the application state
 export interface AppState {
-  notificationsPageState: NotificationsPageState;
-  loginPageState: LoginPageState;
+  newHomeworkFormState: NewHomeworkFormState;
+  notificationsPageState: NotificationsPageState | undefined;
+  loginPageState: LoginPageState | undefined;
+  lessonsPageState: LessonsPageState | undefined;
   homeworkPageState: HomeworkPageState;
 }
 
@@ -33,9 +43,11 @@ const rootReducer = combineReducers<AppState>({
   notificationsPageState: notificationsPageReducer,
   loginPageState: loginPageReducer,
   homeworkPageState: homeworkPageReducer,
+  newHomeworkFormState: newHomeworkFormReducer,
+  lessonsPageState: lessonsPageReducer,
 });
 
 // Create a configure store function of type `AppState`
 export default function configureStore(): Store<AppState, any> {
-  return createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+  return createStore(rootReducer, undefined, composeWithDevTools(applyMiddleware(thunk)));
 }
