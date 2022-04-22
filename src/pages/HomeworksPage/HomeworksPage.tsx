@@ -9,6 +9,7 @@ import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { HomeworkCardResponse } from '../../models/responses/HomeworkCardResponse';
 import { HomeworkStudentAnswer } from '../../models/responses/HomeworkStudentAnswer';
 import { baseWretch } from '../../services/base-wretch.service';
+import { LoginPageState } from '../../store/reducers/login.reducer';
 import { AppState } from '../../store/store';
 import { HomeworkCard, HomeworkData } from './components/HomeworkCard';
 
@@ -19,7 +20,7 @@ export const HomeworksPage = () => {
   );
 
   const { currentUser } = useSelector(
-    (state: AppState) => state.loginPageState
+    (state: AppState) => state.loginPageState as LoginPageState
   );
 
   useEffect(() => {

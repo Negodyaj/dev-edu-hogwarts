@@ -29,6 +29,7 @@ function App() {
         const user = data as UserResponse;
         dispatch(setCurrentUser(user));
         dispatch(loadGroups(user.groups));
+        dispatch(loadHomeworkPageTabs(user.groups));
       });
   }, []);
 

@@ -43,7 +43,6 @@ export const HomeworkCard = (props: HomeworkProps) => {
         </div>
         <span className="homework-title">{homework.title}</span>
         <LinkArrow
-          back={false}
           text="к заданию"
           to={
             homework.status == 0
