@@ -32,8 +32,8 @@ import {
 // Create an interface for the application state
 export interface AppState {
   newHomeworkFormState: NewHomeworkFormState;
-  notificationsPageState: NotificationsPageState;
-  loginPageState: LoginPageState;
+  notificationsPageState: NotificationsPageState | undefined;
+  loginPageState: LoginPageState | undefined;
   lessonsPageState: LessonsPageState | undefined;
   homeworkPageState: HomeworkPageState;
 }
@@ -45,6 +45,7 @@ const rootReducer = combineReducers<AppState>({
   homeworkPageState: homeworkPageReducer,
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
+  homeworkPageState: homeworkPageReducer,
 });
 
 // Create a configure store function of type `AppState`

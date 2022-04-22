@@ -6,12 +6,13 @@ import { wretchHomework } from '../../actions/homework.actions';
 import { HomeworkCard } from '../HomeworksPage/components/HomeworkCard';
 import { HomeworkCardContent } from '../HomeworksPage/components/HomeworkCardContent';
 import { BackButton } from '../../components/LinkArrow/BackButton';
+import { LoginPageState } from '../../store/reducers/login.reducer';
 
 export const HomeworkPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { currentUser } = useSelector(
-    (state: AppState) => state.loginPageState
+    (state: AppState) => state.loginPageState as LoginPageState
   );
   useEffect(() => {
     const userId = currentUser?.id;
