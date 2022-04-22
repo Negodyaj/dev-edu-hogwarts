@@ -1,9 +1,9 @@
 /*  Imports from Redux:
- applyMiddleware: Applies middleware to the dispatch method of the Redux store
- combineReducers: Merges reducers into one
- createStore: Creates a Redux store that holds the state tree
- Store: The TS Type used for the store, or state tree
- */
+applyMiddleware: Applies middleware to the dispatch method of the Redux store
+combineReducers: Merges reducers into one
+createStore: Creates a Redux store that holds the state tree
+Store: The TS Type used for the store, or state tree
+*/
 import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
 /*  Thunk
 Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods dispatch and getState as parameters.
@@ -14,6 +14,10 @@ import {
   LessonsPageState,
 } from './reducers/lessons.reducer';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
+import {
+  homeworkPageReducer,
+  HomeWorkPageState,
+} from './reducers/homeworks.reducer';
 // Import reducers and state type
 import {
   newHomeworkFormReducer,
@@ -26,6 +30,7 @@ import {
 
 // Create an interface for the application state
 export interface AppState {
+  homeworksPageState: HomeWorkPageState;
   newHomeworkFormState: NewHomeworkFormState;
   notificationsPageState: NotificationsPageState | undefined;
   loginPageState: LoginPageState | undefined;
@@ -36,6 +41,7 @@ export interface AppState {
 const rootReducer = combineReducers<AppState>({
   notificationsPageState: notificationsPageReducer,
   loginPageState: loginPageReducer,
+  homeworksPageState: homeworkPageReducer,
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
 });

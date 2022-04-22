@@ -17,7 +17,7 @@ const initialState: LoginPageState = {
 export const loginPageReducer: Reducer<
   LoginPageState | undefined,
   LoginPageAction
-> = (state = initialState, action) => {
+> = (state: LoginPageState | undefined = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_USER: {
       return {
