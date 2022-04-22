@@ -4,12 +4,13 @@ import { AppState } from '../../store/store';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { wretchHomework } from '../../actions/homework.actions';
+import { LoginPageState } from '../../store/reducers/login.reducer';
 
 export const HomeworkPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { currentUser } = useSelector(
-    (state: AppState) => state.loginPageState
+    (state: AppState) => state.loginPageState as LoginPageState
   );
 
   useEffect(() => {

@@ -153,11 +153,7 @@ export const HomeworkCard = (props: HomeworkProps) => {
           </>
         )}
         {!props.oneCard && (
-          <LinkArrow
-            back={false}
-            text="к заданию"
-            to={`homeworks/${homework?.id}`}
-          />
+          <LinkArrow text="к заданию" to={`homeworks/${homework?.id}`} />
         )}
       </div>
       {answer && !isEdit && (
