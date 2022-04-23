@@ -34,3 +34,13 @@ export enum StudentHomeworkStatus {
   Unchecked = 'Unchecked',
   NotDone = 'NotDone',
 }
+
+export interface HomeworkData {
+  id: number;
+  taskNumber: number;
+  title: string;
+  startDate: string;
+  endDate: string;
+  status: StudentHomeworkStatus;
+  elseData: string;
+}

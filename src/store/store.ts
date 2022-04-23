@@ -38,7 +38,7 @@ import {
 export interface AppState {
   homeworksPageState: HomeWorkPageState;
   newHomeworkFormState: NewHomeworkFormState;
-  notificationsPageState: NotificationsPageState | undefined;
+  notificationsPageState: NotificationsPageState;
   loginPageState: LoginPageState | undefined;
   lessonsPageState: LessonsPageState | undefined;
   homeworkPageState: HomeworkPageState;
@@ -48,10 +48,10 @@ export interface AppState {
 const rootReducer = combineReducers<AppState>({
   notificationsPageState: notificationsPageReducer,
   loginPageState: loginPageReducer,
+  homeworkPageState: homeworkPageReducer,
   homeworksPageState: homeworksPageReducer,
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
-  homeworkPageState: homeworkPageReducer,
 });
 
 // Create a configure store function of type `AppState`

@@ -25,7 +25,7 @@ const initialState: HomeWorkPageState = {
   answers: [],
 };
 
-export const homeworkPageReducer: Reducer<
+export const homeworksPageReducer: Reducer<
   HomeWorkPageState,
   HomeworkPageAction
 > = (state = initialState, action) => {

@@ -31,7 +31,7 @@ export const HomeworkCard = (props: HomeworkProps) => {
           <span>{props.data?.endDate ?? homework?.endDate}</span>
         </div>
         <span className="homework-title">
-          {props.data?.task.name ?? homework?.task.name}
+          {props.data?.title ?? homework?.task.name}
         </span>
         {props.children ? (
           props.children
@@ -42,7 +42,8 @@ export const HomeworkCard = (props: HomeworkProps) => {
       <span className="task-status">
         {
           HomeworkStatus[
-            studentHomeworkProgress?.studentHomeworkStatus ??
+            props.data?.status ??
+              studentHomeworkProgress?.studentHomeworkStatus ??
               StudentHomeworkStatus.NotDone
           ]
         }

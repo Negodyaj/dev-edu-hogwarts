@@ -11,7 +11,15 @@ import { HomeworkStudentAnswer } from '../../models/responses/HomeworkStudentAns
 import { baseWretch } from '../../services/base-wretch.service';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { AppState } from '../../store/store';
-import { HomeworkCard, HomeworkData } from './components/HomeworkCard';
+import { HomeworkCard } from './components/HomeworkCard';
+import {
+  HomeworkData,
+  StudentHomeworkStatus,
+} from '../../models/responses/HomeworksResponse';
+import {
+  getHomeworksByGroupId,
+  studentHomeworksByUserId,
+} from '../../shared/consts';
 
 export const HomeworksPage = () => {
   const dispatch = useDispatch();
@@ -26,7 +34,7 @@ export const HomeworksPage = () => {
   useEffect(() => {
     if (selectedTab > 0) {
       baseWretch()
-        .url(`api/Homeworks/by-group/${selectedTab}`)
+        .url(getHomeworksByGroupId(selectedTab))
         .get()
         .json((data) =>
           dispatch(loadHomeworks(data as HomeworkCardResponse[]))
@@ -35,9 +43,9 @@ export const HomeworksPage = () => {
   }, [selectedTab]);
 
   useEffect(() => {
-    if (selectedTab > 0) {
+    if (selectedTab > 0 && currentUser) {
       baseWretch()
-        .url(`api/student-homeworks/by-user/${currentUser?.id}`)
+        .url(studentHomeworksByUserId(currentUser?.id))
         .get()
         .json((data) =>
           dispatch(loadHomeworkAnswers(data as HomeworkStudentAnswer[]))
@@ -46,23 +54,23 @@ export const HomeworksPage = () => {
   }, [selectedTab]);
 
   const CheckHWStatus = () => {
-    const complited: Array<string> = [];
+    const complited: string[] = [];
     answers?.forEach((answer) => {
       complited.push(answer.homework.task.name);
     });
 
-    homeworks?.forEach((hw) => {
-      for (let i = 0; i <= complited.length; i++) {
-        if (hw.task.name == complited[i]) {
-          hw.status = 0;
-        }
-      }
-    });
-    homeworks?.forEach((hw) => {
-      if (hw.status == null) {
-        hw.status = 1;
-      }
-    });
+    // homeworks?.forEach((hw) => {
+    //   for (let i = 0; i <= complited.length; i++) {
+    //     if (hw.task.name == complited[i]) {
+    //       hw.status = 0;
+    //     }
+    //   }
+    // });
+    // homeworks?.forEach((hw) => {
+    //   if (hw.status == null) {
+    //     hw.status = 1;
+    //   }
+    // });
     return homeworks;
   };
   const newHomeworks = CheckHWStatus()?.map((item, index) => {
@@ -70,9 +78,9 @@ export const HomeworksPage = () => {
       id: item.id,
       taskNumber: index + 1,
       title: item.task.name,
-      dateBeginning: item.startDate,
-      dateEnd: item.endDate,
-      status: item.status,
+      startDate: item.startDate,
+      endDate: item.endDate,
+      status: item.status as StudentHomeworkStatus,
       elseData: 'wertyu',
     };
     return newHW;
@@ -88,7 +96,7 @@ export const HomeworksPage = () => {
         {homeworks!.length > 0 ? (
           <div>
             {newHomeworks?.map((hw) => (
-              <HomeworkCard data={hw} />
+              <HomeworkCard data={hw} key={hw.id} />
             ))}
           </div>
         ) : (
