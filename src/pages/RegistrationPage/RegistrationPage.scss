@@ -1,12 +1,16 @@
 $accent-purple: #A786DF;
-
-
+.grid-container-registraton-page{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 87px 87px 87px 87px 87px;
+  column-gap: 20px;
+}
 
 .register-form-wrapper{
-  width: 1080px;
+  width:min-content;
   background-color: #F6F7F9;
   padding: 70px 120px 80px 65px;
-  input:not([type="checkbox"]) {
+  input:not([type='checkbox']) {
     width: 438px;
     height: 56px;
     margin-top: 10px;
@@ -28,25 +32,25 @@ input {
   font-size: 18px;
   font-weight: 400;
 }
-form {
-  margin-top: 20px;
-}
-.flex-container{
-  display: flex;
-  align-items: flex-start;
-  label {
-    margin-top: 0;
-  }
+// form {
+//   margin-top: 20px;
+// }
+// .flex-container{
+//   display: flex;
+//   align-items: flex-start;
+//   label {
+//     margin-top: 0;
+//   }
   
-}
-.flex-column{
-  display: flex;
-  flex-direction: column;
-}
-.flex-row {
-  display: flex;
-  justify-content: space-between;
-}
+// }
+// .flex-column{
+//   display: flex;
+//   flex-direction: column;
+// }
+// .flex-row {
+//   display: flex;
+//   justify-content: space-between;
+// }
 .asterisk {
   color: $accent-purple;
   
