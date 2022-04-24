@@ -6,7 +6,7 @@ import { NotificationsPage } from './pages/NotificationsPage/NotificationsPage';
 import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
-import {NewGroupPage} from "./pages/NewGroupPage/NewGroupPage";
+import { NewGroupPage } from './pages/NewGroupPage/NewGroupPage';
 import { MainPanel } from './components/MainPanel/MainPanel';
 import { CoursesPage } from './pages/CoursesPage/CoursesPage';
 import { EditCoursesPage } from './pages/CoursesPage/EditCoursesPage';
