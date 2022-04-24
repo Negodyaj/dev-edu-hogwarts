@@ -19,8 +19,7 @@
 .lessons-container{
   border-radius: 15px;
   position: relative;
-  width: 940px;
-  margin: 0 auto;
+  width: 940px;  
   background-color: white ;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
   & > *:not(:first-child) {
@@ -78,6 +77,10 @@
       right: 45px;
       cursor: pointer;
       transition: all 0.1s ease-in-out;
+
+      & path {
+        fill: #A786DF;
+      }
       &:hover{
         background-color: #A786DF;
         path {
@@ -115,6 +118,13 @@
         margin-left: 59px;
       }
     }
+    // .master-lesson-container{
+    //   position: relative;
+    // }
+    // select {
+    //   position: absolute;
+    //   top: 10px;
+    // }
 
     
 

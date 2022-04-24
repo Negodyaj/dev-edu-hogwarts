@@ -1,7 +1,6 @@
 import React from 'react';
 import './TabItem.scss';
-
-import { SvgIcon } from '../../SvgIcon/SvgIcon';
+import { IconsTabs } from '../../../pages/HomeworksPage/IconsTabs';
 import { TabData } from '../../../models/TabData';
 
 export type TabProps = {
@@ -19,7 +18,7 @@ export const TabItem = (props: TabProps) => {
         }`}
         onClick={() => props.onClick(props.data.id)}
       >
-        <SvgIcon icon={props.data.icon} />
+        <IconsTabs courseName={props.data.text} />
         <div>{props.data.text}</div>
       </div>
     </>

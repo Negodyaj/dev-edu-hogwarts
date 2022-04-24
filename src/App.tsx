@@ -10,23 +10,28 @@ import { NewGroupPage } from './pages/NewGroupPage/NewGroupPage';
 import { MainPanel } from './components/MainPanel/MainPanel';
 import { CoursesPage } from './pages/CoursesPage/CoursesPage';
 import { EditCoursesPage } from './pages/CoursesPage/EditCoursesPage';
-import { IssuingHomework } from './pages/IssuingHomework/IssuingHomework';
+import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from './actions/login.actions';
 import { UserResponse } from './models/responses/UserResponse';
 import { baseWretch } from './services/base-wretch.service';
 import { useEffect } from 'react';
+import { loadHomeworkPageTabs } from './actions/homeworks.actions';
+import { loadGroups } from './actions/newHomeworkForm.action';
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    //const getUser = () =>
     baseWretch()
-      .url('api/Users/self')
+      .url(`api/Users/self`)
       .get()
-      .json((data) => dispatch(setCurrentUser(data as UserResponse)));
-    //getUser();
+      .json((data) => {
+        const user = data as UserResponse;
+        dispatch(setCurrentUser(user));
+        dispatch(loadGroups(user.groups));
+        dispatch(loadHomeworkPageTabs(user.groups));
+      });
   }, []);
 
   return (
@@ -42,6 +47,7 @@ function App() {
           <Route path="edit-courses" element={<EditCoursesPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
+          <Route path="new-homework" element={<NewHomework />} />
           <Route path="issuing-homework" element={<IssuingHomework />} />
           <Route path="group" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />

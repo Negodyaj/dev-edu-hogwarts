@@ -15,6 +15,7 @@ import { AvatarComponent } from '../../components/AvatarComponent/AvatarComponen
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
+import { LoginPageState } from '../../store/reducers/login.reducer';
 
 export type UserFormData = {
   id: 1;
@@ -43,7 +44,7 @@ export const SettingsPage = () => {
     formState: { errors },
   } = methods;
   const { currentUser } = useSelector(
-    (state: AppState) => state.loginPageState
+    (state: AppState) => state.loginPageState as LoginPageState
   );
 
   const convertDate = (date: string) => {

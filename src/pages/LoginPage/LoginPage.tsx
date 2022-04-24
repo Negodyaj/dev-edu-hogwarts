@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { setToken } from '../../services/auth.service';
 import { baseWretch } from '../../services/base-wretch.service';
 import { loginUrl } from '../../shared/consts';
+import { LoginPageState } from '../../store/reducers/login.reducer';
 import { AppState } from '../../store/store';
 
 export type LoginFormData = {
@@ -17,15 +18,7 @@ export const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
-  const [course, setCourse] = useState<any>({});
-
-  useEffect(() => {
-    baseWretch()
-      .url('api/Courses/1/simple')
-      .get()
-      .json((data: any) => setCourse(data));
-  }, []);
-
+  const [course] = useState<any>({});
   const logIn = (data: LoginFormData) =>
     baseWretch()
       .url(loginUrl)
@@ -39,7 +32,7 @@ export const LoginPage = () => {
   };
 
   const { email, password } = useSelector(
-    (state: AppState) => state.loginPageState
+    (state: AppState) => state.loginPageState as LoginPageState
   );
   return (
     <>
