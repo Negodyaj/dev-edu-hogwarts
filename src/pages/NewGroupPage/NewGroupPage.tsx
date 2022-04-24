@@ -1,6 +1,6 @@
 import './NewGroupPage.scss';
 import '../../components/InputTextarea/InputTextarea.scss';
-import { useEffect, useState } from 'react';
+//import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { baseWretch } from '../../services/base-wretch.service';
 import {
@@ -10,8 +10,8 @@ import {
 } from '../../components/Button/Button';
 import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
 import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/Checkbox';
-import { coursesUrl, groupUrl, usersUrl } from '../../shared/consts';
-import { Filter, FilterList } from '../../components/FilterList/FilterList';
+// import { coursesUrl, groupUrl, usersUrl } from '../../shared/consts';
+import { groupUrl } from '../../shared/consts';
 import { SelectList } from '../../components/SelectList/SelectList';
 
 export type GroupFormData = {
@@ -57,50 +57,50 @@ export const NewGroupPage = () => {
     formState: { errors },
   } = methods;
 
-  const [users, setUsers] = useState<User[]>([]);
-  const [courses, setCourses] = useState<Course[]>([]);
+  //const [users, setUsers] = useState<User[]>([]);
+  //const [courses, setCourses] = useState<Course[]>([]);
 
-  useEffect(() => {
-    baseWretch()
-      .url(coursesUrl)
-      .get()
-      .json((data) => {
-        baseWretch()
-          .url(usersUrl)
-          .get()
-          .json((users) => {
-            setUsers(users as User[]);
-            setCourses(data as Course[]);
-          });
-      });
-  }, []);
+  // useEffect(() => {
+  //   baseWretch()
+  //     .url(coursesUrl)
+  //     .get()
+  //     .json((data) => {
+  //       baseWretch()
+  //         .url(usersUrl)
+  //         .get()
+  //         .json((users) => {
+  //           setUsers(users as User[]);
+  //           setCourses(data as Course[]);
+  //         });
+  //     });
+  // }, []);
 
-  const tutors: User[] = [];
-  const teachers: User[] = [];
+  // const tutors: User[] = [];
+  // const teachers: User[] = [];
 
-  (users as User[]).forEach((user) => {
-    if (user.roles.includes('Tutor') && tutors.length < 6) tutors.push(user);
-    if (user.roles.includes('Teacher') && teachers.length < 6)
-      teachers.push(user);
-  });
+  // (users as User[]).forEach((user) => {
+  //   if (user.roles.includes('Tutor') && tutors.length < 6) tutors.push(user);
+  //   if (user.roles.includes('Teacher') && teachers.length < 6)
+  //     teachers.push(user);
+  // });
 
-  const newTeachers = teachers.map((teacher) => {
-    const newTeacher: CheckboxData = {
-      value: teacher.id,
-      text: `${teacher.firstName + ' ' + teacher.lastName}`,
-      isChecked: false,
-    };
-    return newTeacher;
-  });
+  // const newTeachers = teachers.map((teacher) => {
+  //   const newTeacher: CheckboxData = {
+  //     value: teacher.id,
+  //     text: `${teacher.firstName + ' ' + teacher.lastName}`,
+  //     isChecked: false,
+  //   };
+  //   return newTeacher;
+  // });
 
-  const newTutors = tutors.map((tutor) => {
-    const newTutor: CheckboxData = {
-      value: tutor.id,
-      text: `${tutor.firstName + ' ' + tutor.lastName}`,
-      isChecked: false,
-    };
-    return newTutor;
-  });
+  // const newTutors = tutors.map((tutor) => {
+  //   const newTutor: CheckboxData = {
+  //     value: tutor.id,
+  //     text: `${tutor.firstName + ' ' + tutor.lastName}`,
+  //     isChecked: false,
+  //   };
+  //   return newTutor;
+  // });
 
   const tutorsMock: CheckboxData[] = [
     { value: 1, text: 'Вася Пупкин', isChecked: false },
@@ -113,7 +113,7 @@ export const NewGroupPage = () => {
   ];
 
   const coursesMock: Course[] = [
-    { id: 1, name: 'React' },
+    { id: 70, name: 'React' },
     { id: 2, name: 'Сдохни или умри' },
     { id: 3, name: 'Как быть успешным' },
   ];

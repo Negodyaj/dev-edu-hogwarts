@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import './SelectList.scss';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import { useFormContext } from 'react-hook-form';
@@ -44,16 +44,12 @@ export const SelectList = (props: SelectListProps) => {
         className="html-select"
         {...register(props.name, { required: true })}
       >
-        <option selected key={item?.id} value={item?.id}>
-          {item?.name}
-        </option>
-        )
-        {/* {
+        {
           filter.map(item=>
           <option key={item?.id} value={item?.id}>
             {item?.name}
           </option>)
-          } */}
+          }
       </select>
       <div
         className={`drop-down-filter ${props.type}`}
