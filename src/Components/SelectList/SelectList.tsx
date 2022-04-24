@@ -4,12 +4,13 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 import { useFormContext } from 'react-hook-form';
 
 export type SelectListProps = {
-  data: Array<Filter>;
-  type: string;
+  data: Array<FilterItem>;
+  cssClass?: string;
+  callback?: (item: any) => void;
   name: string;
 };
 
-export type Filter = {
+export type FilterItem = {
   id: number;
   name: string;
 };
@@ -17,7 +18,7 @@ export type Filter = {
 export const SelectList = (props: SelectListProps) => {
   const filter = props.data;
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [item, setItem] = useState<Filter>(filter[0]);
+  const [item, setItem] = useState<FilterItem>(filter[0]);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -27,32 +28,47 @@ export const SelectList = (props: SelectListProps) => {
   };
 
   const clickOutside = useDetectClickOutside({ onTriggered: closeDropdown });
+
   const { register } = useFormContext();
 
-  // useEffect(() => {
-  //   const element = document.getElementById(props.name);
-  //   if (element) {
-  //     // (element as HTMLSelectElement).value = item?.id as unknown as string;
-  //     (element as HTMLSelectElement).options[(element as HTMLSelectElement).selectedIndex].value=item.id as unknown as string;
-  //   }
-  // }, [item]);
+  const onElementClick = (elem: FilterItem) => {
+    setItem(elem);
+    const isElem = (thing: FilterItem) => {
+      return thing.id === elem.id;
+    };
+    const i = filter.findIndex(isElem);
+    console.log(i);
+    const a = (document.getElementById(props.name) as HTMLSelectElement)
+      .selectedIndex;
+    console.log(
+      (document.getElementById(props.name) as HTMLSelectElement).selectedIndex
+    );
+    (document.getElementById(props.name) as HTMLSelectElement).options[
+      a
+    ].selected = false;
+    (document.getElementById(props.name) as HTMLSelectElement).options[
+      i
+    ].selected = true;
+    console.log(
+      (document.getElementById(props.name) as HTMLSelectElement).selectedIndex
+    );
+  };
 
   return (
     <div className="drop-down-filter__wrapper" ref={clickOutside}>
       <select
+        {...register(props.name, { required: true })}
         id={props.name}
         className="html-select"
-        {...register(props.name, { required: true })}
       >
-        {
-          filter.map(item=>
-          <option key={item?.id} value={item?.id}>
-            {item?.name}
-          </option>)
-          }
+        {filter.map((it) => (
+          <option key={it?.id} value={it?.id}>
+            {it?.name}
+          </option>
+        ))}
       </select>
       <div
-        className={`drop-down-filter ${props.type}`}
+        className={`drop-down-filter ${props.cssClass ?? ''}`}
         onKeyPress={() => toggle()}
         onClick={() => toggle()}
         data-lesson-id={item?.id}
@@ -83,7 +99,7 @@ export const SelectList = (props: SelectListProps) => {
                 className={`drop-down-filter__element ${
                   elem.id === item?.id ? 'selected' : ''
                 }`}
-                onClick={() => setItem(elem)}
+                onClick={() => onElementClick(elem)}
               >
                 {elem.name}
               </li>
