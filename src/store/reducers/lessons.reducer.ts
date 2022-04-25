@@ -37,18 +37,6 @@ import { AppState } from '../store';
 //   {id: 1, name: 'Занятие 1', date: '10.02.2022', theme: 'В этом модуле вас ждут 10 видеолекций, которые помогут вам начать разговаривать на английском языке как настоящий разработчик.', videoLink: '', additionalInfo: '' },
 // ];
 
-
-// const { currentUser } = useSelector((state: AppState) => state.loginPageState );
-
-// const tabInfo = currentUser?.groups.map ( group => {
-//   let courseInfo: TabData = {
-//   id: group.course.id,
-//   text: group.course.name,
-//   icon: Icon.Cookie
-//   }
-//   return courseInfo
-// } )
-
 export interface LessonPageState {
   tabs?: TabData[]
   selectedTab: number

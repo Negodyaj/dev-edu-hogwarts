@@ -25,7 +25,6 @@ export type LessonModel = {
 }
 
 export const Lesson = (props: LessonProps) => {
-  console.log(props.id)
   const lesson = props.data;
   const isLessonIdCorrect = props.activeLessonId === lesson.id
   

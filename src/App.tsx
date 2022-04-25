@@ -22,38 +22,38 @@ import { GroupResponse } from './models/responses/GroupResponse';
 function App() {
 
   const dispatch = useDispatch();
-  // const getUser = () => {baseWretch()
-  // .url('api/Users/self')
-  // .get()
-  // .json(data => {
-  //   const user = data as UserResponse;
-  //   dispatch(setCurrentUser(user));
-  //   dispatch(loadLessonPageTabs(user?.groups));
-  // });
-
-  ////////////////////////////////////////////////////////--- MOCK: to delete 
-  const getUser = () => {
-    const user = {
-      id: 0,
-      firstName: "string",
-      lastName: "string",
-      roles: ["student"],
-      groups: [
-        {
-          id: 1,
-          name: '1',
-          course: {id:1, name: "Базовый курс", isDeleted: false},
-        },
-        {
-          id: 2,
-          name: '2',
-          course: {id:2, name: "QA automation", isDeleted: false},
-        },
-      ]
-    }
-    dispatch(setCurrentUser(user as UserResponse));
-    dispatch(loadLessonPageTabs(user?.groups as GroupResponse[]));
+  const getUser = () => {baseWretch()
+  .url('api/Users/self')
+  .get()
+  .json(data => {
+    const user = data as UserResponse;
+    dispatch(setCurrentUser(user));
+    dispatch(loadLessonPageTabs(user?.groups));
+  });
   }
+  ////////////////////////////////////////////////////////--- MOCK: to delete 
+  // const getUser = () => {
+  //   const user = {
+  //     id: 0,
+  //     firstName: "string",
+  //     lastName: "string",
+  //     roles: ["student"],
+  //     groups: [
+  //       {
+  //         id: 1,
+  //         name: '1',
+  //         course: {id:1, name: "Базовый курс", isDeleted: false},
+  //       },
+  //       {
+  //         id: 2,
+  //         name: '2',
+  //         course: {id:2, name: "QA automation", isDeleted: false},
+  //       },
+  //     ]
+  //   }
+  //   dispatch(setCurrentUser(user as UserResponse));
+  //   dispatch(loadLessonPageTabs(user?.groups as GroupResponse[]));
+  // }
 ////////////////////////////////////////////////////////--- MOCK: to delete 
   useEffect(() => {
     getUser();
