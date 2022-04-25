@@ -103,7 +103,7 @@ export const NewHomework = () => {
         className="form-container homework-form"
         onSubmit={method.handleSubmit(onSubmit)}
       >
-        <span className="homework-form_title">Новое задание</span>
+        <h2 className="homework-form_title">Новое задание</h2>
 
         <div className="homework-form_area">
           Номер группы:
