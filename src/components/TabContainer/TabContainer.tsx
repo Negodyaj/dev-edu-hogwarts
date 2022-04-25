@@ -4,8 +4,9 @@ import { TabData } from '../../models/TabData';
 import { useDispatch } from 'react-redux';
 
 export type TabContainerProps = {
-  tabContainerData?: TabData[]
-  selectedTab: number
+  tabContainerData?: TabData[];
+  selectedTab: number;
+  onClick?: (id: number) => void;
 };
 
 export const TabContainer = (props: TabContainerProps) => {

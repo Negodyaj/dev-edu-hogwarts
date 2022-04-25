@@ -18,6 +18,7 @@ import { baseWretch } from './services/base-wretch.service';
 import { useEffect } from 'react';
 import { loadHomeworkPageTabs } from './actions/homeworks.actions';
 import { loadGroups } from './actions/newHomeworkForm.action';
+import { loadLessonPageTabs } from './actions/lessons.actions';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,8 +31,8 @@ function App() {
         dispatch(setCurrentUser(user));
         dispatch(loadGroups(user.groups));
         dispatch(loadHomeworkPageTabs(user.groups));
+        dispatch(loadLessonPageTabs(user?.groups));
       });
-    dispatch(loadLessonPageTabs(user?.groups));
   }, []);
 
   return (
