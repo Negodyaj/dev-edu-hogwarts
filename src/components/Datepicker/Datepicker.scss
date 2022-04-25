@@ -35,7 +35,6 @@ $border-radius: 7px;
 .date-picker{
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
 
   & .form-control {
     @include border-padding-zero;
@@ -43,7 +42,6 @@ $border-radius: 7px;
     outline: 0;
     font-weight: 400;
     font-size: 18px;
-    line-height: 25px;
   }
 
   &.active-dp {
