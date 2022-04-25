@@ -43,8 +43,8 @@ export const HomeworkCard = (props: HomeworkProps) => {
         {
           HomeworkStatus[
             props.data?.status ??
-              studentHomeworkProgress?.studentHomeworkStatus ??
-              StudentHomeworkStatus.NotDone
+              studentHomeworkProgress?.status ??
+              StudentHomeworkStatus.Undone
           ]
         }
       </span>

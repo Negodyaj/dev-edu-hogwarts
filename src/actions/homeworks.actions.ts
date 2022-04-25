@@ -1,9 +1,11 @@
-import { HomeworkCardResponse } from '../models/responses/HomeworkCardResponse';
 import { GroupResponse } from '../models/responses/GroupResponse';
-import { HomeworkStudentAnswer } from '../models/responses/HomeworkStudentAnswer';
+import {
+  Homework,
+  StudentHomework,
+} from '../models/responses/HomeworksResponse';
 export const LOAD_TABS = 'homeworks/LOAD_TABS' as const;
 export const SELECT_TAB = 'homeworks/SELECT_TAB' as const;
-export const LOAD_HWANSWER = 'homeworks/LOAD_HWANSWER' as const;
+export const LOAD_HW_ANSWER = 'homeworks/LOAD_HW_ANSWER' as const;
 export const LOAD_HOMEWORKS = 'homeworks/LOAD_HOMEWORKS' as const;
 
 export const loadHomeworkPageTabs = (groups: GroupResponse[]) => ({
@@ -11,8 +13,8 @@ export const loadHomeworkPageTabs = (groups: GroupResponse[]) => ({
   payload: groups,
 });
 
-export const loadHomeworkAnswers = (answers: HomeworkStudentAnswer[]) => ({
-  type: LOAD_HWANSWER,
+export const loadHomeworkAnswers = (answers: StudentHomework[]) => ({
+  type: LOAD_HW_ANSWER,
   payload: answers,
 });
 
@@ -21,7 +23,7 @@ export const selectTab = (id: number) => ({
   payload: id,
 });
 
-export const loadHomeworks = (homeworks: HomeworkCardResponse[]) => ({
+export const loadHomeworks = (homeworks: Homework[]) => ({
   type: LOAD_HOMEWORKS,
   payload: homeworks,
 });

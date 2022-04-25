@@ -4,7 +4,7 @@ export type HomeworkProps = {
   data?: HomeworkData;
   dataProgress?: StudentHomework;
   taskNumber?: number;
-  children?: any;
+  children?: JSX.Element;
 };
 
 export type HomeworkFormData = {
@@ -12,9 +12,10 @@ export type HomeworkFormData = {
 };
 
 export enum HomeworkStatus {
-  NotDone = 'Не сделано',
-  Unchecked = 'Не проверено',
-  // "В проверке",
-  // "Исправить",
-  // "Сдано с опозданием"
+  Undone = 'Не сдано',
+  ToCheck = 'На проверке',
+  ToFix = 'Исправить',
+  ToVerifyFixes = 'Проверка исправлений',
+  Done = 'Выполнено',
+  DoneAfterDeadline = 'Сдано с опозданием',
 }

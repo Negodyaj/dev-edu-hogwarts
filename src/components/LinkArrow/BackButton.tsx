@@ -9,10 +9,9 @@ export const BackButton = ({ path }: BackButtonProps) => {
   const navigate = useNavigate();
 
   return (
-    // чет мне это не оч нравится)
     <div
       className="link-arrow"
-      onClick={() => (typeof path === 'string' ? navigate(path) : navigate(-1))}
+      onClick={() => (path ? navigate(path) : navigate(-1))}
     >
       <SvgArrow direction="left" />
       Назад

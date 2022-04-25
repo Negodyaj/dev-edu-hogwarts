@@ -44,13 +44,18 @@ const buttons: NavLink[] = [
     path: '/register',
     displayName: 'Регистрация',
   },
+  {
+    icon: Icon.Pencil,
+    path: '/login',
+    displayName: 'Логин',
+  },
 ];
 
 export const Navigation = () => {
   return (
     <nav className="main-nav-pannel">
       {buttons.map((item) => (
-        <ButtonNavigation data={item} key={item.path}></ButtonNavigation>
+        <ButtonNavigation data={item} key={item.path} />
       ))}
     </nav>
   );

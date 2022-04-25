@@ -17,7 +17,7 @@ export interface Task {
 export interface StudentHomework {
   id: number;
   answer: string;
-  studentHomeworkStatus: StudentHomeworkStatus;
+  status: StudentHomeworkStatus;
   completedDate: string;
   user: {
     id: number;
@@ -31,8 +31,12 @@ export interface StudentHomework {
 }
 
 export enum StudentHomeworkStatus {
-  Unchecked = 'Unchecked',
-  NotDone = 'NotDone',
+  Undone = 'Undone',
+  ToCheck = 'ToCheck',
+  ToFix = 'ToFix',
+  ToVerifyFixes = 'ToVerifyFixes',
+  Done = 'Done',
+  DoneAfterDeadline = 'DoneAfterDeadline',
 }
 
 export interface HomeworkData {

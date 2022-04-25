@@ -2,18 +2,19 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   loadHomeworkAnswers,
+  // loadHomeworkPageTabs,
   loadHomeworks,
   selectTab,
 } from '../../actions/homeworks.actions';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
-import { HomeworkCardResponse } from '../../models/responses/HomeworkCardResponse';
-import { HomeworkStudentAnswer } from '../../models/responses/HomeworkStudentAnswer';
 import { baseWretch } from '../../services/base-wretch.service';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { AppState } from '../../store/store';
 import { HomeworkCard } from './components/HomeworkCard';
 import {
+  Homework,
   HomeworkData,
+  StudentHomework,
   StudentHomeworkStatus,
 } from '../../models/responses/HomeworksResponse';
 import {
@@ -36,69 +37,42 @@ export const HomeworksPage = () => {
       baseWretch()
         .url(getHomeworksByGroupId(selectedTab))
         .get()
-        .json((data) =>
-          dispatch(loadHomeworks(data as HomeworkCardResponse[]))
-        );
+        .json((data) => dispatch(loadHomeworks(data as Homework[])));
     }
-  }, [selectedTab]);
-
-  useEffect(() => {
-    if (selectedTab > 0 && currentUser) {
+    if (currentUser) {
       baseWretch()
         .url(studentHomeworksByUserId(currentUser?.id))
         .get()
         .json((data) =>
-          dispatch(loadHomeworkAnswers(data as HomeworkStudentAnswer[]))
+          dispatch(loadHomeworkAnswers(data as StudentHomework[]))
         );
     }
   }, [selectedTab]);
 
-  const CheckHWStatus = () => {
-    const complited: string[] = [];
-    answers?.forEach((answer) => {
-      complited.push(answer.homework.task.name);
-    });
-
-    // homeworks?.forEach((hw) => {
-    //   for (let i = 0; i <= complited.length; i++) {
-    //     if (hw.task.name == complited[i]) {
-    //       hw.status = 0;
-    //     }
-    //   }
-    // });
-    // homeworks?.forEach((hw) => {
-    //   if (hw.status == null) {
-    //     hw.status = 1;
-    //   }
-    // });
-    return homeworks;
-  };
-  const newHomeworks = CheckHWStatus()?.map((item, index) => {
+  const newHomeworks = homeworks?.map((item, index) => {
+    const answer = answers?.find((ans) => ans.homework.id === item.id);
+    console.log(homeworks);
     const newHW: HomeworkData = {
       id: item.id,
       taskNumber: index + 1,
       title: item.task.name,
       startDate: item.startDate,
       endDate: item.endDate,
-      status: item.status as StudentHomeworkStatus,
-      elseData: 'wertyu',
+      status: answer?.status ?? StudentHomeworkStatus.Undone,
+      elseData: '',
     };
     return newHW;
   });
   return (
     <>
-      <div className="margin-common-content">
+      <div>
         <TabContainer
           tabContainerData={tabs}
           selectedTab={selectedTab}
           onClick={selectTab}
         />
-        {homeworks!.length > 0 ? (
-          <div>
-            {newHomeworks?.map((hw) => (
-              <HomeworkCard data={hw} key={hw.id} />
-            ))}
-          </div>
+        {newHomeworks && newHomeworks.length > 0 ? (
+          newHomeworks?.map((hw) => <HomeworkCard data={hw} key={hw.id} />)
         ) : (
           <div>Домашек нема</div>
         )}
