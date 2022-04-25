@@ -1,37 +1,40 @@
-import {LinkWithUnderline} from "../../../components/LinkWithUnderline/LinkWithUnderline";
+import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
 import './ListView.scss';
-import {ListViewItem} from "./ListViewItem/ListViewItem";
-import {Draggable, DraggableProvided, DraggableStateSnapshot, Droppable, DroppableProvided} from "react-beautiful-dnd";
-import {LinkArrow} from "../../../components/LinkArrow/LinkArrow";
+import { ListViewItem } from './ListViewItem/ListViewItem';
+import {
+  Draggable,
+  DraggableProvided,
+  DraggableStateSnapshot,
+  Droppable,
+  DroppableProvided,
+} from 'react-beautiful-dnd';
+import { BackButton } from '../../../components/LinkArrow/BackButton';
 
 export type ListViewProps = {
-  data: Array<ListViewLessons>
-  groupId: number
-  edit: boolean
+  data: Array<ListViewLessons>;
+  groupId: number;
+  edit: boolean;
 };
 
 export type ListViewLessons = {
-  id: number
-  lessonNumber: number | string
-  lessonName: string
-  hoursCount: number | string
+  id: number;
+  lessonNumber: number | string;
+  lessonName: string;
+  hoursCount: number | string;
 };
 
 export const ListView = (props: ListViewProps) => {
-
   const linkType = () => {
     if (props.edit) {
-      return <LinkArrow back={true} text={'Назад'} to={'courses'}/>
+      return <BackButton />;
     } else {
-      return <LinkWithUnderline text='Редактировать' path='edit-courses'/>
+      return <LinkWithUnderline text="Редактировать" path="edit-courses" />;
     }
   };
 
   return (
-    <div className='content-container flex-column'>
-      {
-        linkType()
-      }
+    <div className="content-container flex-column">
+      {linkType()}
       <ListViewItem
         head={true}
         lesson={{
@@ -43,43 +46,37 @@ export const ListView = (props: ListViewProps) => {
       />
 
       <Droppable droppableId={`drop-${props.groupId}`}>
-        {
-          (provided: DroppableProvided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {
-                props.data.map((item, index) =>
-
-                  <Draggable draggableId={item.lessonName}
-                             index={index}
-                             key={item.id}
-                             isDragDisabled={!props.edit}
-                  >
-                    {
-                      (draggableProvided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                        <ListViewItem
-                          index={index}
-                          lesson={item}
-                          dragSettings={
-                            {
-                              innerRef: draggableProvided.innerRef,
-                              prop1: {...draggableProvided.draggableProps},
-                              prop2: draggableProvided.dragHandleProps,
-                              snapshot: snapshot.isDragging,
-                              isDragDisabled: props.edit,
-                            }
-                          }
-                        />
-                      )
-                    }
-                  </Draggable>
-
-                )
-              }
-              {provided.placeholder}
-            </div>
-          )
-        }
+        {(provided: DroppableProvided) => (
+          <div {...provided.droppableProps} ref={provided.innerRef}>
+            {props.data.map((item, index) => (
+              <Draggable
+                draggableId={item.lessonName}
+                index={index}
+                key={item.id}
+                isDragDisabled={!props.edit}
+              >
+                {(
+                  draggableProvided: DraggableProvided,
+                  snapshot: DraggableStateSnapshot
+                ) => (
+                  <ListViewItem
+                    index={index}
+                    lesson={item}
+                    dragSettings={{
+                      innerRef: draggableProvided.innerRef,
+                      prop1: { ...draggableProvided.draggableProps },
+                      prop2: draggableProvided.dragHandleProps,
+                      snapshot: snapshot.isDragging,
+                      isDragDisabled: props.edit,
+                    }}
+                  />
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
       </Droppable>
     </div>
   );
-}
+};

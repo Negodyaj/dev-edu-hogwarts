@@ -1,5 +1,10 @@
 .settings-container {
-  margin: 70px 0px 0px 65px;
+  margin: 70px 0 0 65px;
+
+  &>input:focus {
+    outline: none !important;
+    border-color: #A786DF;
+  }
   .avatar-text{
     top: 0;
     position: initial;
@@ -7,39 +12,39 @@
   .submit-button {
     margin-top:70px;
     font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
+    font-size: 18px;
+    line-height: 21px;
     width: 190px;
     height: 51px;
-  border-radius: 5px;
-  padding: 15px 30px;
-  border:none;
-  color:#A786DF;
-  background: #F6F7F9;
-  cursor: pointer;
+    border-radius: 5px;
+    padding: 15px 30px;
+    border:none;
+    color:#A786DF;
+    background: #F6F7F9;
+    cursor: pointer;
   }
   .reset-button{
     margin-top:70px;
     font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
+    font-size: 18px;
+    line-height: 21px;
     width: 190px;
     height: 51px;
-  border-radius: 5px;
-  padding: 15px 30px;
-  border:none;
-  color:#A786DF;
-  background: #F6F7F9;
-  cursor: pointer;
+    border-radius: 5px;
+    padding: 15px 30px;
+    border:none;
+    color:#A786DF;
+    background: #F6F7F9;
+    cursor: pointer;
   }
   .submit-button:hover{
     width: 190px;
     height: 51px;
-  border-radius: 5px;
-  padding: 15px 30px;
-  border:none;
-  background: #A786DF;
-  color:#ffffff;
+    border-radius: 5px;
+    padding: 15px 30px;
+    border:none;
+    background: #A786DF;
+    color:#ffffff;
   }
   p{
     margin-top: 0px;
@@ -57,7 +62,12 @@
   line-height: 29px;
   margin-bottom: 50px;
   position: relative;
-  
+}
+p {
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
 }
 .margin-top-settings{
   margin-top:0px;
@@ -73,12 +83,6 @@
     line-height: 150%;
     border: 1px solid #dbdbdb;
     border-radius: 5px;
-  }
-  p {
-    margin-bottom: 10px;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
   }
 }
 
@@ -112,7 +116,6 @@ cursor: pointer;
   margin-right: 10px;
 }
 
-
 .title{
   font-weight: 600;
 font-size: 22px;
@@ -121,7 +124,6 @@ margin-bottom: 50px;
 margin-top: 50px;
 }
 .grid-container{
-  column-gap: 47px;
   row-gap:30px;
   column-gap:20px;
   display: grid;

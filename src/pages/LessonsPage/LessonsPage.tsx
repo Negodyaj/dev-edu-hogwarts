@@ -1,44 +1,105 @@
-import { useEffect, useState } from "react";
-import { Lesson, LessonModel } from "./components/Lesson";
-import { TabContainer } from "../../components/TabContainer/TabContainer";
-import { useDispatch, useSelector } from "react-redux";
-import { baseWretch } from "../../services/base-wretch.service";
-import { AppState } from "../../store/store";
+import { useEffect, useState } from 'react';
+import { Lesson, LessonModel } from './components/Lesson';
+import { TabContainer } from '../../components/TabContainer/TabContainer';
+import { Icon } from '../../shared/enums/Icon';
+import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
+import moment from 'moment';
+import { isSameDateOrAfter } from '../../shared/helpers/dateHelpers';
+import { Period } from '../../shared/enums/Period';
+import { filterLessons, setLessons } from '../../actions/lessons.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { LessonsPageState } from '../../store/reducers/lessons.reducer';
 import { loadLessons } from "../../actions/lessons.actions";
 import { LessonResponse } from "../../models/responses/LessonResponse";
 
+const getLessons = (): LessonModel[] => {
+  return [
+    {
+      id: 3,
+      name: 'Занятие 3',
+      date: '10.03.2022',
+      theme:
+        'Познакомитесь с основами C++ и научитесь создавать простейшие консольные программы.',
+      videoLink: 'https://disk.yandex.com/d/9WeaF1Yua7D1IA',
+      additionalInfo:
+        'Плагин Figma, позволяет создавать красивые тени, просто перетаскивая «источник света»',
+    },
+    {
+      id: 2,
+      name: 'Занятие 2',
+      date: '14.04.2022',
+      theme:
+        'Научитесь проектировать быстрые алгоритмы, применять стандартные структуры данных, а главное — мыслить как программист. Знание алгоритмов может повысить ваши шансы на трудоустройство, так как в большинстве компаний задачи на алгоритмы — неотъемлемая часть собеседования и тестового задания.',
+      videoLink: '',
+      additionalInfo: '',
+    },
+    {
+      id: 1,
+      name: 'Занятие 1',
+      date: '02.04.2022',
+      theme:
+        'В этом модуле вас ждут 10 видеолекций, которые помогут вам начать разговаривать на английском языке как настоящий разработчик.',
+      videoLink: '',
+      additionalInfo: '',
+    },
+  ];
+};
+
+const lessonsFilterData: FilterItem[] = [
+  { id: Period.All, name: 'Все' }, // ToDo: придумать енамы
+  { id: Period.Week, name: 'Эта неделя' },
+  { id: Period.Month, name: 'Этот месяц' },
+];
+
 export const LessonsPage = () => {
+  const dispatch = useDispatch();
   const [activeLesson, setActiveLesson] = useState(0);
   const { lessons, tabs, selectedTab } = useSelector(
     (state: AppState) => state.lessonPageState
   );
 
+  const { lessons, filteredLessons } = useSelector(
+    (state: AppState) => state.lessonsPageState as LessonsPageState
+  );
   const dispatch = useDispatch();
 
   function onElementClick(id: number) {
     setActiveLesson(id === activeLesson ? 0 : id);
   }
 
-  //////////////  -- to delete
-  // const lessonsMock: LessonModel[] = [
-  //   {id: 5, name: 'Занятие 5', date: '10.03.2022', theme: 'Познакомитесь с основами C++ и научитесь создавать простейшие консольные программы.', videoLink: 'https://disk.yandex.com/d/9WeaF1Yua7D1IA', additionalInfo: 'Плагин Figma, позволяет создавать красивые тени, просто перетаскивая «источник света»' },
-  //   {id: 4, name: 'Занятие 4', date: '14.02.2022', theme: 'Научитесь проектировать быстрые алгоритмы, применять стандартные структуры данных, а главное — мыслить как программист. Знание алгоритмов может повысить ваши шансы на трудоустройство, так как в большинстве компаний задачи на алгоритмы — неотъемлемая часть собеседования и тестового задания.', videoLink: '', additionalInfo: '' },
-  //   {id: 3, name: 'Занятие 3', date: '10.03.2022', theme: 'Познакомитесь с основами C++ и научитесь создавать простейшие консольные программы.', videoLink: 'https://disk.yandex.com/d/9WeaF1Yua7D1IA', additionalInfo: 'Плагин Figma, позволяет создавать красивые тени, просто перетаскивая «источник света»' },
-  //   {id: 2, name: 'Занятие 2', date: '14.02.2022', theme: 'Научитесь проектировать быстрые алгоритмы, применять стандартные структуры данных, а главное — мыслить как программист. Знание алгоритмов может повысить ваши шансы на трудоустройство, так как в большинстве компаний задачи на алгоритмы — неотъемлемая часть собеседования и тестового задания.', videoLink: '', additionalInfo: '' },
-  //   {id: 1, name: 'Занятие 1', date: '10.02.2022', theme: 'В этом модуле вас ждут 10 видеолекций, которые помогут вам начать разговаривать на английском языке как настоящий разработчик.', videoLink: '', additionalInfo: '' },
-  // ];
-  ////////////////////////////
+  useEffect(() => {
+    const response = getLessons();
+    dispatch(setLessons(response));
+  }, []);
+
+  const onElementClick = (id: number) => {
+    setActiveLesson(id === activeLesson ? 0 : id);
+  };
+
+  const applyLessonsFilter = (item: FilterItem) => {
+    const lessonsToDisplay = lessons.filter((lesson) => {
+      const lessonDate = moment(lesson.date, 'DD.MM.YYYY');
+      if (item?.id === Period.Month) {
+        return isSameDateOrAfter(lessonDate, 'months', 1);
+      }
+      if (item?.id === Period.Week) {
+        return isSameDateOrAfter(lessonDate, 'days', 7);
+      }
+      return true;
+    });
+
+    dispatch(filterLessons(lessonsToDisplay));
+  };
+
   useEffect(() => {
     if (selectedTab > 0) {
       baseWretch()
         .url(`by-groupId/${selectedTab}`)
         .get()
         .json((data) => dispatch(loadLessons(data as LessonResponse[])));
-
-      // dispatch(loadLessons(lessonsMock))
-    }
   }, [selectedTab]);
-
+    }
   const newLessons = lessons?.map((item) => {
     let newLessons: LessonModel = {
       id: item.id,
@@ -54,12 +115,21 @@ export const LessonsPage = () => {
 
   return (
     <>
+      <TabContainer
+        tabContainerData={[
+          { id: 1, icon: Icon.Cookie, text: 'Базовый курс' },
+          { id: 2, icon: Icon.Calendar, text: 'Специализация Backend' },
+          { id: 3, icon: Icon.Computer, text: 'Специализация Frontend' },
+          { id: 4, icon: Icon.Cake, text: 'Специализация QA' },
+        ]}
+        selectedTab={0}
+      />
       <TabContainer tabContainerData={tabs} selectedTab={selectedTab} />
 
       <div>Занятия</div>
+      <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />
       <div className="lessons-container">
-        {newLessons?.map((lesson) => (
-        // {lessonsMock?.map((lesson) => (
+        {filteredLessons.map((lesson) => (
           <Lesson
             data={lesson}
             id={lesson.id}
@@ -68,6 +138,8 @@ export const LessonsPage = () => {
             onClick={onElementClick}
           />
         ))}
+        {newLessons?.map((lesson) => (
+        // {lessonsMock?.map((lesson) => (
       </div>
     </>
   );
