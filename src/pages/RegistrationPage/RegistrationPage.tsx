@@ -5,6 +5,12 @@ import { baseWretch } from '../../services/base-wretch.service';
 import { registerUrl } from '../../shared/consts';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import moment from 'moment';
+import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/Checkbox';
+import {
+  Button,
+  ButtonModel,
+  ButtonType,
+} from '../../components/Button/Button';
 
 export type RegisterFormData = {
   firstName: string;
@@ -175,13 +181,26 @@ export const RegistrationPage = () => {
           Поля обязательные для заполнения
         </p>
         <div className="buttons">
-          <button className="reg-button" type="submit">
-            Зарегистрироваться
-          </button>
-          <button className="cancel-button">Отмена</button>
+          <Button
+            text={'Зарегистрироваться'}
+            type={ButtonType.submit}
+            model={ButtonModel.Colored}
+          ></Button>
+          <Button
+            text={'Oтмена'}
+            type={ButtonType.reset}
+            model={ButtonModel.Text}
+            width={`190`}
+          ></Button>
         </div>
         <div className="flex-container">
-          <input type="checkbox" className="custum-checkbox" name="policy" />
+          <CheckboxBtn
+            data={{
+              name: 'policy',
+              value: 0,
+              text: '',
+            }}
+          />
           <label htmlFor="policy" id="policy-label">
             Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями
             политики конфиденциальности

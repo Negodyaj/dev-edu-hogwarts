@@ -15,15 +15,20 @@ $accent-purple: #A786DF;
 .register-form-wrapper{
   width:min-content;
   background-color: #F6F7F9;
-  padding: 70px 120px 80px 65px;
+  padding: 70px 121px 78px 65px;
   .input-style {
+    line-height: 27px;
     width: 438px;
     height: 56px;
     margin-top: 10px;
     border-radius: 5px;
-    border: 1px solid #DBDBDB;  
-    padding: 15px 20px
+    border: 1px solid #DBDBDB;
+    padding: 0 20px;
   } 
+  .custom-checkbox{
+    padding: 0;
+    margin-right: 24px;
+  }
 }
 h2{
   font-size: 22px;
@@ -68,63 +73,27 @@ input {
   color: red;
   margin-top: 10px;
 }
-p{
-  font-size: 16px;
-  font-weight: 500;
-}
+
 .warning-validation{
   margin-top:36px;
 }
-input.custum-checkbox{
-  margin-right: 10px;
-  border: 1px solid #DBDBDB;
-  border-radius: 4px;
-  outline: none;
-  cursor: pointer;
-}
-.custum-checkbox:before {
-  content: '';
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 1px solid #DBDBDB;
-  margin-left:-2px;
-  border-radius: 4px;
-  background-color: #F6F7F9;
-  background-repeat: no-repeat;
-  background-position: center center;
- 
-}
-.custum-checkbox:checked:before {
-  background-color: #F6F7F9;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='10' viewBox='0 0 13 10' fill='none'%3E%3Cpath d='M1.5 5.00034L4.68198 8.18232L11.0459 1.81836' stroke='%23A786DF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  
-}
-.reg-button{
-  background-color: $accent-purple;
-  width: 238px;
-  height: 51px;
-  border-radius: 5px;
-  padding: 15px, 30px, 15px, 30px;
-  border: 0px;
-  color: white;
-  margin-right: 80px;  
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  font-family: 'Raleway';
-  cursor: pointer;
-}
-.cancel-button {
-  background-color: transparent;
-  color: $accent-purple;
-  border: 0px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  font-family: 'Raleway';
-  cursor: pointer;
-}
+
+
+// .reg-button{
+//   background-color: $accent-purple;
+//   width: 238px;
+//   height: 51px;
+//   border-radius: 5px;
+//   padding: 15px, 30px, 15px, 30px;
+//   border: 0px;
+//   color: white;
+//   font-weight: 400;
+//   font-size: 18px;
+//   line-height: 21px;
+//   font-family: 'Raleway';
+//   cursor: pointer;
+// }
+
 #policy-label {  
   font-size: 14px;
   margin-left: 10px;
@@ -133,5 +102,4 @@ input.custum-checkbox{
 .buttons{  
   margin-top: 70px;
   margin-bottom: 30px;
-
 }
