@@ -53,7 +53,7 @@ export const Button = (props: ButtonProps) => {
     <button
       className={`btn ${buttonClass}`}
       type={props.type}
-      style={{ width: `${props.width}` }}
+      style={{ width: `${props.width}px` }}
     >
       {props.text}
       {buttonImg}

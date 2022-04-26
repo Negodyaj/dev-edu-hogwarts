@@ -21,6 +21,7 @@
   height: 100vh;
   overflow: hidden;
   margin-right: 20px;
+  flex-shrink: 0;
   
   .main-panel-container {
     
@@ -61,7 +62,7 @@
     transition: all ease-in-out 0.4s;
   }
   
-  .main-nav-pannel {
+  .main-nav-panel {
     width: 262px;
   }
 //////////
@@ -126,7 +127,7 @@
     opacity: 0;
   }
 
-  .main-nav-pannel {
+  .main-nav-panel {
     width: 54px;
   }
   .nav-link {

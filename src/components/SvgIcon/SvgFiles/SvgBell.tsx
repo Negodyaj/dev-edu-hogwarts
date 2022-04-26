@@ -14,7 +14,7 @@ export const SvgBell = () => {
       />
       <path
         d="M21 6C21 8.20914 19.2091 10 17 10C14.7909 10 13 8.20914 13 6C13 3.79086 14.7909 2 17 2C19.2091 2 21 3.79086 21 6Z"
-        fill="transparent"
+        fill="white"
         stroke="black"
         strokeWidth="2"
         strokeLinecap="round"

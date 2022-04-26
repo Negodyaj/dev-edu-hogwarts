@@ -53,7 +53,7 @@ const buttons: NavLink[] = [
 
 export const Navigation = () => {
   return (
-    <nav className="main-nav-pannel">
+    <nav className="main-nav-panel">
       {buttons.map((item) => (
         <ButtonNavigation data={item} key={item.path} />
       ))}
