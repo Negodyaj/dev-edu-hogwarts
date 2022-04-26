@@ -32,9 +32,7 @@ export const EditCoursesPage = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="margin-common-content">
-        <ListView data={lessonsData} groupId={1} edit={true} />
-      </div>
+      <ListView data={lessonsData} groupId={1} edit={true} />
     </DragDropContext>
   );
 };
