@@ -1,19 +1,7 @@
 $accent-purple: #A786DF;
-.grid-container-registraton-page{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 87px 87px 87px 87px 87px;
-  column-gap: 20px;
-  row-gap: 20px;
-  margin-top: 50px;
-}
-.custom-password{
- font-size: 30px;
- color:gray;
- letter-spacing: 5px;
-}
+
 .register-form-wrapper{
-  width:min-content;
+  width:min-content !important; //иначе плывут флекс элементы при сворачивании панели 
   background-color: #F6F7F9;
   padding: 70px 121px 78px 65px;
   .input-style {
@@ -25,49 +13,39 @@ $accent-purple: #A786DF;
     border: 1px solid #DBDBDB;
     padding: 0 20px;
   } 
+  .flex-container {
+    gap: 20px;
+  }
   .custom-checkbox{
     padding: 0;
     margin-right: 24px;
   }
-}
-h2{
-  font-size: 22px;
-  font-weight: 600;
-}
-label{
-  font-size: 18px;
-  font-weight: 500;
-}
-input {
-  font-size: 18px;
-  font-weight: 400;
+  h1{
+    line-height: 29px;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 50px;
+  }
+  label{
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+  }
+  input {
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .custom-password{
+    font-size: 30px;
+    color:gray;
+    letter-spacing: 5px;
+   }
+.flex-item{
+     margin-bottom: 30px;
+   }
 }
 .item-patronymic{
-  grid-area: 2/2;
-}
-.item-tel{
-  grid-area:5/2;
-}
-.item-lastName{
-  grid-area: 1/1;
-}
-.item-firstName{
-  grid-area: 2/1;
-}
-.item-datepicker{
-  grid-area: 3/1;
-}
-.item-email{
-  grid-area: 4/1;
-}
-.item-password{
-  grid-area: 5/1;
-}
-.asterisk {
-  color: $accent-purple;
-}
-.item-repeat-password{
-  grid-area: 4/2;
+  align-self: center;
 }
 .attention{
   color: red;
@@ -75,27 +53,13 @@ input {
 }
 
 .warning-validation{
-  margin-top:36px;
+  margin-top:6px;
 }
 
-
-// .reg-button{
-//   background-color: $accent-purple;
-//   width: 238px;
-//   height: 51px;
-//   border-radius: 5px;
-//   padding: 15px, 30px, 15px, 30px;
-//   border: 0px;
-//   color: white;
-//   font-weight: 400;
-//   font-size: 18px;
-//   line-height: 21px;
-//   font-family: 'Raleway';
-//   cursor: pointer;
-// }
-
 #policy-label {  
-  font-size: 14px;
+  font-weight: 500;
+font-size: 14px;
+line-height: 16px;
   margin-left: 10px;
   color: #8A8A8A;  
 }
