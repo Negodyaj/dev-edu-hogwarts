@@ -1,5 +1,6 @@
 import senderPhoto from './images/avatar.png';
 import { NotificationsCard } from '../NotificationsPage/components/NotificationsCard';
+import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import React from 'react';
 const notifications = [
   {
@@ -33,12 +34,19 @@ const notifications = [
     time: '19:10',
   },
 ];
+const notificationsFilterData: FilterItem[] = [
+  { id: 1, name: 'Все' },
+  { id: 2, name: 'Непрочитанные' },
+];
 export const NotificationsPage = () => {
   return (
-    <div className="card-container content-container">
-      {notifications.map((item) => (
-        <NotificationsCard data={item} key={item.id}></NotificationsCard>
-      ))}
-    </div>
+    <>
+      <FilterList data={notificationsFilterData} />
+      <div className="card-container content-container">
+        {notifications.map((item) => (
+          <NotificationsCard data={item} key={item.id}></NotificationsCard>
+        ))}
+      </div>
+    </>
   );
 };
