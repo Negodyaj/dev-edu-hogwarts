@@ -11,7 +11,7 @@ import {
 import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
 import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/Checkbox';
 import { coursesUrl, groupUrl, usersUrl } from '../../shared/consts';
-import { SelectList } from '../../components/SelectList/SelectList';
+import { FilterList } from '../../components/FilterList/FilterList';
 
 export type GroupFormData = {
   name: string;
@@ -40,9 +40,9 @@ export type Course = {
 export const NewGroupPage = () => {
   const methods = useForm<GroupFormData>({
     defaultValues: {
-      teacherIds: [1, 2],
+      teacherIds: [],
       tutorIds: [],
-      courseId: -1,
+      // courseId: -1,
       startDate: '21.03.2000',
       endDate: '01.01.2010',
       timetable: 'string',
@@ -53,6 +53,7 @@ export const NewGroupPage = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = methods;
 
@@ -74,50 +75,31 @@ export const NewGroupPage = () => {
       });
   }, []);
 
-  const tutors: User[] = [];
-  const teachers: User[] = [];
+  const tutors: CheckboxData[] = users
+    .filter((u) => u.roles.includes('Tutor'))
+    .map((tutor) => {
+      const newTutor: CheckboxData = {
+        value: tutor.id,
+        text: `${tutor.firstName + ' ' + tutor.lastName}`,
+        isChecked: false,
+      };
+      return newTutor;
+    });
 
-  (users as User[]).forEach((user) => {
-    if (user.roles.includes('Tutor') && tutors.length < 6) tutors.push(user);
-    if (user.roles.includes('Teacher') && teachers.length < 6)
-      teachers.push(user);
-  });
-
-  const newTeachers = teachers.map((teacher) => {
-    const newTeacher: CheckboxData = {
-      value: teacher.id,
-      text: `${teacher.firstName + ' ' + teacher.lastName}`,
-      isChecked: false,
-    };
-    return newTeacher;
-  });
-
-  const newTutors = tutors.map((tutor) => {
-    const newTutor: CheckboxData = {
-      value: tutor.id,
-      text: `${tutor.firstName + ' ' + tutor.lastName}`,
-      isChecked: false,
-    };
-    return newTutor;
-  });
-
-  // const tutorsMock: CheckboxData[] = [
-  //   { value: 1, text: 'Вася Пупкин', isChecked: false },
-  //   { value: 2, text: 'Иван Пупкин', isChecked: false },
-  // ];
-
-  // const teachersMock: CheckboxData[] = [
-  //   { value: 1, text: 'Василий Теркин', isChecked: false },
-  //   { value: 2, text: 'Иван Грозный', isChecked: false },
-  // ];
-
-  // const coursesMock: Course[] = [
-  //   { id: 70, name: 'React' },
-  //   { id: 2, name: 'Сдохни или умри' },
-  //   { id: 3, name: 'Как быть успешным' },
-  // ];
+  const teachers: CheckboxData[] = users
+    .filter((u) => u.roles.includes('Teacher'))
+    .map((teacher) => {
+      const newTeacher: CheckboxData = {
+        value: teacher.id,
+        text: `${teacher.firstName + ' ' + teacher.lastName}`,
+        isChecked: false,
+      };
+      return newTeacher;
+    });
 
   const onSubmit = (data: GroupFormData) => {
+    if (typeof data.teacherIds === 'string')
+      data.teacherIds = [+data.teacherIds];
     baseWretch().url(groupUrl).post(data);
     console.log(data);
   };
@@ -136,25 +118,22 @@ export const NewGroupPage = () => {
             />
             {errors.name && <span>Вы не указали название</span>}
             <h2>Курс</h2>
-            {/* <FilterList
+            <FilterList
               data={courses}
-              type=""
+              callback={(item) => setValue('courseId', item.id)}
             />
-            {errors.courseId && <span>Вы не выбрали курс</span>} */}
-
-            <SelectList data={courses} name="courseId" />
             {errors.courseId && <span>Вы не выбрали курс</span>}
             <div className="teachers-list">
               <h2>Преподаватель:</h2>
               <div className="list">
-                <CheckboxGroup checkboxArr={newTeachers} name="teacherIds" />
+                <CheckboxGroup checkboxArr={teachers} name="teacherIds" />
               </div>
               {errors.teacherIds && <span>Вы не выбрали преподавателя</span>}
             </div>
             <div className="tutors-list">
               <h2>Тьютор:</h2>
               <div className="list">
-                <CheckboxGroup checkboxArr={newTutors} name="tutorIds" />
+                <CheckboxGroup checkboxArr={tutors} name="tutorIds" />
               </div>
               {errors.tutorIds && <span>Вы не выбрали тьютора</span>}
             </div>

@@ -4,6 +4,7 @@ import './Checkbox.scss';
 export type CheckboxProps = {
   data: CheckboxData;
   name: string;
+  isSingle: boolean;
 };
 
 export type CheckboxData = {
@@ -19,8 +20,14 @@ export const CheckboxBtn = (props: CheckboxProps) => {
       <input
         type="checkbox"
         value={props.data.value}
-        checked={watch(props.name)?.find((x: number) => x === props.data.value)}
-        {...register(props.name, { required: true })}
+        checked={
+          (props.isSingle && watch(props.name) == props.data.value) ||
+          (!props.isSingle &&
+            watch(props.name)?.find((x: number) => x === props.data.value))
+        }
+        {...register(props.name, {
+          required: true,
+        })}
       />
       <span className="custom-checkbox-text">{props.data.text}</span>
     </label>
