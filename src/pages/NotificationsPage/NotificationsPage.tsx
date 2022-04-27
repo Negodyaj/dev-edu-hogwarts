@@ -1,7 +1,12 @@
 import senderPhoto from './images/avatar.png';
 import { NotificationsCard } from '../NotificationsPage/components/NotificationsCard';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { AppState } from '../../store/store';
 import React from 'react';
+import { filterNotification } from '../../actions/notifications.actions';
+import { NotificationsPageState } from '../../store/reducers/notifications.reducer';
 const notifications = [
   {
     id: 1,
@@ -34,19 +39,37 @@ const notifications = [
     time: '19:10',
   },
 ];
+export const NotificationsPage = () => {
+  const dispatch = useDispatch(); 
+
+  const { notifications, filteredNotifications } = useSelector(
+    (state: AppState) => state.notificationsPageState as NotificationsPageState
+  );  
+
+  const applyNotificationsFilter = (item: FilterItem) => {
+    const notificationsToDisplay = notifications.filter(() => {  
+      console.log(item);    
+      return true;
+    });
+
+    dispatch(filterNotification(notificationsToDisplay));
+  };
+
 const notificationsFilterData: FilterItem[] = [
   { id: 1, name: 'Все' },
   { id: 2, name: 'Непрочитанные' },
 ];
-export const NotificationsPage = () => {
-  return (
-    <>
-      <FilterList data={notificationsFilterData} />
-      <div className="card-container content-container">
-        {notifications.map((item) => (
-          <NotificationsCard data={item} key={item.id}></NotificationsCard>
-        ))}
-      </div>
-    </>
-  );
-};
+return (
+  <>
+    <FilterList data={notificationsFilterData} callback={applyNotificationsFilter} />
+    <div className="card-container content-container">
+      {filteredNotifications.map((notification:any) => (
+        <NotificationsCard data={notification}/>          
+
+        
+      ))}
+    </div>
+  </>
+);
+}
+
