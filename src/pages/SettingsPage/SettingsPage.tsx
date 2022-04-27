@@ -71,12 +71,12 @@ export const SettingsPage = () => {
   return (
     <div className="settings-container">
       <div className="settings-container-info">
-        <div className="settings">Настройки аккаунта</div>
+        <h1 className="settings-title">Настройки аккаунта</h1>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <div className="flex-container">
               <div>
-                <div className="data-block">
+                <div className="form-element">
                   <p>Фамилия</p>
                   <input
                     className="lstName"
@@ -97,7 +97,7 @@ export const SettingsPage = () => {
                     <p className="error-message">Введите корректные данные </p>
                   )}
                 </div>
-                <div className="data-block">
+                <div className="form-element">
                   <p>Имя</p>
                   <input
                     defaultValue={currentUser?.firstName}
@@ -116,7 +116,7 @@ export const SettingsPage = () => {
                     <p className="error-message">Введите корректные данные </p>
                   )}
                 </div>
-                <div className="data-block">
+                <div className="form-element">
                   <p>Отчество</p>
                   <input
                     defaultValue={currentUser?.patronymic}
@@ -135,9 +135,9 @@ export const SettingsPage = () => {
                     <p className="error-message">Введите корректные данные</p>
                   )}
                 </div>
-                <div className="data-block">
+                <div className="form-element">
                   <p>Дата рождения</p>
-                  <div className="date-picker-settings max-width-datepicker">
+                  <div className="datepicker-wrapper">
                     <Controller
                       name="birthDate"
                       control={methods.control}
@@ -152,8 +152,8 @@ export const SettingsPage = () => {
               </div>
             </div>
             <div className="grid-container">
-              <div className="data-block password">
-                <p className="margin-top-settings">Пароль</p>
+              <div className="form-element password">
+                <p>Пароль</p>
                 <div className="goto-change-password">
                   <div>
                     <div className="circle-password"></div>
@@ -170,7 +170,7 @@ export const SettingsPage = () => {
                   </Link>
                 </div>
               </div>
-              <div className="data-block ">
+              <div className="form-element ">
                 <p>Email</p>
                 <input
                   defaultValue={currentUser?.email}
@@ -187,7 +187,7 @@ export const SettingsPage = () => {
                 )}
               </div>
 
-              <div className="data-block git-hub">
+              <div className="form-element git-hub">
                 <p>Ссылка на GitHub</p>
                 <input
                   defaultValue={currentUser?.gitHubAccount}
@@ -201,7 +201,7 @@ export const SettingsPage = () => {
                   <p className="error-message">Проверьте корректность данных</p>
                 )}
               </div>
-              <div className="data-block phone">
+              <div className="form-element phone">
                 <p>Телефон</p>
                 <input
                   type="tel"
@@ -216,17 +216,18 @@ export const SettingsPage = () => {
                 )}
               </div>
             </div>
-            <div className="styles-for-settings-buttons">
+            <div className="buttons-group">
               <Button
                 text={'Сохранить'}
                 type={ButtonType.submit}
                 model={ButtonModel.Colored}
-              ></Button>
+                width={'190'}
+              />
               <Button
                 text={'Отмена'}
                 type={ButtonType.reset}
                 model={ButtonModel.Text}
-              ></Button>
+              />
             </div>
           </form>
         </FormProvider>

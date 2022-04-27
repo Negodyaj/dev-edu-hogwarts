@@ -5,9 +5,7 @@ import { lessons } from './ListView/exampleData';
 export const CoursesPage = () => {
   return (
     <DragDropContext onDragEnd={() => {}}>
-      <div className="margin-common-content">
-        <ListView data={lessons} groupId={1} edit={false} />
-      </div>
+      <ListView data={lessons} groupId={1} edit={false} />
     </DragDropContext>
   );
 };
