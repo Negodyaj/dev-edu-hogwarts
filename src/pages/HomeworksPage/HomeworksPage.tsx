@@ -1,85 +1,100 @@
-import {FilterList} from "../../components/FilterList/FilterList";
-import {HomeworkCard} from "./components/HomeworkCard";
-
-let tasks = [
-  {
-    id: 4,
-    taskNumber: 4,
-    title: 'Покрыть тестами первые три домашки',
-    dateBeginning: '10.10.2022',
-    dateEnd: '05.11.2022',
-    status: 4,
-    elseData: '',
-  },
-  {
-    id: 3,
-    taskNumber: 3,
-    title: 'Покрыть тестами первые три домашки Покрыть тестами первые три домашки Покрыть тестами первые три домашки',
-    dateBeginning: '10.10.2022',
-    dateEnd: '01.11.2022',
-    status: 2,
-    elseData: '',
-  },
-  {
-    id: 2,
-    taskNumber: 2,
-    title: 'Покрыть тестами первые три домашки',
-    dateBeginning: '28.09.2022',
-    dateEnd: '14.09.2022',
-    status: 1,
-    elseData: '',
-  },
-  {
-    id: 1,
-    taskNumber: 1,
-    title: 'Покрыть тестами первые три домашки',
-    dateBeginning: '10.10.2022',
-    dateEnd: '05.11.2022',
-    status: 0,
-    elseData: '',
-  }
-]
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  loadHomeworkAnswers,
+  loadHomeworks,
+  selectTab,
+} from '../../actions/homeworks.actions';
+import { TabContainer } from '../../components/TabContainer/TabContainer';
+import { HomeworkCardResponse } from '../../models/responses/HomeworkCardResponse';
+import { HomeworkStudentAnswer } from '../../models/responses/HomeworkStudentAnswer';
+import { baseWretch } from '../../services/base-wretch.service';
+import { LoginPageState } from '../../store/reducers/login.reducer';
+import { AppState } from '../../store/store';
+import { HomeworkCard, HomeworkData } from './components/HomeworkCard';
 
 export const HomeworksPage = () => {
-  const revertedArray = tasks.slice().reverse();
+  const dispatch = useDispatch();
+  const { tabs, homeworks, selectedTab, answers } = useSelector(
+    (state: AppState) => state.homeworksPageState
+  );
 
-  return (
-    <div className='margin-common-content'>
-      Домашки
-      <FilterList data={[
-        {
-          id: 1, name: 'Все'
-        },
-        {
-          id: 2, name: 'Эта неделя'
-        },
-        {
-          id: 3, name: 'Этот месяц'
+  const { currentUser } = useSelector(
+    (state: AppState) => state.loginPageState as LoginPageState
+  );
+
+  useEffect(() => {
+    if (selectedTab > 0) {
+      baseWretch()
+        .url(`api/Homeworks/by-group/${selectedTab}`)
+        .get()
+        .json((data) =>
+          dispatch(loadHomeworks(data as HomeworkCardResponse[]))
+        );
+    }
+  }, [selectedTab]);
+
+  useEffect(() => {
+    if (selectedTab > 0) {
+      baseWretch()
+        .url(`api/student-homeworks/by-user/${currentUser?.id}`)
+        .get()
+        .json((data) =>
+          dispatch(loadHomeworkAnswers(data as HomeworkStudentAnswer[]))
+        );
+    }
+  }, [selectedTab]);
+
+  const CheckHWStatus = () => {
+    const complited: Array<string> = [];
+    answers?.forEach((answer) => {
+      complited.push(answer.homework.task.name);
+    });
+
+    homeworks?.forEach((hw) => {
+      for (let i = 0; i <= complited.length; i++) {
+        if (hw.task.name == complited[i]) {
+          hw.status = 0;
         }
-      ]} type=''/>
-      <FilterList data={[
-        {
-          id: 1, name: 'Все'
-        },
-        {
-          id: 2, name: 'Эта неделя'
-        },
-        {
-          id: 3, name: 'Этот месяц'
-        },
-        {
-          id: 4, name: 'Этот год'
-        },
-        {
-          id: 5, name: 'Это десятилетие'
-        },
-      ]} type='table'/>
-
-      {
-        revertedArray.map(item =>
-          <HomeworkCard data={item} key={item.id}/>
-        )
       }
-    </div>
-  )
-}
+    });
+    homeworks?.forEach((hw) => {
+      if (hw.status == null) {
+        hw.status = 1;
+      }
+    });
+    return homeworks;
+  };
+  const newHomeworks = CheckHWStatus()?.map((item, index) => {
+    const newHW: HomeworkData = {
+      id: item.id,
+      taskNumber: index + 1,
+      title: item.task.name,
+      dateBeginning: item.startDate,
+      dateEnd: item.endDate,
+      status: item.status,
+      elseData: 'wertyu',
+    };
+    return newHW;
+  });
+  return (
+    <>
+      <div className="margin-common-content">
+        <TabContainer
+          tabContainerData={tabs}
+          selectedTab={selectedTab}
+          onClick={selectTab}
+        />
+        {homeworks!.length > 0 ? (
+          <div>
+            {newHomeworks?.map((hw) => (
+              <HomeworkCard data={hw} />
+            ))}
+          </div>
+        ) : (
+          <div>Домашек нема</div>
+        )}
+      </div>
+    </>
+  );
+};
