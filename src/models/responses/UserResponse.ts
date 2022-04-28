@@ -1,4 +1,5 @@
 import { GroupResponse } from './GroupResponse';
+import { UserRoles } from '../../shared/enums/UserRoles';
 
 export interface UserResponse {
   id: number;
@@ -6,7 +7,7 @@ export interface UserResponse {
   lastName: string;
   email: string;
   photo: string;
-  roles: string[];
+  roles: UserRoles[];
   patronymic: string;
   username: string;
   registrationDate: string;
