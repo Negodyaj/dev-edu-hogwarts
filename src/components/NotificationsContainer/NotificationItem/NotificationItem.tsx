@@ -5,28 +5,18 @@ export type NotificationProps = {
 }
 
 export type NotificationData = {
-  img: string
+  img: any
   text: string
+  visible: boolean
 }
 
-/*export const NotificationItem = (props: NotificationProps) => {
-
+export const NotificationItem = (props: NotificationProps) => {
+  const vis = props.data.visible ? '' : 'invisible';
+  
   return(
-    <div className="notification-window">
-      <img src={props.data.img} alt="img" />
-      <p>{props.data.text}</p>
+    <div className={`notification-window ${vis}`}>
+      {props.data.img}
+      <p className="notification-text">{props.data.text}</p>
     </div>
   )
-  
-}*/
-
-export const NotificationItem = () => {
-
-  return(
-    <div className="notification-window">
-      <img src="" alt="img" />
-      <p>Я нотификашка</p>
-    </div>
-  )
-  
 }

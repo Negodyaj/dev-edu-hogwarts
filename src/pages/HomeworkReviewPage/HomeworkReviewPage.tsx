@@ -1,6 +1,7 @@
 import './HomeworkReviewPage.scss';
 import { HomeworkComment } from './components/HomeworkComment';
 import ava from '../../../src/components/images/avatar.png';
+import { NotificationsContainer } from '../../components/NotificationsContainer/NotificationsContainer';
 
 const comments = [
   {
@@ -40,11 +41,16 @@ const comments = [
 
 export const HomeworkReviewPage = () => {
   return (
+    <>
     <div className="comments-container">
       <p className="comment-title">Комментарии к заданию</p>
       {comments.map((item) => (
         <HomeworkComment data={item} key={item.id} />
       ))}
+
     </div>
+      <NotificationsContainer />
+    </>
+    
   );
 };
