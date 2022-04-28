@@ -14,9 +14,12 @@ import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPag
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getCurrentUser } from './services/auth.service';
+import { HomeworkPage } from './pages/HomeworkPage/HomeworkPage';
+import { HomeworkEditPage } from './pages/HomeworkPage/HomeworkEditPage';
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     getCurrentUser(dispatch);
   }, []);
@@ -28,6 +31,9 @@ function App() {
         <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
+          <Route path="homeworks/:id" element={<HomeworkPage />} />
+          <Route path="homeworks/:id/new" element={<HomeworkPage />} />
+          <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
           <Route path="lessons" element={<LessonsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="courses" element={<CoursesPage />} />

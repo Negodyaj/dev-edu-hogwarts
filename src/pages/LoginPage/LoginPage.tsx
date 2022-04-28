@@ -13,12 +13,13 @@ export type LoginFormData = {
 };
 
 export const LoginPage = () => {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
-  const dispatch = useDispatch();
   const [course] = useState<any>({});
   const logIn = (data: LoginFormData) =>
     baseWretch()

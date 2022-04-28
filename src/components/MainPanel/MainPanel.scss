@@ -104,7 +104,7 @@
 
     .left-chevron {
       transform: scale(-1, 1);
-      transition: ease-in-out 0,75s;
+      transition: ease-in-out 0.75s;
     }
   }
 
@@ -143,5 +143,9 @@
     align-items: center;
     margin: 0;
     width: 60px;
+  }
+
+  & + main .one-card-content {
+    grid-template-columns: 153px 826px auto;
   }
 }

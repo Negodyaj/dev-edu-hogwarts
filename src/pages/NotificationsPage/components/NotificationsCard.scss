@@ -1,103 +1,118 @@
 .card-container {
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
   border-radius: 15px;
-.notification-card-content {
-  padding-left: 30px;
-  font-family: "Raleway", sans-serif;
-  padding-right: 31px;
-  padding-top: 50px;
-  padding-bottom: 26px;
-}
-.notification-card-content:last-child{
-  padding-bottom: 30px;
-}
-.notification-card {
-  display: flex;
-  align-items: center;
-  border-bottom: 2px solid #c3748800;
-  position: relative;
-  img {
-    width: 45px;
-    height: 45px;
-    margin-left: 15px;
-    margin-bottom:100px;
+
+  .notification-card {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #c3748800;
+    position: relative;
+    padding-left: -14px;
+
+    &:last-child .notification-card-content {
+      margin-bottom: 0;
+    }
+
+    & + .notification-card {
+      padding-top: 30px;
+      border-top: 1px solid #dbdbdb;
+    }
+
+    .notification-card-content {
+      padding-left: 30px;
+      margin-bottom: 30px;
+      font-family: inherit;
+
+      .notification-card-content > a {
+        margin-top: 8px;
+        margin-bottom: 0;
+      }
+    }
+
+    & > img {
+      width: 45px;
+      height: 45px;
+      margin-left: 15px;
+      margin-bottom: 100px;
+    }
+  }
+
+  .sender-name {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    margin-bottom: 5px;
+  }
+
+  .sender-role {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    margin-bottom: 11px;
+  }
+
+  .message {
+    padding: 16px 125px 16px 15px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    margin-left: -15px;
+    margin-right: -15px;
+    background-color: #fbc6cb;
+    margin-bottom: 10px;
+  }
+
+  .top-flex-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .date,
+  .time {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #8a8a8a;
+  }
+
+  .button-read {
+    min-width: 8px;
+    cursor: pointer;
+    height: 8px;
+    background-color: #f45b69;
+    border-radius: 50px;
+  }
+
+  .button-read-clicked {
+    visibility: collapse;
+  }
+
+  .button-read {
+    min-width: 6px;
+    cursor: pointer;
+    height: 6px;
+    background-color: #f45b69;
+    border-radius: 50px;
+  }
+
+  .button-read::before {
+    content: "";
+    display: block;
+    min-width: 8px;
+    margin-left: 2px;
+    margin-right: 5px;
+    cursor: pointer;
+    height: 8px;
+    background-color: #f45b69;
+    border-radius: 50px;
+  }
+
+  .round {
+    margin-bottom: 100px;
+    margin-left: -28px;
   }
 }
 
-.notification-card:not(:last-child):after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 56px;
-  border-bottom: 1px solid #dbdbdb;
-  width: calc(100% - 85px);
-}
-.sender-name {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 21px;
-  margin-bottom: 5px;
-}
-.sender-role {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  margin-bottom: 11px;
-}
-.message {
-  padding: 16px 125px 16px 15px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 23px;
-  margin-left: -15px;
-  margin-right: -15px;
-  background-color: #fbc6cb;
-  margin-bottom: 10px;
-}
-.top-flex-container {
-  display: flex;
-  justify-content: space-between;
-}
-.date,
-.time {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  color: #8a8a8a;
-}
-.button-read {
-  min-width: 8px;
-  cursor: pointer;
-  height: 8px;
-  background-color: #f45b69;
-  border-radius: 50px;
-}
-.button-read-clicked {
-  visibility: collapse;
-}
-.button-read {
-  min-width: 6px;
-  cursor: pointer;
-  height: 6px;
-  background-color: #f45b69;
-  border-radius: 50px;
-}
-
-.button-read::before {
-  content: "";
-  display: block;
-  min-width: 8px;
-  margin-left: 2px;
-  margin-right: 5px;
-  cursor: pointer;
-  height: 8px;
-  background-color: #f45b69;
-  border-radius: 50px;
-}
-.round{
-  padding-left: 22px;
-  margin-bottom: 100px;
-}}
 .content-container > a {
   margin-top: 8px;
   margin-bottom: 0;
