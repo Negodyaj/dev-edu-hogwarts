@@ -173,8 +173,9 @@ export const RegistrationPage = () => {
             />
           </div>
         </div>
-        <p>
-          <span className="attention">* </span>Поля обязательные для заполнения
+        <p className="warning-validation">
+          <span className="attention">* </span>
+          Поля обязательные для заполнения
         </p>
         <div className="buttons">
           <Button
@@ -187,10 +188,17 @@ export const RegistrationPage = () => {
             text="Отмена"
             model={ButtonModel.Text}
             type={ButtonType.reset}
+            width="190"
           />
         </div>
         <div className="flex-container">
-          <input type="checkbox" name="policy" />
+          <CheckboxBtn
+            data={{
+              name: 'policy',
+              value: 0,
+              text: '',
+            }}
+          />
           <label htmlFor="policy" id="policy-label">
             Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями
             политики конфиденциальности
