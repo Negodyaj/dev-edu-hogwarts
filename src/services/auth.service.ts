@@ -1,5 +1,6 @@
 import { Dispatch } from 'react';
 import { loadHomeworkPageTabs } from '../actions/homeworks.actions';
+import { loadLessonPageTabs } from '../actions/lessons.actions';
 import { setCurrentUser } from '../actions/login.actions';
 import { loadGroups } from '../actions/newHomeworkForm.action';
 import { UserResponse } from '../models/responses/UserResponse';
@@ -26,6 +27,7 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
       dispatch(setCurrentUser(user));
       dispatch(loadGroups(user.groups));
       dispatch(loadHomeworkPageTabs(user.groups));
+      dispatch(loadLessonPageTabs(user.groups));
     });
 };
 

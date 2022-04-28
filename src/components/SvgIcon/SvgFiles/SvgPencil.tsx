@@ -15,9 +15,9 @@ export const SvgPencil = () => {
       <path
         d="M12 8L16 12"
         stroke="#8A8A8A"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
