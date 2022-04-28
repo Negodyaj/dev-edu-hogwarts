@@ -1,5 +1,5 @@
-import { GroupResponse } from "../models/responses/GroupResponse";
-import { LessonResponse } from "../models/responses/LessonResponse";
+import { GroupResponse } from '../models/responses/GroupResponse';
+import { LessonResponse } from '../models/responses/LessonResponse';
 
 export const SET_LESSONS = 'lessons/SET_LESSONS' as const;
 export const FILTER_LESSONS = 'lessons/FILTER_LESSONS' as const;
@@ -14,7 +14,7 @@ export const filterLessons = (lessons: LessonResponse[]) => ({
 
 export const loadLessonPageTabs = (groups: GroupResponse[]) => ({
   type: LOAD_TABS,
-  payload: groups
+  payload: groups,
 });
 
 export const selectTab = (id: number) => ({
@@ -24,7 +24,7 @@ export const selectTab = (id: number) => ({
 
 export const loadLessons = (lessons: LessonResponse[]) => ({
   type: LOAD_LESSONS,
-  payload: lessons
+  payload: lessons,
 });
 
 export type LessonsPageActions =

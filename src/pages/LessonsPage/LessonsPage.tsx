@@ -8,8 +8,12 @@ import { Period } from '../../shared/enums/Period';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LessonsPageState } from '../../store/reducers/lessons.reducer';
-import { loadLessons, filterLessons, selectTab } from "../../actions/lessons.actions";
-import { LessonResponse } from "../../models/responses/LessonResponse";
+import {
+  loadLessons,
+  filterLessons,
+  selectTab,
+} from '../../actions/lessons.actions';
+import { LessonResponse } from '../../models/responses/LessonResponse';
 import { baseWretch } from '../../services/base-wretch.service';
 
 const lessonsFilterData: FilterItem[] = [
@@ -21,7 +25,7 @@ const lessonsFilterData: FilterItem[] = [
 export const LessonsPage = () => {
   const dispatch = useDispatch();
   const [activeLesson, setActiveLesson] = useState(0);
-  
+
   const { lessons, filteredLessons, tabs, selectedTab } = useSelector(
     (state: AppState) => state.lessonsPageState as LessonsPageState
   );
@@ -55,21 +59,25 @@ export const LessonsPage = () => {
   };
 
   const newLessons = filteredLessons?.map((item) => {
-    let newLessons: LessonModel = {
+    const lessonModel: LessonModel = {
       id: item.id,
-      name: "Имя", //заменить методом (пока сортировка по дате) (взять данные, которых нет, с бэка)!
+      name: 'Имя', //заменить методом (пока сортировка по дате) (взять данные, которых нет, с бэка)!
       date: item.date,
-      theme: "Тема", //заменить (взять данные, которых нет, с бэка)!
+      theme: 'Тема', //заменить (взять данные, которых нет, с бэка)!
       //theme: item.name,
       videoLink: item.linkToRecord,
       additionalInfo: item.additionalMaterials,
     };
-    return newLessons;
+    return lessonModel;
   });
 
   return (
     <>
-      <TabContainer tabContainerData={tabs} selectedTab={selectedTab} onClick={selectTab} />
+      <TabContainer
+        tabContainerData={tabs}
+        selectedTab={selectedTab}
+        onClick={selectTab}
+      />
 
       <div>Занятия</div>
       <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />

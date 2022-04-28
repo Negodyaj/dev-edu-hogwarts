@@ -12,12 +12,12 @@ export type LessonProps = {
 };
 
 export type LessonModel = {
-  id: number
-  name: string
-  date: string
-  theme: string
-  videoLink: string
-  additionalInfo: string
+  id: number;
+  name: string;
+  date: string;
+  theme: string;
+  videoLink: string;
+  additionalInfo: string;
 };
 
 export const Lesson = (props: LessonProps) => {

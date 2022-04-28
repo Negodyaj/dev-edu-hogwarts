@@ -28,14 +28,13 @@ import {
   notificationsPageReducer,
 } from './reducers/notifications.reducer';
 
-
 // Create an interface for the application state
 export interface AppState {
-  homeworksPageState: HomeWorkPageState,
-  newHomeworkFormState: NewHomeworkFormState,
-  notificationsPageState: NotificationsPageState | undefined,
-  loginPageState: LoginPageState | undefined,
-  lessonsPageState: LessonsPageState | undefined,
+  homeworksPageState: HomeWorkPageState;
+  newHomeworkFormState: NewHomeworkFormState;
+  notificationsPageState: NotificationsPageState | undefined;
+  loginPageState: LoginPageState | undefined;
+  lessonsPageState: LessonsPageState | undefined;
 }
 
 // Create the root reducer
