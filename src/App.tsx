@@ -48,7 +48,6 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
           <Route path="new-homework" element={<NewHomework />} />
-          {/* <Route path="issuing-homework" element={<IssuingHomework />} /> */}
           <Route path="group" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
         </Routes>

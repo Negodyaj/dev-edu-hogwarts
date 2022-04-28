@@ -6,7 +6,6 @@ export type CheckboxGroupProps = {
 };
 
 export const CheckboxGroup = (props: CheckboxGroupProps) => {
-  // const [arr] = useState(props?.checkboxArr);
   return (
     <>
       {
@@ -17,7 +16,6 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
             isSingle={props.checkboxArr.length < 2}
           />
         ))
-        // arr.map( (item) => (<CheckboxBtn data={item} name={props.name} />))
       }
     </>
   );
