@@ -44,7 +44,7 @@ export const RegistrationPage = () => {
           <div className="form-element">
             <label htmlFor="lastName">
               Фамилия
-              <span className="asterisk"> *</span>
+              <span className="asterisk">*</span>
             </label>
             <input
               type="text"
@@ -70,7 +70,7 @@ export const RegistrationPage = () => {
           <div className="form-grid-container">
             <div className="form-element">
               <label htmlFor="firstName">
-                Имя<span className="asterisk"> *</span>
+                Имя<span className="asterisk">*</span>
               </label>
               <input
                 type="text"
@@ -122,7 +122,7 @@ export const RegistrationPage = () => {
           <div className="form-grid-container">
             <div className="form-element">
               <label htmlFor="password">
-                Пароль<span className="asterisk"> *</span>
+                Пароль<span className="asterisk">*</span>
               </label>
               <input
                 type="password"
@@ -137,7 +137,7 @@ export const RegistrationPage = () => {
             </div>
             <div className="form-element">
               <label htmlFor="repeat-password">
-                Повторить пароль<span className="asterisk"> *</span>
+                Повторить пароль<span className="asterisk">*</span>
               </label>
               <input type="password" className="custom-password form-input" />
             </div>
@@ -145,7 +145,7 @@ export const RegistrationPage = () => {
           <div className="form-grid-container">
             <div className="form-element">
               <label htmlFor="email">
-                E-mail<span className="asterisk"> *</span>
+                E-mail<span className="asterisk">*</span>
               </label>
               <input
                 type="email"
@@ -179,7 +179,7 @@ export const RegistrationPage = () => {
             </div>
           </div>
           <p className="warning-validation">
-            <span className="attention">* </span>
+            <span className="asterisk">*</span>
             Поля обязательные для заполнения
           </p>
           <div className="buttons">
