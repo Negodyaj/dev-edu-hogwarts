@@ -1,14 +1,22 @@
 import './RegistrationPage.scss';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { setToken } from '../../services/auth.service';
 import { baseWretch } from '../../services/base-wretch.service';
 import { registerUrl } from '../../shared/consts';
+import {
+  Button,
+  ButtonModel,
+  ButtonType,
+} from '../../components/Button/Button';
+import Datepicker from '../../components/Datepicker/Datepicker';
+import { convertDate } from '../../shared/helpers/dateHelpers';
 
 export type RegisterFormData = {
   firstName: string;
   lastName: string;
   patronymic: string;
   email: string;
+  birthDate: string;
   password: string;
   phoneNumber: string;
 };
@@ -17,24 +25,32 @@ export const RegistrationPage = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<RegisterFormData>();
   const onSubmit = (data: RegisterFormData) =>
     baseWretch()
       .url(registerUrl)
-      .post({ ...data, username: 'string', birthdate: '12.12.1999', city: 1 })
+      .post({
+        ...data,
+        username: 'string',
+        birthdate: convertDate(data.birthDate),
+        city: 1,
+      })
       .text((token) => setToken(token));
 
   return (
     <div className="register-form-wrapper">
       <h2>Регистрация</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex-column">
+        <div className="form-element">
           <label htmlFor="lastName">
-            Фамилия<span className="asterisk"> *</span>
+            Фамилия
+            <span className="asterisk"> *</span>
           </label>
           <input
             type="text"
+            className="form-input"
             placeholder="Ефременков"
             id="lastName"
             {...register('lastName', {
@@ -53,13 +69,14 @@ export const RegistrationPage = () => {
             <p className="asterisk">Недопустимые символы</p>
           )}
         </div>
-        <div className="flex-row">
-          <div className="flex-column">
+        <div className="form-grid-container">
+          <div className="form-element">
             <label htmlFor="firstName">
               Имя<span className="asterisk"> *</span>
             </label>
             <input
               type="text"
+              className="form-input"
               placeholder="Антон"
               id="firstName"
               {...register('firstName', {
@@ -78,10 +95,11 @@ export const RegistrationPage = () => {
               <p className="asterisk">Недопустимые символы</p>
             )}
           </div>
-          <div className="flex-column">
+          <div className="form-element">
             <label htmlFor="patronymic">Отчество</label>
             <input
               type="text"
+              className="form-input"
               placeholder="Сергеевич"
               {...register('patronymic', {
                 required: true,
@@ -89,17 +107,25 @@ export const RegistrationPage = () => {
             />
           </div>
         </div>
-        <div className="flex-column">
-          <label htmlFor="datepicker">Дата рождения</label>
-          <input type="date" name="datepicker" id="datepicker" />
+        <div className="form-grid-container">
+          <div className="form-element">
+            <label htmlFor="datepicker">Дата рождения</label>
+            <Controller
+              name="birthDate"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => <Datepicker field={field} />}
+            />
+          </div>
         </div>
-        <div className="flex-row">
-          <div className="flex-column">
+        <div className="form-grid-container">
+          <div className="form-element">
             <label htmlFor="password">
               Пароль<span className="asterisk"> *</span>
             </label>
             <input
               type="password"
+              className="form-input"
               {...register('password', {
                 required: true,
               })}
@@ -108,21 +134,22 @@ export const RegistrationPage = () => {
               <p className="attention">Обязательно для заполнения</p>
             )}
           </div>
-          <div className="flex-column">
+          <div className="form-element">
             <label htmlFor="repeat-password">
               Повторить пароль<span className="asterisk"> *</span>
             </label>
-            <input type="password" />
+            <input type="password" className="form-input" />
           </div>
         </div>
-        <div className="flex-row">
-          <div className="flex-column">
+        <div className="form-grid-container">
+          <div className="form-element">
             <label htmlFor="email">
               E-mail<span className="asterisk"> *</span>
             </label>
             <input
               type="email"
               id="email"
+              className="form-input"
               placeholder="example@example.com"
               {...register('email', {
                 required: true,
@@ -134,10 +161,11 @@ export const RegistrationPage = () => {
               <p className="attention">Обязательно для заполнения</p>
             )}
           </div>
-          <div className="flex-column">
+          <div className="form-element">
             <label htmlFor="phoneNumber">Телефон</label>
             <input
               type="tel"
+              className="form-input"
               placeholder="+7(999)888-77-66"
               {...register('phoneNumber', {
                 required: true,
@@ -149,10 +177,17 @@ export const RegistrationPage = () => {
           <span className="attention">* </span>Поля обязательные для заполнения
         </p>
         <div className="buttons">
-          <button className="reg-button" type="submit">
-            Зарегистрироваться
-          </button>
-          <button className="cancel-button">Отмена</button>
+          <Button
+            text="Зарегистрироваться"
+            model={ButtonModel.Colored}
+            type={ButtonType.submit}
+            width="238"
+          />
+          <Button
+            text="Отмена"
+            model={ButtonModel.Text}
+            type={ButtonType.reset}
+          />
         </div>
         <div className="flex-container">
           <input type="checkbox" name="policy" />

@@ -9,7 +9,6 @@ import {
 } from '../../components/Button/Button';
 import { baseWretch } from '../../services/base-wretch.service';
 import { addNewTaskUrl, getHomeworksByGroupId } from '../../shared/consts';
-import moment from 'moment';
 import { SvgIcon } from '../../components/SvgIcon/SvgIcon';
 import { Icon } from '../../shared/enums/Icon';
 import { useEffect, useMemo, useRef } from 'react';
@@ -23,6 +22,7 @@ import {
 } from '../../actions/newHomeworkForm.action';
 import { AddedLink } from './components/AddedLink';
 import { Homework } from '../../models/responses/HomeworksResponse';
+import { convertDate } from '../../shared/helpers/dateHelpers';
 
 export type AddTaskFormData = {
   name: string;
@@ -60,10 +60,6 @@ export const NewHomework = () => {
       !links.includes(inputLinkValue)
     )
       dispatch(addLink(refLinkName.current.value));
-  };
-
-  const convertDate = (date: string) => {
-    return moment(new Date(date)).format('DD.MM.YYYY').toString();
   };
 
   const onSubmit = (data: AddTaskFormData) => {
@@ -105,12 +101,12 @@ export const NewHomework = () => {
       >
         <h2 className="homework-form_title">Новое задание</h2>
 
-        <div className="homework-form_area">
+        <div className="form-element">
           Номер группы:
           <RadioGroup radioData={group} name="groupId" callback={getGroupId} />
         </div>
 
-        <div className="homework-form_area">
+        <div className="form-element">
           Номер задания:
           {/*
               По-хорошему, обещали на бэке номера таскам выдавать,
@@ -142,7 +138,7 @@ export const NewHomework = () => {
           </div>
         </div>
 
-        <div className="homework-form_area">
+        <div className="form-element">
           Название задания
           <input
             className="form-input"
@@ -152,7 +148,7 @@ export const NewHomework = () => {
           />
         </div>
 
-        <div className="homework-form_area">
+        <div className="form-element">
           Описание задания
           <textarea
             className="form-input"
@@ -161,12 +157,12 @@ export const NewHomework = () => {
           />
         </div>
 
-        <div className="homework-form_area">
+        <div className="form-element">
           Полезные ссылки
           {links.length > 0 && memoizeMapLinks}
           <div className="form-input_link__container">
             <textarea
-              className="form-input form-input_link"
+              className="form-input_link form-input"
               ref={refLinkName}
               value={inputLinkValue}
               onChange={(event) => {

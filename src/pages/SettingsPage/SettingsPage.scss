@@ -8,19 +8,13 @@
 
   .buttons-group {
     margin-top: 70px;
+    margin-bottom: 80px;
   }
 
   .btn-text {
     margin-left: 58px;
   }
 
-  .settings-title {
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 29px;
-    margin-bottom: 50px;
-    position: relative;
-  }
   p {
     margin-bottom: 10px;
     font-weight: 500;
@@ -31,7 +25,7 @@
   .settings-photo {
     position: relative;
     margin-left: 99px;
-    margin-top: 36px;
+    margin-top: 50px;
     cursor: pointer;
   }
 
@@ -54,21 +48,7 @@
     margin-bottom: 50px;
     margin-top: 50px;
   }
-  .grid-container {
-    row-gap: 30px;
-    column-gap: 20px;
-    display: grid;
-    grid-template-columns: 438px 438px;
-    grid-template-rows: 87px 87px;
-  }
-  .repeate-password {
-    grid-row: 2/3;
-    grid-column: 2/3;
-  }
-  .new-password {
-    grid-row: 2/3;
-    grid-column: 1/2;
-  }
+
   .error-message {
     margin-top: 5px;
     color: #a786df;
@@ -94,10 +74,4 @@
       justify-content: space-between;
     }
   }
-}
-
-.form-element {
-  margin-bottom: 29px;
-  font-size: 18px;
-  font-weight: 500;
 }
