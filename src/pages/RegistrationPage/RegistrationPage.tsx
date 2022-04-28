@@ -208,7 +208,10 @@ export const RegistrationPage = () => {
             />
             <label htmlFor="policy" id="policy-label">
               Настоящим подтверждаю, что я ознакомлен <br />и согласен с
-              условиями политики конфиденциальности
+              условиями{' '}
+              <a href={'#'} className="link-policy" aria-label="policy">
+                политики конфиденциальности
+              </a>
             </label>
           </div>
         </form>
