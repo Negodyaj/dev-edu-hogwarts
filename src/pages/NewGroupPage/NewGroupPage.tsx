@@ -9,9 +9,9 @@ import {
   ButtonType,
 } from '../../components/Button/Button';
 import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
-import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/Checkbox';
 import { coursesUrl, groupUrl, usersUrl } from '../../shared/consts';
 import { FilterList } from '../../components/FilterList/FilterList';
+import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 
 export type GroupFormData = {
   name: string;
