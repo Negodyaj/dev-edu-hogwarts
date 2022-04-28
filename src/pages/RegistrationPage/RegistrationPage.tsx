@@ -126,7 +126,7 @@ export const RegistrationPage = () => {
               </label>
               <input
                 type="password"
-                className="form-input"
+                className="custom-password form-input"
                 {...method.register('password', {
                   required: true,
                 })}
@@ -139,7 +139,7 @@ export const RegistrationPage = () => {
               <label htmlFor="repeat-password">
                 Повторить пароль<span className="asterisk"> *</span>
               </label>
-              <input type="password" className="form-input" />
+              <input type="password" className="custom-password form-input" />
             </div>
           </div>
           <div className="form-grid-container">
