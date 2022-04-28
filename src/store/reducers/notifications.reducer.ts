@@ -36,7 +36,7 @@ const initialState: NotificationsPageState = {
 };
 
 export const notificationsPageReducer: Reducer<
-  NotificationsPageState | undefined,
+  NotificationsPageState,
   NotificationsPageAction
 > = (state = initialState, action) => {
   switch (action.type) {

@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "for DevEdu family",
   "dependencies": {
+    "@redux-devtools/extension": "^3.2.2",
     "@hookform/resolvers": "^2.8.8",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",

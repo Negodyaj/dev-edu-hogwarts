@@ -49,7 +49,6 @@ export const NewHomework = () => {
 
   const memoizeMapLinks = useMemo(() => {
     return links.map((item, index) => {
-      console.log('render links');
       return <AddedLink key={index} itemNumber={index} source={item} />;
     });
   }, [links]);
@@ -104,7 +103,7 @@ export const NewHomework = () => {
         className="form-container homework-form"
         onSubmit={method.handleSubmit(onSubmit)}
       >
-        <span className="homework-form_title">Новое задание</span>
+        <h2 className="homework-form_title">Новое задание</h2>
 
         <div className="homework-form_area">
           Номер группы:
@@ -171,7 +170,6 @@ export const NewHomework = () => {
               ref={refLinkName}
               value={inputLinkValue}
               onChange={(event) => {
-                console.log('render input');
                 dispatch(setValueInInput(event.target.value));
               }}
               placeholder="Вставьте ссылку"
@@ -185,13 +183,13 @@ export const NewHomework = () => {
         <div className="buttons-group">
           <Button
             text="Опубликовать"
-            type={ButtonType.submit}
             model={ButtonModel.Colored}
+            type={ButtonType.submit}
           />
           <Button
             text="Сохранить как черновик"
-            type={ButtonType.submit}
             model={ButtonModel.White}
+            type={ButtonType.submit}
           />
           <Button
             text="Отмена"

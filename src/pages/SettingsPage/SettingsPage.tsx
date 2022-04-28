@@ -71,15 +71,15 @@ export const SettingsPage = () => {
   return (
     <div className="settings-container">
       <div className="settings-container-info">
-        <div className="settings">Настройки аккаунта</div>
+        <h2 className="settings-title">Настройки аккаунта</h2>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <div className="flex-container">
               <div>
-                <div className="data-block">
-                  <p>Фамилия</p>
+                <div className="form-element">
+                  Фамилия
                   <input
-                    className="lstName"
+                    className="form-input"
                     defaultValue={currentUser?.lastName}
                     type="text"
                     {...methods.register('lastName', {
@@ -97,16 +97,17 @@ export const SettingsPage = () => {
                     <p className="error-message">Введите корректные данные </p>
                   )}
                 </div>
-                <div className="data-block">
-                  <p>Имя</p>
+                <div className="form-element">
+                  Имя
                   <input
+                    className="form-input"
                     defaultValue={currentUser?.firstName}
                     {...methods.register('firstName', {
                       required: true,
                       maxLength: 20,
                       pattern: /^[a-zа-яё]+$/i,
                     })}
-                  ></input>
+                  />
                   {errors?.firstName?.type === 'maxLength' && (
                     <p className="error-message">
                       Превышена допустимая длина 20 символов
@@ -116,16 +117,17 @@ export const SettingsPage = () => {
                     <p className="error-message">Введите корректные данные </p>
                   )}
                 </div>
-                <div className="data-block">
-                  <p>Отчество</p>
+                <div className="form-element">
+                  Отчество
                   <input
+                    className="form-input"
                     defaultValue={currentUser?.patronymic}
                     {...methods.register('patronymic', {
                       required: true,
                       maxLength: 30,
                       pattern: /^[a-zа-яё]+$/i,
                     })}
-                  ></input>
+                  />
                   {errors?.patronymic?.type === 'maxLength' && (
                     <p className="error-message">
                       Превышена допустимая длина 20 символов
@@ -135,50 +137,49 @@ export const SettingsPage = () => {
                     <p className="error-message">Введите корректные данные</p>
                   )}
                 </div>
-                <div className="data-block">
-                  <p>Дата рождения</p>
-                  <div className="date-picker-settings max-width-datepicker">
-                    <Controller
-                      name="birthDate"
-                      control={methods.control}
-                      rules={{ required: true }}
-                      render={({ field }) => <Datepicker field={field} />}
-                    />
-                  </div>
+                <div className="form-element">
+                  Дата рождения
+                  <Controller
+                    name="birthDate"
+                    control={methods.control}
+                    rules={{ required: true }}
+                    render={({ field }) => <Datepicker field={field} />}
+                  />
                 </div>
               </div>
               <div className="settings-photo">
-                <AvatarComponent photo="http://localhost:3000/static/media/avatar_settings.f04f5af1751b20e8efb2.png"></AvatarComponent>
+                <AvatarComponent photo="http://localhost:3000/static/media/avatar_settings.f04f5af1751b20e8efb2.png" />
               </div>
             </div>
             <div className="grid-container">
-              <div className="data-block password">
-                <p className="margin-top-settings">Пароль</p>
-                <div className="goto-change-password">
+              <div className="form-element password">
+                Пароль
+                <div className="form-input">
                   <div>
-                    <div className="circle-password"></div>
-                    <div className="circle-password"></div>
-                    <div className="circle-password"></div>
-                    <div className="circle-password"></div>
-                    <div className="circle-password"></div>
-                    <div className="circle-password"></div>
-                    <div className="circle-password"></div>
-                    <div className="circle-password"></div>
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
                   </div>
                   <Link to={'#'}>
-                    <SvgPencil></SvgPencil>
+                    <SvgPencil />
                   </Link>
                 </div>
               </div>
-              <div className="data-block ">
-                <p>Email</p>
+              <div className="form-element">
+                Email
                 <input
+                  className="form-input"
                   defaultValue={currentUser?.email}
                   {...register('email', {
                     required: true,
                     pattern: /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/,
                   })}
-                ></input>
+                />
                 {errors?.email?.type === 'required' && (
                   <p className="error-message">Введите данные</p>
                 )}
@@ -187,46 +188,49 @@ export const SettingsPage = () => {
                 )}
               </div>
 
-              <div className="data-block git-hub">
-                <p>Ссылка на GitHub</p>
+              <div className="form-element">
+                Ссылка на GitHub
                 <input
+                  className="form-input"
                   defaultValue={currentUser?.gitHubAccount}
                   {...methods.register('gitHubAccount', {
                     required: true,
                     pattern:
                       /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/,
                   })}
-                ></input>
+                />
                 {errors?.gitHubAccount?.type === 'pattern' && (
                   <p className="error-message">Проверьте корректность данных</p>
                 )}
               </div>
-              <div className="data-block phone">
-                <p>Телефон</p>
+              <div className="form-element">
+                Телефон
                 <input
+                  className="form-input"
                   type="tel"
                   defaultValue={currentUser?.phoneNumber}
                   {...methods.register('phoneNumber', {
                     required: true,
                     pattern: /^[ 0-9]+$/,
                   })}
-                ></input>
+                />
                 {errors?.phoneNumber?.type === 'pattern' && (
                   <p className="error-message">Проверьте корректность данных</p>
                 )}
               </div>
             </div>
-            <div className="styles-for-settings-buttons">
+            <div className="buttons-group">
               <Button
                 text={'Сохранить'}
                 type={ButtonType.submit}
                 model={ButtonModel.Colored}
-              ></Button>
+                width={'190'}
+              />
               <Button
                 text={'Отмена'}
                 type={ButtonType.reset}
                 model={ButtonModel.Text}
-              ></Button>
+              />
             </div>
           </form>
         </FormProvider>

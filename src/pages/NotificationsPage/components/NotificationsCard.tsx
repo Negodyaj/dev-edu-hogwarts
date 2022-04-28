@@ -6,7 +6,7 @@ export type NotificationData = {
   sender: string;
   senderPhoto: string;
   senderRole: string;
-  messege: string;
+  message: string;
   date: string;
   time: string;
 };
@@ -29,7 +29,7 @@ export const NotificationsCard = (props: NotificationsProps) => {
           className={`button-read${isCollapsed == true ? `-clicked` : ``}`}
         ></input>
       </div>
-      <img src={props.data.senderPhoto}></img>
+      <img src={props.data.senderPhoto} />
       <div className="notification-card-content">
         <div className="top-flex-container">
           <div>
@@ -41,7 +41,7 @@ export const NotificationsCard = (props: NotificationsProps) => {
             <span className="time">{props.data.time}</span>
           </div>
         </div>
-        <div className="messege">{props.data.messege}</div>
+        <div className="message">{props.data.message}</div>
         <LinkArrow text={'перейти'} to={`${props.data.id}`} />
       </div>
     </div>
