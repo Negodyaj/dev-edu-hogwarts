@@ -9,31 +9,19 @@ import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
 import { MainPanel } from './components/MainPanel/MainPanel';
 import { CoursesPage } from './pages/CoursesPage/CoursesPage';
 import { EditCoursesPage } from './pages/CoursesPage/EditCoursesPage';
-import { useDispatch } from 'react-redux';
-import { setCurrentUser } from './actions/login.actions';
-import { UserResponse } from './models/responses/UserResponse';
-import { baseWretch } from './services/base-wretch.service';
-import { useEffect } from 'react';
 import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworkPage/HomeworkEditPage';
-import { loadHomeworkPageTabs } from './actions/homeworks.actions';
-import { loadGroups } from './actions/newHomeworkForm.action';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    baseWretch()
-      .url(`api/Users/self`)
-      .get()
-      .json((data) => {
-        const user = data as UserResponse;
-        dispatch(setCurrentUser(user));
-        dispatch(loadGroups(user.groups));
-        dispatch(loadHomeworkPageTabs(user.groups));
-      });
+    getCurrentUser(dispatch);
   }, []);
 
   return (

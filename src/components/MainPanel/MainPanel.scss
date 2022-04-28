@@ -55,8 +55,8 @@
   }
   
   .bottom-part {
-    position: absolute;
-    top: 870px;
+    // position: absolute;
+    // top: 870px;
     display: flex;
     flex-direction: column;
     transition: all ease-in-out 0.4s;
@@ -64,6 +64,7 @@
   
   .main-nav-panel {
     width: 262px;
+    margin-bottom: 117px;
   }
 //////////
   @media (min-width: 359px) {

@@ -18,10 +18,10 @@ export const ButtonNavigation = (props: ButtonProps) => {
       to={props.data.path}
       className={`nav-link flex-center transition-styles ${
         match ? 'active' : ''
-      }`}
+      } ${props.data.icon ? '' : 'subbutton'}`}
     >
-      <SvgIcon icon={props.data.icon} />
-      <span className="links-name transition-styles">
+      {props.data.icon ? <SvgIcon icon={props.data.icon} /> : ''}
+      <span className={`links-name transition-styles`}>
         {props.data.displayName}
       </span>
     </Link>
