@@ -2,6 +2,8 @@ export interface Homework {
   id: number;
   startDate: string;
   endDate: string;
+  status: StudentHomeworkStatus;
+  number: number;
   task: Task;
 }
 

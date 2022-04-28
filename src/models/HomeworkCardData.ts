@@ -1,9 +1,7 @@
-import { HomeworkData, StudentHomework } from './responses/HomeworksResponse';
+import { Homework } from './responses/HomeworksResponse';
 
 export type HomeworkProps = {
-  data?: HomeworkData;
-  dataProgress?: StudentHomework;
-  taskNumber?: number;
+  data?: Homework;
   children?: JSX.Element;
 };
 

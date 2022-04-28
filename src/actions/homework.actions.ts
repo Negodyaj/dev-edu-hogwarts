@@ -2,14 +2,6 @@ import {
   Homework,
   StudentHomework,
 } from '../models/responses/HomeworksResponse';
-import { Dispatch } from 'react';
-import { baseWretch } from '../services/base-wretch.service';
-import { getHomeworkById, studentHomeworksByUserId } from '../shared/consts';
-
-export interface HomeworkAction {
-  type: string;
-  payload?: any;
-}
 
 export const GET_STUDENT_HOMEWORK = 'homework/GET_STUDENT_HOMEWORK' as const;
 export const EDIT_HOMEWORK = 'homework/EDIT_HOMEWORK' as const;
@@ -37,27 +29,6 @@ export const loadStudentHomework = (
   type: GET_STUDENT_HOMEWORK,
   payload: studentHomework ?? undefined,
 });
-
-export const wretchHomework = (id: number, userId: number) => {
-  return async (dispatch: Dispatch<HomeworkAction>) => {
-    const [homework, studentHomework] = await Promise.allSettled([
-      baseWretch().url(getHomeworkById(id)).get().json(),
-      baseWretch()
-        .url(studentHomeworksByUserId(userId))
-        .get()
-        .json((dt) => {
-          return Array.isArray(dt)
-            ? dt.find((item: StudentHomework) => item.homework.id === id)
-            : dt;
-        }),
-    ]);
-    if (homework.status === 'fulfilled')
-      dispatch(loadHomework(homework.value as Homework));
-    if (studentHomework.status === 'fulfilled') {
-      dispatch(loadStudentHomework(studentHomework.value as StudentHomework));
-    }
-  };
-};
 
 export type HomeworkPageAction =
   | ReturnType<typeof loadHomework>

@@ -20,7 +20,7 @@ export const HomeworkCard = (props: HomeworkProps) => {
         props.children ? 'one-card-content' : ''
       }`}
     >
-      <span className="task-number">Задание {props.taskNumber}</span>
+      <span className="task-number">Задание {props.data?.number}</span>
       <div className="homework-card-description">
         <div className="homework-dates">
           <span>Дата выдачи</span>
@@ -31,7 +31,7 @@ export const HomeworkCard = (props: HomeworkProps) => {
           <span>{props.data?.endDate ?? homework?.endDate}</span>
         </div>
         <span className="homework-title">
-          {props.data?.title ?? homework?.task.name}
+          {props.data?.task.name ?? homework?.task.name}
         </span>
         {props.children ? (
           props.children

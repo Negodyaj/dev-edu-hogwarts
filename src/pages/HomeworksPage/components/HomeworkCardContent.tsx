@@ -20,12 +20,13 @@ export const HomeworkCardContent = () => {
   // debugger;
   const method = useForm<HomeworkFormData>();
   const dispatch = useDispatch();
-  const { homework, studentHomeworkProgress, isEdit, answer } = useSelector(
+  const { homework, studentHomeworkProgress, isEdit } = useSelector(
     (state: AppState) => state.homeworkPageState
   );
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
+  const answer = studentHomeworkProgress?.answer;
 
   const onSubmit = (data: HomeworkFormData) => {
     const dateToPost = {
@@ -39,7 +40,6 @@ export const HomeworkCardContent = () => {
         .json((res) => {
           const studentHomework = res as StudentHomework;
           dispatch(loadStudentHomework(studentHomework));
-          dispatch(loadAnswer(studentHomework.answer));
         });
     }
   };
