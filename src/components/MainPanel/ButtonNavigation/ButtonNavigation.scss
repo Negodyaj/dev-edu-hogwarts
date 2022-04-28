@@ -19,7 +19,10 @@
     white-space: nowrap;
   }
 }
-
+.subbutton{
+  justify-content: center;
+  margin-top: 4px !important;
+}
 .nav-link.active,
 .nav-link:hover {
   background-color: #a786df;
