@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './ButtonNavigation.scss';
 import { useLocation } from 'react-router-dom';
-import { NavLink } from '../Navigation/NavLinkButtons';
+import { NavLink } from '../Navigation/navLinksProvider';
 import { SvgIcon } from '../../SvgIcon/SvgIcon';
 
 export type ButtonProps = {

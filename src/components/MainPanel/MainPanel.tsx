@@ -32,14 +32,10 @@ export const MainPanel = () => {
   const { currentUser } = useSelector(
     (state: AppState) => state.loginPageState as LoginPageState
   );
-  const user = [currentUser];
-  user.map((data) => {
-    return (
-      (avData.name = `${data?.firstName} ${data?.lastName}`),
-      (avData.role = `${data?.roles}`),
-      (avData.photo = avatarPhoto)
-    );
-  });
+  avData.name = `${currentUser?.firstName} ${currentUser?.lastName}`;
+  avData.role = `${currentUser?.roles[0]}`;
+  avData.photo = avatarPhoto;
+
   return (
     <aside
       className={`main-panel transition-styles ${

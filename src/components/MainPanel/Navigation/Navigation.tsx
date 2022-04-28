@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 import { LoginPageState } from '../../../store/reducers/login.reducer';
 import { AppState } from '../../../store/store';
 import { Link } from 'react-router-dom';
-import { SelectButtonsByRole } from './NavLinkButtons';
+import { getNavLinksByRole } from './navLinksProvider';
+
 export const Navigation = () => {
   const { currentUser } = useSelector(
     (state: AppState) => state.loginPageState as LoginPageState
@@ -13,7 +14,7 @@ export const Navigation = () => {
   return (
     <nav className="main-nav-panel">
       {currentUser ? (
-        SelectButtonsByRole(currentUser.roles).map((item) => (
+        getNavLinksByRole(currentUser.roles[0]).map((item) => (
           <ButtonNavigation data={item} key={item?.path}></ButtonNavigation>
         ))
       ) : (
