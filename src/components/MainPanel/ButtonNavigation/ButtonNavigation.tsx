@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './ButtonNavigation.scss';
 import { useLocation } from 'react-router-dom';
-import { NavLink } from '../Navigation/Navigation';
+import { NavLink } from '../Navigation/navLinksProvider';
 import { SvgIcon } from '../../SvgIcon/SvgIcon';
 
 export type ButtonProps = {
@@ -16,10 +16,10 @@ export const ButtonNavigation = (props: ButtonProps) => {
       to={props.data.path}
       className={`nav-link flex-center transition-styles ${
         props.data.path === location.pathname ? 'active' : ''
-      }`}
+      } ${props.data.icon ? '' : 'subbutton'}`}
     >
-      <SvgIcon icon={props.data.icon} />
-      <span className="links-name transition-styles">
+      {props.data.icon ? <SvgIcon icon={props.data.icon} /> : ''}
+      <span className={`links-name transition-styles`}>
         {props.data.displayName}
       </span>
     </Link>

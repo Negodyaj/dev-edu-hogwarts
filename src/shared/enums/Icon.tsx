@@ -17,4 +17,10 @@ export const enum Icon {
   Pencil,
   Tick,
   Cross,
+  Notepad,
+  Groups,
+  NewGroup,
+  Students,
+  Payment,
+  AllUsers,
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { setToken } from '../../services/auth.service';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser, setToken } from '../../services/auth.service';
 import { baseWretch } from '../../services/base-wretch.service';
 import { loginUrl } from '../../shared/consts';
 import { LoginPageState } from '../../store/reducers/login.reducer';
@@ -18,6 +18,7 @@ export const LoginPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>();
+  const dispatch = useDispatch();
   const [course] = useState<any>({});
   const logIn = (data: LoginFormData) =>
     baseWretch()
@@ -25,8 +26,8 @@ export const LoginPage = () => {
       .post(data)
       .text((token: string) => {
         setToken(token);
+        getCurrentUser(dispatch);
       });
-
   const onSubmit = (data: LoginFormData) => {
     logIn(data);
   };
