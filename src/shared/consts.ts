@@ -5,6 +5,14 @@ export const lessonsUrl = 'lessons';
 export const usersUrl = 'api/Users';
 export const groupUrl = 'api/Groups';
 export const addNewTaskUrl = 'api/tasks/teacher';
+export const getHomeworkById = (id: number) => `api/homeworks/${id}`;
+export const postStudentAnswer = (homeworkId: number) =>
+  `api/student-homeworks/${homeworkId}`;
+export const studentHomeworkById = (id: number) =>
+  `api/student-homeworks/${id}`;
+export const studentHomeworksByUserId = (userId: number) => {
+  return `api/student-homeworks/by-user/${userId}`;
+};
 export const getHomeworksByGroupId = (groupId: number) => {
   return `api/Homeworks/by-group/${groupId}`;
 };

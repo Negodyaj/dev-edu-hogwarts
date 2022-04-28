@@ -10,8 +10,8 @@ export interface LoginPageState {
 
 const initialState: LoginPageState = {
   currentUser: undefined,
-  email: 'Mail@example.ru',
-  password: '        ',
+  email: 'user@example.com',
+  password: 'stringst',
 };
 
 export const loginPageReducer: Reducer<

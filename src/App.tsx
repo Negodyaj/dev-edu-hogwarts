@@ -13,25 +13,16 @@ import { EditCoursesPage } from './pages/CoursesPage/EditCoursesPage';
 import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
 import { useDispatch } from 'react-redux';
-import { setCurrentUser } from './actions/login.actions';
-import { UserResponse } from './models/responses/UserResponse';
-import { baseWretch } from './services/base-wretch.service';
 import { useEffect } from 'react';
-import { loadHomeworkPageTabs } from './actions/homeworks.actions';
-import { loadGroups } from './actions/newHomeworkForm.action';
+import { getCurrentUser } from './services/auth.service';
+import { HomeworkPage } from './pages/HomeworkPage/HomeworkPage';
+import { HomeworkEditPage } from './pages/HomeworkPage/HomeworkEditPage';
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    baseWretch()
-      .url(`api/Users/self`)
-      .get()
-      .json((data) => {
-        const user = data as UserResponse;
-        dispatch(setCurrentUser(user));
-        dispatch(loadGroups(user.groups));
-        dispatch(loadHomeworkPageTabs(user.groups));
-      });
+    getCurrentUser(dispatch);
   }, []);
 
   return (
@@ -41,6 +32,9 @@ function App() {
         <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
+          <Route path="homeworks/:id" element={<HomeworkPage />} />
+          <Route path="homeworks/:id/new" element={<HomeworkPage />} />
+          <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
           <Route path="lessons" element={<LessonsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="courses" element={<CoursesPage />} />

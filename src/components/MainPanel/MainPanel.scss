@@ -55,8 +55,8 @@
   }
   
   .bottom-part {
-    position: absolute;
-    top: 870px;
+    // position: absolute;
+    // top: 870px;
     display: flex;
     flex-direction: column;
     transition: all ease-in-out 0.4s;
@@ -64,6 +64,7 @@
   
   .main-nav-panel {
     width: 262px;
+    margin-bottom: 117px;
   }
 //////////
   @media (min-width: 359px) {
@@ -103,7 +104,7 @@
 
     .left-chevron {
       transform: scale(-1, 1);
-      transition: ease-in-out 0,75s;
+      transition: ease-in-out 0.75s;
     }
   }
 
@@ -142,5 +143,9 @@
     align-items: center;
     margin: 0;
     width: 60px;
+  }
+
+  & + main .one-card-content {
+    grid-template-columns: 153px 826px auto;
   }
 }
