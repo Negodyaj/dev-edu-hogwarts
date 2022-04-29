@@ -7,7 +7,7 @@
 
 body {
   margin: 0;
-  background-color: #F6F7F9;
+  background-color: $background-color;
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -15,7 +15,6 @@ body {
 
 main {
   flex-grow: 1;
-  padding-top: 70px;
 }
 
 .form-container {
@@ -24,15 +23,15 @@ main {
 }
 
 ::-moz-selection{
-  background-color: #EBE3F8;
+  background-color: $selection-color;
 }
 
 ::selection{
-  background-color: #EBE3F8;
+  background-color: $selection-color;
 }
 
 .content-container {
-  background: #FFFFFF;
+  background: $white;
   width: 940px;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
   border-radius: 15px;
@@ -40,24 +39,20 @@ main {
   transition: width ease-in-out 0.5s;
 }
 
-.margin-common-content {
-  margin: 70px 120px 70px 20px;
-}
-
 .flex-container {
   display: flex;
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #8a8a8a;
+  color: $dark-gray;
   opacity: 1; /* Firefox */
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #8a8a8a;
+  color: $dark-gray;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
-  color: #8a8a8a;
+  color: $dark-gray;
 }
 
 .link-arrow {
@@ -67,6 +62,7 @@ main {
   font-size: 18px;
   text-decoration: none;
   cursor: pointer;
+  color: $link-color;
 }
 
 .arrow-right {

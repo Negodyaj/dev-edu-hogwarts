@@ -1,57 +1,53 @@
 import './HomeworkCard.scss';
+import { StudentHomeworkStatus } from '../../../models/responses/HomeworksResponse';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../store/store';
+import {
+  HomeworkProps,
+  HomeworkStatus,
+} from '../../../models/HomeworkCardData';
 import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
 
-export type HomeworkProps = {
-  data: HomeworkData;
-};
-
-export type HomeworkData = {
-  id: number;
-  taskNumber: number;
-  title: string;
-  dateBeginning: string;
-  dateEnd: string;
-  status: number;
-  elseData: string;
-};
-
-// Не знала лучше enum или array,
-// или вообще по-другому
-
-enum HomeworkStatus {
-  'Сдано',
-  'Не сделано',
-  'В проверке',
-  'Исправить',
-  'Сдано с опозданием',
-}
-
 export const HomeworkCard = (props: HomeworkProps) => {
-  const homework = props.data;
+  const { homework, studentHomeworkProgress } = useSelector(
+    (state: AppState) => state.homeworkPageState
+  );
+  const homeworkId = props.data?.id ?? homework?.id;
 
   return (
-    <div className="homework-card-content content-container">
-      <span className="task-number">Задание {homework.taskNumber}</span>
+    <div
+      className={`homework-card-content content-container ${
+        props.children ? 'one-card-content' : ''
+      }`}
+    >
+      <span className="task-number">Задание {props.taskNumber}</span>
       <div className="homework-card-description">
         <div className="homework-dates">
           <span>Дата выдачи</span>
-          <span>{homework.dateBeginning}</span>
+          <span>{props.data?.startDate ?? homework?.startDate}</span>
         </div>
         <div className="homework-dates">
           <span>Срок сдачи</span>
-          <span>{homework.dateEnd}</span>
+          <span>{props.data?.endDate ?? homework?.endDate}</span>
         </div>
-        <span className="homework-title">{homework.title}</span>
-        <LinkArrow
-          text="к заданию"
-          to={
-            homework.status == 0
-              ? `homeworks/${homework.id}`
-              : `homeworks/${homework.id}/new`
-          }
-        />
+        <span className="homework-title">
+          {props.data?.title ?? homework?.task.name}
+        </span>
+        {props.children ? (
+          props.children
+        ) : (
+          <LinkArrow text="к заданию" to={`homeworks/${homeworkId}`} />
+        )}
       </div>
-      <span className="task-status">{HomeworkStatus[homework.status]}</span>
+      <span className="task-status">
+        {
+          HomeworkStatus[
+            props.data?.status ??
+              studentHomeworkProgress?.status ??
+              StudentHomeworkStatus.Undone
+          ]
+        }
+      </span>
     </div>
   );
 };

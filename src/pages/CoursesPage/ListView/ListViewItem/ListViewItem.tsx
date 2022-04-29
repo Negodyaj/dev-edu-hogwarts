@@ -40,15 +40,16 @@ export const ListViewItem = (props: ListViewItemProps) => {
       >
         {props.dragSettings?.isDragDisabled && !props.head && (
           <div className="draggable-pointer" {...props.dragSettings?.prop2}>
-            <span></span>
-            <span></span>
-            <span></span>
+            <span />
+            <span />
+            <span />
           </div>
         )}
         {props.head || !props.dragSettings?.isDragDisabled ? (
           lessonNumber
         ) : (
           <input
+            className="list-view-input"
             type="text"
             value={lessonNumber}
             onChange={(e) => setLessonNumber(e.currentTarget.value)}
@@ -64,6 +65,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
           lessonName
         ) : (
           <input
+            className="list-view-input"
             type="text"
             value={lessonName}
             onChange={(e) => setLessonName(e.currentTarget.value)}
@@ -75,6 +77,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
           hoursCount
         ) : (
           <input
+            className="list-view-input"
             type="text"
             value={hoursCount}
             onChange={(e) => setHoursCount(e.currentTarget.value)}
