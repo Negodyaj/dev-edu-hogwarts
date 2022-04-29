@@ -4,6 +4,7 @@ import {
   SELECT_TAB,
   LOAD_TABS,
   LOAD_HOMEWORKS,
+  EDIT_HOMEWORK_STATUS,
 } from '../../actions/homeworks.actions';
 import { TabData } from '../../models/TabData';
 import { Icon } from '../../shared/enums/Icon';
@@ -52,6 +53,16 @@ export const homeworksPageReducer: Reducer<
       return {
         ...state,
         homeworks: action.payload,
+      };
+    }
+    case EDIT_HOMEWORK_STATUS: {
+      return {
+        ...state,
+        homeworks: state.homeworks?.map((item) => {
+          if (item.id === action.payload.homework.id)
+            item.status = action.payload.status;
+          return item;
+        }),
       };
     }
     default:

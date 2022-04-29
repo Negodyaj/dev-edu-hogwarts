@@ -15,6 +15,7 @@ import { AppState } from '../../../store/store';
 import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { HomeworkFormData } from '../../../models/HomeworkCardData';
+import { editHomeworkStatus } from '../../../actions/homeworks.actions';
 
 export const HomeworkCardContent = () => {
   // debugger;
@@ -40,6 +41,7 @@ export const HomeworkCardContent = () => {
         .json((res) => {
           const studentHomework = res as StudentHomework;
           dispatch(loadStudentHomework(studentHomework));
+          dispatch(editHomeworkStatus(studentHomework));
         });
     }
   };
