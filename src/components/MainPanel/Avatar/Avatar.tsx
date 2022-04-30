@@ -1,6 +1,10 @@
 import './Avatar.scss';
 import { Icon } from '../../../shared/enums/Icon';
 import { SvgIcon } from '../../SvgIcon/SvgIcon';
+import { CurrentUserRoles } from '../Navigation/CurrentUserRoles';
+import { AppState } from '../../../store/store';
+import { LoginPageState } from '../../../store/reducers/login.reducer';
+import { useSelector } from 'react-redux';
 
 export type AvatarProps = {
   data: AvatarData;
@@ -9,10 +13,14 @@ export type AvatarProps = {
 export type AvatarData = {
   photo?: string;
   name: string;
-  role: string;
+  // role: string;
 };
 
 export const Avatar = (props: AvatarProps) => {
+  const { currentUser, currentRole } = useSelector(
+    (state: AppState) => state.loginPageState as LoginPageState
+  );
+
   return (
     <>
       <div className="avatar-img">
@@ -23,7 +31,11 @@ export const Avatar = (props: AvatarProps) => {
       </div>
       <div className="wrapper">
         <div className="avatar-name transition-styles">{props.data.name}</div>
-        <div className="avatar-role transition-styles">{props.data.role}</div>
+        {currentUser && currentUser.roles.length > 1 ? (
+          <CurrentUserRoles />
+        ) : (
+          <div className="avatar-role transition-styles">{currentRole}</div>
+        )}
       </div>
     </>
   );

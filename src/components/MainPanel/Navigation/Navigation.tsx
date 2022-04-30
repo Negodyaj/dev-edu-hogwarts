@@ -7,14 +7,14 @@ import { Link } from 'react-router-dom';
 import { getNavLinksByRole } from './navLinksProvider';
 
 export const Navigation = () => {
-  const { currentUser } = useSelector(
+  const { currentUser, currentRole } = useSelector(
     (state: AppState) => state.loginPageState as LoginPageState
   );
 
   return (
     <nav className="main-nav-panel">
       {currentUser ? (
-        getNavLinksByRole(currentUser.roles[0]).map((item) => (
+        getNavLinksByRole(currentRole).map((item) => (
           <ButtonNavigation data={item} key={item?.path}></ButtonNavigation>
         ))
       ) : (

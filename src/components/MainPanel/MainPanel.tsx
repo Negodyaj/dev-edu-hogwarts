@@ -13,15 +13,15 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import defaultAvatar from '../../components/images/defaultavatar.png';
+
 const avData = {
   photo: avatarPhoto,
   name: '',
-  role: '',
 };
+
 const defaultData = {
   photo: defaultAvatar,
   name: '',
-  role: '',
 };
 export const MainPanel = () => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
@@ -32,8 +32,8 @@ export const MainPanel = () => {
   const { currentUser } = useSelector(
     (state: AppState) => state.loginPageState as LoginPageState
   );
+
   avData.name = `${currentUser?.firstName} ${currentUser?.lastName}`;
-  avData.role = `${currentUser?.roles[0]}`;
   avData.photo = avatarPhoto;
 
   return (
