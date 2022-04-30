@@ -9,7 +9,7 @@
   & .homework-form_title {
     font-size: 22px;
     font-weight: 600;
-    margin-bottom: 51px;
+    padding-bottom: 11px;
   }
 
   .homework-form_task {
@@ -22,24 +22,24 @@
     grid-template-columns: minmax(auto, 400px) minmax(auto, 400px);
     gap: 70px;
     margin-top: 60px;
+
+    & .form-input {
+      width: 400px;
+    }
   }
 
-  .homework-form_area {
-    margin-top: 40px;
+  .btn ~ .btn {
+    margin-left: 30px;
+  }
 
-    & .drop-down-filter__wrapper {
-      display: inline-block;
-      margin-left: 17px;
-
-      .drop-down-filter {
-        font-weight: 700;
-      }
-    }
+  & .form-input {
+    width: 870px;
   }
 
   & textarea.form-input {
     min-height: 83px;
     resize: none;
+    width: 870px;
   }
 
   .buttons-group {
@@ -66,6 +66,7 @@
 
     .form-input_link {
       margin: 0;
+      max-width: 805px;
     }
 
     .form-input_link__button {

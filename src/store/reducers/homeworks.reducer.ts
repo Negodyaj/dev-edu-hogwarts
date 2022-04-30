@@ -4,27 +4,22 @@ import {
   SELECT_TAB,
   LOAD_TABS,
   LOAD_HOMEWORKS,
-  LOAD_HW_ANSWER,
+  EDIT_HOMEWORK_STATUS,
 } from '../../actions/homeworks.actions';
 import { TabData } from '../../models/TabData';
 import { Icon } from '../../shared/enums/Icon';
-import {
-  Homework,
-  StudentHomework,
-} from '../../models/responses/HomeworksResponse';
+import { Homework } from '../../models/responses/HomeworksResponse';
 
 export interface HomeWorkPageState {
   tabs?: TabData[];
   selectedTab: number;
   homeworks?: Homework[];
-  answers?: StudentHomework[];
 }
 
 const initialState: HomeWorkPageState = {
   tabs: [],
   selectedTab: -1,
   homeworks: [],
-  answers: [],
 };
 
 export const homeworksPageReducer: Reducer<
@@ -60,10 +55,14 @@ export const homeworksPageReducer: Reducer<
         homeworks: action.payload,
       };
     }
-    case LOAD_HW_ANSWER: {
+    case EDIT_HOMEWORK_STATUS: {
       return {
         ...state,
-        answers: action.payload,
+        homeworks: state.homeworks?.map((item) => {
+          if (item.id === action.payload.homework.id)
+            item.status = action.payload.status;
+          return item;
+        }),
       };
     }
     default:

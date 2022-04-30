@@ -15,8 +15,8 @@ import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPag
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getCurrentUser } from './services/auth.service';
-import { HomeworkPage } from './pages/HomeworkPage/HomeworkPage';
-import { HomeworkEditPage } from './pages/HomeworkPage/HomeworkEditPage';
+import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
+import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
 
 function App() {
   const dispatch = useDispatch();

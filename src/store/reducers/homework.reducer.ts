@@ -15,7 +15,6 @@ export interface HomeworkPageState {
   studentHomeworkProgress?: StudentHomework;
   dialog?: string;
   isEdit: boolean;
-  answer?: string;
 }
 
 const initialState: HomeworkPageState = {
@@ -23,7 +22,6 @@ const initialState: HomeworkPageState = {
   studentHomeworkProgress: undefined,
   dialog: '',
   isEdit: false,
-  answer: '',
 };
 
 export const homeworkPageReducer: Reducer<
@@ -40,7 +38,6 @@ export const homeworkPageReducer: Reducer<
       return {
         ...state,
         studentHomeworkProgress: action.payload,
-        answer: action.payload?.answer,
       };
     case EDIT_HOMEWORK:
       return {
