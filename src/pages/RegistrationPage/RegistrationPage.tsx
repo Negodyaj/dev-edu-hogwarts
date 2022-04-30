@@ -5,7 +5,7 @@ import { baseWretch } from '../../services/base-wretch.service';
 import { registerUrl } from '../../shared/consts';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import moment from 'moment';
-import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/Checkbox';
+import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 import {
   Button,
   ButtonModel,
@@ -213,10 +213,12 @@ export const RegistrationPage = () => {
         <div className="flex-container">
           <CheckboxBtn
             data={{
-              name: 'policy',
+              isChecked: false,
               value: 0,
               text: '',
             }}
+            name={'policy'}
+            isSingle={true}
           />
           <label htmlFor="policy" id="policy-label">
             Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями

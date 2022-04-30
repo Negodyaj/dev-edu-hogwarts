@@ -1,15 +1,22 @@
 import { Reducer } from 'redux';
-import { LoginPageAction, SET_CURRENT_USER } from '../../actions/login.actions';
+import {
+  LoginPageAction,
+  SET_CURRENT_USER,
+  SET_CURRENT_USER_ROLE,
+} from '../../actions/login.actions';
 import { UserResponse } from '../../models/responses/UserResponse';
+import { UserRole } from '../../shared/enums/UserRole';
 
 export interface LoginPageState {
   currentUser: UserResponse | undefined;
+  userRole: UserRole;
   email: string;
   password: string;
 }
 
 const initialState: LoginPageState = {
   currentUser: undefined,
+  userRole: UserRole.Student,
   email: 'user@example.com',
   password: 'stringst',
 };
@@ -23,6 +30,12 @@ export const loginPageReducer: Reducer<
       return {
         ...state,
         currentUser: action.payload,
+      };
+    }
+    case SET_CURRENT_USER_ROLE: {
+      return {
+        ...state,
+        userRole: action.payload,
       };
     }
     default:

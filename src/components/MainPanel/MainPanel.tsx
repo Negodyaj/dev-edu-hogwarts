@@ -9,31 +9,40 @@ import React, { useState } from 'react';
 import { SvgLogo } from '../SvgIcon/SvgFiles/SvgLogo';
 import { SvgLogoName } from '../SvgIcon/SvgFiles/SvgLogoName';
 import { CollapseButton } from './CollapsButton/CollapsButton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import defaultAvatar from '../../components/images/defaultavatar.png';
+import { setCurrentUserRole } from '../../actions/login.actions';
+import { UserRole } from '../../shared/enums/UserRole';
+//import { SelectUserRoles } from './Navigation/SelectUserRoles';
+
 const avData = {
   photo: avatarPhoto,
   name: '',
   role: '',
 };
+
 const defaultData = {
   photo: defaultAvatar,
   name: '',
   role: '',
 };
 export const MainPanel = () => {
+  const dispatch = useDispatch();
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const handleClick = () => {
     setIsToggled((s) => !s);
   };
-  const { currentUser } = useSelector(
+  const { currentUser, userRole } = useSelector(
     (state: AppState) => state.loginPageState as LoginPageState
   );
   avData.name = `${currentUser?.firstName} ${currentUser?.lastName}`;
-  avData.role = `${currentUser?.roles[0]}`;
+  if (currentUser?.roles.length == 1) {
+    dispatch(setCurrentUserRole(currentUser.roles[0] as UserRole));
+  }
+  avData.role = `${userRole}`;
   avData.photo = avatarPhoto;
 
   return (
@@ -63,6 +72,13 @@ export const MainPanel = () => {
             ) : (
               <Avatar data={defaultData} />
             )}
+            {/* <div className="avatar-role transition-styles">
+              {currentUser && currentUser?.roles.length > 1 ? (
+                <SelectUserRoles />
+              ) : (
+                { userRole }
+              )} */}
+            {/* </div> */}
           </div>
         </div>
         <Navigation />
