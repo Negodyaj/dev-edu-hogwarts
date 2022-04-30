@@ -1,4 +1,5 @@
 @import './src/style/colors';
+@import 'style/commonFormStyles';
 
 * {
   margin: 0;
@@ -15,11 +16,12 @@ body {
 
 main {
   flex-grow: 1;
+  padding-top: 70px;
 }
 
 .form-container {
   padding-left: 65px;
-  padding-top: 90px;
+  padding-top: 20px;
 }
 
 ::-moz-selection{
@@ -65,7 +67,8 @@ main {
   color: $link-color;
 }
 
-.arrow-right {
+.arrow-right,
+.arrow-left {
   & path {
     fill: $link-color;
   }

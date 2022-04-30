@@ -15,17 +15,19 @@ import { AppState } from '../../../store/store';
 import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { HomeworkFormData } from '../../../models/HomeworkCardData';
+import { editHomeworkStatus } from '../../../actions/homeworks.actions';
 
 export const HomeworkCardContent = () => {
   // debugger;
   const method = useForm<HomeworkFormData>();
   const dispatch = useDispatch();
-  const { homework, studentHomeworkProgress, isEdit, answer } = useSelector(
+  const { homework, studentHomeworkProgress, isEdit } = useSelector(
     (state: AppState) => state.homeworkPageState
   );
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
+  const answer = studentHomeworkProgress?.answer;
 
   const onSubmit = (data: HomeworkFormData) => {
     const dateToPost = {
@@ -39,7 +41,7 @@ export const HomeworkCardContent = () => {
         .json((res) => {
           const studentHomework = res as StudentHomework;
           dispatch(loadStudentHomework(studentHomework));
-          dispatch(loadAnswer(studentHomework.answer));
+          dispatch(editHomeworkStatus(studentHomework));
         });
     }
   };

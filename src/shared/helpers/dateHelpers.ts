@@ -8,3 +8,7 @@ export const isSameDateOrAfter = (
   const dateBefore = moment().startOf('day').subtract(count, unit);
   return dateToCheck >= dateBefore;
 };
+
+export const convertDate = (date: string) => {
+  return moment(new Date(date)).format('DD.MM.YYYY').toString();
+};

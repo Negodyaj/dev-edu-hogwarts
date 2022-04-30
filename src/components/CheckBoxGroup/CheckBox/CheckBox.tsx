@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import './Checkbox.scss';
+import './CheckBox.scss';
 
 export type CheckboxProps = {
   data: CheckboxData;

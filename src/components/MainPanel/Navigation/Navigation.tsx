@@ -15,7 +15,7 @@ export const Navigation = () => {
     <nav className="main-nav-panel">
       {currentUser ? (
         getNavLinksByRole(currentUser.roles[0]).map((item) => (
-          <ButtonNavigation data={item} key={item?.path}></ButtonNavigation>
+          <ButtonNavigation data={item} key={item?.path} />
         ))
       ) : (
         <>
