@@ -10,7 +10,6 @@ export const setCurrentUser = (user: UserResponse) => ({
 
 export const SET_CURRENT_USER_ROLE = 'login/SET_CURRENT_USER_ROLE' as const;
 
-// export const setCurrentUserRole = (role: UserRole) => ({
 export const setCurrentUserRole = (role: UserRole) => ({
   type: SET_CURRENT_USER_ROLE,
   payload: role,

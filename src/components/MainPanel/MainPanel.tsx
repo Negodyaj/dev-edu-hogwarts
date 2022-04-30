@@ -3,13 +3,12 @@ import { Avatar } from './Avatar/Avatar';
 import { Navigation } from './Navigation/Navigation';
 import avatarPhoto from '../images/avatar.png';
 import { Exit } from './Exit/Exit';
-
 import { Toggle } from './Toggle/Toggle';
 import React, { useState } from 'react';
 import { SvgLogo } from '../SvgIcon/SvgFiles/SvgLogo';
 import { SvgLogoName } from '../SvgIcon/SvgFiles/SvgLogoName';
 import { CollapseButton } from './CollapsButton/CollapsButton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import defaultAvatar from '../../components/images/defaultavatar.png';
@@ -24,6 +23,7 @@ const defaultData = {
   name: '',
 };
 export const MainPanel = () => {
+  const dispatch = useDispatch();
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const handleClick = () => {

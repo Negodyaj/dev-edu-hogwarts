@@ -13,7 +13,6 @@ export type AvatarProps = {
 export type AvatarData = {
   photo?: string;
   name: string;
-  // role: string;
 };
 
 export const Avatar = (props: AvatarProps) => {
