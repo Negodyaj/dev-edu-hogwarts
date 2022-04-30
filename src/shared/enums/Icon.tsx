@@ -23,4 +23,8 @@ export const enum Icon {
   Students,
   Payment,
   AllUsers,
+  AddNewLesson,
+  AddNewHomework,
+  CheckHomeworks,
+  GeneralProgress,
 }

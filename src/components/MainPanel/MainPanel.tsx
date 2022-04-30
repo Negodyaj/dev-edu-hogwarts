@@ -65,7 +65,7 @@ export const MainPanel = () => {
             )}
           </div>
         </div>
-        <Navigation />
+        <Navigation isCollapsed={isCollapsed} />
         <div
           className={`bottom-part transition-styles ${
             isCollapsed ? 'collapsed' : ''
