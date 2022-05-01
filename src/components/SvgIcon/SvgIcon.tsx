@@ -22,6 +22,10 @@ import { SvgNewGroup } from './SvgFiles/SvgNewGroup';
 import { SvgAllUsers } from './SvgFiles/SvgAllUsers';
 import { SvgUsersList } from './SvgFiles/SvgUsersList';
 import { SvgPaymentTable } from './SvgFiles/SvgPaymentTable';
+import { SvgAddNewLesson } from './SvgFiles/SvgAddNewLesson';
+import { SvgAddNewHomework } from './SvgFiles/SvgAddNewHomework';
+import { SvgCheckHomeworks } from './SvgFiles/SvgCheckHomeworks';
+import { SvgGeneralProgress } from './SvgFiles/SvgGeneralProgress';
 
 export type SvgIconProps = {
   icon: Icon;
@@ -75,6 +79,14 @@ export const SvgIcon = (props: SvgIconProps) => {
       return <SvgPaymentTable />;
     case Icon.AllUsers:
       return <SvgAllUsers />;
+    case Icon.AddNewLesson:
+      return <SvgAddNewLesson />;
+    case Icon.AddNewHomework:
+      return <SvgAddNewHomework />;
+    case Icon.CheckHomeworks:
+      return <SvgCheckHomeworks />;
+    case Icon.GeneralProgress:
+      return <SvgGeneralProgress />;
     default:
       return <></>;
   }
