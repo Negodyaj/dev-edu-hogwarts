@@ -2,7 +2,7 @@ import { UserResponse } from '../models/responses/UserResponse';
 
 export const SET_CURRENT_USER = 'login/SET_CURRENT_USER' as const;
 
-export const setCurrentUser = (user: UserResponse) => ({
+export const setCurrentUser = (user: UserResponse | undefined) => ({
   type: SET_CURRENT_USER,
   payload: user,
 });
