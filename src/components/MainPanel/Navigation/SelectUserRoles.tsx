@@ -30,6 +30,7 @@ export const SelectUserRoles = () => {
     }
   };
 
+
   const setUserRole = (item: FilterItem) => {
     dispatch(setCurrentUserRole(item.name as UserRole));
   };

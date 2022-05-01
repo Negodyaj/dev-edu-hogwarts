@@ -18,7 +18,13 @@ export const getToken = (): string => getFromStorage('token');
 export const setToken = (token: string) => {
   store('token', token);
 };
-// const rolesMock = [UserRole.Admin, UserRole.Manager, UserRole.Student];
+
+// const rolesMock = [
+//   UserRole.Tutor,
+//   UserRole.Admin,
+//   UserRole.Manager,
+//   UserRole.Student,
+// ];
 
 // const usersMock: UserResponse = {
 //   id: 111,
