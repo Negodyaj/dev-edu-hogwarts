@@ -25,6 +25,15 @@
   }
 }
 
+.homework-form .form-input {
+  width: 870px;
+}
+
+.login-page-form .form-input,
+.homework-form_dates .form-input {
+  width: 400px;
+}
+
 .form-element {
   margin-top: 30px;
   font-size: 18px;
@@ -48,4 +57,16 @@ h2 {
   & .form-element {
     margin-top: 30px;
   }
+}
+
+.buttons-group {
+  margin: 70px 0;
+}
+
+.custom-password {
+  font-size: 30px;
+  color:gray;
+  letter-spacing: 5px;
+  padding-bottom: 0;
+  padding-top: 0;
 }
