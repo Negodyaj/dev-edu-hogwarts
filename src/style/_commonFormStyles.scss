@@ -60,6 +60,8 @@ h2 {
 }
 
 .buttons-group {
+  display: flex;
+  flex-wrap: nowrap;
   margin: 70px 0;
 }
 
