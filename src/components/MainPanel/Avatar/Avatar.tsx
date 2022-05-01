@@ -5,6 +5,7 @@ import { CurrentUserRoles } from '../Navigation/CurrentUserRoles';
 import { AppState } from '../../../store/store';
 import { LoginPageState } from '../../../store/reducers/login.reducer';
 import { useSelector } from 'react-redux';
+import { translateForRoles } from '../Navigation/CurrentUserRoles';
 
 export type AvatarProps = {
   data: AvatarData;
@@ -33,7 +34,9 @@ export const Avatar = (props: AvatarProps) => {
         {currentUser && currentUser.roles.length > 1 ? (
           <CurrentUserRoles />
         ) : (
-          <div className="avatar-role transition-styles">{currentRole}</div>
+          <div className="avatar-role transition-styles">
+            {translateForRoles(currentRole)}
+          </div>
         )}
       </div>
     </>

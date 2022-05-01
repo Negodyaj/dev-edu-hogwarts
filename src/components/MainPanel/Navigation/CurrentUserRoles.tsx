@@ -5,6 +5,25 @@ import { FilterItem, FilterList } from '../../FilterList/FilterList';
 import { UserRole } from '../../../shared/enums/UserRole';
 import { setCurrentUserRole } from '../../../actions/login.actions';
 
+export const translateForRoles = (role: UserRole) => {
+  switch (role) {
+    case UserRole.Admin:
+      return 'Администратор';
+    case UserRole.Manager:
+      return 'Менеджер';
+    case UserRole.Methodist:
+      return 'Методист';
+    case UserRole.Student:
+      return 'Студент';
+    case UserRole.Teacher:
+      return 'Преподаватель';
+    case UserRole.Tutor:
+      return 'Тьютор';
+    default:
+      return '0';
+  }
+};
+
 export const CurrentUserRoles = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector(
@@ -29,8 +48,28 @@ export const CurrentUserRoles = () => {
     }
   };
 
+  const reversTranslateForRoles = (role: string) => {
+    switch (role) {
+      case 'Администратор':
+        return UserRole.Admin;
+      case 'Менеджер':
+        return UserRole.Manager;
+      case 'Методист':
+        return UserRole.Methodist;
+      case 'Студент':
+        return UserRole.Student;
+      case 'Преподаватель':
+        return UserRole.Teacher;
+      case 'Тьютор':
+        return UserRole.Tutor;
+      default:
+        return '0';
+    }
+  };
+
   const setUserRole = (item: FilterItem) => {
-    dispatch(setCurrentUserRole(item.name as UserRole));
+    const selectedRole = reversTranslateForRoles(item.name);
+    dispatch(setCurrentUserRole(selectedRole as UserRole));
   };
 
   return (
@@ -38,7 +77,7 @@ export const CurrentUserRoles = () => {
       data={currentUser!.roles.map((role) => {
         const newRole: FilterItem = {
           id: idForRoles(role),
-          name: role,
+          name: translateForRoles(role),
         };
         return newRole;
       })}
