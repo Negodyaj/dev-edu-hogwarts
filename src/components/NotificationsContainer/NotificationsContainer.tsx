@@ -25,20 +25,17 @@ const notifs: Notifs[] = [
     //visible: vis
   }];
 
-  
-
-export const NotificationsContainer = () => {
+export function NotificationsContainer() {
   let container: JSX.Element[] = [];
-  const Spawn = (props: Notifs) => {
-    container.push(<NotificationItem data={props}/>);
-    console.log(props.text);
-  }
+  const [containerState, setContainerState] = useState(container);
+  const [containerRender, setContainerRender] = useState(containerState);
+  
   return (
     <>
-     <button onClick={() => Spawn(notifs[0])}>Хороший нотиф</button>
-     <button onClick={() => Spawn(notifs[1])}>Плохой нотиф</button>
+     <button onClick={() => setContainerState(containerState.concat(<NotificationItem data={notifs[0]}/>))}>Хороший нотиф</button>
+     <button onClick={() => setContainerState(containerState.concat(<NotificationItem data={notifs[1]}/>))}>Плохой нотиф</button>
      <div>
-        {container.map((component, index) => (
+        {containerState.map((component, index) => (
         <React.Fragment key={index}>
           {component}
         </React.Fragment>
