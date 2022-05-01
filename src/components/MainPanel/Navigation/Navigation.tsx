@@ -25,10 +25,14 @@ export const Navigation = (props: NavigationProps) => {
         ))
       ) : (
         <>
+          <Link className="login-link" to={'/login'}>
+            Вход
+          </Link>
           <div>
-            <Link to={'/register'}>Регистрация</Link>
+            <Link className="register-link" to={'/register'}>
+              Регистрация
+            </Link>
           </div>
-          <Link to={'/login'}>Вход</Link>
         </>
       )}
     </nav>
