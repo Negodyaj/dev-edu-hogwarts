@@ -3,7 +3,6 @@ import { Avatar } from './Avatar/Avatar';
 import { Navigation } from './Navigation/Navigation';
 import avatarPhoto from '../images/avatar.png';
 import { Exit } from './Exit/Exit';
-
 import { Toggle } from './Toggle/Toggle';
 import React, { useState } from 'react';
 import { SvgLogo } from '../SvgIcon/SvgFiles/SvgLogo';
@@ -23,8 +22,11 @@ const defaultData = {
   name: '',
   role: '',
 };
-export const MainPanel = () => {
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+export type MainPanelProps = {
+  isCollapsed: boolean;
+  setIsCollapsed: (isCollapsed: boolean) => void;
+};
+export const MainPanel = (props: MainPanelProps) => {
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const handleClick = () => {
     setIsToggled((s) => !s);
@@ -39,11 +41,13 @@ export const MainPanel = () => {
   return (
     <aside
       className={`main-panel transition-styles ${
-        isCollapsed ? 'collapsed' : ''
+        props.isCollapsed ? 'collapsed' : ''
       }`}
     >
+      <CollapseButton
+        onClick={() => props.setIsCollapsed(!props.isCollapsed)}
+      />
       <div className="main-panel-container ">
-        <CollapseButton onClick={() => setIsCollapsed(!isCollapsed)} />
         <div
           className={`top-part transition-styles ${
             !currentUser ? 'top-part-login' : ''
@@ -51,7 +55,7 @@ export const MainPanel = () => {
         >
           <div
             className={`logo-container flex-center transition-styles ${
-              isCollapsed ? 'collapsed' : ''
+              props.isCollapsed ? 'collapsed' : ''
             }`}
           >
             <SvgLogo />
@@ -59,7 +63,7 @@ export const MainPanel = () => {
           </div>
           <div
             className={`avatar-block transition-styles ${
-              isCollapsed ? 'collapsed' : ''
+              props.isCollapsed ? 'collapsed' : ''
             }${!currentUser ? 'padding-top' : ''}`}
           >
             {currentUser ? (
@@ -69,10 +73,10 @@ export const MainPanel = () => {
             )}
           </div>
         </div>
-        <Navigation isCollapsed={isCollapsed} />
+        <Navigation isCollapsed={props.isCollapsed} />
         <div
           className={`bottom-part transition-styles ${
-            isCollapsed ? 'collapsed' : ''
+            props.isCollapsed ? 'collapsed' : ''
           }`}
         >
           {currentUser ? <Exit /> : ''}

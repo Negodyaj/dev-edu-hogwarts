@@ -13,22 +13,25 @@ import { EditCoursesPage } from './pages/CoursesPage/EditCoursesPage';
 import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
 
 function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     getCurrentUser(dispatch);
   }, []);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
 
   return (
     <div className="flex-container">
-      <MainPanel />
-      <main>
+      <MainPanel
+        isCollapsed={isCollapsed}
+        setIsCollapsed={() => setIsCollapsed(!isCollapsed)}
+      />
+      <main className={isCollapsed ? 'closed' : ' '}>
         <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
