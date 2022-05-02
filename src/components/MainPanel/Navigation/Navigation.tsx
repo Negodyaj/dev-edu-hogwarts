@@ -1,57 +1,40 @@
 import './Navigation.scss';
 import { ButtonNavigation } from '../ButtonNavigation/ButtonNavigation';
-import { Icon } from '../../../shared/enums/Icon';
-
-export type NavLink = {
-  displayName: string;
-  path: string;
-  icon: Icon;
+import { useSelector } from 'react-redux';
+import { LoginPageState } from '../../../store/reducers/login.reducer';
+import { AppState } from '../../../store/store';
+import { Link } from 'react-router-dom';
+import { getNavLinksByRole } from './navLinksProvider';
+export type NavigationProps = {
+  isCollapsed: boolean;
 };
+export const Navigation = (props: NavigationProps) => {
+  const { currentUser } = useSelector(
+    (state: AppState) => state.loginPageState as LoginPageState
+  );
 
-const buttons: NavLink[] = [
-  {
-    icon: Icon.Bell,
-    path: '/',
-    displayName: 'Уведомления',
-  },
-  {
-    icon: Icon.Lessons,
-    path: '/lessons',
-    displayName: 'Занятия',
-  },
-  {
-    icon: Icon.Homeworks,
-    path: '/homeworks',
-    displayName: 'Домашние задания',
-  },
-  {
-    icon: Icon.Cake,
-    path: '/settings',
-    displayName: 'Настройки',
-  },
-  {
-    icon: Icon.Calendar,
-    path: '/courses',
-    displayName: 'Курсы',
-  },
-  {
-    icon: Icon.Lessons,
-    path: '/edit-courses',
-    displayName: 'Редактировать курсы',
-  },
-  {
-    icon: Icon.Cake,
-    path: '/register',
-    displayName: 'Регистрация',
-  },
-];
-
-export const Navigation = () => {
   return (
     <nav className="main-nav-panel">
-      {buttons.map((item) => (
-        <ButtonNavigation data={item} key={item.path}></ButtonNavigation>
-      ))}
+      {currentUser ? (
+        getNavLinksByRole(currentUser.roles[0]).map((item) => (
+          <ButtonNavigation
+            isCollapsed={props.isCollapsed}
+            data={item}
+            key={item?.path}
+          />
+        ))
+      ) : (
+        <>
+          <Link className="login-link" to={'/login'}>
+            Вход
+          </Link>
+          <div>
+            <Link className="register-link" to={'/register'}>
+              Регистрация
+            </Link>
+          </div>
+        </>
+      )}
     </nav>
   );
 };

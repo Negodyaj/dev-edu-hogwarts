@@ -36,7 +36,11 @@
     padding-bottom: 57px;
     width: 239px;
   }
-  
+  .top-part-login{
+    padding-left: 0;
+    padding-bottom:35px;
+    width: 239px;
+  }
   .logo {
     flex-shrink: 0;
     font-size: 0;
@@ -53,10 +57,12 @@
     padding-top: 52px;
     width: 216px;
   }
-  
+  .padding-top{
+    padding-top: 90px;
+  }
   .bottom-part {
-    position: absolute;
-    top: 870px;
+    // position: absolute;
+    // top: 870px;
     display: flex;
     flex-direction: column;
     transition: all ease-in-out 0.4s;
@@ -64,6 +70,7 @@
   
   .main-nav-panel {
     width: 262px;
+    margin-bottom: 117px;
   }
 //////////
   @media (min-width: 359px) {
@@ -103,7 +110,7 @@
 
     .left-chevron {
       transform: scale(-1, 1);
-      transition: ease-in-out 0,75s;
+      transition: ease-in-out 0.75s;
     }
   }
 
@@ -142,5 +149,9 @@
     align-items: center;
     margin: 0;
     width: 60px;
+  }
+
+  & + main .one-card-content {
+    grid-template-columns: 153px 826px auto;
   }
 }

@@ -11,9 +11,9 @@ export const SvgTick = () => {
       <path
         d="M1.5 5.00034L4.68198 8.18232L11.0459 1.81836"
         stroke="#A786DF"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

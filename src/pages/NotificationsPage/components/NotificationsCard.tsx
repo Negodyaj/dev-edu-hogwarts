@@ -30,7 +30,7 @@ export const NotificationsCard = (props: NotificationsProps) => {
           className={`button-read${isCollapsed == true ? `-clicked` : ``}`}
         ></input>
       </div>
-      <img src={props.data.senderPhoto}></img>
+      <img src={props.data.senderPhoto} />
       <div className="notification-card-content">
         <div className="top-flex-container">
           <div>

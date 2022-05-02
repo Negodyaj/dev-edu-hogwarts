@@ -9,18 +9,32 @@ import React, { useState } from 'react';
 import { SvgLogo } from '../SvgIcon/SvgFiles/SvgLogo';
 import { SvgLogoName } from '../SvgIcon/SvgFiles/SvgLogoName';
 import { CollapseButton } from './CollapsButton/CollapsButton';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { LoginPageState } from '../../store/reducers/login.reducer';
+import defaultAvatar from '../../components/images/defaultavatar.png';
 const avData = {
   photo: avatarPhoto,
-  name: 'Антон Ефременков',
-  role: 'студент',
+  name: '',
+  role: '',
 };
-
+const defaultData = {
+  photo: defaultAvatar,
+  name: '',
+  role: '',
+};
 export const MainPanel = () => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const handleClick = () => {
     setIsToggled((s) => !s);
   };
+  const { currentUser } = useSelector(
+    (state: AppState) => state.loginPageState as LoginPageState
+  );
+  avData.name = `${currentUser?.firstName} ${currentUser?.lastName}`;
+  avData.role = `${currentUser?.roles[0]}`;
+  avData.photo = avatarPhoto;
 
   return (
     <aside
@@ -30,7 +44,11 @@ export const MainPanel = () => {
     >
       <div className="main-panel-container ">
         <CollapseButton onClick={() => setIsCollapsed(!isCollapsed)} />
-        <div className="top-part transition-styles">
+        <div
+          className={`top-part transition-styles ${
+            !currentUser ? 'top-part-login' : ''
+          }`}
+        >
           <div
             className={`logo-container flex-center transition-styles ${
               isCollapsed ? 'collapsed' : ''
@@ -42,18 +60,22 @@ export const MainPanel = () => {
           <div
             className={`avatar-block transition-styles ${
               isCollapsed ? 'collapsed' : ''
-            }`}
+            }${!currentUser ? 'padding-top' : ''}`}
           >
-            <Avatar data={avData} />
+            {currentUser ? (
+              <Avatar data={avData} />
+            ) : (
+              <Avatar data={defaultData} />
+            )}
           </div>
         </div>
-        <Navigation />
+        <Navigation isCollapsed={isCollapsed} />
         <div
           className={`bottom-part transition-styles ${
             isCollapsed ? 'collapsed' : ''
           }`}
         >
-          <Exit />
+          {currentUser ? <Exit /> : ''}
           <Toggle isToggled={isToggled} onClick={handleClick}></Toggle>
         </div>
       </div>

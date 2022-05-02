@@ -1,70 +1,20 @@
 .settings-container {
   padding-left: 45px;
 
-  & > input:focus {
-    outline: none !important;
-    border-color: #a786df;
-  }
   .avatar-text {
     top: 0;
     position: initial;
   }
-  .submit-button {
-    margin-top: 70px;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-    width: 190px;
-    height: 51px;
-    border-radius: 5px;
-    padding: 15px 30px;
-    border: none;
-    color: #a786df;
-    background: #f6f7f9;
-    cursor: pointer;
-  }
-  .reset-button {
-    margin-top: 70px;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21px;
-    width: 190px;
-    height: 51px;
-    border-radius: 5px;
-    padding: 15px 30px;
-    border: none;
-    color: #a786df;
-    background: #f6f7f9;
-    cursor: pointer;
-  }
-  .submit-button:hover {
-    width: 190px;
-    height: 51px;
-    border-radius: 5px;
-    padding: 15px 30px;
-    border: none;
-    background: #a786df;
-    color: #ffffff;
-  }
-  p {
-    margin-top: 0px;
-  }
 
   .buttons-group {
     margin-top: 70px;
+    margin-bottom: 80px;
   }
 
   .btn-text {
     margin-left: 58px;
   }
 
-  .settings-title {
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 29px;
-    margin-bottom: 50px;
-    position: relative;
-  }
   p {
     margin-bottom: 10px;
     font-weight: 500;
@@ -72,20 +22,13 @@
     line-height: 21px;
   }
 
-  .goto-change-password {
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
   .settings-photo {
     position: relative;
     margin-left: 99px;
-    margin-top: 36px;
+    margin-top: 50px;
     cursor: pointer;
   }
-  
+
   .circle-password {
     width: 8px;
     height: 8px;
@@ -93,11 +36,11 @@
     border-radius: 50px;
     display: inline-block;
   }
-  
+
   .circle-password:not(:last-child) {
     margin-right: 10px;
   }
-  
+
   .title {
     font-weight: 600;
     font-size: 22px;
@@ -105,29 +48,7 @@
     margin-bottom: 50px;
     margin-top: 50px;
   }
-  .grid-container {
-    row-gap: 30px;
-    column-gap: 20px;
-    display: grid;
-    grid-template-columns: 438px 438px;
-    grid-template-rows: 87px 87px;
-    input {
-      padding: 14px 20px 15px 20px;
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 150%;
-      border: 1px solid #dbdbdb;
-      border-radius: 5px;
-    }
-  }
-  .repeate-password {
-    grid-row: 2/3;
-    grid-column: 2/3;
-  }
-  .new-password {
-    grid-row: 2/3;
-    grid-column: 1/2;
-  }
+
   .error-message {
     margin-top: 5px;
     color: #a786df;
@@ -141,34 +62,16 @@
   .is-invalid {
     background-color: red;
   }
-  input:focus {
-    outline: none !important;
-    border-color: #a786df;
-  }
+
   .password {
     grid-row: 1/2;
     grid-column: 1/2;
-  }
-}
 
-.form-element {
-  margin-bottom: 29px;
-  input,
-  .goto-change-password {
-    width: 438px;
-    padding: 0 20px;
-    height: 56px;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 54px;
-    border: 1px solid #dbdbdb;
-    border-radius: 5px;
-  }
-
-  .datepicker-wrapper {
-    max-width: 438px;
-    input {
-      height: auto;
+    & > .form-input {
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 }

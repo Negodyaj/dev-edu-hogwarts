@@ -54,14 +54,14 @@ export const SettingsPassword = () => {
       <BackButton />
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className="title">Редактирование пароля</p>
-        <div className="grid-container">
+        <div className="form-grid-container">
           <div>
             <p>Cтарый пароль</p>
             <input
               type="password"
               className={`form-control ${isOk ? 'is-invalid' : ''}`}
               {...register('oldPassword', {})}
-            ></input>
+            />
             <div className="invalid-feedback">
               {errors.oldPassword?.message}
             </div>
@@ -74,7 +74,7 @@ export const SettingsPassword = () => {
               className={`form-control ${
                 errors.newPassword ? 'is-invalid' : ''
               }`}
-            ></input>
+            />
             <div className="invalid-feedback">
               {errors.newPassword?.message}
             </div>
@@ -87,7 +87,7 @@ export const SettingsPassword = () => {
               className={`form-control ${
                 errors.newPasswordRepeat ? 'is-invalid' : ''
               }`}
-            ></input>
+            />
             <div className="invalid-feedback">
               {errors.newPasswordRepeat?.message}
             </div>

@@ -4,28 +4,25 @@ import {
   SELECT_TAB,
   LOAD_TABS,
   LOAD_HOMEWORKS,
-  LOAD_HWANSWER,
+  EDIT_HOMEWORK_STATUS,
 } from '../../actions/homeworks.actions';
-import { HomeworkCardResponse } from '../../models/responses/HomeworkCardResponse';
-import { HomeworkStudentAnswer } from '../../models/responses/HomeworkStudentAnswer';
 import { TabData } from '../../models/TabData';
 import { Icon } from '../../shared/enums/Icon';
+import { Homework } from '../../models/responses/HomeworksResponse';
 
 export interface HomeWorkPageState {
   tabs?: TabData[];
   selectedTab: number;
-  homeworks?: HomeworkCardResponse[];
-  answers?: HomeworkStudentAnswer[];
+  homeworks?: Homework[];
 }
 
 const initialState: HomeWorkPageState = {
   tabs: [],
   selectedTab: -1,
   homeworks: [],
-  answers: [],
 };
 
-export const homeworkPageReducer: Reducer<
+export const homeworksPageReducer: Reducer<
   HomeWorkPageState,
   HomeworkPageAction
 > = (state = initialState, action) => {
@@ -49,6 +46,7 @@ export const homeworkPageReducer: Reducer<
         ...state,
         tabs: tabs,
         selectedTab: tabs[0]?.id,
+        homeworks: [],
       };
     }
     case LOAD_HOMEWORKS: {
@@ -57,10 +55,14 @@ export const homeworkPageReducer: Reducer<
         homeworks: action.payload,
       };
     }
-    case LOAD_HWANSWER: {
+    case EDIT_HOMEWORK_STATUS: {
       return {
         ...state,
-        answers: action.payload,
+        homeworks: state.homeworks?.map((item) => {
+          if (item.id === action.payload.homework.id)
+            item.status = action.payload.status;
+          return item;
+        }),
       };
     }
     default:

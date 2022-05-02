@@ -28,7 +28,7 @@ export const FilterList = (props: FilterListProps) => {
   const clickOutside = useDetectClickOutside({ onTriggered: closeDropdown });
 
   const onElementClick = (elem: FilterItem) => {
-    setItem?.(elem);
+    setItem(elem);
     props.callback?.(elem);
   };
 
