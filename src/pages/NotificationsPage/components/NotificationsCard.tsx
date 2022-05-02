@@ -9,6 +9,7 @@ export type NotificationData = {
   message: string;
   date: string;
   time: string;
+  readed: boolean;
 };
 export type NotificationsProps = {
   data: NotificationData;

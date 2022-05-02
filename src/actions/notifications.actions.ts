@@ -1,7 +1,8 @@
 import { NotificationData } from '../pages/NotificationsPage/components/NotificationsCard';
 
-export const SET_NOTIFICATIONS = 'lessons/SET_NOTIFICATIONS' as const;
-export const FILTER_NOTIFICATIONS = 'lessons/FILTER_NOTIFICATIONS' as const;
+export const SET_NOTIFICATIONS = 'notifications/SET_NOTIFICATIONS' as const;
+export const FILTER_NOTIFICATIONS =
+  'notifications/FILTER_NOTIFICATIONS' as const;
 
 export const setNotifications = (notifications: NotificationData[]) => ({
   type: SET_NOTIFICATIONS,
