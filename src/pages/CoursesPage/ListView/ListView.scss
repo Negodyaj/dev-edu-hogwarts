@@ -10,8 +10,13 @@
       align-self: flex-end;
     }
 
-  &.link-arrow {
+  & .link-arrow {
     place-self: baseline;
+    color: $link-color;
+
+    & path {
+      fill: $link-color;
+    }
   }
 }
 

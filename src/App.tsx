@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
+import { GradeBook } from './pages/GradeBook/GradeBook';
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
           <Route path="new-homework" element={<NewHomework />} />
           <Route path="group" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
+          <Route path="students-gradebook" element={<GradeBook />} />
         </Routes>
       </main>
     </div>
