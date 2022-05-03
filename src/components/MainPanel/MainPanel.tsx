@@ -43,7 +43,11 @@ export const MainPanel = () => {
     >
       <div className="main-panel-container ">
         <CollapseButton onClick={() => setIsCollapsed(!isCollapsed)} />
-        <div className="top-part transition-styles">
+        <div
+          className={`top-part transition-styles ${
+            !currentUser ? 'top-part-login' : ''
+          }`}
+        >
           <div
             className={`logo-container flex-center transition-styles ${
               isCollapsed ? 'collapsed' : ''
@@ -55,7 +59,7 @@ export const MainPanel = () => {
           <div
             className={`avatar-block transition-styles ${
               isCollapsed ? 'collapsed' : ''
-            }`}
+            }${!currentUser ? 'padding-top' : ''}`}
           >
             {currentUser ? (
               <Avatar data={avData} />
@@ -64,7 +68,7 @@ export const MainPanel = () => {
             )}
           </div>
         </div>
-        <Navigation />
+        <Navigation isCollapsed={isCollapsed} />
         <div
           className={`bottom-part transition-styles ${
             isCollapsed ? 'collapsed' : ''
