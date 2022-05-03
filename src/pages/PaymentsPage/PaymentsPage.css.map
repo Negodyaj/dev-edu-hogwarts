@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AACE,cADY,CACZ,KAAK,CAAC;EACJ,aAAa,EAAE,gBAAgB;EAC/B,UAAU,EAAE,eAAe;CAC5B",
+    "sources": [
+        "PaymentsPage.scss"
+    ],
+    "names": [],
+    "file": "PaymentsPage.css"
+}

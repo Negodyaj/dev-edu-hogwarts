@@ -1,0 +1,9 @@
+.link-with-text-decoration {
+  cursor: pointer;
+  text-underline-offset: 1px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #643173;
+  text-decoration: underline;
+}
+/*# sourceMappingURL=LinkWithUnderline.css.map */

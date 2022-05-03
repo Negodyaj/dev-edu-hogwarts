@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAC;EACb,OAAO,EAAE,IAAI;EACb,QAAQ,EAAE,MAAM;EAChB,cAAc,EAAE,IAAI;CACrB",
+    "sources": [
+        "TabContainer.scss"
+    ],
+    "names": [],
+    "file": "TabContainer.css"
+}

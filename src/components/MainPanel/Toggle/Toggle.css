@@ -1,0 +1,89 @@
+.toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background: #a786df;
+  -webkit-box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+          box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  border: none;
+  margin-top: 27px;
+  margin-left: 2px;
+}
+
+.toggle .moon-day {
+  position: absolute;
+  margin: 3px 0px 3px 6px;
+  top: 0;
+  left: 0;
+}
+
+.toggle .sun {
+  z-index: 1px;
+  position: absolute;
+  left: 30px;
+  top: 3px;
+}
+
+.toggle .circle {
+  z-index: 2px;
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 4px;
+  border-radius: 50px;
+  top: 4px;
+  border: #ffffff;
+  background: #ffffff;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+
+.toggle .circle-night {
+  z-index: 3px;
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 34px;
+  top: 4px;
+  border-radius: 50px;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+  border: #ffffff;
+  background: black;
+}
+
+.toggle .sun-night {
+  z-index: 0;
+  position: absolute;
+  left: 30px;
+  top: 3px;
+}
+
+.toggle .sun-night path {
+  stroke: transparent;
+  fill: transparent;
+  -webkit-transition: fill, stroke 0.2s ease-in 0s;
+  transition: fill, stroke 0.2s ease-in 0s;
+}
+
+.toggle .sun-night .transparent {
+  stroke: transparent;
+  fill: transparent;
+  -webkit-transition: all 0.2s ease-in 0s;
+  transition: all 0.2s ease-in 0s;
+}
+
+.toggle .moon path {
+  stroke: transparent;
+  fill: transparent;
+  -webkit-transition: fill, stroke 0.2s ease-in 0s;
+  transition: fill, stroke 0.2s ease-in 0s;
+}
+
+.toggle-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+/*# sourceMappingURL=Toggle.css.map */

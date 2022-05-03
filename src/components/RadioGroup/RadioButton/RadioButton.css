@@ -1,0 +1,41 @@
+.radio-button input {
+  display: none;
+}
+
+.radio-button {
+  padding-left: 34px;
+  position: relative;
+  cursor: pointer;
+  line-height: 24px;
+  display: inline-block;
+  margin-left: 50px;
+}
+
+.radio-button input:checked + .radio-text::after {
+  content: '';
+  display: block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #A786DF;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+.radio-text::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #DBDBDB;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 50%;
+}
+/*# sourceMappingURL=RadioButton.css.map */
