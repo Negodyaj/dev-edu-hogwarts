@@ -59,9 +59,9 @@ export const PaymentsPage = () => {
             <th scope="col">3 оплата</th>
           </tr>
         </thead>
-        <thead>
+        <thead className="filter-thread">
           <tr>
-            <th scope="col">
+            <th scope="col" className="name-column">
               <FilterList data={surnameFilterData} />
             </th>
             <th scope="col">

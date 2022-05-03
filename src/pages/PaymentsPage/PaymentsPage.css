@@ -1,5 +1,19 @@
-.payment-table thead {
-  border-bottom: 1 px solid black;
-  border-top: 3px solid black;
+.payment-table {
+  border-spacing: 0 30px;
+}
+
+.payment-table thead th {
+  text-align: left;
+  border-bottom: 1px solid black;
+}
+
+.payment-table thead th .drop-down-filter {
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+}
+
+.payment-table .name-column {
+  width: 305px;
 }
 /*# sourceMappingURL=PaymentsPage.css.map */
