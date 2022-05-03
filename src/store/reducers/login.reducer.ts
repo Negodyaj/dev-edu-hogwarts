@@ -16,7 +16,7 @@ export interface LoginPageState {
 
 const initialState: LoginPageState = {
   currentUser: undefined,
-  currentRole: UserRole.Student,
+  currentRole: UserRole.DefaultRole,
   email: 'user@example.com',
   password: 'stringst',
 };

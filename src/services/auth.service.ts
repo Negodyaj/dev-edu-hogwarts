@@ -4,6 +4,8 @@ import { loadLessonPageTabs } from '../actions/lessons.actions';
 import { setCurrentUser, setCurrentUserRole } from '../actions/login.actions';
 import { loadGroups } from '../actions/newHomeworkForm.action';
 import { UserResponse } from '../models/responses/UserResponse';
+import { UserRole } from '../shared/enums/UserRole';
+import { userRoleForEnum } from '../shared/helpers/userRoleForEnum';
 //import { UserRole } from '../shared/enums/UserRole';
 import { baseWretch } from './base-wretch.service';
 import {
@@ -64,7 +66,12 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
     .url(`api/Users/self`)
     .get()
     .json((data) => {
+      const userRoles: UserRole[] = (data.roles as string[]).map((role) => {
+        const userRole: UserRole = userRoleForEnum(role);
+        return userRole;
+      });
       const user = data as UserResponse;
+      user.roles = userRoles;
       dispatch(setCurrentUser(user));
       dispatch(loadGroups(user.groups));
       dispatch(loadHomeworkPageTabs(user.groups));
