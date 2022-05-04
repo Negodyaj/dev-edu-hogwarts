@@ -6,7 +6,8 @@ import './PaymentsPage.scss';
 const payments = [
   {
     id: 1,
-    user: 'Антон Ефременков',
+    userName: 'Антон',
+    userSurname: 'Ефременков',
     group: 'Группа 1',
     firstPaymentStatus: 'Оплачено',    
     secondPaymentStatus: 'Оплачено',    
@@ -14,7 +15,8 @@ const payments = [
   },
   {
     id: 2,
-    user: 'Борис Годунов',
+    userName: 'Борис',
+    userSurname: 'Годунов',
     group: 'Группа 1',
     firstPaymentStatus: 'Оплачено',    
     secondPaymentStatus: 'Не оплачено',    
@@ -22,7 +24,8 @@ const payments = [
   },
   {
     id: 3,
-    user: 'Михаил Гончаров',   
+    userName: 'Михаил',
+    userSurname: 'Гончаров',
     group: 'Группа 1',
     firstPaymentStatus: 'Оплачено',    
     secondPaymentStatus: 'Оплачено',    
@@ -46,6 +49,19 @@ const paymentStatusFilterData: FilterItem[] = [
   { id: 2, name: 'Не оплачено' },
 ];
 
+// const compareSurnames = (item:FilterItem) => {
+//   payments.sort (function(prev,next){  
+//     if(prev.userSurname < next.userSurname) {
+//       return -1;
+//     }
+//     if(prev.userSurname > next.userSurname) {
+//       return 1;
+//     }
+//     else {
+//       return 0;
+//     })  
+// };
+
 export const PaymentsPage = () => {
   return (
     <div className="content-container">
@@ -62,7 +78,7 @@ export const PaymentsPage = () => {
         <thead className="filter-thread">
           <tr>
             <th scope="col" className="name-column">
-              <FilterList data={surnameFilterData} />
+              <FilterList data={surnameFilterData} callback={compareSurnames} />
             </th>
             <th scope="col">
               <FilterList data={groupFilterData} />
