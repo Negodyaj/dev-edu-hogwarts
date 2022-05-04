@@ -9,8 +9,8 @@ const paymentsData = [
     userName: 'Антон',
     userSurname: 'Ефременков',
     group: 'Группа 1',
-    firstPaymentStatus: 'Оплачено',    
-    secondPaymentStatus: 'Оплачено',    
+    firstPaymentStatus: 'Оплачено',
+    secondPaymentStatus: 'Оплачено',
     thirdPaymentStatus: 'Оплачено',
   },
   {
@@ -18,21 +18,20 @@ const paymentsData = [
     userName: 'Борис',
     userSurname: 'Годунов',
     group: 'Группа 1',
-    firstPaymentStatus: 'Оплачено',    
-    secondPaymentStatus: 'Не оплачено',    
+    firstPaymentStatus: 'Оплачено',
+    secondPaymentStatus: 'Не оплачено',
     thirdPaymentStatus: 'Не оплачено',
   },
   {
     id: 3,
     userName: 'Михаил',
     userSurname: 'Гончаров',
-    group: 'Группа 1',
-    firstPaymentStatus: 'Оплачено',    
-    secondPaymentStatus: 'Оплачено',    
+    group: 'Группа 2',
+    firstPaymentStatus: 'Оплачено',
+    secondPaymentStatus: 'Оплачено',
     thirdPaymentStatus: 'Не оплачено',
   },
 ];
-
 
 const surnameFilterData: FilterItem[] = [
   { id: 1, name: 'Сортировать по фамилии' },
@@ -40,8 +39,9 @@ const surnameFilterData: FilterItem[] = [
 ];
 
 const groupFilterData: FilterItem[] = [
-  { id: 1, name: 'Сортировать по группе' },
-  { id: 2, name: 'Сортировать по группе' },
+  { id: 1, name: 'Показать все' },
+  { id: 2, name: 'Группа 1' },
+  { id: 3, name: 'Группа 2' },
 ];
 
 const paymentStatusFilterData: FilterItem[] = [
@@ -49,11 +49,10 @@ const paymentStatusFilterData: FilterItem[] = [
   { id: 2, name: 'Не оплачено' },
 ];
 
-
 export const PaymentsPage = () => {
-  const [payments, setPayments] = useState (paymentsData)
-  const compareSurnames = (item:FilterItem) => {
-    
+  const [payments, setPayments] = useState(paymentsData);
+  const [filtredList, setFiltredList] = useState(paymentsData);
+  const applySurnameFilter = (item:FilterItem) => {
     if(item.id == 1) {
       payments.sort (function(prev,next){  
         if(prev.userSurname < next.userSurname) {
@@ -80,6 +79,18 @@ export const PaymentsPage = () => {
     }
     setPayments([...payments]);  
   };
+  const applyGroupFilter = (item: FilterItem) => {
+    if(item.id === 3) {
+      setFiltredList(payments.filter(studentsList => studentsList.group === 'Группа 2'))
+    }
+    if(item.id === 2) {
+      setFiltredList(payments.filter(studentsList => studentsList.group === 'Группа 1'))
+    }
+    if(item.id === 1) {
+      setFiltredList(paymentsData);
+    }
+  };
+  
   return (
     <div className="content-container">
       <table className="payment-table">
@@ -95,10 +106,10 @@ export const PaymentsPage = () => {
         <thead className="filter-thread">
           <tr>
             <th scope="col" className="name-column">
-              <FilterList data={surnameFilterData} callback={compareSurnames} />
+              <FilterList data={surnameFilterData} callback={applySurnameFilter} />
             </th>
             <th scope="col">
-              <FilterList data={groupFilterData} />
+              <FilterList data={groupFilterData} callback={applyGroupFilter} />
             </th>
             <th scope="col">
               <FilterList data={paymentStatusFilterData} />
@@ -113,7 +124,7 @@ export const PaymentsPage = () => {
         </thead>
         <tbody> 
           {
-            payments.map((item) => (
+            filtredList.map((item) => (
               <PaymentRow
                 data ={item}                
               />
