@@ -33,6 +33,10 @@ import {
   NotificationsPageState,
   notificationsPageReducer,
 } from './reducers/notifications.reducer';
+import {
+  coursesPageReducer,
+  CoursesPageState,
+} from './reducers/courses.reducer';
 
 // Create an interface for the application state
 export interface AppState {
@@ -41,6 +45,7 @@ export interface AppState {
   notificationsPageState: NotificationsPageState;
   loginPageState: LoginPageState | undefined;
   lessonsPageState: LessonsPageState | undefined;
+  coursesPageState: CoursesPageState;
   homeworkPageState: HomeworkPageState;
 }
 
@@ -51,6 +56,7 @@ const rootReducer = combineReducers<AppState>({
   homeworkPageState: homeworkPageReducer,
   homeworksPageState: homeworksPageReducer,
   newHomeworkFormState: newHomeworkFormReducer,
+  coursesPageState: coursesPageReducer,
   lessonsPageState: lessonsPageReducer,
 });
 
