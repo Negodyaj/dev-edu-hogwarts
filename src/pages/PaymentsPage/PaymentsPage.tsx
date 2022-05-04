@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { PaymentRow } from './components/PaymentRow';
 import './PaymentsPage.scss';
 
-const payments = [
+const paymentsData = [
   {
     id: 1,
     userName: 'Антон',
@@ -36,7 +36,7 @@ const payments = [
 
 const surnameFilterData: FilterItem[] = [
   { id: 1, name: 'Сортировать по фамилии' },
-  { id: 2, name: 'Сортировать по фамилии' },
+  { id: 2, name: 'Сортировать обратно' },
 ];
 
 const groupFilterData: FilterItem[] = [
@@ -49,20 +49,37 @@ const paymentStatusFilterData: FilterItem[] = [
   { id: 2, name: 'Не оплачено' },
 ];
 
-// const compareSurnames = (item:FilterItem) => {
-//   payments.sort (function(prev,next){  
-//     if(prev.userSurname < next.userSurname) {
-//       return -1;
-//     }
-//     if(prev.userSurname > next.userSurname) {
-//       return 1;
-//     }
-//     else {
-//       return 0;
-//     })  
-// };
 
 export const PaymentsPage = () => {
+  const [payments, setPayments] = useState (paymentsData)
+  const compareSurnames = (item:FilterItem) => {
+    
+    if(item.id == 1) {
+      payments.sort (function(prev,next){  
+        if(prev.userSurname < next.userSurname) {
+          return -1;
+        }
+        if(prev.userSurname > next.userSurname) {
+          return 1;
+        }
+        else {
+          return 0;
+      }})
+    }
+    else {
+      payments.sort (function(prev,next){  
+        if(prev.userSurname > next.userSurname) {
+          return -1;
+        }
+        if(prev.userSurname < next.userSurname) {
+          return 1;
+        }
+        else {
+          return 0;
+      }})
+    }
+    setPayments([...payments]);  
+  };
   return (
     <div className="content-container">
       <table className="payment-table">
