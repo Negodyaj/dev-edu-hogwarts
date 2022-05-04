@@ -45,8 +45,9 @@ const groupFilterData: FilterItem[] = [
 ];
 
 const paymentStatusFilterData: FilterItem[] = [
-  { id: 1, name: 'Оплачено' },
-  { id: 2, name: 'Не оплачено' },
+  { id: 1, name: 'Показать все'},
+  { id: 2, name: 'Оплачено' },
+  { id: 3, name: 'Не оплачено' },
 ];
 
 export const PaymentsPage = () => {
@@ -90,6 +91,40 @@ export const PaymentsPage = () => {
       setFiltredList(paymentsData);
     }
   };
+  const applyFirstPaymentStatusFilter = (item: FilterItem) => {
+    if(item.id === 2) {
+      setFiltredList(payments.filter(studentsList => studentsList.firstPaymentStatus === 'Оплачено'))
+    }
+    if(item.id === 3) {
+      setFiltredList(payments.filter(studentsList => studentsList.firstPaymentStatus === 'Не оплачено'))
+    }
+    if(item.id === 1) {
+      setFiltredList(paymentsData);
+    }
+  };
+  const applySecondPaymentStatusFilter = (item: FilterItem) => {
+    if(item.id === 2) {
+      setFiltredList(payments.filter(studentsList => studentsList.secondPaymentStatus === 'Оплачено'))
+    }
+    if(item.id === 3) {
+      setFiltredList(payments.filter(studentsList => studentsList.secondPaymentStatus === 'Не оплачено'))
+    }
+    if(item.id === 1) {
+      setFiltredList(paymentsData);
+    }
+  };
+  const applyThirdPaymentStatusFilter = (item: FilterItem) => {
+    if(item.id === 2) {
+      setFiltredList(payments.filter(studentsList => studentsList.thirdPaymentStatus === 'Оплачено'))
+    }
+    if(item.id === 3) {
+      setFiltredList(payments.filter(studentsList => studentsList.thirdPaymentStatus === 'Не оплачено'))
+    }
+    if(item.id === 1) {
+      setFiltredList(paymentsData);
+    }
+  };
+
   
   return (
     <div className="content-container">
@@ -112,13 +147,13 @@ export const PaymentsPage = () => {
               <FilterList data={groupFilterData} callback={applyGroupFilter} />
             </th>
             <th scope="col">
-              <FilterList data={paymentStatusFilterData} />
+              <FilterList data={paymentStatusFilterData} callback={applyFirstPaymentStatusFilter} />
             </th>
             <th scope="col">
-              <FilterList data={paymentStatusFilterData} />
+              <FilterList data={paymentStatusFilterData} callback={applySecondPaymentStatusFilter} />
             </th>
             <th scope="col">
-              <FilterList data={paymentStatusFilterData} />
+              <FilterList data={paymentStatusFilterData} callback={applyThirdPaymentStatusFilter} />
             </th>
           </tr>
         </thead>
