@@ -1,40 +1,24 @@
-import senderPhoto from './images/avatar.png';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NotificationsCard } from './components/NotificationsCard';
+import { baseWretch } from '../../services/base-wretch.service';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNotifications } from '../../actions/notifications.actions';
+import { NotificationResponse } from '../../models/responses/NotificationResponse';
+import { AppState } from '../../store/store';
 
-const notifications = [
-  {
-    id: 1,
-    senderPhoto: senderPhoto,
-    sender: 'Антон Ефременков',
-    senderRole: 'предподаватель',
-    message:
-      'Идейные соображения высшего порядка, а также укрепление и развитие структуры играет важную роль в формировании...',
-    date: '12.02.22',
-    time: ' 12:34',
-  },
-  {
-    id: 2,
-    senderPhoto: senderPhoto,
-    sender: 'Антон Ефременков',
-    senderRole: 'предподаватель',
-    message:
-      'Повседневная практика показывает, что укрепление и развитие структуры обеспечивает широкому кругу (специалистов) участие в формировании...',
-    date: '10.02.22',
-    time: '10:02',
-  },
-  {
-    id: 3,
-    senderPhoto: senderPhoto,
-    sender: 'Антон Ефременков',
-    senderRole: 'предподаватель',
-    message:
-      'Равным образом рамки и место обучения кадров влечет за собой процесс внедрения и модернизации системы обучения кадров...',
-    date: '12.02.22',
-    time: '19:10',
-  },
-];
 export const NotificationsPage = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    baseWretch()
+      .url('api/Notifications')
+      .get()
+      .json((data) =>
+        dispatch(setNotifications(data as NotificationResponse[]))
+      );
+  }, []);
+  const { notifications } = useSelector(
+    (state: AppState) => state.notificationsPageState
+  );
   return (
     <div className="card-container content-container">
       {notifications.map((item) => (

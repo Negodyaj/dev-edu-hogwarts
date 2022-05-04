@@ -1,16 +1,15 @@
-export const LOAD_TABS = 'notifications/LOAD_TABS' as const;
+import { NotificationResponse } from '../models/responses/NotificationResponse';
 
-export const SELECT_TAB = 'notifications/SELECT_TAB' as const;
+export const SET_NOTIFICATIONS = 'notifications/SET_NOTIFICATIONS' as const;
+export const CHECK_NOTIFICATIONS = 'notifications/CHECK_NOTIFICATIONS' as const;
 
-export const loadTabs = () => ({
-  type: LOAD_TABS,
+export const setNotifications = (notifications: NotificationResponse[]) => ({
+  type: SET_NOTIFICATIONS,
+  payload: notifications,
 });
 
-export const selectTab = (id: number) => ({
-  type: SELECT_TAB,
-  payload: id,
-});
-
-export type NotificationsPageAction =
-  | ReturnType<typeof loadTabs>
-  | ReturnType<typeof selectTab>;
+// export const checkNotification = (notificationId: number) => ({
+//   type: CHECK_NOTIFICATIONS,
+//   payload: notificationId,
+// });
+export type NotificationsPageAction = ReturnType<typeof setNotifications>;

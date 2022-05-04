@@ -1,38 +1,18 @@
 import { Reducer } from 'redux';
 import {
-  LOAD_TABS,
+  SET_NOTIFICATIONS,
+  // CHECK_NOTIFICATIONS,
   NotificationsPageAction,
-  SELECT_TAB,
 } from '../../actions/notifications.actions';
-import { TabData } from '../../models/TabData';
-import { Icon } from '../../shared/enums/Icon';
-
-const tabsMock = [
-  {
-    id: 1,
-    text: 'Tab 1',
-    icon: Icon.Cake,
-  },
-  {
-    id: 2,
-    text: 'Tab 2',
-    icon: Icon.Cookie,
-  },
-  {
-    id: 3,
-    text: 'Tab Comp',
-    icon: Icon.Computer,
-  },
-];
+import { NotificationResponse } from '../../models/responses/NotificationResponse';
 
 export interface NotificationsPageState {
-  tabs: TabData[];
-  selectedTab: number;
+  notifications: NotificationResponse[]; // check: boolean;
 }
 
 const initialState: NotificationsPageState = {
-  tabs: [],
-  selectedTab: 1,
+  notifications: [],
+  // check: false,
 };
 
 export const notificationsPageReducer: Reducer<
@@ -40,18 +20,18 @@ export const notificationsPageReducer: Reducer<
   NotificationsPageAction
 > = (state = initialState, action) => {
   switch (action.type) {
-    case SELECT_TAB: {
+    case SET_NOTIFICATIONS: {
       return {
         ...state,
-        selectedTab: action.payload,
+        notifications: action.payload,
       };
     }
-    case LOAD_TABS: {
-      return {
-        ...state,
-        tabs: tabsMock,
-      };
-    }
+    // case CHECK_NOTIFICATIONS: {
+    //   return {
+    //     ...state,
+
+    //   };
+    // }
     default:
       return state;
   }

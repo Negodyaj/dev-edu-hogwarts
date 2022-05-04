@@ -1,14 +1,14 @@
-import { useState } from 'react';
 import '../components/NotificationsCard.scss';
 import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
+import avatar from '../images/avatar.png';
+import { useState } from 'react';
+import React from 'react';
 export type NotificationData = {
   id: number;
-  sender: string;
-  senderPhoto: string;
-  senderRole: string;
-  message: string;
-  date: string;
-  time: string;
+  userId: number;
+  text: string;
+  roleId: number;
+  groupId: number; // на бэке нет даты отправки, времени отправки, и от кого отправлено уведомление и не ясно куда ведет кнопка перейти
 };
 export type NotificationsProps = {
   data: NotificationData;
@@ -25,23 +25,22 @@ export const NotificationsCard = (props: NotificationsProps) => {
           id="isChecked"
           type="checkbox"
           onClick={handleClick}
-          checked={isCollapsed}
           className={`button-read${isCollapsed == true ? `-clicked` : ``}`}
         ></input>
       </div>
-      <img src={props.data.senderPhoto} />
+      <img src={avatar} />
       <div className="notification-card-content">
         <div className="top-flex-container">
           <div>
-            <div className="sender-name">{props.data.sender}</div>
-            <div className="sender-role">{props.data.senderRole}</div>
+            <div className="sender-name">Aнтон Ефременков</div>
+            <div className="sender-role">Teacher</div>
           </div>
           <div>
-            <span className="date">{props.data.date}</span>
-            <span className="time">{props.data.time}</span>
+            <span className="date">25.11.2020</span>
+            <span className="time">14.30</span>
           </div>
         </div>
-        <div className="message">{props.data.message}</div>
+        <div className="message">{props.data.text}</div>
         <LinkArrow text={'перейти'} to={`${props.data.id}`} />
       </div>
     </div>

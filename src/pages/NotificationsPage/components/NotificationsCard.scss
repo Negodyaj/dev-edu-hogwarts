@@ -65,6 +65,7 @@
   .top-flex-container {
     display: flex;
     justify-content: space-between;
+    min-width: 400px;
   }
 
   .date,
