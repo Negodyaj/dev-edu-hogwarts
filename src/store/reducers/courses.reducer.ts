@@ -4,24 +4,27 @@ import {
   LOAD_COURSES_TABS,
   SET_COURSES,
   SET_FULL_COURSES,
+  SELECT_TAB,
+  SET_TOPICS,
 } from '../../actions/courses.actions';
 import { CourseResponse } from '../../models/responses/CourseResponse';
-import { FullCourseResponse } from '../../models/responses/FullCourseResponse';
+import { TopicResponse } from '../../models/responses/TopicResponse';
 import { TabData } from '../../models/TabData';
 import { Icon } from '../../shared/enums/Icon';
 
 export interface CoursesPageState {
   courseTabs?: TabData[];
-  selectedTab: number;
+  selectedTabCoursePage: number;
   courses?: CourseResponse[];
-  fullCourses?: FullCourseResponse[];
+  topics: TopicResponse[];
+  currentCourse?: CourseResponse;
 }
 
 const initialState: CoursesPageState = {
   courseTabs: [],
-  selectedTab: -1,
+  topics: [],
+  selectedTabCoursePage: -1,
   courses: [],
-  fullCourses: [],
 };
 
 export const coursesPageReducer: Reducer<
@@ -41,7 +44,13 @@ export const coursesPageReducer: Reducer<
       return {
         ...state,
         courseTabs: courseTabs,
-        selectedTab: courseTabs[0]?.id,
+        selectedTabCoursePage: courseTabs[0]?.id,
+      };
+    }
+    case SELECT_TAB: {
+      return {
+        ...state,
+        selectedTabCoursePage: action.payload,
       };
     }
     case SET_COURSES: {
@@ -53,7 +62,13 @@ export const coursesPageReducer: Reducer<
     case SET_FULL_COURSES: {
       return {
         ...state,
-        fullCourses: action.payload,
+        currentCourse: action.payload,
+      };
+    }
+    case SET_TOPICS: {
+      return {
+        ...state,
+        topics: action.payload,
       };
     }
     default:

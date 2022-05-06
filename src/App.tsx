@@ -14,7 +14,7 @@ import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getCurrentUser } from './services/auth.service';
+import { getCourses, getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
 
@@ -23,6 +23,7 @@ function App() {
 
   useEffect(() => {
     getCurrentUser(dispatch);
+    getCourses(dispatch);
   }, []);
 
   return (

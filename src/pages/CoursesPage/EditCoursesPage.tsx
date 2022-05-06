@@ -1,11 +1,17 @@
-import { ListView } from './ListView/ListView';
+import { ListView, ListViewLessons } from './ListView/ListView';
 import { DragDropContext, DragUpdate } from 'react-beautiful-dnd';
-import { useState } from 'react';
-import { lessons } from './ListView/exampleData';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { loadCoursePageTabs, setTopics } from '../../actions/courses.actions';
+import { useEffect } from 'react';
+import { CourseResponse } from '../../models/responses/CourseResponse';
+import { TopicResponse } from '../../models/responses/TopicResponse';
 
 export const EditCoursesPage = () => {
-  const [lessonsData, setLessonsData] = useState(lessons); // Это типа данные, которые нам придут
-
+  const { currentCourse, courses, topics } = useSelector(
+    (state: AppState) => state.coursesPageState
+  );
+  const dispatch = useDispatch();
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
 
@@ -20,19 +26,37 @@ export const EditCoursesPage = () => {
       return;
     }
 
-    const newLessonsArray = Array.from(lessonsData);
-    newLessonsArray.splice(source.index, 1);
+    const newTopicsArray = currentCourse?.topics;
+    newTopicsArray?.splice(source.index, 1);
     const dragElem = Object.assign(
-      [...lessonsData].filter((item) => item.lessonName === draggableId)[0]
+      [...currentCourse!.topics].filter((item) => item.name === draggableId)[0]
     );
-    newLessonsArray.splice(destination.index, 0, dragElem);
-
-    setLessonsData(() => [...newLessonsArray]);
+    newTopicsArray?.splice(destination.index, 0, dragElem);
+    dispatch(setTopics(newTopicsArray as TopicResponse[]));
   };
 
+  useEffect(() => {
+    if (courses && courses?.length > 0)
+      dispatch(loadCoursePageTabs(courses as CourseResponse[]));
+  }, [courses]);
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <ListView data={lessonsData} groupId={1} edit={true} />
+      <ListView
+        data={
+          topics &&
+          topics?.map((el, idx) => {
+            const q: ListViewLessons = {
+              id: el.id,
+              lessonNumber: idx + 1,
+              lessonName: el.name,
+              hoursCount: el.duration,
+            };
+            return q;
+          })
+        }
+        groupId={1}
+        edit={true}
+      />
     </DragDropContext>
   );
 };
