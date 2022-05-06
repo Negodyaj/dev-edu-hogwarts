@@ -9,27 +9,30 @@ const paymentsData = [
     userName: 'Антон',
     userSurname: 'Ефременков',
     group: 'Группа 1',
-    firstPaymentStatus: 'Оплачено',
-    secondPaymentStatus: 'Оплачено',
-    thirdPaymentStatus: 'Оплачено',
+    groupId: 2,
+    firstPaymentStatus: '01.01.2022',
+    secondPaymentStatus: '01.02.2022',
+    thirdPaymentStatus: '01.03.2022',
   },
   {
     id: 2,
     userName: 'Борис',
     userSurname: 'Годунов',
     group: 'Группа 1',
-    firstPaymentStatus: 'Оплачено',
-    secondPaymentStatus: 'Не оплачено',
-    thirdPaymentStatus: 'Не оплачено',
+    groupId: 2,
+    firstPaymentStatus: '05.01.2022',
+    secondPaymentStatus: null,
+    thirdPaymentStatus: null,
   },
   {
     id: 3,
     userName: 'Михаил',
     userSurname: 'Гончаров',
     group: 'Группа 2',
-    firstPaymentStatus: 'Оплачено',
-    secondPaymentStatus: 'Оплачено',
-    thirdPaymentStatus: 'Не оплачено',
+    groupId: 3,
+    firstPaymentStatus: '03.01.2022',
+    secondPaymentStatus: '06.02.2022',
+    thirdPaymentStatus: null,
   },
 ];
 
@@ -39,9 +42,9 @@ const surnameFilterData: FilterItem[] = [
 ];
 
 const groupFilterData: FilterItem[] = [
-  { id: 1, name: 'Показать все' },
-  { id: 2, name: 'Группа 1' },
-  { id: 3, name: 'Группа 2' },
+  { id: 0, name: 'Показать все' },
+  { id: 1, name: 'Группа 1' },
+  { id: 2, name: 'Группа 2' },
 ];
 
 const paymentStatusFilterData: FilterItem[] = [
@@ -52,6 +55,10 @@ const paymentStatusFilterData: FilterItem[] = [
 
 export const PaymentsPage = () => {
   const [payments, setPayments] = useState(paymentsData);
+  const [filterGroupValue, setFilterGroupValue ] = useState(0); 
+  const [firstPaymentStatusFilterValue, setFirstPaymentStatusFilterValue ] = useState(0); 
+  const [secondPaymentStatusFilterValue, setSecondPaymentStatusFilterValue ] = useState(0); 
+  const [thirdPaymentStatusFilterValue, setThirdPaymentStatusFilterValue ] = useState(0); 
   const [filtredList, setFiltredList] = useState(paymentsData);
   const applySurnameFilter = (item:FilterItem) => {
     if(item.id == 1) {
@@ -80,49 +87,32 @@ export const PaymentsPage = () => {
     }
     setPayments([...payments]);  
   };
+
+  const applyFilters = () => {    
+    const filtered = payments.filter(p =>
+      (filterGroupValue === 0 || filterGroupValue > 0 && p.groupId === filterGroupValue) &&
+      (firstPaymentStatusFilterValue === 1 || firstPaymentStatusFilterValue === 2 && p.firstPaymentStatus || firstPaymentStatusFilterValue === 3 && !p.firstPaymentStatus) &&
+      (secondPaymentStatusFilterValue === 1 || secondPaymentStatusFilterValue === 2 && p.secondPaymentStatus || secondPaymentStatusFilterValue === 3 && !p.secondPaymentStatus) &&
+      (thirdPaymentStatusFilterValue === 1 || thirdPaymentStatusFilterValue === 2 && p.firstPaymentStatus || thirdPaymentStatusFilterValue === 3 && !p.firstPaymentStatus)      
+    );
+    setFiltredList(filtered);
+  };
+
   const applyGroupFilter = (item: FilterItem) => {
-    if(item.id === 3) {
-      setFiltredList(payments.filter(studentsList => studentsList.group === 'Группа 2'))
-    }
-    if(item.id === 2) {
-      setFiltredList(payments.filter(studentsList => studentsList.group === 'Группа 1'))
-    }
-    if(item.id === 1) {
-      setFiltredList(paymentsData);
-    }
+    setFilterGroupValue(item.id);
+    applyFilters();
   };
   const applyFirstPaymentStatusFilter = (item: FilterItem) => {
-    if(item.id === 2) {
-      setFiltredList(payments.filter(studentsList => studentsList.firstPaymentStatus === 'Оплачено'))
-    }
-    if(item.id === 3) {
-      setFiltredList(payments.filter(studentsList => studentsList.firstPaymentStatus === 'Не оплачено'))
-    }
-    if(item.id === 1) {
-      setFiltredList(paymentsData);
-    }
+    setFirstPaymentStatusFilterValue(item.id);
+    applyFilters();
   };
   const applySecondPaymentStatusFilter = (item: FilterItem) => {
-    if(item.id === 2) {
-      setFiltredList(payments.filter(studentsList => studentsList.secondPaymentStatus === 'Оплачено'))
-    }
-    if(item.id === 3) {
-      setFiltredList(payments.filter(studentsList => studentsList.secondPaymentStatus === 'Не оплачено'))
-    }
-    if(item.id === 1) {
-      setFiltredList(paymentsData);
-    }
+    setSecondPaymentStatusFilterValue(item.id);
+    applyFilters();
   };
   const applyThirdPaymentStatusFilter = (item: FilterItem) => {
-    if(item.id === 2) {
-      setFiltredList(payments.filter(studentsList => studentsList.thirdPaymentStatus === 'Оплачено'))
-    }
-    if(item.id === 3) {
-      setFiltredList(payments.filter(studentsList => studentsList.thirdPaymentStatus === 'Не оплачено'))
-    }
-    if(item.id === 1) {
-      setFiltredList(paymentsData);
-    }
+    setThirdPaymentStatusFilterValue(item.id)
+    applyFilters();
   };
 
   

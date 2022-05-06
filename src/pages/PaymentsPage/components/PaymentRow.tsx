@@ -7,9 +7,10 @@ export type PaymentRowModel = {
   userName: string;
   userSurname: string;
   group: string;
-  firstPaymentStatus: string;
-  secondPaymentStatus: string;
-  thirdPaymentStatus: string;
+  groupId: number;
+  firstPaymentStatus?: string | null;
+  secondPaymentStatus?: string | null;
+  thirdPaymentStatus?: string | null;
 };
 
 export const PaymentRow = (props: PaymentRowProps) => {
