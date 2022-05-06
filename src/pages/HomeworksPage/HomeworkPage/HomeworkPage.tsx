@@ -18,6 +18,7 @@ import {
   StudentHomework,
 } from '../../../models/responses/HomeworksResponse';
 import { AppState } from '../../../store/store';
+import { HomeworksResults } from '../components/HomeworksResults/HomeworksResults';
 
 export const HomeworkPage = () => {
   const dispatch = useDispatch();
@@ -44,11 +45,14 @@ export const HomeworkPage = () => {
   }, []);
 
   return (
-    <div className="homework-edit-page">
-      <BackButton path={'../homeworks'} />
-      <HomeworkCard>
-        <HomeworkCardContent />
-      </HomeworkCard>
-    </div>
+    <>
+      <div className="homework-edit-page">
+        <BackButton path={'../homeworks'} />
+        <HomeworkCard>
+          <HomeworkCardContent />
+        </HomeworkCard>
+      </div>
+      <HomeworksResults />
+    </>
   );
 };
