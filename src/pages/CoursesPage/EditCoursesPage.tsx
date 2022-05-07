@@ -2,15 +2,21 @@ import { ListView, ListViewLessons } from './ListView/ListView';
 import { DragDropContext, DragUpdate } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
-import { loadCoursePageTabs, setTopics } from '../../actions/courses.actions';
+import {
+  loadCoursePageTabs,
+  loadCurrentCourse,
+  setTopics,
+} from '../../actions/courses.actions';
 import { useEffect } from 'react';
 import { CourseResponse } from '../../models/responses/CourseResponse';
 import { TopicResponse } from '../../models/responses/TopicResponse';
+import { baseWretch } from '../../services/base-wretch.service';
+import { TabContainer } from '../../components/TabContainer/TabContainer';
+import { selectTabCoursePage } from '../../actions/courses.actions';
 
 export const EditCoursesPage = () => {
-  const { currentCourse, courses, topics } = useSelector(
-    (state: AppState) => state.coursesPageState
-  );
+  const { currentCourse, courses, topics, selectedTabCoursePage, courseTabs } =
+    useSelector((state: AppState) => state.coursesPageState);
   const dispatch = useDispatch();
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
@@ -36,27 +42,45 @@ export const EditCoursesPage = () => {
   };
 
   useEffect(() => {
+    if (selectedTabCoursePage > 0) {
+      baseWretch()
+        .url(`api/Courses/${selectedTabCoursePage}/simple`)
+        .get()
+        .json((data) => {
+          dispatch(loadCurrentCourse(data as CourseResponse));
+          dispatch(setTopics((data as CourseResponse).topics));
+        });
+    }
+  }, [selectedTabCoursePage]);
+  useEffect(() => {
     if (courses && courses?.length > 0)
       dispatch(loadCoursePageTabs(courses as CourseResponse[]));
   }, [courses]);
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <ListView
-        data={
-          topics &&
-          topics?.map((el, idx) => {
-            const q: ListViewLessons = {
-              id: el.id,
-              lessonNumber: idx + 1,
-              lessonName: el.name,
-              hoursCount: el.duration,
-            };
-            return q;
-          })
-        }
-        groupId={1}
-        edit={true}
+    <>
+      <TabContainer
+        tabContainerData={courseTabs}
+        selectedTab={selectedTabCoursePage}
+        onClick={selectTabCoursePage}
       />
-    </DragDropContext>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <ListView
+          data={
+            topics &&
+            topics?.map((el, idx) => {
+              const q: ListViewLessons = {
+                id: el.id,
+                lessonNumber: idx + 1,
+                lessonName: el.name,
+                hoursCount: el.duration,
+              };
+              return q;
+            })
+          }
+          groupId={1}
+          edit={true}
+        />
+      </DragDropContext>
+    </>
   );
 };

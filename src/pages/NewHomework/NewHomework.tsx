@@ -75,7 +75,7 @@ export const NewHomework = () => {
 
     baseWretch().url(addNewTaskUrl).post(formData);
   };
-
+  console.log(group);
   const getGroupId = (groupId: number) => {
     console.log(groupId);
     dispatch(selectGroup(groupId));
