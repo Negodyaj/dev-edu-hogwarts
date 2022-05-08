@@ -17,7 +17,9 @@ export const PaymentRow = (props: PaymentRowProps) => {
   const paymentRow = props.data;
   return (
     <tr>
-      <td>{paymentRow.userName} {paymentRow.userSurname}</td>
+      <td>
+        {paymentRow.userName} {paymentRow.userSurname}
+      </td>
       <td>{paymentRow.group}</td>
       <td>{paymentRow.firstPaymentStatus}</td>
       <td>{paymentRow.secondPaymentStatus}</td>
