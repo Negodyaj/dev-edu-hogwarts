@@ -30,12 +30,12 @@ export const HomeworkPage = () => {
   useEffect(() => {
     if (id && +id !== homework?.id) {
       baseWretch()
-        .url(getHomeworkById(+id))
+        .url(getHomeworkById(+id))  //`api/homeworks/${id}`
         .get()
         .json((response) => {
           dispatch(loadHomework(response as Homework));
           baseWretch()
-            .url(getStudentAnswerByTaskId((response as Homework).task.id))
+            .url(getStudentAnswerByTaskId((response as Homework).task.id))  //`api/Tasks/${taskId}/answer`;
             .get()
             .json((studentHomework) => {
               dispatch(loadStudentHomework(studentHomework as StudentHomework));

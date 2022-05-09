@@ -53,7 +53,7 @@ export const HomeworkCardContent = () => {
     };
     if (studentHomeworkProgress?.id) {
       baseWretch()
-        .url(studentHomeworkById(studentHomeworkProgress?.id))
+        .url(studentHomeworkById(studentHomeworkProgress?.id)) //`api/student-homeworks/${id}`
         .put(dateToPost)
         .json((res) => {
           const studentHomework = res as StudentHomework;

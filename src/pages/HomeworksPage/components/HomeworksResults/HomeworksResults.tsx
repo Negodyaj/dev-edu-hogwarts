@@ -1,15 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   FilterItem,
   FilterList,
 } from '../../../../components/FilterList/FilterList';
+import { GroupResponse } from '../../../../models/responses/GroupResponse/GroupResponse';
+import { UserResponse } from '../../../../models/responses/GroupResponse/UserResponse';
 import { baseWretch } from '../../../../services/base-wretch.service';
 import { groupUrl } from '../../../../shared/consts';
 import { AppState } from '../../../../store/store';
 import './HomeworkResults.scss';
-import { HwResultRow } from './HwResultRow';
-import { GroupResponseForHWResults, Users } from './HwResultsResponse';
+//import { HwResultRow } from './HwResultRow';
+//import { GroupResponseForHWResults, Users } from './HwResultsResponse';
 
 const toCheckHWFilterData: FilterItem[] = [
   { id: 1, name: 'Проверить' },
@@ -21,34 +23,34 @@ const resultHWFilterData: FilterItem[] = [
   { id: 2, name: 'Не сдано' },
   { id: 3, name: 'Сдано с опозданием' },
 ];
-///api/Homeworks/by-group/{groupId} -> get hw list  
+///api/Homeworks/by-group/{groupId} -> get hw list
 ////api/student-homeworks/task/{taskId}/answers -> get array of stuents answers
 //api/student-homeworks/by-user/{userId}
-
-type HwReultRowsData = {
-  id: number;
-  FIO: string;
-  taskToCheck: string;
-  answer: string;
-}
+//
+// type HwReultRowsData = {
+//   id: number;
+//   FIO: string;
+//   taskToCheck: string;
+//   answer: string;
+// }
 
 export const HomeworksResults = () => {
   const { homeworks, selectedTab } = useSelector(
     (state: AppState) => state.homeworksPageState
   );
+  const [studentList, setStudentList] = useState<UserResponse[]>([]);
 
   useEffect(() => {
     if (selectedTab > 0) {
-    baseWretch()
-      .url(`${groupUrl}/${selectedTab}`)///api/Groups/{id} -> get students by group
-      .get()
-      .json((groupsData) => {
-        const studentsList: Users[] = [...(groupsData as GroupResponseForHWResults).students];
-        console.log(studentsList);
-      });
-      // let rowsData: HwReultRowsData[];
+      baseWretch()
+        .url(`${groupUrl}/${selectedTab}`) ///api/Groups/{id} -> to get students by group
+        .get()
+        .json((groupsData) => {
+          setStudentList(((groupsData as GroupResponse).students) as UserResponse[]);
+          studentList.forEach(user => console.log(user.firstName));
+        });
     }
-  }, [selectedTab]);
+  }, []);
 
   return (
     <div className="homework-result-container">
@@ -70,9 +72,6 @@ export const HomeworksResults = () => {
           </td>
           <td></td>
         </tr>
-        {
-
-        }
         {/* <HwResultRow /> */}
       </table>
     </div>

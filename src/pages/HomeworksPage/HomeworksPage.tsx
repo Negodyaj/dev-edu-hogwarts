@@ -17,7 +17,7 @@ export const HomeworksPage = () => {
   useEffect(() => {
     if (selectedTab > 0) {
       baseWretch()
-        .url(getHomeworksByGroupId(selectedTab))
+        .url(getHomeworksByGroupId(selectedTab))// `api/Homeworks/by-group/${groupId}`
         .get()
         .json((data) => dispatch(loadHomeworks(data as Homework[])));
     }
