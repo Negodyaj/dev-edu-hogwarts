@@ -27,12 +27,20 @@ export const loginPageReducer: Reducer<
 > = (state: LoginPageState | undefined = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_USER: {
-      const roles: UserRole[] = action.payload.roles;
-      return {
-        ...state,
-        currentUser: action.payload,
-        currentRole: roles[0],
-      };
+      if (action.payload != undefined) {
+        const roles: UserRole[] = action.payload.roles;
+        return {
+          ...state,
+          currentUser: action.payload,
+          currentRole: roles[0],
+        };
+      } else {
+        return {
+          ...state,
+          currentUser: undefined,
+          currentRole: UserRole.DefaultRole,
+        };
+      }
     }
     case SET_CURRENT_USER_ROLE: {
       return {
