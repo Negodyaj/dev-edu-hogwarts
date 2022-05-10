@@ -7,8 +7,7 @@ export const REMOVE_LINK = 'newHomeworkForm/REMOVE_LINK' as const;
 export const LOAD_GROUPS = 'newHomeworkForm/LOAD_GROUPS' as const;
 export const SELECT_GROUP = 'newHomeworkForm/SELECT_GROUP' as const;
 export const GET_TASKS_COUNT = 'newHomeworkForm/GET_TASKS_COUNT' as const;
-export const SET_VALUE_INPUT_LINK =
-  'newHomeworkForm/SET_VALUE_INPUT_LINK' as const;
+export const SET_VALUE_INPUT_LINK = 'newHomeworkForm/SET_VALUE_INPUT_LINK' as const;
 
 export const initForm = () => ({
   type: INIT_FORM,

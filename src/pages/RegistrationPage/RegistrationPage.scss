@@ -37,23 +37,6 @@
     margin-top: 36px;
   }
 
-  .reg-button {
-    background-color: $lavender-color;
-    width: 238px;
-    height: 51px;
-    border-radius: 5px;
-    padding: 15px 30px 15px 30px;
-    border: 0;
-    color: white;
-    margin-right: 80px;
-  }
-
-  .cancel-button {
-    background-color: transparent;
-    color: $lavender-color;
-    border: 0;
-  }
-
   #policy-label {
     font-weight: 500;
     font-size: 14px;
@@ -62,21 +45,12 @@
     color: #8A8A8A;
   }
 
-  .custom-password {
-    font-size: 30px;
-    color:gray;
-    letter-spacing: 5px;
-    padding-bottom: 0;
-    padding-top: 0;
-  }
-
   .link-policy {
     color: $link-color;
     text-decoration: underline;
   }
 
-  .buttons {
-    margin-top: 70px;
+  .buttons-group {
     margin-bottom: 30px;
   }
 }

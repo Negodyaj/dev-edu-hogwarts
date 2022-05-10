@@ -13,9 +13,7 @@ export const TabItem = (props: TabProps) => {
   return (
     <>
       <div
-        className={`tab-item ${
-          props.data.id === props.activeTab ? 'active-tab' : ''
-        }`}
+        className={`tab-item ${props.data.id === props.activeTab ? 'active-tab' : ''}`}
         onClick={() => props.onClick(props.data.id)}
       >
         <IconsTabs courseName={props.data.text} />

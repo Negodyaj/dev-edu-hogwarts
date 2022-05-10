@@ -19,9 +19,7 @@ export const HomeworkComment = (props: HomeworkCommentProps) => {
   return (
     <div
       className={`${
-        props.data.isCurrentUser
-          ? 'current-users-comment'
-          : 'other-users-comment'
+        props.data.isCurrentUser ? 'current-users-comment' : 'other-users-comment'
       } comment-container`}
     >
       <img className="comment-avatar" src={props.data.avatarUrl} />

@@ -1,12 +1,6 @@
 export const SvgPicture = () => {
   return (
-    <svg
-      width="50"
-      height="50"
-      viewBox="0 0 50 50"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M6.25 35.4168L17.1458 22.7051C17.9849 21.7261 19.5027 21.7367 20.328 22.7272L27.7062 31.5809C28.4905 32.5221 29.9135 32.5866 30.7798 31.7204L33.7708 28.7294C34.6488 27.8514 36.095 27.9315 36.8707 28.9011L43.75 37.5002"
         stroke="white"

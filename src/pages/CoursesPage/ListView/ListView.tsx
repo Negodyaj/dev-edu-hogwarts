@@ -55,10 +55,7 @@ export const ListView = (props: ListViewProps) => {
                 key={item.id}
                 isDragDisabled={!props.edit}
               >
-                {(
-                  draggableProvided: DraggableProvided,
-                  snapshot: DraggableStateSnapshot
-                ) => (
+                {(draggableProvided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                   <ListViewItem
                     index={index}
                     lesson={item}

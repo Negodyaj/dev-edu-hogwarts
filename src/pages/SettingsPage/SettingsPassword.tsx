@@ -62,35 +62,25 @@ export const SettingsPassword = () => {
               className={`form-control ${isOk ? 'is-invalid' : ''}`}
               {...register('oldPassword', {})}
             />
-            <div className="invalid-feedback">
-              {errors.oldPassword?.message}
-            </div>
+            <div className="invalid-feedback">{errors.oldPassword?.message}</div>
           </div>
           <div className="new-password">
             <p>Новый пароль</p>
             <input
               type="password"
               {...register('newPassword')}
-              className={`form-control ${
-                errors.newPassword ? 'is-invalid' : ''
-              }`}
+              className={`form-control ${errors.newPassword ? 'is-invalid' : ''}`}
             />
-            <div className="invalid-feedback">
-              {errors.newPassword?.message}
-            </div>
+            <div className="invalid-feedback">{errors.newPassword?.message}</div>
           </div>
           <div className="repeate-password">
             <p>Повторите новый пароль</p>
             <input
               type="password"
               {...register('newPasswordRepeat')}
-              className={`form-control ${
-                errors.newPasswordRepeat ? 'is-invalid' : ''
-              }`}
+              className={`form-control ${errors.newPasswordRepeat ? 'is-invalid' : ''}`}
             />
-            <div className="invalid-feedback">
-              {errors.newPasswordRepeat?.message}
-            </div>
+            <div className="invalid-feedback">{errors.newPasswordRepeat?.message}</div>
           </div>
         </div>
         <button type="submit" className="submit-button">
