@@ -45,7 +45,7 @@ const paymentsData = [
     thirdPaymentStatus: '06.04.2022',
   },
   {
-    id:5,
+    id: 5,
     userName: 'Азат',
     userSurname: 'Юнусов',
     group: 'Группа 2',
@@ -84,7 +84,7 @@ const paymentStatusFilterData: FilterItem[] = [
 ];
 
 export const PaymentsPage = () => {
-  const [payments, setPayments] = useState(paymentsData);
+  const [payments] = useState(paymentsData);
   const [filterSurnameValue, setFilterSurnameValue] = useState(1);
   const [filterGroupValue, setFilterGroupValue] = useState(0);
   const [firstPaymentStatusFilterValue, setFirstPaymentStatusFilterValue] =
@@ -160,19 +160,15 @@ export const PaymentsPage = () => {
 
   const applyGroupFilter = (item: FilterItem) => {
     setFilterGroupValue(item.id);
-    //applyFilters();
   };
   const applyFirstPaymentStatusFilter = (item: FilterItem) => {
     setFirstPaymentStatusFilterValue(item.id);
-    //applyFilters();
   };
   const applySecondPaymentStatusFilter = (item: FilterItem) => {
     setSecondPaymentStatusFilterValue(item.id);
-    //applyFilters();
   };
   const applyThirdPaymentStatusFilter = (item: FilterItem) => {
     setThirdPaymentStatusFilterValue(item.id);
-    //applyFilters();
   };
 
   return (
