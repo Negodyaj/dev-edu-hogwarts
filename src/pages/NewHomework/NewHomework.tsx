@@ -117,7 +117,7 @@ export const NewHomework = () => {
           </span>
         </div>
 
-        <div className="homework-form_dates">
+        <div className="homework-form_dates form-grid-container">
           <div>
             Дата выдачи задания
             <Controller
