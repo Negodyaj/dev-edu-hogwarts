@@ -34,6 +34,36 @@ const paymentsData = [
     secondPaymentStatus: '06.02.2022',
     thirdPaymentStatus: null,
   },
+  {
+    id: 4,
+    userName: 'Булат',
+    userSurname: 'Нуриахметов',
+    group: 'Группа 2',
+    groupId: 3,
+    firstPaymentStatus: '03.01.2022',
+    secondPaymentStatus: '06.02.2022',
+    thirdPaymentStatus: '06.04.2022',
+  },
+  {
+    id:5,
+    userName: 'Азат',
+    userSurname: 'Юнусов',
+    group: 'Группа 2',
+    groupId: 3,
+    firstPaymentStatus: null,
+    secondPaymentStatus: null,
+    thirdPaymentStatus: null,
+  },
+  {
+    id: 6,
+    userName: 'Камилла',
+    userSurname: 'Ганеева',
+    group: 'Группа 2',
+    groupId: 3,
+    firstPaymentStatus: null,
+    secondPaymentStatus: '06.02.2022',
+    thirdPaymentStatus: null,
+  },
 ];
 
 const surnameFilterData: FilterItem[] = [
@@ -55,6 +85,7 @@ const paymentStatusFilterData: FilterItem[] = [
 
 export const PaymentsPage = () => {
   const [payments, setPayments] = useState(paymentsData);
+  const [filterSurnameValue, setFilterSurnameValue] = useState(1);
   const [filterGroupValue, setFilterGroupValue] = useState(0);
   const [firstPaymentStatusFilterValue, setFirstPaymentStatusFilterValue] =
     useState(1);
@@ -82,6 +113,35 @@ export const PaymentsPage = () => {
     setFiltredList(filtered);
   };
 
+  const applySurnameSorting = () => {
+    if (filterSurnameValue == 1) {
+      const sortedForward = filtredList.sort(function (prev, next) {
+        if (prev.userSurname < next.userSurname) {
+          return -1;
+        }
+        if (prev.userSurname > next.userSurname) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+      setFiltredList(sortedForward);
+    }
+    if (filterSurnameValue == 2) {
+      const sortedBackward = filtredList.sort(function (prev, next) {
+        if (prev.userSurname > next.userSurname) {
+          return -1;
+        }
+        if (prev.userSurname < next.userSurname) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+      setFiltredList(sortedBackward);
+    }
+  };
+
   useEffect(
     () => applyFilters(),
     [
@@ -92,31 +152,10 @@ export const PaymentsPage = () => {
     ]
   );
 
+  useEffect(() => applySurnameSorting(), [filterSurnameValue]);
+
   const applySurnameFilter = (item: FilterItem) => {
-    if (item.id == 1) {
-      payments.sort(function (prev, next) {
-        if (prev.userSurname < next.userSurname) {
-          return -1;
-        }
-        if (prev.userSurname > next.userSurname) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-    } else {
-      payments.sort(function (prev, next) {
-        if (prev.userSurname > next.userSurname) {
-          return -1;
-        }
-        if (prev.userSurname < next.userSurname) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-    }
-    setPayments([...payments]);
+    setFilterSurnameValue(item.id);
   };
 
   const applyGroupFilter = (item: FilterItem) => {
