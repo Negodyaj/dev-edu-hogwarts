@@ -7,25 +7,14 @@ import { useParams } from 'react-router-dom';
 import { AppState } from '../../../store/store';
 import { useEffect } from 'react';
 import { baseWretch } from '../../../services/base-wretch.service';
-import {
-  getHomeworkById,
-  getStudentAnswerByTaskId,
-} from '../../../shared/consts';
-import {
-  loadHomework,
-  loadStudentHomework,
-} from '../../../actions/homework.actions';
-import {
-  Homework,
-  StudentHomework,
-} from '../../../models/responses/HomeworksResponse';
+import { getHomeworkById, getStudentAnswerByTaskId } from '../../../shared/consts';
+import { loadHomework, loadStudentHomework } from '../../../actions/homework.actions';
+import { Homework, StudentHomework } from '../../../models/responses/HomeworksResponse';
 
 export const HomeworkEditPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { homework } = useSelector(
-    (state: AppState) => state.homeworkPageState
-  );
+  const { homework } = useSelector((state: AppState) => state.homeworkPageState);
 
   useEffect(() => {
     if (id && +id !== homework?.id) {

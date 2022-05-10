@@ -1,13 +1,7 @@
 import * as React from 'react';
 export const SvgNotifications = () => {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         className="with-color-on-hover"
         d="M9 17V16C8.44772 16 8 16.4477 8 17H9ZM15 17H16C16 16.4477 15.5523 16 15 16V17ZM9 18H15V16H9V18ZM14 17V18H16V17H14ZM10 18V17H8V18H10ZM12 20C10.8954 20 10 19.1046 10 18H8C8 20.2091 9.79086 22 12 22V20ZM14 18C14 19.1046 13.1046 20 12 20V22C14.2091 22 16 20.2091 16 18H14Z"

@@ -1,7 +1,4 @@
-import {
-  Homework,
-  StudentHomework,
-} from '../../models/responses/HomeworksResponse';
+import { Homework, StudentHomework } from '../../models/responses/HomeworksResponse';
 import { Reducer } from 'redux';
 import {
   EDIT_HOMEWORK,
@@ -24,10 +21,10 @@ const initialState: HomeworkPageState = {
   isEdit: false,
 };
 
-export const homeworkPageReducer: Reducer<
-  HomeworkPageState,
-  HomeworkPageAction
-> = (state = initialState, action) => {
+export const homeworkPageReducer: Reducer<HomeworkPageState, HomeworkPageAction> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
     case GET_HOMEWORK_BY_ID:
       return {

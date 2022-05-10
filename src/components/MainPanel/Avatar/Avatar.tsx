@@ -34,9 +34,7 @@ export const Avatar = (props: AvatarProps) => {
         {currentUser && currentUser.roles.length > 1 ? (
           <CurrentUserRoles />
         ) : (
-          <div className="avatar-role transition-styles">
-            {getUserRoleLocalName(currentRole)}
-          </div>
+          <div className="avatar-role transition-styles">{getUserRoleLocalName(currentRole)}</div>
         )}
       </div>
     </>

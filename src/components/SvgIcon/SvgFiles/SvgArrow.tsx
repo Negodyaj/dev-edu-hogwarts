@@ -8,11 +8,7 @@ export const SvgArrow = (props: SvgArrowProps) => {
   return (
     <svg
       className={`arrow-${props.direction} ${
-        props.isOpen === undefined
-          ? ''
-          : props.isOpen
-          ? 'array-down'
-          : 'array-up'
+        props.isOpen === undefined ? '' : props.isOpen ? 'array-down' : 'array-up'
       }`}
       width="24"
       height="24"

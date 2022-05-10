@@ -33,9 +33,7 @@ export const MainPanel = () => {
   const { isCollapsed } = useSelector(
     (state: AppState) => state.mainPanelState as MainPanelState
   );
-  const { currentUser } = useSelector(
-    (state: AppState) => state.loginPageState as LoginPageState
-  );
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
 
   avData.name = `${currentUser?.firstName} ${currentUser?.lastName}`;
   avData.photo = avatarPhoto;
@@ -64,23 +62,15 @@ export const MainPanel = () => {
             <SvgLogoName />
           </div>
           <div
-            className={`avatar-block transition-styles ${
-              isCollapsed ? 'collapsed' : ''
-            }${!currentUser ? 'padding-top' : ''}`}
+            className={`avatar-block transition-styles ${isCollapsed ? 'collapsed' : ''}${
+              !currentUser ? 'padding-top' : ''
+            }`}
           >
-            {currentUser ? (
-              <Avatar data={avData} />
-            ) : (
-              <Avatar data={defaultData} />
-            )}
+            {currentUser ? <Avatar data={avData} /> : <Avatar data={defaultData} />}
           </div>
         </div>
         <Navigation isCollapsed={isCollapsed} />
-        <div
-          className={`bottom-part transition-styles ${
-            isCollapsed ? 'collapsed' : ''
-          }`}
-        >
+        <div className={`bottom-part transition-styles ${isCollapsed ? 'collapsed' : ''}`}>
           {currentUser ? <Exit /> : ''}
           <Toggle isToggled={isToggled} onClick={handleClick}></Toggle>
         </div>
