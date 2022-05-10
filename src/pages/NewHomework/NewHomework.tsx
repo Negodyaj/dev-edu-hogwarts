@@ -23,6 +23,10 @@ import {
 import { AddedLink } from './components/AddedLink';
 import { Homework } from '../../models/responses/HomeworksResponse';
 import { convertDate } from '../../shared/helpers/dateHelpers';
+import { LoginPageState } from '../../store/reducers/login.reducer';
+import { UserRole } from '../../shared/enums/UserRole';
+import { FilterList } from '../../components/FilterList/FilterList';
+// import { CoursesPageState } from '../../store/reducers/courses.reducer';
 
 export type AddTaskFormData = {
   name: string;
@@ -37,11 +41,17 @@ export type AddTaskFormData = {
 export const NewHomework = () => {
   const method = useForm<AddTaskFormData>();
   const dispatch = useDispatch();
-
+  const { currentUser } = useSelector(
+    (state: AppState) => state.loginPageState as LoginPageState
+  );
+  // const { courses } = useSelector(
+  //   (state: AppState) => state.coursesPageState as CoursesPageState
+  // );
   const {
     links,
     inputLinkValue,
     group,
+    course,
     selectedGroupTaskCount,
     selectGroupId,
   } = useSelector((state: AppState) => state.newHomeworkFormState);
@@ -75,14 +85,13 @@ export const NewHomework = () => {
 
     baseWretch().url(addNewTaskUrl).post(formData);
   };
-  console.log(group);
+
   const getGroupId = (groupId: number) => {
     console.log(groupId);
     dispatch(selectGroup(groupId));
   };
   // const saveDraft = () => {
   // };
-
   useEffect(() => {
     const groupId = method.getValues('groupId');
     if (groupId) {
@@ -100,18 +109,27 @@ export const NewHomework = () => {
         onSubmit={method.handleSubmit(onSubmit)}
       >
         <h2 className="homework-form_title">Новое задание</h2>
-
+        {currentUser?.roles.includes(UserRole.Methodist) ? (
+          <div className="form-element">
+            Номер курса:
+            <RadioGroup
+              radioData={course}
+              name="groupId"
+              callback={getGroupId}
+            />
+          </div>
+        ) : (
+          <div className="form-element">
+            Номер группы:
+            <RadioGroup
+              radioData={group}
+              name="groupId"
+              callback={getGroupId}
+            />
+          </div>
+        )}
         <div className="form-element">
-          Номер группы:
-          <RadioGroup radioData={group} name="groupId" callback={getGroupId} />
-        </div>
-
-        <div className="form-element">
-          Номер задания:
-          {/*
-              По-хорошему, обещали на бэке номера таскам выдавать,
-              для визуализации оставляю так до ревью :^)
-           */}
+          <span>Номер задания:</span> {<FilterList data={[]}></FilterList>}
           <span className="homework-form_task">
             {selectedGroupTaskCount === 0 ? '' : selectedGroupTaskCount}
           </span>

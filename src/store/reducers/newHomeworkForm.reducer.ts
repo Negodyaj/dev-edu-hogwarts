@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import {
   ADD_LINK,
   GET_TASKS_COUNT,
+  LOAD_COURSES,
   LOAD_GROUPS,
   NewHomeworkFormAction,
   REMOVE_LINK,
@@ -14,6 +15,7 @@ export interface NewHomeworkFormState {
   links: string[];
   inputLinkValue: string;
   group: RadioData[];
+  course: RadioData[];
   selectGroupId: number;
   selectedGroupTaskCount: number;
 }
@@ -22,6 +24,7 @@ const initialState: NewHomeworkFormState = {
   links: [],
   inputLinkValue: '',
   group: [],
+  course: [],
   selectGroupId: -1,
   selectedGroupTaskCount: 0,
 };
@@ -35,6 +38,11 @@ export const newHomeworkFormReducer: Reducer<
       return {
         ...state,
         group: [...action.payload],
+      };
+    case LOAD_COURSES:
+      return {
+        ...state,
+        course: [...action.payload],
       };
     case ADD_LINK:
       return {

@@ -49,13 +49,13 @@ export const CoursesPage = () => {
             data={currentCourse?.topics.map((el, idx) => {
               const q: ListViewLessons = {
                 id: el.id,
-                lessonNumber: idx + 1,
+                lessonNumber: idx,
                 lessonName: el.name,
                 hoursCount: el.duration,
               };
               return q;
             })}
-            groupId={1}
+            groupId={currentCourse.id}
             edit={false}
           />
         </DragDropContext>

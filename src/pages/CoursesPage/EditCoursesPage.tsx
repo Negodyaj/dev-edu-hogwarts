@@ -32,10 +32,12 @@ export const EditCoursesPage = () => {
       return;
     }
 
-    const newTopicsArray = currentCourse?.topics;
+    const newTopicsArray = Array.from(topics);
     newTopicsArray?.splice(source.index, 1);
     const dragElem = Object.assign(
-      [...currentCourse!.topics].filter((item) => item.name === draggableId)[0]
+      [...currentCourse!.topics].filter(
+        (item) => item.id.toString() === draggableId
+      )[0]
     );
     newTopicsArray?.splice(destination.index, 0, dragElem);
     dispatch(setTopics(newTopicsArray as TopicResponse[]));
@@ -56,6 +58,7 @@ export const EditCoursesPage = () => {
     if (courses && courses?.length > 0)
       dispatch(loadCoursePageTabs(courses as CourseResponse[]));
   }, [courses]);
+  console.log(currentCourse?.id);
   return (
     <>
       <TabContainer
@@ -70,7 +73,7 @@ export const EditCoursesPage = () => {
             topics?.map((el, idx) => {
               const q: ListViewLessons = {
                 id: el.id,
-                lessonNumber: idx + 1,
+                lessonNumber: idx,
                 lessonName: el.name,
                 hoursCount: el.duration,
               };

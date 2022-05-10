@@ -50,7 +50,7 @@ export const ListView = (props: ListViewProps) => {
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {props.data.map((item, index) => (
               <Draggable
-                draggableId={item.lessonName}
+                draggableId={item.id.toString()}
                 index={index}
                 key={item.id}
                 isDragDisabled={!props.edit}
