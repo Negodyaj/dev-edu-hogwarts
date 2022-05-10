@@ -26,9 +26,7 @@ function App() {
     getCurrentUser(dispatch);
   }, []);
 
-  const { isCollapsed } = useSelector(
-    (state: AppState) => state.mainPanelState as MainPanelState
-  );
+  const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
 
   return (
     <div className="flex-container">

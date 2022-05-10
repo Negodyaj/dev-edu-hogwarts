@@ -30,29 +30,17 @@ export const MainPanel = () => {
   const handleClick = () => {
     setIsToggled((s) => !s);
   };
-  const { isCollapsed } = useSelector(
-    (state: AppState) => state.mainPanelState as MainPanelState
-  );
+  const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
 
   avData.name = `${currentUser?.firstName} ${currentUser?.lastName}`;
   avData.photo = avatarPhoto;
 
   return (
-    <aside
-      className={`main-panel transition-styles ${
-        isCollapsed ? 'collapsed' : ''
-      }`}
-    >
-      <CollapseButton
-        onClick={() => dispatch(collapseMainPanel(!isCollapsed))}
-      />
+    <aside className={`main-panel transition-styles ${isCollapsed ? 'collapsed' : ''}`}>
+      <CollapseButton onClick={() => dispatch(collapseMainPanel(!isCollapsed))} />
       <div className="main-panel-container ">
-        <div
-          className={`top-part transition-styles ${
-            !currentUser ? 'top-part-login' : ''
-          }`}
-        >
+        <div className={`top-part transition-styles ${!currentUser ? 'top-part-login' : ''}`}>
           <div
             className={`logo-container flex-center transition-styles ${
               isCollapsed ? 'collapsed' : ''
