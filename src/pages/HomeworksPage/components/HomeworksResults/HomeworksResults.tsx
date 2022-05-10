@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   FilterItem,
@@ -10,15 +10,18 @@ import { baseWretch } from '../../../../services/base-wretch.service';
 import { groupUrl } from '../../../../shared/consts';
 import { AppState } from '../../../../store/store';
 import './HomeworkResults.scss';
-//import { HwResultRow } from './HwResultRow';
+import { HwResultRowProps } from './HwResultRow';
+import { HwResultRow } from './HwResultRow';
 //import { GroupResponseForHWResults, Users } from './HwResultsResponse';
 
 const toCheckHWFilterData: FilterItem[] = [
+  { id: 0, name: 'Все' },
   { id: 1, name: 'Проверить' },
   { id: 2, name: 'Проверить правки' },
 ];
 
 const resultHWFilterData: FilterItem[] = [
+  { id: 0, name: 'Все' },
   { id: 1, name: 'Сдано' },
   { id: 2, name: 'Не сдано' },
   { id: 3, name: 'Сдано с опозданием' },
@@ -39,7 +42,7 @@ export const HomeworksResults = () => {
     (state: AppState) => state.homeworksPageState
   );
   const [studentList, setStudentList] = useState<UserResponse[]>([]);
-
+  
   useEffect(() => {
     if (selectedTab > 0) {
       baseWretch()
@@ -47,11 +50,16 @@ export const HomeworksResults = () => {
         .get()
         .json((groupsData) => {
           setStudentList(((groupsData as GroupResponse).students) as UserResponse[]);
-          studentList.forEach(user => console.log(user.firstName));
         });
-    }
+    };
   }, []);
 
+  const students: HwResultRow[] = studentList.map((student) => {return {id: student.id, FIO: `${student.lastName} ${student.firstName}`}})
+
+  const applyFilterToCheckHW = (item: FilterItem) => {
+
+  }
+  
   return (
     <div className="homework-result-container">
       <h4 className="homework-result-header">Результаты выполнения задания</h4>
@@ -65,14 +73,14 @@ export const HomeworksResults = () => {
         <tr className="filter-inside">
           <td></td>
           <td>
-            <FilterList data={toCheckHWFilterData} />
+            <FilterList data={toCheckHWFilterData} callback={applyFilterToCheckHW} />
           </td>
           <td>
             <FilterList data={resultHWFilterData} />
           </td>
           <td></td>
         </tr>
-        {/* <HwResultRow /> */}
+        {students.map((item)=>{ <HwResultRow data={item} />})}
       </table>
     </div>
   );
