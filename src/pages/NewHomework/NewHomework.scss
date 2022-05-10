@@ -18,13 +18,11 @@
   }
 
   .homework-form_dates {
-    display: grid;
-    grid-template-columns: minmax(auto, 400px) minmax(auto, 400px);
-    gap: 70px;
     margin-top: 60px;
 
-    & .form-input {
-      width: 400px;
+    &.form-grid-container {
+      grid-template-columns: 400px 400px;
+      column-gap: 70px;
     }
   }
 
@@ -32,18 +30,9 @@
     margin-left: 30px;
   }
 
-  & .form-input {
-    width: 870px;
-  }
-
   & textarea.form-input {
     min-height: 83px;
     resize: none;
-    width: 870px;
-  }
-
-  .buttons-group {
-    margin: 70px 0;
   }
 
   .form-link {

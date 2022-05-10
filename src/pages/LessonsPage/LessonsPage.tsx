@@ -8,11 +8,7 @@ import { Period } from '../../shared/enums/Period';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LessonsPageState } from '../../store/reducers/lessons.reducer';
-import {
-  loadLessons,
-  filterLessons,
-  selectTab,
-} from '../../actions/lessons.actions';
+import { loadLessons, filterLessons, selectTab } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
 import { baseWretch } from '../../services/base-wretch.service';
 
@@ -73,11 +69,7 @@ export const LessonsPage = () => {
 
   return (
     <>
-      <TabContainer
-        tabContainerData={tabs}
-        selectedTab={selectedTab}
-        onClick={selectTab}
-      />
+      <TabContainer tabContainerData={tabs} selectedTab={selectedTab} onClick={selectTab} />
       <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />
       <div className="lessons-container">
         {newLessons?.map((lesson) => (

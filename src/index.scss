@@ -21,6 +21,10 @@ main {
 .form-container {
   padding-left: 65px;
   padding-top: 20px;
+
+  &.login-page-form {
+    padding-top: 43px;
+  }
 }
 
 ::-moz-selection{

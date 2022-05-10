@@ -1,7 +1,4 @@
-import {
-  Homework,
-  StudentHomework,
-} from '../models/responses/HomeworksResponse';
+import { Homework, StudentHomework } from '../models/responses/HomeworksResponse';
 
 export const GET_STUDENT_HOMEWORK = 'homework/GET_STUDENT_HOMEWORK' as const;
 export const EDIT_HOMEWORK = 'homework/EDIT_HOMEWORK' as const;
@@ -23,9 +20,7 @@ export const loadAnswer = (answer: string) => ({
   payload: answer,
 });
 
-export const loadStudentHomework = (
-  studentHomework: StudentHomework | undefined
-) => ({
+export const loadStudentHomework = (studentHomework: StudentHomework | undefined) => ({
   type: GET_STUDENT_HOMEWORK,
   payload: studentHomework ?? undefined,
 });
