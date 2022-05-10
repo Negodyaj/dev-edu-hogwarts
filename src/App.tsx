@@ -12,24 +12,30 @@ import { CoursesPage } from './pages/CoursesPage/CoursesPage';
 import { EditCoursesPage } from './pages/CoursesPage/EditCoursesPage';
 import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
+import { AppState } from './store/store';
+import { MainPanelState } from './store/reducers/mainPanel.reducer';
+import { collapseMainPanel } from './actions/mainPanel.actions';
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     getCurrentUser(dispatch);
   }, []);
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+
+  const { isCollapsed } = useSelector(
+    (state: AppState) => state.mainPanelState as MainPanelState
+  );
 
   return (
     <div className="flex-container">
       <MainPanel
         isCollapsed={isCollapsed}
-        setIsCollapsed={() => setIsCollapsed(!isCollapsed)}
+        setIsCollapsed={() => dispatch(collapseMainPanel(!isCollapsed))}
       />
       <main className={isCollapsed ? 'closed' : ' '}>
         <Routes>
