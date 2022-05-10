@@ -34,8 +34,6 @@ function App() {
   return (
     <div className="flex-container">
       <MainPanel
-        isCollapsed={isCollapsed}
-        setIsCollapsed={() => dispatch(collapseMainPanel(!isCollapsed))}
       />
       <main className={isCollapsed ? 'closed' : ' '}>
         <Routes>

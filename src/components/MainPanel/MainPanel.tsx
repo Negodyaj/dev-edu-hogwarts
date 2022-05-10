@@ -8,10 +8,12 @@ import React, { useState } from 'react';
 import { SvgLogo } from '../SvgIcon/SvgFiles/SvgLogo';
 import { SvgLogoName } from '../SvgIcon/SvgFiles/SvgLogoName';
 import { CollapseButton } from './CollapsButton/CollapsButton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import defaultAvatar from '../../components/images/defaultavatar.png';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
+import { collapseMainPanel } from '../../actions/mainPanel.actions';
 
 const avData = {
   photo: avatarPhoto,
@@ -22,15 +24,15 @@ const defaultData = {
   photo: defaultAvatar,
   name: '',
 };
-export type MainPanelProps = {
-  isCollapsed: boolean;
-  setIsCollapsed: (isCollapsed: boolean) => void;
-};
-export const MainPanel = (props: MainPanelProps) => {
+export const MainPanel = () => {
+  const dispatch = useDispatch();
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const handleClick = () => {
     setIsToggled((s) => !s);
   };
+  const { isCollapsed } = useSelector(
+    (state: AppState) => state.mainPanelState as MainPanelState
+  );
   const { currentUser } = useSelector(
     (state: AppState) => state.loginPageState as LoginPageState
   );
@@ -41,11 +43,11 @@ export const MainPanel = (props: MainPanelProps) => {
   return (
     <aside
       className={`main-panel transition-styles ${
-        props.isCollapsed ? 'collapsed' : ''
+        isCollapsed ? 'collapsed' : ''
       }`}
     >
       <CollapseButton
-        onClick={() => props.setIsCollapsed(!props.isCollapsed)}
+        onClick={() => dispatch(collapseMainPanel(!isCollapsed))}
       />
       <div className="main-panel-container ">
         <div
@@ -55,7 +57,7 @@ export const MainPanel = (props: MainPanelProps) => {
         >
           <div
             className={`logo-container flex-center transition-styles ${
-              props.isCollapsed ? 'collapsed' : ''
+              isCollapsed ? 'collapsed' : ''
             }`}
           >
             <SvgLogo />
@@ -63,7 +65,7 @@ export const MainPanel = (props: MainPanelProps) => {
           </div>
           <div
             className={`avatar-block transition-styles ${
-              props.isCollapsed ? 'collapsed' : ''
+              isCollapsed ? 'collapsed' : ''
             }${!currentUser ? 'padding-top' : ''}`}
           >
             {currentUser ? (
@@ -73,10 +75,10 @@ export const MainPanel = (props: MainPanelProps) => {
             )}
           </div>
         </div>
-        <Navigation isCollapsed={props.isCollapsed} />
+        <Navigation isCollapsed={isCollapsed} />
         <div
           className={`bottom-part transition-styles ${
-            props.isCollapsed ? 'collapsed' : ''
+            isCollapsed ? 'collapsed' : ''
           }`}
         >
           {currentUser ? <Exit /> : ''}
