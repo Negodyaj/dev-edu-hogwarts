@@ -38,7 +38,7 @@ import {
 export interface AppState {
   homeworksPageState: HomeWorkPageState;
   newHomeworkFormState: NewHomeworkFormState;
-  notificationsPageState: NotificationsPageState;
+  notificationsPageState: NotificationsPageState | undefined;
   loginPageState: LoginPageState | undefined;
   lessonsPageState: LessonsPageState | undefined;
   homeworkPageState: HomeworkPageState;

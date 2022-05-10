@@ -167,6 +167,26 @@ export const getNavLinksByRole = (role: UserRole) => {
         '/settings',
       ];
       break;
+    //из макета не ясно, какие ссылки должны быть у админа
+    case UserRole.Admin:
+      linksByRole = [
+        '/',
+        '/groups',
+        '/new-group',
+        '/students-list',
+        '/payment-table',
+        '/all-users',
+        '/settings',
+        '/lessons',
+        '/new-lesson',
+        homeworksLink,
+        '/new-homework',
+        '/check-homework',
+        '/general-progress',
+        '/journal',
+        '/settings',
+      ];
+      break;
     default:
       break;
   }

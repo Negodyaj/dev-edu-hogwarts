@@ -182,7 +182,7 @@ export const RegistrationPage = () => {
             <span className="asterisk">*</span>
             Поля обязательные для заполнения
           </p>
-          <div className="buttons">
+          <div className="buttons-group">
             <Button
               text="Зарегистрироваться"
               model={ButtonModel.Colored}

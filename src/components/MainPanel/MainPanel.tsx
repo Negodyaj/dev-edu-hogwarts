@@ -3,7 +3,6 @@ import { Avatar } from './Avatar/Avatar';
 import { Navigation } from './Navigation/Navigation';
 import avatarPhoto from '../images/avatar.png';
 import { Exit } from './Exit/Exit';
-
 import { Toggle } from './Toggle/Toggle';
 import React, { useState } from 'react';
 import { SvgLogo } from '../SvgIcon/SvgFiles/SvgLogo';
@@ -13,15 +12,15 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import defaultAvatar from '../../components/images/defaultavatar.png';
+
 const avData = {
   photo: avatarPhoto,
   name: '',
-  role: '',
 };
+
 const defaultData = {
   photo: defaultAvatar,
   name: '',
-  role: '',
 };
 export const MainPanel = () => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
@@ -32,8 +31,8 @@ export const MainPanel = () => {
   const { currentUser } = useSelector(
     (state: AppState) => state.loginPageState as LoginPageState
   );
+
   avData.name = `${currentUser?.firstName} ${currentUser?.lastName}`;
-  avData.role = `${currentUser?.roles[0]}`;
   avData.photo = avatarPhoto;
 
   return (
