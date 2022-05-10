@@ -3,11 +3,7 @@ import '../../components/InputTextarea/InputTextarea.scss';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { baseWretch } from '../../services/base-wretch.service';
-import {
-  Button,
-  ButtonModel,
-  ButtonType,
-} from '../../components/Button/Button';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
 import { coursesUrl, groupUrl, usersUrl } from '../../shared/consts';
 import { FilterList } from '../../components/FilterList/FilterList';
@@ -98,8 +94,7 @@ export const NewGroupPage = () => {
     });
 
   const onSubmit = (data: GroupFormData) => {
-    if (typeof data.teacherIds === 'string')
-      data.teacherIds = [+data.teacherIds];
+    if (typeof data.teacherIds === 'string') data.teacherIds = [+data.teacherIds];
     baseWretch().url(groupUrl).post(data);
     console.log(data);
   };
@@ -118,10 +113,7 @@ export const NewGroupPage = () => {
             />
             {errors.name && <span>Вы не указали название</span>}
             <h2>Курс</h2>
-            <FilterList
-              data={courses}
-              callback={(item) => setValue('courseId', item.id)}
-            />
+            <FilterList data={courses} callback={(item) => setValue('courseId', item.id)} />
             {errors.courseId && <span>Вы не выбрали курс</span>}
             <div className="teachers-list">
               <h2>Преподаватель:</h2>
@@ -150,11 +142,7 @@ export const NewGroupPage = () => {
               type={ButtonType.submit}
               width="190px"
             />
-            <Button
-              model={ButtonModel.Text}
-              text="Отмена"
-              type={ButtonType.reset}
-            />
+            <Button model={ButtonModel.Text} text="Отмена" type={ButtonType.reset} />
           </form>
         </FormProvider>
       </div>

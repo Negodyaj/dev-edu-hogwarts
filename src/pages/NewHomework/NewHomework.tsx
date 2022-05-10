@@ -2,11 +2,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import './NewHomework.scss';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import Datepicker from '../../components/Datepicker/Datepicker';
-import {
-  Button,
-  ButtonModel,
-  ButtonType,
-} from '../../components/Button/Button';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { baseWretch } from '../../services/base-wretch.service';
 import { addNewTaskUrl, getHomeworksByGroupId } from '../../shared/consts';
 import { SvgIcon } from '../../components/SvgIcon/SvgIcon';
@@ -38,13 +34,9 @@ export const NewHomework = () => {
   const method = useForm<AddTaskFormData>();
   const dispatch = useDispatch();
 
-  const {
-    links,
-    inputLinkValue,
-    group,
-    selectedGroupTaskCount,
-    selectGroupId,
-  } = useSelector((state: AppState) => state.newHomeworkFormState);
+  const { links, inputLinkValue, group, selectedGroupTaskCount, selectGroupId } = useSelector(
+    (state: AppState) => state.newHomeworkFormState
+  );
   const refLinkName = useRef<any>({});
 
   const memoizeMapLinks = useMemo(() => {
@@ -54,11 +46,7 @@ export const NewHomework = () => {
   }, [links]);
 
   const addLinkInForm = () => {
-    if (
-      inputLinkValue &&
-      /^[a-z]+:\/\//i.test(inputLinkValue) &&
-      !links.includes(inputLinkValue)
-    )
+    if (inputLinkValue && /^[a-z]+:\/\//i.test(inputLinkValue) && !links.includes(inputLinkValue))
       dispatch(addLink(refLinkName.current.value));
   };
 
@@ -80,8 +68,6 @@ export const NewHomework = () => {
     console.log(groupId);
     dispatch(selectGroup(groupId));
   };
-  // const saveDraft = () => {
-  // };
 
   useEffect(() => {
     const groupId = method.getValues('groupId');
@@ -95,10 +81,7 @@ export const NewHomework = () => {
 
   return (
     <FormProvider {...method}>
-      <form
-        className="form-container homework-form"
-        onSubmit={method.handleSubmit(onSubmit)}
-      >
+      <form className="form-container homework-form" onSubmit={method.handleSubmit(onSubmit)}>
         <h2 className="homework-form_title">Новое задание</h2>
 
         <div className="form-element">
@@ -177,22 +160,13 @@ export const NewHomework = () => {
         </div>
 
         <div className="buttons-group">
-          <Button
-            text="Опубликовать"
-            model={ButtonModel.Colored}
-            type={ButtonType.submit}
-          />
+          <Button text="Опубликовать" model={ButtonModel.Colored} type={ButtonType.submit} />
           <Button
             text="Сохранить как черновик"
             model={ButtonModel.White}
             type={ButtonType.submit}
           />
-          <Button
-            text="Отмена"
-            type={ButtonType.reset}
-            model={ButtonModel.Text}
-            url={'/'}
-          />
+          <Button text="Отмена" type={ButtonType.reset} model={ButtonModel.Text} url={'/'} />
         </div>
       </form>
     </FormProvider>

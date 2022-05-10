@@ -37,10 +37,7 @@ export const Lesson = (props: LessonProps) => {
         </div>
         <div className="lesson-theme font-600">{lesson.theme}</div>
 
-        <button
-          className={cx('circle', { 'is-active': isExpanded })}
-          onClick={toggleAccordionItem}
-        >
+        <button className={cx('circle', { 'is-active': isExpanded })} onClick={toggleAccordionItem}>
           <SvgArrow direction="bottom" />
         </button>
       </div>

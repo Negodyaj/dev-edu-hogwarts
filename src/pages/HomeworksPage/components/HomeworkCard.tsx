@@ -2,10 +2,7 @@ import './HomeworkCard.scss';
 import { StudentHomeworkStatus } from '../../../models/responses/HomeworksResponse';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../store/store';
-import {
-  HomeworkProps,
-  HomeworkStatus,
-} from '../../../models/HomeworkCardData';
+import { HomeworkProps, HomeworkStatus } from '../../../models/HomeworkCardData';
 import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
 
 export const HomeworkCard = (props: HomeworkProps) => {
@@ -30,9 +27,7 @@ export const HomeworkCard = (props: HomeworkProps) => {
           <span>Срок сдачи</span>
           <span>{props.data?.endDate ?? homework?.endDate}</span>
         </div>
-        <span className="homework-title">
-          {props.data?.task.name ?? homework?.task.name}
-        </span>
+        <span className="homework-title">{props.data?.task.name ?? homework?.task.name}</span>
         {props.children ? (
           props.children
         ) : (
@@ -42,9 +37,7 @@ export const HomeworkCard = (props: HomeworkProps) => {
       <span className="task-status">
         {
           HomeworkStatus[
-            props.data?.status ??
-              studentHomeworkProgress?.status ??
-              StudentHomeworkStatus.Undone
+            props.data?.status ?? studentHomeworkProgress?.status ?? StudentHomeworkStatus.Undone
           ]
         }
       </span>

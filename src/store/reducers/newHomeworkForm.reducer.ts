@@ -26,10 +26,10 @@ const initialState: NewHomeworkFormState = {
   selectedGroupTaskCount: 0,
 };
 
-export const newHomeworkFormReducer: Reducer<
-  NewHomeworkFormState,
-  NewHomeworkFormAction
-> = (state = initialState, action) => {
+export const newHomeworkFormReducer: Reducer<NewHomeworkFormState, NewHomeworkFormAction> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
     case LOAD_GROUPS:
       return {

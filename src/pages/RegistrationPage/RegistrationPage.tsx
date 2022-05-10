@@ -3,11 +3,7 @@ import { Controller, useForm, FormProvider } from 'react-hook-form';
 import { setToken } from '../../services/auth.service';
 import { baseWretch } from '../../services/base-wretch.service';
 import { registerUrl } from '../../shared/consts';
-import {
-  Button,
-  ButtonModel,
-  ButtonType,
-} from '../../components/Button/Button';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { convertDate } from '../../shared/helpers/dateHelpers';
 import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
@@ -87,9 +83,7 @@ export const RegistrationPage = () => {
                 <p className="asterisk">Обязательно для заполнения</p>
               )}
               {method.formState.errors?.firstName?.type === 'maxLength' && (
-                <p className="asterisk">
-                  Превышена допустимая длина 20 символов
-                </p>
+                <p className="asterisk">Превышена допустимая длина 20 символов</p>
               )}
               {method.formState.errors?.firstName?.type === 'pattern' && (
                 <p className="asterisk">Недопустимые символы</p>
@@ -189,12 +183,7 @@ export const RegistrationPage = () => {
               type={ButtonType.submit}
               width="238"
             />
-            <Button
-              text="Отмена"
-              model={ButtonModel.Text}
-              type={ButtonType.reset}
-              width="190"
-            />
+            <Button text="Отмена" model={ButtonModel.Text} type={ButtonType.reset} width="190" />
           </div>
           <div className="flex-container">
             <CheckboxBtn
@@ -207,8 +196,7 @@ export const RegistrationPage = () => {
               isSingle={true}
             />
             <label htmlFor="policy" id="policy-label">
-              Настоящим подтверждаю, что я ознакомлен <br />и согласен с
-              условиями{' '}
+              Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями{' '}
               <a href={'#'} className="link-policy" aria-label="policy">
                 политики конфиденциальности
               </a>

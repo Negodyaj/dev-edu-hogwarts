@@ -8,11 +8,7 @@ import { UserRole } from '../shared/enums/UserRole';
 import { userRoleForEnum } from '../shared/helpers/userRoleForEnum';
 //import { UserRole } from '../shared/enums/UserRole';
 import { baseWretch } from './base-wretch.service';
-import {
-  getFromStorage,
-  removeFromStorage,
-  store,
-} from './local-storage.service';
+import { getFromStorage, removeFromStorage, store } from './local-storage.service';
 
 // token
 export const getToken = (): string => getFromStorage('token');

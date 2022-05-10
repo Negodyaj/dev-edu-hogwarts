@@ -17,23 +17,13 @@ export const ButtonNavigation = (props: ButtonProps) => {
   return (
     <Link
       to={props.data.path}
-      className={`nav-link flex-center transition-styles ${
-        match ? 'active' : ''
-      }
-       ${
-         props.isCollapsed && props.data.isHidden
-           ? 'subbutton with-color-on-hover'
-           : ''
-       } ${
-        !props.isCollapsed && props.data.isHidden
-          ? 'subbutton without-color-on-hover'
-          : ''
+      className={`nav-link flex-center transition-styles ${match ? 'active' : ''}
+       ${props.isCollapsed && props.data.isHidden ? 'subbutton with-color-on-hover' : ''} ${
+        !props.isCollapsed && props.data.isHidden ? 'subbutton without-color-on-hover' : ''
       }`}
     >
       <SvgIcon icon={props.data.icon} />
-      <span className={`links-name transition-styles`}>
-        {props.data.displayName}
-      </span>
+      <span className={`links-name transition-styles`}>{props.data.displayName}</span>
     </Link>
   );
 };
