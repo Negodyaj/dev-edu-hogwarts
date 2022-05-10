@@ -2,13 +2,14 @@ import { useState } from 'react';
 import '../components/NotificationsCard.scss';
 import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
 export type NotificationData = {
-  id: number;
+  id?: number;
   sender: string;
   senderPhoto: string;
   senderRole: string;
   message: string;
   date: string;
   time: string;
+  readed: boolean;
 };
 export type NotificationsProps = {
   data: NotificationData;
