@@ -9,12 +9,14 @@ export type NavigationProps = {
   isCollapsed: boolean;
 };
 export const Navigation = (props: NavigationProps) => {
-  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const { currentUser, currentRole } = useSelector(
+    (state: AppState) => state.loginPageState as LoginPageState
+  );
 
   return (
     <nav className="main-nav-panel">
       {currentUser ? (
-        getNavLinksByRole(currentUser.roles[0]).map((item) => (
+        getNavLinksByRole(currentRole).map((item) => (
           <ButtonNavigation isCollapsed={props.isCollapsed} data={item} key={item?.path} />
         ))
       ) : (
