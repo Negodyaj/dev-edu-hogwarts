@@ -1,6 +1,6 @@
 import { HomeworkCardContent } from '../components/HomeworkCardContent';
 import { HomeworkCard } from '../components/HomeworkCard';
-import { BackButton } from '../../../components/LinkArrow/BackButton';
+import { BackButton } from '../../../components/BackButton/BackButton';
 import './HomeworkCardPage.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';

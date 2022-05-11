@@ -2,14 +2,14 @@ import senderPhoto from './images/avatar.png';
 import {
   NotificationsCard,
   NotificationData,
-} from '../NotificationsPage/components/NotificationsCard';
+} from './components/NotificationsCard';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { AppState } from '../../store/store';
 import React, { useEffect } from 'react';
 import { filterNotification, setNotifications } from '../../actions/notifications.actions';
 import { NotificationsPageState } from '../../store/reducers/notifications.reducer';
+
 const getNotifications = (): NotificationData[] => {
   return [
     {
@@ -65,7 +65,7 @@ export const NotificationsPage = () => {
       if (item.id === 1) {
         return elem;
       } else {
-        return elem.readed === false;
+        return !elem.readed;
       }
     });
 
@@ -76,6 +76,7 @@ export const NotificationsPage = () => {
     { id: 1, name: 'Все' },
     { id: 2, name: 'Непрочитанные' },
   ];
+
   return (
     <>
       <FilterList data={notificationsFilterData} callback={applyNotificationsFilter} />

@@ -54,6 +54,12 @@ main{
 .flex-container {
   display: flex;
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: $dark-gray;
   opacity: 1; /* Firefox */

@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { loadHomework, loadStudentHomework } from '../../../actions/homework.actions';
 import { HomeworkCard } from '../components/HomeworkCard';
 import { HomeworkCardContent } from '../components/HomeworkCardContent';
-import { BackButton } from '../../../components/LinkArrow/BackButton';
+import { BackButton } from '../../../components/BackButton/BackButton';
 import { baseWretch } from '../../../services/base-wretch.service';
 import { getHomeworkById, getStudentAnswerByTaskId } from '../../../shared/consts';
 import { Homework, StudentHomework } from '../../../models/responses/HomeworksResponse';
