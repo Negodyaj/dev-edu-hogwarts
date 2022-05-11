@@ -1,0 +1,65 @@
+@import './src/style/colors';
+
+.journal-content-container {
+  font-size: 18px;
+  height: 80%;
+  margin-top: 40px;
+  cursor: default;
+
+  .scroll-content-div {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .one-block {
+    padding: 0 20px;
+    width: 120px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid $medium-gray;
+  }
+
+  .list-container {
+    margin-top: 50px;
+
+    .students-list {
+      width: 285px;
+      padding: 0;
+      justify-content: flex-start;
+    }
+
+    .rating {
+      width: 102px;
+
+      .indicator {
+        width: 8px;
+        height: 8px;
+        margin-right: 9px;
+        border-radius: 50%;
+
+        &.red {
+          background-color: $red;
+        }
+
+        &.green {
+          background-color: $green;
+        }
+        &.yellow {
+          background-color: $yellow;
+        }
+      }
+    }
+
+    .students-list,
+    .rating {
+      border-right: 1px solid $dark-gray;
+    }
+  }
+
+  .list-view-input {
+    background-color: transparent;
+    text-align: center;
+  }
+}

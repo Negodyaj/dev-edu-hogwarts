@@ -8,7 +8,7 @@ import {
   Droppable,
   DroppableProvided,
 } from 'react-beautiful-dnd';
-import { BackButton } from '../../../components/LinkArrow/BackButton';
+import { BackButton } from '../../../components/BackButton/BackButton';
 
 export type ListViewProps = {
   data: Array<ListViewLessons>;
