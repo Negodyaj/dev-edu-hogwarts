@@ -8,10 +8,12 @@ import React, { useState } from 'react';
 import { SvgLogo } from '../SvgIcon/SvgFiles/SvgLogo';
 import { SvgLogoName } from '../SvgIcon/SvgFiles/SvgLogoName';
 import { CollapseButton } from './CollapsButton/CollapsButton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import defaultAvatar from '../../components/images/defaultavatar.png';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
+import { collapseMainPanel } from '../../actions/mainPanel.actions';
 
 const avData = {
   photo: avatarPhoto,
@@ -23,11 +25,12 @@ const defaultData = {
   name: '',
 };
 export const MainPanel = () => {
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const dispatch = useDispatch();
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const handleClick = () => {
     setIsToggled((s) => !s);
   };
+  const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
 
   avData.name = `${currentUser?.firstName} ${currentUser?.lastName}`;
@@ -35,8 +38,8 @@ export const MainPanel = () => {
 
   return (
     <aside className={`main-panel transition-styles ${isCollapsed ? 'collapsed' : ''}`}>
+      <CollapseButton onClick={() => dispatch(collapseMainPanel(!isCollapsed))} />
       <div className="main-panel-container ">
-        <CollapseButton onClick={() => setIsCollapsed(!isCollapsed)} />
         <div className={`top-part transition-styles ${!currentUser ? 'top-part-login' : ''}`}>
           <div
             className={`logo-container flex-center transition-styles ${
