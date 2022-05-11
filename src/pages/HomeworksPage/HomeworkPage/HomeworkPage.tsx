@@ -1,14 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { loadHomework, loadStudentHomework } from '../../../actions/homework.actions';
+import {
+  clearHomework,
+  loadHomework,
+  loadStudentHomework,
+} from '../../../actions/homework.actions';
 import { HomeworkCard } from '../components/HomeworkCard';
 import { HomeworkCardContent } from '../components/HomeworkCardContent';
-import { BackButton } from '../../../components/LinkArrow/BackButton';
 import { baseWretch } from '../../../services/base-wretch.service';
 import { getHomeworkById, getStudentAnswerByTaskId } from '../../../shared/consts';
 import { Homework, StudentHomework } from '../../../models/responses/HomeworksResponse';
 import { AppState } from '../../../store/store';
+import { BackButton } from '../../../components/BackButton/BackButton';
 
 export const HomeworkPage = () => {
   const dispatch = useDispatch();
@@ -34,7 +38,7 @@ export const HomeworkPage = () => {
 
   return (
     <div className="homework-edit-page">
-      <BackButton path={'../homeworks'} />
+      <BackButton path={'../homeworks'} callback={() => dispatch(clearHomework())} />
       <HomeworkCard>
         <HomeworkCardContent />
       </HomeworkCard>
