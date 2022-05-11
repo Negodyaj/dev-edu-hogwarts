@@ -1,8 +1,5 @@
 import senderPhoto from './images/avatar.png';
-import {
-  NotificationsCard,
-  NotificationData,
-} from './components/NotificationsCard';
+import { NotificationsCard, NotificationData } from './components/NotificationsCard';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';

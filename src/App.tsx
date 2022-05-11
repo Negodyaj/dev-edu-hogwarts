@@ -19,7 +19,7 @@ import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
-import { GradeBook } from './pages/GradeBook/GradeBook';
+import { AttendanceJournal } from './pages/AttendanceJournal/AttendanceJournal';
 
 function App() {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ function App() {
           <Route path="new-homework" element={<NewHomework />} />
           <Route path="group" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
-          <Route path="students-gradebook" element={<GradeBook />} />
+          <Route path="journal" element={<AttendanceJournal />} />
         </Routes>
       </main>
     </div>
