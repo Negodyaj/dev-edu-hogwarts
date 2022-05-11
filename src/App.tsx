@@ -12,11 +12,13 @@ import { CoursesPage } from './pages/CoursesPage/CoursesPage';
 import { EditCoursesPage } from './pages/CoursesPage/EditCoursesPage';
 import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
+import { AppState } from './store/store';
+import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { GradeBook } from './pages/GradeBook/GradeBook';
 
 function App() {
@@ -26,10 +28,12 @@ function App() {
     getCurrentUser(dispatch);
   }, []);
 
+  const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
+
   return (
     <div className="flex-container">
       <MainPanel />
-      <main>
+      <main className={isCollapsed ? 'closed' : ' '}>
         <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
