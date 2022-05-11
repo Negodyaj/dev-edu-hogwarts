@@ -18,6 +18,7 @@ import { homeworksPageReducer, HomeWorkPageState } from './reducers/homeworks.re
 import { homeworkPageReducer, HomeworkPageState } from './reducers/homework.reducer';
 import { newHomeworkFormReducer, NewHomeworkFormState } from './reducers/newHomeworkForm.reducer';
 import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
+import { groupsPageReducer, GroupsPageState } from './reducers/groups.reducer';
 
 // Create an interface for the application state
 export interface AppState {
@@ -27,6 +28,7 @@ export interface AppState {
   loginPageState: LoginPageState | undefined;
   lessonsPageState: LessonsPageState | undefined;
   homeworkPageState: HomeworkPageState;
+  groupsPageState: GroupsPageState | undefined;
 }
 
 // Create the root reducer
@@ -37,6 +39,7 @@ const rootReducer = combineReducers<AppState>({
   homeworksPageState: homeworksPageReducer,
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
+  groupsPageState: groupsPageReducer,
 });
 
 // Create a configure store function of type `AppState`
