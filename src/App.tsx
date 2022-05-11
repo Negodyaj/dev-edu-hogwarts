@@ -22,6 +22,7 @@ import { MainPanelState } from './store/reducers/mainPanel.reducer';
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     getCurrentUser(dispatch);
   }, []);

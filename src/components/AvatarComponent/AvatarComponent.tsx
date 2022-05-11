@@ -10,7 +10,7 @@ export const AvatarComponent = (props: AvatarComponentProps) => {
   return props.photo ? (
     <>
       <div className="avatar-text">
-        <img className="avatar-photo" src={props.photo}></img>
+        <img className="avatar-photo" src={props.photo} alt="Аватар пользователя" />
         <div className="svg-text">
           <SvgIcon icon={Icon.Picture} />
           <a href="#">Загрузить новое фото</a>

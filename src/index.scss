@@ -17,8 +17,6 @@ body {
 main {
   flex-grow: 1;
   padding-top: 70px;
-}
-main{
   padding-left: 380px;
   transition: padding-left ease-in-out 0.5s, padding-left ease-in-out 0.5s;
 }
@@ -26,6 +24,7 @@ main{
   padding-left: 114px;
   transition: padding-left ease-in-out 0.5s, padding-left ease-in-out 0.5s;
 }
+
 .form-container {
   padding-left: 65px;
   padding-top: 20px;
@@ -55,6 +54,12 @@ main{
 .flex-container {
   display: flex;
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: $dark-gray;
   opacity: 1; /* Firefox */

@@ -60,7 +60,7 @@ export const MainPanel = () => {
         <Navigation isCollapsed={isCollapsed} />
         <div className={`bottom-part transition-styles ${isCollapsed ? 'collapsed' : ''}`}>
           {currentUser ? <Exit /> : ''}
-          <Toggle isToggled={isToggled} onClick={handleClick}></Toggle>
+          <Toggle isToggled={isToggled} onClick={handleClick} />
         </div>
       </div>
     </aside>
