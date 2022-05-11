@@ -1,9 +1,13 @@
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser, setToken } from '../../services/auth.service';
 import { baseWretch } from '../../services/base-wretch.service';
 import { loginUrl } from '../../shared/consts';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AppState } from '../../store/store';
+import { LoginPageState } from '../../store/reducers/login.reducer';
+import { useEffect } from 'react';
 
 export type LoginFormData = {
   email: string;
@@ -12,6 +16,8 @@ export type LoginFormData = {
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     register,
@@ -27,7 +33,18 @@ export const LoginPage = () => {
         setToken(token);
         getCurrentUser(dispatch);
       });
+
+    const from = location.state;
+    navigate(typeof from === 'string' ? from : '/');
   };
+
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  }, [currentUser]);
 
   return (
     <div className="form-container login-page-form">
