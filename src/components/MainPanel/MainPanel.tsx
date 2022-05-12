@@ -14,15 +14,18 @@ import { LoginPageState } from '../../store/reducers/login.reducer';
 import defaultAvatar from '../../components/images/defaultavatar.png';
 import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
 import { collapseMainPanel } from '../../actions/mainPanel.actions';
+import { Link } from 'react-router-dom';
 
 const avData = {
   photo: avatarPhoto,
-  name: '',
+  firstName: '',
+  lastName: '',
 };
 
 const defaultData = {
   photo: defaultAvatar,
-  name: '',
+  firstName: '',
+  lastName: '',
 };
 export const MainPanel = () => {
   const dispatch = useDispatch();
@@ -32,9 +35,11 @@ export const MainPanel = () => {
   };
   const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
-
-  avData.name = `${currentUser?.firstName} ${currentUser?.lastName}`;
-  avData.photo = avatarPhoto;
+  if (currentUser) {
+    avData.firstName = currentUser.firstName;
+    avData.lastName = currentUser.lastName;
+    avData.photo = avatarPhoto;
+  }
 
   return (
     <aside className={`main-panel transition-styles ${isCollapsed ? 'collapsed' : ''}`}>
@@ -49,13 +54,14 @@ export const MainPanel = () => {
             <SvgLogo />
             <SvgLogoName />
           </div>
-          <div
+          <Link
+            to={'/settings'}
             className={`avatar-block transition-styles ${isCollapsed ? 'collapsed' : ''}${
               !currentUser ? 'padding-top' : ''
             }`}
           >
             {currentUser ? <Avatar data={avData} /> : <Avatar data={defaultData} />}
-          </div>
+          </Link>
         </div>
         <Navigation isCollapsed={isCollapsed} />
         <div className={`bottom-part transition-styles ${isCollapsed ? 'collapsed' : ''}`}>

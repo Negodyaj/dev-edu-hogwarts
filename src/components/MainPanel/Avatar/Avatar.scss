@@ -1,6 +1,5 @@
 .avatar-img {
   position: relative;
-
   img {
     z-index: 1;
     position: absolute;
@@ -23,7 +22,6 @@
     }
   }
 }
-
 .avatar-name {
   font-style: normal;
   font-weight: 700;
@@ -33,6 +31,9 @@
   white-space: nowrap;
   
 }
+.margin-right-avatar{
+  margin-right: 5px;
+}
 .avatar-role {
   font-style: normal;
   font-weight: 400;
@@ -40,4 +41,8 @@
   line-height: 19px;
   white-space: nowrap;
 }
-
+.wrapper-user-info{
+  .drop-down-filter{
+    justify-content: flex-start;
+  }
+}

@@ -17,7 +17,9 @@ export const ButtonNavigation = (props: ButtonProps) => {
   return (
     <Link
       to={props.data.path}
-      className={`nav-link flex-center transition-styles ${match ? 'active' : ''}
+      className={`nav-link flex-center transition-styles ${match ? 'active' : ''} ${
+        props.data.path === '/settings' ? 'hidden-settings' : ''
+      }
        ${props.isCollapsed && props.data.isHidden ? 'subbutton with-color-on-hover' : ''} ${
         !props.isCollapsed && props.data.isHidden ? 'subbutton without-color-on-hover' : ''
       }`}
