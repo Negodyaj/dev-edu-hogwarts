@@ -6,6 +6,10 @@
   padding: 30px 50px;
   background-color: white;
   text-align: center;
+  &:hover{
+    cursor: pointer;
+  }
+  
   &.invisible{
     display: none;
   }
@@ -14,4 +18,5 @@
   margin: 0;
   padding-top: 10px;
 }
+
 

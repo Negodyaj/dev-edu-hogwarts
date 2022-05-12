@@ -6,41 +6,44 @@ import {SvgFail} from '../SvgIcon/SvgFiles/NotificationSvg/SvgFail';
 import React from 'react';
 
 export type Notifs = {
-  id: number;
   img: any;
   text: string;
+  type: string;
 }
 
 const notifs: Notifs[] = [
   {
-    id: 1,
     img: <SvgOk />,
-    text: 'Всё заебись',
-    //visible: vis
+    text: 'Вы успешно зарегистрипровались!',
+    type: 'good',
   },
   {
-    id: 2,
     img: <SvgFail />,
-    text: 'Что-то пошло не так',
-    //visible: vis
+    text: 'Что-то пошло не так =(',
+    type: 'bad',
   }];
 
 export function NotificationsContainer() {
-  let container: JSX.Element[] = [];
-  const [containerState, setContainerState] = useState(container);
-  const [containerRender, setContainerRender] = useState(containerState);
-  
-  return (
+  const empty: any[] = []
+  const [containerState, setContainerState] = useState(empty);
+
+  function handleClick(notif: Notifs) {
+    setContainerState(containerState.concat(notif))
+  }
+
+  return(
     <>
-     <button onClick={() => setContainerState(containerState.concat(<NotificationItem data={notifs[0]}/>))}>Хороший нотиф</button>
-     <button onClick={() => setContainerState(containerState.concat(<NotificationItem data={notifs[1]}/>))}>Плохой нотиф</button>
-     <div>
-        {containerState.map((component, index) => (
-        <React.Fragment key={index}>
-          {component}
-        </React.Fragment>
-      ))}
-     </div>
+      <button onClick={() => handleClick(notifs[0])}>Хороший нотиф</button>
+      <button onClick={() => handleClick(notifs[1])}>Плохой нотиф</button>
+      
+      <div className="notifications-container">
+        {containerState.map((item, i) => (
+          <NotificationItem
+            data={item}
+            key={i}
+          />
+        ))}
+      </div>
     </>
   )
 }
