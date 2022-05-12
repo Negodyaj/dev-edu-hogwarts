@@ -1,7 +1,6 @@
 import './MainPanel.scss';
 import { Avatar } from './Avatar/Avatar';
 import { Navigation } from './Navigation/Navigation';
-import avatarPhoto from '../images/avatar.png';
 import { Exit } from './Exit/Exit';
 import { Toggle } from './Toggle/Toggle';
 import React, { useState } from 'react';
@@ -17,7 +16,7 @@ import { collapseMainPanel } from '../../actions/mainPanel.actions';
 import { Link } from 'react-router-dom';
 
 const avData = {
-  photo: avatarPhoto,
+  photo: '',
   firstName: '',
   lastName: '',
 };
@@ -38,7 +37,7 @@ export const MainPanel = () => {
   if (currentUser) {
     avData.firstName = currentUser.firstName;
     avData.lastName = currentUser.lastName;
-    avData.photo = avatarPhoto;
+    avData.photo = currentUser.photo;
   }
 
   return (
@@ -60,7 +59,7 @@ export const MainPanel = () => {
               !currentUser ? 'margin-top' : ''
             }`}
           >
-            {currentUser ? <Avatar data={avData} /> : <Avatar data={defaultData} />}
+            <Avatar data={currentUser ? avData : defaultData} />
           </Link>
         </div>
         <Navigation />
