@@ -12,30 +12,41 @@ import {
 import { CourseResponse } from '../../models/responses/CourseResponse';
 import { baseWretch } from '../../services/base-wretch.service';
 import { useEffect } from 'react';
+import { TopicResponse } from '../../models/responses/TopicResponse';
 
 export const CoursesPage = () => {
   const dispatch = useDispatch();
-  const { courseTabs, currentCourse } = useSelector(
+  const { courseTabs, currentCourse, topics } = useSelector(
     (state: AppState) => state.coursesPageState
   );
   const { courses, selectedTabCoursePage } = useSelector(
     (state: AppState) => state.coursesPageState
   );
   useEffect(() => {
-    if (selectedTabCoursePage > 0) {
-      baseWretch()
-        .url(`api/Courses/${selectedTabCoursePage}/simple`)
-        .get()
-        .json((data) => {
-          dispatch(loadCurrentCourse(data as CourseResponse));
-          dispatch(setTopics((data as CourseResponse).topics));
-        });
-    }
-  }, [selectedTabCoursePage]);
-  useEffect(() => {
     if (courses && courses?.length > 0)
       dispatch(loadCoursePageTabs(courses as CourseResponse[]));
   }, [courses]);
+
+  useEffect(() => {
+    if (selectedTabCoursePage > 0) {
+      {
+        baseWretch()
+          .url(`api/Courses/${selectedTabCoursePage}/simple`)
+          .get()
+          .json((data) => {
+            dispatch(loadCurrentCourse(data as CourseResponse));
+          });
+      }
+    }
+  }, [selectedTabCoursePage]);
+  useEffect(() => {
+    baseWretch()
+      .url(`api/Courses/${selectedTabCoursePage}/topics`)
+      .get()
+      .json((tpcs) => {
+        dispatch(setTopics(tpcs as TopicResponse[]));
+      });
+  }, [currentCourse]);
   return (
     <>
       <TabContainer
@@ -43,15 +54,15 @@ export const CoursesPage = () => {
         selectedTab={selectedTabCoursePage}
         onClick={selectTabCoursePage}
       />
-      {currentCourse?.topics && currentCourse.topics.length > 0 ? (
+      {currentCourse?.topics ? (
         <DragDropContext onDragEnd={() => {}}>
           <ListView
-            data={currentCourse?.topics.map((el, idx) => {
+            data={topics.map((el) => {
               const q: ListViewLessons = {
-                id: el.id,
-                lessonNumber: idx,
-                lessonName: el.name,
-                hoursCount: el.duration,
+                id: el.topic.id,
+                lessonNumber: el.topic.id,
+                lessonName: el.topic.name,
+                hoursCount: el.topic.duration,
               };
               return q;
             })}

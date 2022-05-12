@@ -1,5 +1,8 @@
 export interface TopicResponse {
-  id: number;
-  name: string;
-  duration: number;
+  position: number;
+  topic: {
+    id: number;
+    name: string;
+    duration: number;
+  };
 }

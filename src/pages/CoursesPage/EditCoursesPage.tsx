@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import {
   loadCoursePageTabs,
-  loadCurrentCourse,
+  // loadCurrentCourse,
   setTopics,
 } from '../../actions/courses.actions';
 import { useEffect } from 'react';
@@ -15,8 +15,9 @@ import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { selectTabCoursePage } from '../../actions/courses.actions';
 
 export const EditCoursesPage = () => {
-  const { currentCourse, courses, topics, selectedTabCoursePage, courseTabs } =
-    useSelector((state: AppState) => state.coursesPageState);
+  const { courses, topics, selectedTabCoursePage, courseTabs } = useSelector(
+    (state: AppState) => state.coursesPageState
+  );
   const dispatch = useDispatch();
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
@@ -35,30 +36,35 @@ export const EditCoursesPage = () => {
     const newTopicsArray = Array.from(topics);
     newTopicsArray?.splice(source.index, 1);
     const dragElem = Object.assign(
-      [...currentCourse!.topics].filter(
-        (item) => item.id.toString() === draggableId
-      )[0]
+      [...topics].filter((item) => item.topic.id.toString() === draggableId)[0]
     );
     newTopicsArray?.splice(destination.index, 0, dragElem);
-    dispatch(setTopics(newTopicsArray as TopicResponse[]));
   };
-
+  // useEffect(() => {
+  //   if (selectedTabCoursePage > 0) {
+  //     {
+  //       baseWretch()
+  //         .url(`api/Courses/${selectedTabCoursePage}/simple`)
+  //         .get()
+  //         .json((data) => {
+  //           dispatch(loadCurrentCourse(data as CourseResponse));
+  //         });
+  //     }
+  //   }
+  // }, [selectedTabCoursePage]);
   useEffect(() => {
-    if (selectedTabCoursePage > 0) {
-      baseWretch()
-        .url(`api/Courses/${selectedTabCoursePage}/simple`)
-        .get()
-        .json((data) => {
-          dispatch(loadCurrentCourse(data as CourseResponse));
-          dispatch(setTopics((data as CourseResponse).topics));
-        });
-    }
+    baseWretch()
+      .url(`api/Courses/${selectedTabCoursePage}/topics`)
+      .get()
+      .json((tpcs) => {
+        dispatch(setTopics(tpcs as TopicResponse[]));
+      });
   }, [selectedTabCoursePage]);
+
   useEffect(() => {
     if (courses && courses?.length > 0)
       dispatch(loadCoursePageTabs(courses as CourseResponse[]));
   }, [courses]);
-  console.log(currentCourse?.id);
   return (
     <>
       <TabContainer
@@ -69,16 +75,17 @@ export const EditCoursesPage = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         <ListView
           data={
-            topics &&
-            topics?.map((el, idx) => {
-              const q: ListViewLessons = {
-                id: el.id,
-                lessonNumber: idx,
-                lessonName: el.name,
-                hoursCount: el.duration,
-              };
-              return q;
-            })
+            topics
+              ? topics?.map((el) => {
+                  const q: ListViewLessons = {
+                    id: el.topic.id,
+                    lessonNumber: el.topic.id,
+                    lessonName: el.topic.name,
+                    hoursCount: el.topic.duration,
+                  };
+                  return q;
+                })
+              : []
           }
           groupId={1}
           edit={true}

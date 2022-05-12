@@ -5,6 +5,8 @@ import {
   DraggableProvidedDragHandleProps,
 } from 'react-beautiful-dnd';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { baseWretch } from '../../../../services/base-wretch.service';
 
 export type ListViewItemProps = {
   lesson: ListViewLessons;
@@ -18,72 +20,93 @@ export type ListViewItemProps = {
     isDragDisabled: boolean;
   } | null;
 };
-
+export type TopicFormData = {
+  id: number;
+  name: string;
+  duration: number;
+};
 export const ListViewItem = (props: ListViewItemProps) => {
   const headItemStyleName = props.head ? 'title-head__item' : '';
   const [hoursCount, setHoursCount] = useState(props.lesson.hoursCount);
   const [lessonName, setLessonName] = useState(props.lesson.lessonName);
   const [lessonNumber, setLessonNumber] = useState(props.lesson.lessonNumber);
-
+  const methods = useForm<TopicFormData>({
+    mode: 'onBlur',
+  });
+  const onSubmit = (data: TopicFormData) =>
+    baseWretch()
+      .url('api/Topics/' + lessonNumber)
+      .put({
+        id: data.id,
+        name: lessonName,
+        duration: hoursCount,
+      });
   return (
-    <div
-      className={`grid-table-container ${props.head ? 'title-head' : ''} ${
-        props.dragSettings?.snapshot ? 'dragging' : ''
-      }`}
-      ref={props.dragSettings?.innerRef}
-      {...props.dragSettings?.prop1}
-    >
-      <span
-        className={`${
-          !props.head ? 'nums flex-container' : ''
-        } ${headItemStyleName}`}
+    <form>
+      <div
+        className={`grid-table-container ${props.head ? 'title-head' : ''} ${
+          props.dragSettings?.snapshot ? 'dragging' : ''
+        }`}
+        ref={props.dragSettings?.innerRef}
+        {...props.dragSettings?.prop1}
       >
-        {props.dragSettings?.isDragDisabled && !props.head && (
-          <div className="draggable-pointer" {...props.dragSettings?.prop2}>
-            <span />
-            <span />
-            <span />
-          </div>
-        )}
-        {props.head || !props.dragSettings?.isDragDisabled ? (
-          lessonNumber
-        ) : (
-          <input
-            className="list-view-input"
-            type="text"
-            value={lessonNumber}
-            onChange={(e) => setLessonNumber(e.currentTarget.value)}
-          />
-        )}
-      </span>
-      <span
-        className={`${
-          props.head ? 'lesson-name-head' : 'lesson-name'
-        } ${headItemStyleName}`}
-      >
-        {props.head || !props.dragSettings?.isDragDisabled ? (
-          lessonName
-        ) : (
-          <input
-            className="list-view-input"
-            type="text"
-            value={lessonName}
-            onChange={(e) => setLessonName(e.currentTarget.value)}
-          />
-        )}
-      </span>
-      <span className={`${!props.head ? 'nums' : ''} ${headItemStyleName}`}>
-        {props.head || !props.dragSettings?.isDragDisabled ? (
-          hoursCount
-        ) : (
-          <input
-            className="list-view-input"
-            type="text"
-            value={hoursCount}
-            onChange={(e) => setHoursCount(e.currentTarget.value)}
-          />
-        )}
-      </span>
-    </div>
+        <span
+          className={`${
+            !props.head ? 'nums flex-container' : ''
+          } ${headItemStyleName}`}
+        >
+          {props.dragSettings?.isDragDisabled && !props.head && (
+            <div className="draggable-pointer" {...props.dragSettings?.prop2}>
+              <span />
+              <span />
+              <span />
+            </div>
+          )}
+          {props.head || !props.dragSettings?.isDragDisabled ? (
+            lessonNumber
+          ) : (
+            <input
+              {...methods.register('id')}
+              className="list-view-input"
+              type="text"
+              value={lessonNumber}
+              onChange={(e) => setLessonNumber(e.currentTarget.value)}
+            />
+          )}
+        </span>
+        <span
+          className={`${
+            props.head ? 'lesson-name-head' : 'lesson-name'
+          } ${headItemStyleName}`}
+        >
+          {props.head || !props.dragSettings?.isDragDisabled ? (
+            lessonName
+          ) : (
+            <input
+              {...methods.register('name')}
+              className="list-view-input"
+              type="text"
+              value={lessonName}
+              onChange={(e) => setLessonName(e.currentTarget.value)}
+              onBlur={methods.handleSubmit(onSubmit)}
+            />
+          )}
+        </span>
+        <span className={`${!props.head ? 'nums' : ''} ${headItemStyleName}`}>
+          {props.head || !props.dragSettings?.isDragDisabled ? (
+            hoursCount
+          ) : (
+            <input
+              {...methods.register('duration')}
+              className="list-view-input"
+              type="text"
+              value={hoursCount}
+              onBlur={methods.handleSubmit(onSubmit)}
+              onChange={(e) => setHoursCount(e.currentTarget.value)}
+            />
+          )}
+        </span>
+      </div>
+    </form>
   );
 };
