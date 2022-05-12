@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
+import { GroupsListPage } from './pages/GroupsListPage/GroupsListPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
           <Route path="new-homework" element={<NewHomework />} />
           <Route path="new-group" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
+          <Route path="groups" element={<GroupsListPage />} />
         </Routes>
       </main>
     </div>

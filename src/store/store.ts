@@ -28,7 +28,7 @@ export interface AppState {
   loginPageState: LoginPageState | undefined;
   lessonsPageState: LessonsPageState | undefined;
   homeworkPageState: HomeworkPageState;
-  groupsPageState: GroupsPageState | undefined;
+  groupsPageState: GroupsPageState;
 }
 
 // Create the root reducer
