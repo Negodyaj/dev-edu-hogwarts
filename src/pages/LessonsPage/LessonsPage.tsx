@@ -69,7 +69,12 @@ export const LessonsPage = () => {
 
   return (
     <>
-      <TabContainer tabContainerData={tabs} selectedTab={selectedTab} onClick={selectTab} />
+      <TabContainer
+        tabContainerData={tabs}
+        selectedTab={selectedTab}
+        onClick={selectTab}
+        course={true}
+      />
       <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />
       <div className="lessons-container">
         {newLessons?.map((lesson) => (

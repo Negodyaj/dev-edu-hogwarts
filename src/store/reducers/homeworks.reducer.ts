@@ -44,7 +44,7 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworkPageAction
         const tabData: TabData = {
           id: group.id,
           text: group.course.name,
-          icon: Icon.Cookie,
+          icon: Icon.Pencil,
         };
         return tabData;
       });

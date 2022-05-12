@@ -1,13 +1,13 @@
-import { SvgBackend } from '../../components/SvgIcon/SvgFiles/SvgBackend';
-import { SvgBarrel } from '../../components/SvgIcon/SvgFiles/SvgBarrel';
-import { SvgBaseCourse } from '../../components/SvgIcon/SvgFiles/SvgBaseCourse';
-import { SvgFrontend } from '../../components/SvgIcon/SvgFiles/SvgFrontend';
+import { SvgBackend } from './SvgFiles/SvgBackend';
+import { SvgBarrel } from './SvgFiles/SvgBarrel';
+import { SvgBaseCourse } from './SvgFiles/SvgBaseCourse';
+import { SvgFrontend } from './SvgFiles/SvgFrontend';
 
 export type DictionaryData = {
   courseName?: string;
 };
 
-export const IconsTabs = (props: DictionaryData) => {
+export const CoursesTabIcons = (props: DictionaryData) => {
   switch (props.courseName) {
     case 'Базовый курс':
       return <SvgBaseCourse />;
