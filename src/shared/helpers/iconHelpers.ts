@@ -1,4 +1,5 @@
 import { Icon } from '../enums/Icon';
+import { GroupsTabIcons } from '../../components/SvgIcon/GroupsTabIcons';
 
 const BASE_COURSE = 'Базовый курс' as const;
 const BACKEND_COURSE = 'Специализация Backend' as const;
@@ -24,4 +25,10 @@ export const getCourseIcon = (courseName: CourseName) => {
     default:
       return Icon.Exit; //TODO: удалить
   }
+};
+
+export const setRandomIconGroup = () => {
+  const length = GroupsTabIcons.length;
+  const random = Math.random() * length;
+  return ~~random;
 };

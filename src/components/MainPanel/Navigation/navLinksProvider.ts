@@ -100,13 +100,13 @@ const buttons: NavLink[] = [
     isHidden: false,
   },
   {
-    icon: Icon.Cake,
+    icon: Icon.Pencil,
     path: '/register',
     displayName: 'Регистрация',
     isHidden: false,
   },
   {
-    icon: Icon.Cake,
+    icon: Icon.Settings,
     path: '/settings',
     displayName: 'Настройки',
     isHidden: false,

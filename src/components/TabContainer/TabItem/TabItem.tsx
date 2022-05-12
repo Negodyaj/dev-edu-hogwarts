@@ -1,12 +1,15 @@
 import React from 'react';
 import './TabItem.scss';
-import { IconsTabs } from '../../../pages/HomeworksPage/IconsTabs';
+import { CoursesTabIcons } from '../../SvgIcon/CoursesTabIcons';
 import { TabData } from '../../../models/TabData';
+import { GroupsSvgIcon, GroupsTabIcons } from '../../SvgIcon/GroupsTabIcons';
 
 export type TabProps = {
   data: TabData;
   activeTab: number;
   onClick: (id: number) => void;
+  course?: boolean;
+  group?: boolean;
 };
 
 export const TabItem = (props: TabProps) => {
@@ -16,7 +19,8 @@ export const TabItem = (props: TabProps) => {
         className={`tab-item ${props.data.id === props.activeTab ? 'active-tab' : ''}`}
         onClick={() => props.onClick(props.data.id)}
       >
-        <IconsTabs courseName={props.data.text} />
+        {props.course && <CoursesTabIcons courseName={props.data.text} />}
+        {props.group && <GroupsSvgIcon icon={GroupsTabIcons[props.data.icon]} />}
         <div>{props.data.text}</div>
       </div>
     </>
