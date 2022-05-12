@@ -135,7 +135,7 @@ export const SettingsPage = () => {
               </div>
             </div>
             <div className="settings-photo">
-              <AvatarComponent photo="http://localhost:3000/static/media/avatar_settings.f04f5af1751b20e8efb2.png" />
+              <AvatarComponent photo={currentUser?.photo} />
             </div>
           </div>
           <div className="form-grid-container">
