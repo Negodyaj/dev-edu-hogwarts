@@ -7,7 +7,7 @@
   display: flex;
   transition: width 0.5s ease-in-out, opacity 0.3s ease-in-out;
   width: 262px;
-  
+
   & svg {
     flex-shrink: 0;
   }
@@ -29,7 +29,7 @@
   path {
     stroke: white;
   }
-  .with-color-on-hover{
+  .with-color-on-hover {
     fill: white;
   }
 }
@@ -38,37 +38,21 @@
   margin-top: 23px;
 }
 
-
-.without-color-on-hover.active,
-.without-color-on-hover:hover{
-  background-color: #a786df;
-  border-radius: 5px;
-
-  .without-color-on-hover:hover,path {
-    stroke: rgba(84, 73, 73, 0);
-    fill: rgba(142, 131, 131, 0);
-  }
-  .without-color-on-hover:hover,.with-color-on-hover{
-    fill: rgba(255, 0, 0, 0);
+.subbutton:not(.collapsed-mode),
+.subbutton:not(.collapsed-mode).active,
+.subbutton:not(.collapsed-mode):hover {
+  path {
+    stroke: transparent;
+    fill: transparent;
   }
 }
-.subbutton, 
-.with-color-on-hover,
-.active{
-  path {
-    stroke: rgb(255, 255, 255);
-    fill: rgba(255, 255, 255, 0);
-  }
-  .with-color-on-hover{
-    fill: rgb(255, 255, 255);
-  }
+
+.nav-link.subbutton {
+  margin-top: 0;
 }
-.with-color-on-hover{
-  path {
-     stroke: rgb(0, 0, 0);
-    fill: rgba(0, 0, 0, 0);
-  }
-  .with-color-on-hover{
-    fill: rgb(0, 0, 0);
+
+@media (max-height: 880px) {
+  .nav-link + .nav-link:not(.subbutton) {
+    margin-top: 11px;
   }
 }
