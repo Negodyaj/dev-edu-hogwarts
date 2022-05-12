@@ -8,10 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AppState } from '../../store/store';
 import React, { useEffect } from 'react';
-import {
-  filterNotification,
-  setNotifications,
-} from '../../actions/notifications.actions';
+import { filterNotification, setNotifications } from '../../actions/notifications.actions';
 import { NotificationsPageState } from '../../store/reducers/notifications.reducer';
 const getNotifications = (): NotificationData[] => {
   return [
@@ -81,10 +78,7 @@ export const NotificationsPage = () => {
   ];
   return (
     <>
-      <FilterList
-        data={notificationsFilterData}
-        callback={applyNotificationsFilter}
-      />
+      <FilterList data={notificationsFilterData} callback={applyNotificationsFilter} />
       <div className="card-container content-container">
         {filteredNotifications.map((notification: any) => (
           <NotificationsCard data={notification} />

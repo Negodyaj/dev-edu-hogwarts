@@ -21,26 +21,18 @@ const initialState: LoginPageState = {
   password: 'stringst',
 };
 
-export const loginPageReducer: Reducer<
-  LoginPageState | undefined,
-  LoginPageAction
-> = (state: LoginPageState | undefined = initialState, action) => {
+export const loginPageReducer: Reducer<LoginPageState | undefined, LoginPageAction> = (
+  state: LoginPageState | undefined = initialState,
+  action
+) => {
   switch (action.type) {
     case SET_CURRENT_USER: {
-      if (action.payload != undefined) {
-        const roles: UserRole[] = action.payload.roles;
-        return {
-          ...state,
-          currentUser: action.payload,
-          currentRole: roles[0],
-        };
-      } else {
-        return {
-          ...state,
-          currentUser: undefined,
-          currentRole: UserRole.DefaultRole,
-        };
-      }
+      const roles: UserRole[] | undefined = action.payload?.roles;
+      return {
+        ...state,
+        currentUser: action.payload,
+        currentRole: action.payload ? roles![0] : UserRole.DefaultRole,
+      };
     }
     case SET_CURRENT_USER_ROLE: {
       return {

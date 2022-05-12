@@ -1,13 +1,7 @@
 import * as React from 'react';
 export const SvgHomeWorks = () => {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M20 20V19V20ZM4 20L4 21H4V20ZM3 19H4H3ZM3 6L3 5C2.73478 5 2.48043 5.10536 2.29289 5.29289C2.10536 5.48043 2 5.73478 2 6L3 6ZM20 6V5V6ZM21 7L22 7L21 7ZM21 19H20H21ZM20 19L4 19V21L20 21V19ZM4 19L4 6L2 6L2 19H4ZM3 7L20 7V5L3 5L3 7ZM20 7L22 7C22 5.89543 21.1046 5 20 5V7ZM4 19H4H2C2 20.1046 2.89543 21 4 21L4 19ZM20 21C21.1046 21 22 20.1046 22 19H20V21ZM20 7L20 19H22L22 7L20 7Z"
         fill="black"

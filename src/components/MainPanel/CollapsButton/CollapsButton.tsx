@@ -10,8 +10,8 @@ export const CollapseButton = (props: CollapseEvent) => {
     <button className="collapse-button" onClick={props.onClick}>
       <div className="left-part">
         <SvgLeftChevron />
+        <div className="right-part" />
       </div>
-      <div className="right-part" />
     </button>
   );
 };

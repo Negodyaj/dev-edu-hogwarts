@@ -3,11 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getCurrentUser, setToken } from '../../services/auth.service';
 import { baseWretch } from '../../services/base-wretch.service';
 import { loginUrl } from '../../shared/consts';
-import {
-  Button,
-  ButtonModel,
-  ButtonType,
-} from '../../components/Button/Button';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 
 export type LoginFormData = {
   email: string;
@@ -57,18 +53,8 @@ export const LoginPage = () => {
         </div>
         {errors.password && <span>пароль введи, жопошник</span>}
         <div className="buttons-group">
-          <Button
-            text="Войти"
-            model={ButtonModel.Colored}
-            type={ButtonType.submit}
-            width="190"
-          />
-          <Button
-            text="Отмена"
-            model={ButtonModel.Text}
-            type={ButtonType.reset}
-            width="223"
-          />
+          <Button text="Войти" model={ButtonModel.Colored} type={ButtonType.submit} width="190" />
+          <Button text="Отмена" model={ButtonModel.Text} type={ButtonType.reset} width="223" />
         </div>
       </form>
     </div>

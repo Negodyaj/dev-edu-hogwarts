@@ -5,23 +5,19 @@ import { LoginPageState } from '../../../store/reducers/login.reducer';
 import { AppState } from '../../../store/store';
 import { Link } from 'react-router-dom';
 import { getNavLinksByRole } from './navLinksProvider';
-export type NavigationProps = {
-  isCollapsed: boolean;
-};
-export const Navigation = (props: NavigationProps) => {
-  const { currentUser } = useSelector(
+import { MainPanelState } from '../../../store/reducers/mainPanel.reducer';
+
+export const Navigation = () => {
+  const { currentUser, currentRole } = useSelector(
     (state: AppState) => state.loginPageState as LoginPageState
   );
+  const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
 
   return (
     <nav className="main-nav-panel">
-      {currentUser ? (
-        getNavLinksByRole(currentUser.roles[0]).map((item) => (
-          <ButtonNavigation
-            isCollapsed={props.isCollapsed}
-            data={item}
-            key={item?.path}
-          />
+      {currentUser || isCollapsed ? (
+        getNavLinksByRole(currentRole).map((item) => (
+          <ButtonNavigation isCollapsed={isCollapsed} data={item} key={item?.path} />
         ))
       ) : (
         <>

@@ -47,17 +47,11 @@ export const FilterList = (props: FilterListProps) => {
 
       {isOpen && (
         <div className="drop-down-filter__list-wrapper">
-          <ul
-            className={`drop-down-filter__list ${
-              filterData.length > 4 ? 'overflow' : ''
-            }`}
-          >
+          <ul className={`drop-down-filter__list ${filterData.length > 4 ? 'overflow' : ''}`}>
             {filterData.map((elem) => (
               <li
                 key={elem.id}
-                className={`drop-down-filter__element ${
-                  elem.id === item?.id ? 'selected' : ''
-                }`}
+                className={`drop-down-filter__element ${elem.id === item?.id ? 'selected' : ''}`}
                 onClick={() => onElementClick(elem)}
               >
                 {elem.name}

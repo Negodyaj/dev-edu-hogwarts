@@ -8,9 +8,7 @@ import { getUserRoleLocalName } from '../../../shared/helpers/translations';
 
 export const CurrentUserRoles = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector(
-    (state: AppState) => state.loginPageState as LoginPageState
-  );
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
 
   const setUserRole = (item: FilterItem) => {
     dispatch(setCurrentUserRole(item.id as UserRole));

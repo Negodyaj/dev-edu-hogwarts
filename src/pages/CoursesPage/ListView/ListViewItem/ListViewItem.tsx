@@ -33,11 +33,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
       ref={props.dragSettings?.innerRef}
       {...props.dragSettings?.prop1}
     >
-      <span
-        className={`${
-          !props.head ? 'nums flex-container' : ''
-        } ${headItemStyleName}`}
-      >
+      <span className={`${!props.head ? 'nums flex-container' : ''} ${headItemStyleName}`}>
         {props.dragSettings?.isDragDisabled && !props.head && (
           <div className="draggable-pointer" {...props.dragSettings?.prop2}>
             <span />
@@ -56,11 +52,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
           />
         )}
       </span>
-      <span
-        className={`${
-          props.head ? 'lesson-name-head' : 'lesson-name'
-        } ${headItemStyleName}`}
-      >
+      <span className={`${props.head ? 'lesson-name-head' : 'lesson-name'} ${headItemStyleName}`}>
         {props.head || !props.dragSettings?.isDragDisabled ? (
           lessonName
         ) : (

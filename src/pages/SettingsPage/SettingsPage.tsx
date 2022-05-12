@@ -6,11 +6,7 @@ import '../../components/SvgIcon/SvgIcon';
 import { Link } from 'react-router-dom';
 import { SvgPencil } from '../../components/SvgIcon/SvgFiles/SvgPencil';
 import Datepicker from '../../components/Datepicker/Datepicker';
-import {
-  Button,
-  ButtonModel,
-  ButtonType,
-} from '../../components/Button/Button';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { AvatarComponent } from '../../components/AvatarComponent/AvatarComponent';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
@@ -43,9 +39,7 @@ export const SettingsPage = () => {
     register,
     formState: { errors },
   } = methods;
-  const { currentUser } = useSelector(
-    (state: AppState) => state.loginPageState as LoginPageState
-  );
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
 
   const convertDate = (date: string) => {
     return moment(new Date(date)).format('DD.MM.YYYY').toString();
@@ -88,9 +82,7 @@ export const SettingsPage = () => {
                   })}
                 />
                 {errors?.lastName?.type === 'maxLength' && (
-                  <p className="error-message">
-                    Превышена допустимая длина 20 символов
-                  </p>
+                  <p className="error-message">Превышена допустимая длина 20 символов</p>
                 )}
                 {errors?.lastName?.type === 'pattern' && (
                   <p className="error-message">Введите корректные данные </p>
@@ -108,9 +100,7 @@ export const SettingsPage = () => {
                   })}
                 />
                 {errors?.firstName?.type === 'maxLength' && (
-                  <p className="error-message">
-                    Превышена допустимая длина 20 символов
-                  </p>
+                  <p className="error-message">Превышена допустимая длина 20 символов</p>
                 )}
                 {errors?.firstName?.type === 'pattern' && (
                   <p className="error-message">Введите корректные данные </p>
@@ -128,9 +118,7 @@ export const SettingsPage = () => {
                   })}
                 />
                 {errors?.patronymic?.type === 'maxLength' && (
-                  <p className="error-message">
-                    Превышена допустимая длина 20 символов
-                  </p>
+                  <p className="error-message">Превышена допустимая длина 20 символов</p>
                 )}
                 {errors?.patronymic?.type === 'pattern' && (
                   <p className="error-message">Введите корректные данные</p>
@@ -147,7 +135,7 @@ export const SettingsPage = () => {
               </div>
             </div>
             <div className="settings-photo">
-              <AvatarComponent photo="http://localhost:3000/static/media/avatar_settings.f04f5af1751b20e8efb2.png" />
+              <AvatarComponent photo={currentUser?.photo} />
             </div>
           </div>
           <div className="form-grid-container">
@@ -225,11 +213,7 @@ export const SettingsPage = () => {
               model={ButtonModel.Colored}
               width="190"
             />
-            <Button
-              text={'Отмена'}
-              type={ButtonType.reset}
-              model={ButtonModel.Text}
-            />
+            <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text} />
           </div>
         </form>
       </FormProvider>

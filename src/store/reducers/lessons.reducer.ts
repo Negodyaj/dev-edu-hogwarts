@@ -24,10 +24,10 @@ export const initialState: LessonsPageState = {
   selectedTab: -1,
 };
 
-export const lessonsPageReducer: Reducer<
-  LessonsPageState | undefined,
-  LessonsPageActions
-> = (state: LessonsPageState | undefined = initialState, action) => {
+export const lessonsPageReducer: Reducer<LessonsPageState | undefined, LessonsPageActions> = (
+  state: LessonsPageState | undefined = initialState,
+  action
+) => {
   switch (action.type) {
     case FILTER_LESSONS:
       return {
