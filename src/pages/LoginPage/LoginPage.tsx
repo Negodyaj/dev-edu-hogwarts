@@ -33,16 +33,14 @@ export const LoginPage = () => {
         setToken(token);
         getCurrentUser(dispatch);
       });
-
-    const from = location.state;
-    navigate(typeof from === 'string' ? from : '/');
   };
 
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
 
   useEffect(() => {
     if (currentUser) {
-      navigate('/');
+      const from = location.state;
+      navigate(typeof from === 'string' ? from : '/');
     }
   }, [currentUser]);
 
