@@ -16,12 +16,11 @@ body {
 
 main {
   flex-grow: 1;
-}
-main{
+  padding-top: 70px;
   padding-left: 380px;
   transition: padding-left ease-in-out 0.5s, padding-left ease-in-out 0.5s;
 }
-.closed{
+.closed {
   padding-left: 114px;
   transition: padding-left ease-in-out 0.5s, padding-left ease-in-out 0.5s;
 }
@@ -100,4 +99,11 @@ main{
 
 .arrow-left {
   transform: rotateY(180deg);
+}
+
+.journals {
+  height: 100%;
+  .link-arrow {
+    margin-bottom: 20px;
+  }
 }

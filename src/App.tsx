@@ -20,6 +20,7 @@ import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEdi
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { AttendanceJournal } from './pages/AttendanceJournal/AttendanceJournal';
+import { GeneralProgressJournal } from './pages/GeneralProgressJournal/GeneralProgressJournal';
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ function App() {
           <Route path="group" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
           <Route path="journal" element={<AttendanceJournal />} />
+          <Route path="general-progress" element={<GeneralProgressJournal />} />
         </Routes>
       </main>
     </div>

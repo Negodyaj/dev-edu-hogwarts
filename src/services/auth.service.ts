@@ -9,7 +9,8 @@ import { userRoleForEnum } from '../shared/helpers/userRoleForEnum';
 //import { UserRole } from '../shared/enums/UserRole';
 import { baseWretch } from './base-wretch.service';
 import { getFromStorage, removeFromStorage, store } from './local-storage.service';
-import { loadAttendanceJournalTabs } from '../actions/attendanceJournal.actions';
+import { loadAttendanceTabs } from '../actions/attendanceJournal.actions';
+import { loadGeneralProgressTabs } from '../actions/generalProgress.actions';
 
 // token
 export const getToken = (): string => getFromStorage('token');
@@ -74,7 +75,8 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
       dispatch(loadGroups(groups));
       dispatch(loadHomeworkPageTabs(groups));
       dispatch(loadLessonPageTabs(groups));
-      dispatch(loadAttendanceJournalTabs(groups));
+      dispatch(loadAttendanceTabs(groups));
+      dispatch(loadGeneralProgressTabs(groups));
     });
   // const user = usersMock as UserResponse;
   // dispatch(setCurrentUser(user));
