@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 import { loadHomeworkPageTabs } from '../actions/homeworks.actions';
 import { loadLessonPageTabs } from '../actions/lessons.actions';
-import { setCurrentUser, setCurrentUserRole } from '../actions/login.actions';
+import { setCurrentUser } from '../actions/login.actions';
 import { loadGroups } from '../actions/newHomeworkForm.action';
 import { UserResponse } from '../models/responses/UserResponse';
 import { UserRole } from '../shared/enums/UserRole';
@@ -9,6 +9,7 @@ import { userRoleForEnum } from '../shared/helpers/userRoleForEnum';
 //import { UserRole } from '../shared/enums/UserRole';
 import { baseWretch } from './base-wretch.service';
 import { getFromStorage, removeFromStorage, store } from './local-storage.service';
+import { loadAttendanceJournalTabs } from '../actions/attendanceJournal.actions';
 
 // token
 export const getToken = (): string => getFromStorage('token');
@@ -67,12 +68,13 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
         return userRole;
       });
       const user = data as UserResponse;
+      const groups = user.groups;
       user.roles = userRoles;
       dispatch(setCurrentUser(user));
-      dispatch(loadGroups(user.groups));
-      dispatch(loadHomeworkPageTabs(user.groups));
-      dispatch(loadLessonPageTabs(user.groups));
-      dispatch(setCurrentUserRole(user.roles[0]));
+      dispatch(loadGroups(groups));
+      dispatch(loadHomeworkPageTabs(groups));
+      dispatch(loadLessonPageTabs(groups));
+      dispatch(loadAttendanceJournalTabs(groups));
     });
   // const user = usersMock as UserResponse;
   // dispatch(setCurrentUser(user));

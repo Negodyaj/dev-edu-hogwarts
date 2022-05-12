@@ -1,19 +1,19 @@
 import { Journal } from '../../components/Journal/Journal';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
-import { Icon } from '../../shared/enums/Icon';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { selectTab } from '../../actions/attendanceJournal.actions';
 
 export const AttendanceJournal = () => {
+  const { tabs, selectedTab } = useSelector((state: AppState) => state.attendanceJournalState);
+
   return (
     <>
       <TabContainer
-        tabContainerData={[
-          {
-            id: 0,
-            text: 'text',
-            icon: Icon.Pencil,
-          },
-        ]}
-        selectedTab={0}
+        tabContainerData={tabs}
+        selectedTab={selectedTab}
+        group={true}
+        onClick={selectTab}
       />
       <h2>Журнал посещаемости</h2>
       <Journal />
