@@ -7,7 +7,7 @@
   overflow: hidden; 
   position: absolute; 
   right: 5px; 
-  top: 198px; 
+  top: 175px; 
   font-size: 0; 
   cursor: pointer; 
  
@@ -35,4 +35,8 @@
   } 
 } 
  
-
+@media (max-height: 820px) {
+  .collapse-button {
+    top: 125px;
+  }
+}
