@@ -31,16 +31,18 @@ export const Avatar = (props: AvatarProps) => {
           <SvgIcon icon={Icon.Picture} />
         </div>
       </div>
-      <div className="wrapper wrapper-user-info">
-        <div className="avatar-name margin-right-avatar transition-styles">
+      <div className="user-info-wrapper">
+        <span className="avatar-name margin-right-avatar transition-styles">
           {props.data.lastName}
+        </span>
+        <span className="avatar-name transition-styles">{props.data.firstName}</span>
+        <div className="user-roles-wrapper">
+          {currentUser && currentUser.roles.length > 1 && !isCollapsed ? (
+            <CurrentUserRoles />
+          ) : (
+            <div className="avatar-role transition-styles">{getUserRoleLocalName(currentRole)}</div>
+          )}
         </div>
-        <div className="avatar-name transition-styles">{props.data.firstName}</div>
-        {currentUser && currentUser.roles.length > 1 && !isCollapsed ? (
-          <CurrentUserRoles />
-        ) : (
-          <div className="avatar-role transition-styles">{getUserRoleLocalName(currentRole)}</div>
-        )}
       </div>
     </>
   );

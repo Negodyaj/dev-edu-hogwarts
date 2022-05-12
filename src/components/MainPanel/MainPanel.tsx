@@ -57,13 +57,14 @@ export const MainPanel = () => {
           <Link
             to={'/settings'}
             className={`avatar-block transition-styles ${isCollapsed ? 'collapsed' : ''}${
-              !currentUser ? 'padding-top' : ''
+              !currentUser ? 'margin-top' : ''
             }`}
           >
             {currentUser ? <Avatar data={avData} /> : <Avatar data={defaultData} />}
           </Link>
         </div>
-        <Navigation isCollapsed={isCollapsed} />
+        <Navigation />
+        <div></div>
         <div className={`bottom-part transition-styles ${isCollapsed ? 'collapsed' : ''}`}>
           {currentUser ? <Exit /> : ''}
           <Toggle isToggled={isToggled} onClick={handleClick}></Toggle>
