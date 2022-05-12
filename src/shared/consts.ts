@@ -17,3 +17,10 @@ export const getHomeworksByGroupId = (groupId: number) => {
 export const getStudentAnswerByTaskId = (taskId: number) => `api/Tasks/${taskId}/answer`;
 export const registerUrl = 'register';
 export const coursesUrl = 'api/Courses';
+export const updateAttendanceForLesson = (
+  lessonId: number,
+  studentId: number,
+  attendanceType: string
+) => {
+  return `api/Lessons/${lessonId}/student/${studentId}/attendance/${attendanceType}`;
+};

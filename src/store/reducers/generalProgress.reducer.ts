@@ -1,35 +1,32 @@
 import { TabData } from '../../models/TabData';
 import { Reducer } from 'redux';
 import {
-  AttendanceJournalActions,
-  FILTER_STUDENTS_LIST,
-  LOAD_ATTENDANCE,
-  LOAD_ATTENDANCE_FAIL,
-  LOAD_ATTENDANCE_STARTED,
-  LOAD_ATTENDANCE_SUCCESS,
+  GeneralProgressActions,
+  LOAD_PROGRESS,
+  LOAD_PROGRESS_FAIL,
+  LOAD_PROGRESS_STARTED,
+  LOAD_PROGRESS_SUCCESS,
   LOAD_TABS,
   SELECT_TAB,
-} from '../../actions/attendanceJournal.actions';
+} from '../../actions/generalProgress.actions';
 
-export type AttendanceJournalState = {
+export type GeneralProgresslState = {
   tabs?: TabData[];
   selectedTab: number;
-  attendanceData?: any[];
-  filteredStudentList?: any[];
+  progressData?: any[];
   isLoad: boolean;
   error?: string;
 };
 
-export const initialState: AttendanceJournalState = {
+export const initialState: GeneralProgresslState = {
   tabs: [],
   selectedTab: -1,
-  attendanceData: undefined,
-  filteredStudentList: undefined,
+  progressData: undefined,
   isLoad: false,
   error: undefined,
 };
 
-export const attendanceJournalReducer: Reducer<AttendanceJournalState, AttendanceJournalActions> = (
+export const generalProgressReducer: Reducer<GeneralProgresslState, GeneralProgressActions> = (
   state = initialState,
   action
 ) => {
@@ -45,31 +42,25 @@ export const attendanceJournalReducer: Reducer<AttendanceJournalState, Attendanc
         ...state,
         selectedTab: action.payload,
       };
-    case LOAD_ATTENDANCE:
+    case LOAD_PROGRESS:
       return {
         ...state,
-        attendanceData: action.payload,
-        filteredStudentList: action.payload[0].students,
+        progressData: action.payload,
         isLoad: false,
         error: undefined,
       };
-    case FILTER_STUDENTS_LIST:
-      return {
-        ...state,
-        filteredStudentList: action.payload,
-      };
-    case LOAD_ATTENDANCE_STARTED:
+    case LOAD_PROGRESS_STARTED:
       return {
         ...state,
         isLoad: true,
       };
-    case LOAD_ATTENDANCE_SUCCESS:
+    case LOAD_PROGRESS_SUCCESS:
       return {
         ...state,
         isLoad: false,
         error: undefined,
       };
-    case LOAD_ATTENDANCE_FAIL:
+    case LOAD_PROGRESS_FAIL:
       return {
         ...state,
         error: action.payload,
