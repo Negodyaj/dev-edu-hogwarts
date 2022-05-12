@@ -14,15 +14,13 @@ export type TabProps = {
 
 export const TabItem = (props: TabProps) => {
   return (
-    <>
-      <div
-        className={`tab-item ${props.data.id === props.activeTab ? 'active-tab' : ''}`}
-        onClick={() => props.onClick(props.data.id)}
-      >
-        {props.course && <CoursesTabIcons courseName={props.data.text} />}
-        {props.group && <GroupsSvgIcon icon={GroupsTabIcons[props.data.icon]} />}
-        <div>{props.data.text}</div>
-      </div>
-    </>
+    <div
+      className={`tab-item ${props.data.id === props.activeTab ? 'active-tab' : ''}`}
+      onClick={() => props.onClick(props.data.id)}
+    >
+      {props.course && <CoursesTabIcons courseName={props.data.text} />}
+      {props.group && <GroupsSvgIcon icon={GroupsTabIcons[props.data.icon]} />}
+      <div>{props.data.text}</div>
+    </div>
   );
 };
