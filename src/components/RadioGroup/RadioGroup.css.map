@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,YAAY,CAAC;EACX,OAAO,EAAE,MAAM;CAChB",
-    "sources": [
-        "RadioGroup.scss"
-    ],
-    "names": [],
-    "file": "RadioGroup.css"
-}

@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AACE,mBADiB,GACb,WAAW,CAAC;EACd,MAAM,EAAE,aAAa;CACtB",
-    "sources": [
-        "HomeworkCardPage.scss"
-    ],
-    "names": [],
-    "file": "HomeworkCardPage.css"
-}
