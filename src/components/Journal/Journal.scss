@@ -25,6 +25,7 @@
     margin-top: 50px;
 
     .students-list {
+      overflow-wrap: anywhere;
       width: 285px;
       padding: 0;
       justify-content: flex-start;
