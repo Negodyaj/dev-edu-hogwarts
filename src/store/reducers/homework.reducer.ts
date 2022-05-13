@@ -3,9 +3,11 @@ import { Reducer } from 'redux';
 import {
   CLEAR_HOMEWORK,
   EDIT_HOMEWORK,
-  GET_HOMEWORK_BY_ID,
   GET_STUDENT_HOMEWORK,
   HomeworkPageAction,
+  LOAD_HOMEWORK_FAIL,
+  LOAD_HOMEWORK_STARTED,
+  LOAD_HOMEWORK_SUCCESS,
 } from '../../actions/homework.actions';
 
 export interface HomeworkPageState {
@@ -13,6 +15,8 @@ export interface HomeworkPageState {
   studentHomeworkProgress?: StudentHomework;
   dialog?: string;
   isEdit: boolean;
+  isLoad: boolean;
+  errorMessage?: string;
 }
 
 const initialState: HomeworkPageState = {
@@ -20,6 +24,8 @@ const initialState: HomeworkPageState = {
   studentHomeworkProgress: undefined,
   dialog: '',
   isEdit: false,
+  isLoad: false,
+  errorMessage: undefined,
 };
 
 export const homeworkPageReducer: Reducer<HomeworkPageState, HomeworkPageAction> = (
@@ -27,15 +33,19 @@ export const homeworkPageReducer: Reducer<HomeworkPageState, HomeworkPageAction>
   action
 ) => {
   switch (action.type) {
-    case GET_HOMEWORK_BY_ID:
+    case LOAD_HOMEWORK_SUCCESS:
       return {
         ...state,
         homework: action.payload,
+        isLoad: false,
+        errorMessage: undefined,
       };
     case GET_STUDENT_HOMEWORK:
       return {
         ...state,
         studentHomeworkProgress: action.payload,
+        isLoad: false,
+        errorMessage: undefined,
       };
     case EDIT_HOMEWORK:
       return {
@@ -47,6 +57,17 @@ export const homeworkPageReducer: Reducer<HomeworkPageState, HomeworkPageAction>
         ...state,
         homework: undefined,
         studentHomeworkProgress: undefined,
+      };
+    case LOAD_HOMEWORK_STARTED:
+      return {
+        ...state,
+        isLoad: true,
+      };
+    case LOAD_HOMEWORK_FAIL:
+      return {
+        ...state,
+        isLoad: false,
+        errorMessage: action.payload,
       };
     default:
       return state;
