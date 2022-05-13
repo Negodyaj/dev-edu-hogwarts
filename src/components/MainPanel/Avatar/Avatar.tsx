@@ -26,7 +26,7 @@ export const Avatar = (props: AvatarProps) => {
   return (
     <>
       <div className="avatar-img">
-        <img className="photo" src={`./static${props.data.photo}`}></img>
+        <img className="photo" src={`./static${props.data.photo}`} />
         <div className="svg-fond">
           <SvgIcon icon={Icon.Picture} />
         </div>
