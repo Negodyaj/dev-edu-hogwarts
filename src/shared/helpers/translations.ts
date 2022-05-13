@@ -15,8 +15,8 @@ export const getUserRoleLocalName = (role: UserRole) => {
     case UserRole.Tutor:
       return 'Тьютор';
     case UserRole.DefaultRole:
-      return 'Не выбрано';
+      return '';
     default:
-      return 'Не выбрано';
+      return '';
   }
 };
