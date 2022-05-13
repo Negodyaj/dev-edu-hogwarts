@@ -1,5 +1,5 @@
 import './App.scss';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { HomeworksPage } from './pages/HomeworksPage/HomeworksPage';
 import { LessonsPage } from './pages/LessonsPage/LessonsPage';
 import { NotificationsPage } from './pages/NotificationsPage/NotificationsPage';
@@ -17,16 +17,27 @@ import { useEffect } from 'react';
 import { getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
+import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { AttendanceJournal } from './pages/AttendanceJournal/AttendanceJournal';
 import { GeneralProgressJournal } from './pages/GeneralProgressJournal/GeneralProgressJournal';
+import { LoginPageState } from './store/reducers/login.reducer';
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
 
   useEffect(() => {
     getCurrentUser(dispatch);
+
+    if (!currentUser) {
+      navigate('/login', { replace: true, state: location.pathname });
+    } else {
+      navigate('/');
+    }
   }, []);
 
   const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
@@ -50,6 +61,7 @@ function App() {
           <Route path="new-homework" element={<NewHomework />} />
           <Route path="group" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
+          <Route path="payment-table" element={<PaymentsPage />} />
           <Route path="journal" element={<AttendanceJournal />} />
           <Route path="general-progress" element={<GeneralProgressJournal />} />
         </Routes>
