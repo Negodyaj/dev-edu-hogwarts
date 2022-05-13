@@ -87,19 +87,15 @@ export const PaymentsPage = () => {
   const [payments] = useState(paymentsData);
   const [filterSurnameValue, setFilterSurnameValue] = useState(1);
   const [filterGroupValue, setFilterGroupValue] = useState(0);
-  const [firstPaymentStatusFilterValue, setFirstPaymentStatusFilterValue] =
-    useState(1);
-  const [secondPaymentStatusFilterValue, setSecondPaymentStatusFilterValue] =
-    useState(1);
-  const [thirdPaymentStatusFilterValue, setThirdPaymentStatusFilterValue] =
-    useState(1);
+  const [firstPaymentStatusFilterValue, setFirstPaymentStatusFilterValue] = useState(1);
+  const [secondPaymentStatusFilterValue, setSecondPaymentStatusFilterValue] = useState(1);
+  const [thirdPaymentStatusFilterValue, setThirdPaymentStatusFilterValue] = useState(1);
   const [filtredList, setFiltredList] = useState(paymentsData);
 
   const applyFilters = () => {
     const filtered = payments.filter(
       (p) =>
-        (filterGroupValue === 0 ||
-          (filterGroupValue > 0 && p.groupId === filterGroupValue)) &&
+        (filterGroupValue === 0 || (filterGroupValue > 0 && p.groupId === filterGroupValue)) &&
         (firstPaymentStatusFilterValue === 1 ||
           (firstPaymentStatusFilterValue === 2 && p.firstPaymentStatus) ||
           (firstPaymentStatusFilterValue === 3 && !p.firstPaymentStatus)) &&
@@ -186,19 +182,13 @@ export const PaymentsPage = () => {
         <thead className="filter-thread">
           <tr>
             <th scope="col" className="name-column">
-              <FilterList
-                data={surnameFilterData}
-                callback={applySurnameFilter}
-              />
+              <FilterList data={surnameFilterData} callback={applySurnameFilter} />
             </th>
             <th scope="col">
               <FilterList data={groupFilterData} callback={applyGroupFilter} />
             </th>
             <th scope="col">
-              <FilterList
-                data={paymentStatusFilterData}
-                callback={applyFirstPaymentStatusFilter}
-              />
+              <FilterList data={paymentStatusFilterData} callback={applyFirstPaymentStatusFilter} />
             </th>
             <th scope="col">
               <FilterList
@@ -207,10 +197,7 @@ export const PaymentsPage = () => {
               />
             </th>
             <th scope="col">
-              <FilterList
-                data={paymentStatusFilterData}
-                callback={applyThirdPaymentStatusFilter}
-              />
+              <FilterList data={paymentStatusFilterData} callback={applyThirdPaymentStatusFilter} />
             </th>
           </tr>
         </thead>
