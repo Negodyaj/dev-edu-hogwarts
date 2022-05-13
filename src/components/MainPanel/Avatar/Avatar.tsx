@@ -26,10 +26,12 @@ export const Avatar = (props: AvatarProps) => {
   const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   return (
     <>
-      <div className="avatar-img">
-        <img className="photo" src={`./static${props.data.photo}`} />
-        <div className="svg-fond">
-          <SvgIcon icon={Icon.Picture} />
+      <Link to={currentUser ? `/settings` : `/login`}>
+        <div className="avatar-img">
+          <img className="photo" src={`./static${props.data.photo}`} />
+          <div className="svg-fond">
+            <SvgIcon icon={Icon.Picture} />
+          </div>
         </div>
       </Link>
       <div className="user-info-wrapper">
