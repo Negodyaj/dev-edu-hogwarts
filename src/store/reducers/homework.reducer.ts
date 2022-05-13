@@ -1,6 +1,7 @@
 import { Homework, StudentHomework } from '../../models/responses/HomeworksResponse';
 import { Reducer } from 'redux';
 import {
+  CLEAR_HOMEWORK,
   EDIT_HOMEWORK,
   GET_HOMEWORK_BY_ID,
   GET_STUDENT_HOMEWORK,
@@ -40,6 +41,12 @@ export const homeworkPageReducer: Reducer<HomeworkPageState, HomeworkPageAction>
       return {
         ...state,
         isEdit: action.payload,
+      };
+    case CLEAR_HOMEWORK:
+      return {
+        ...state,
+        homework: undefined,
+        studentHomeworkProgress: undefined,
       };
     default:
       return state;

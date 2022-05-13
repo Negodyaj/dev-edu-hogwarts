@@ -10,7 +10,7 @@ export const AvatarUploader = (props: AvatarUploaderProps) => {
   return props.photo ? (
     <>
       <div className="avatar-text">
-        <img className="avatar-photo" src={`./static${props.photo}`}></img>
+        <img className="avatar-photo" src={`./static${props.photo}`} />
         <div className="svg-text">
           <SvgIcon icon={Icon.Picture} />
           <a href="#">Загрузить новое фото</a>
