@@ -3,24 +3,13 @@ import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
 
 interface BackButtonProps {
   path?: string;
-  callback?: () => void;
 }
 
-export const BackButton = ({ path, callback }: BackButtonProps) => {
+export const BackButton = ({ path }: BackButtonProps) => {
   const navigate = useNavigate();
 
   return (
-    <div
-      className="link-arrow"
-      onClick={() => {
-        if (path) {
-          navigate(path);
-        } else {
-          navigate(-1);
-        }
-        callback?.();
-      }}
-    >
+    <div className="link-arrow" onClick={() => (path ? navigate(path) : navigate(-1))}>
       <SvgArrow direction="left" />
       Назад
     </div>
