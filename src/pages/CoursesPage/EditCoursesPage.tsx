@@ -37,18 +37,6 @@ export const EditCoursesPage = () => {
     );
     newTopicsArray?.splice(destination.index, 0, dragElem);
   };
-  // useEffect(() => {
-  //   if (selectedTabCoursePage > 0) {
-  //     {
-  //       baseWretch()
-  //         .url(`api/Courses/${selectedTabCoursePage}/simple`)
-  //         .get()
-  //         .json((data) => {
-  //           dispatch(loadCurrentCourse(data as CourseResponse));
-  //         });
-  //     }
-  //   }
-  // }, [selectedTabCoursePage]);
   useEffect(() => {
     baseWretch()
       .url(`api/Courses/${selectedTabCoursePage}/topics`)
@@ -75,7 +63,7 @@ export const EditCoursesPage = () => {
               ? topics?.map((el) => {
                   const q: ListViewLessons = {
                     id: el.topic.id,
-                    lessonNumber: el.topic.id,
+                    lessonNumber: el.position,
                     lessonName: el.topic.name,
                     hoursCount: el.topic.duration,
                   };

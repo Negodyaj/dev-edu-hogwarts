@@ -9,9 +9,7 @@ import {
   DroppableProvided,
 } from 'react-beautiful-dnd';
 import { BackButton } from '../../../components/BackButton/BackButton';
-import { BackButton } from '../../../components/LinkArrow/BackButton';
 import { Button, ButtonModel, ButtonType } from '../../../components/Button/Button';
-// import { baseWretch } from '../../../services/base-wretch.service';
 import { useForm } from 'react-hook-form';
 
 export type ListViewProps = {
@@ -47,7 +45,7 @@ export const ListView = (props: ListViewProps) => {
   });
   // const onSubmit = (data: TopicFormData) =>
   // baseWretch()
-  //   .url(`api/Courses/${currentCourse?.id}/topic/${}`)
+  //   .url(`api/Courses/${currentCourse?.id}/program`)
   //   .put({
   //     id: data.id,
   //     name: data.name
@@ -72,7 +70,7 @@ export const ListView = (props: ListViewProps) => {
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {props.data.map((item, index) => (
                 <Draggable
-                  draggableId={item.id.toString()}
+                  draggableId={index.toString()}
                   index={index}
                   key={item.id}
                   isDragDisabled={!props.edit}
