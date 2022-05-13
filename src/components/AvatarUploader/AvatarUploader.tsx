@@ -1,12 +1,12 @@
-import './AvatarComponent.scss';
+import './AvatarUploader.scss';
 import { Icon } from '../../shared/enums/Icon';
 import { SvgIcon } from '../SvgIcon/SvgIcon';
 
-export type AvatarComponentProps = {
+export type AvatarUploaderProps = {
   photo?: string;
 };
 
-export const AvatarComponent = (props: AvatarComponentProps) => {
+export const AvatarUploader = (props: AvatarUploaderProps) => {
   return props.photo ? (
     <>
       <div className="avatar-text">

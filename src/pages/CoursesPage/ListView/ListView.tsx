@@ -8,6 +8,7 @@ import {
   Droppable,
   DroppableProvided,
 } from 'react-beautiful-dnd';
+import { BackButton } from '../../../components/BackButton/BackButton';
 import { BackButton } from '../../../components/LinkArrow/BackButton';
 import { Button, ButtonModel, ButtonType } from '../../../components/Button/Button';
 // import { baseWretch } from '../../../services/base-wretch.service';
