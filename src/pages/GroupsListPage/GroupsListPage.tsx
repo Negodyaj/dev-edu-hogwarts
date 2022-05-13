@@ -10,6 +10,7 @@ import { getGroupById, groupUrl } from '../../shared/consts';
 import { Icon } from '../../shared/enums/Icon';
 import { GroupsPageState } from '../../store/reducers/groups.reducer';
 import { AppState } from '../../store/store';
+import './GroupsListPage.scss';
 
 export const GroupsListPage = () => {
   const { groups, selectedGroup, selectedTab } = useSelector(
@@ -65,34 +66,42 @@ export const GroupsListPage = () => {
         selectedTab={selectedTab}
         onClick={selectTab}
       />
+      <div className='groups-page'>
       <div className="content-container">
+        <div className='groups-link'>
         <a href="#">Редактировать</a>
-        <div className="teachers-list">
+        </div>
+        <div className="groups-list">
           <h2>Преподаватель:</h2>
-          <div className="list">
-            {selectedGroup.teachers.map((teacher) => {
-              <span> `${teacher.firstName + ' ' + teacher.lastName}`</span>;
-            })}
+          <div className="names-list">
+            {selectedGroup.teachers.map((teacher) => (
+              <span> {teacher.firstName + ' ' + teacher.lastName}</span>
+            ))}
           </div>
         </div>
-        <div className="tutors-list">
+        <div className="groups-list">
           <h2>Тьютор:</h2>
-          <div className="list">
-            {selectedGroup.tutors.map((tutor) => {
-              <span>`${tutor.firstName + ' ' + tutor.lastName}`</span>;
-            })}
+          <div className="names-list">
+            {selectedGroup.tutors.map((tutor) => (
+              <span>{tutor.firstName + ' ' + tutor.lastName}</span>
+            ))}
           </div>
         </div>
         <div className="student-list">
-          <div className="list">
+          <div>
             <h2>ФИО студента</h2>
-            {selectedGroup.students.map((student) => {
-              <span>`${student.firstName + ' ' + student.lastName}`</span>;
-            })}
+            <div className="names-list">
+            {selectedGroup.students.map((student) => (
+              <span>{student.firstName + ' ' + student.lastName}</span>
+            ))}
           </div>
-          <a href="#">Редактировать список группы</a>
+          </div>
+          <div className='groups-link'>
+          <a  href="#">Редактировать список группы</a>
+          </div>
+          </div>
         </div>
-      </div>
+        </div>
     </>
   );
 };
