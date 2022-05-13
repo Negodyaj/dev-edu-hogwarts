@@ -37,7 +37,7 @@ export const editHomeworkStatus = (homework: StudentHomework) => ({
   payload: homework,
 });
 
-export type HomeworkPageAction =
+export type HomeworksPageAction =
   | ReturnType<typeof loadHomeworkPageTabs>
   | ReturnType<typeof selectTab>
   | ReturnType<typeof loadHomeworksStarted>
