@@ -6,7 +6,7 @@ import { Toggle } from './Toggle/Toggle';
 import React, { useState } from 'react';
 import { SvgLogo } from '../SvgIcon/SvgFiles/SvgLogo';
 import { SvgLogoName } from '../SvgIcon/SvgFiles/SvgLogoName';
-import { CollapseButton } from './CollapsButton/CollapsButton';
+import { CollapseButton } from './CollapseButton/CollapseButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
@@ -66,7 +66,7 @@ export const MainPanel = () => {
         <div></div>
         <div className={`bottom-part transition-styles ${isCollapsed ? 'collapsed' : ''}`}>
           {currentUser ? <Exit /> : ''}
-          <Toggle isToggled={isToggled} onClick={handleClick}></Toggle>
+          <Toggle isToggled={isToggled} onClick={handleClick} />
         </div>
       </div>
     </aside>
