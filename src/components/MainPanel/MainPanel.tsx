@@ -6,7 +6,7 @@ import { Toggle } from './Toggle/Toggle';
 import React from 'react';
 import { SvgLogo } from '../SvgIcon/SvgFiles/SvgLogo';
 import { SvgLogoName } from '../SvgIcon/SvgFiles/SvgLogoName';
-import { CollapseButton } from './CollapsButton/CollapsButton';
+import { CollapseButton } from './CollapseButton/CollapseButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
