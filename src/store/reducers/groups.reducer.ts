@@ -16,7 +16,19 @@ export interface GroupsPageState {
 
 const initialState: GroupsPageState = {
   groups: [],
-  selectedGroup: { students: [], teachers: [], tutors: [], id: 0 },
+  selectedGroup: {
+    students: [],
+    teachers: [],
+    tutors: [],
+    id: 0,
+    name: '',
+    course: { id: 0, name: '', isDeleted: false },
+    groupStatus: '',
+    startDate: '',
+    endDate: '',
+    timetable: '',
+    paymentPerMonth: 0,
+  },
   selectedTab: -1,
 };
 

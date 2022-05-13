@@ -1,13 +1,9 @@
 import { Dispatch } from 'react';
-import { getGroups, selectGroup, selectTab } from '../actions/groups.actions';
 import { loadHomeworkPageTabs } from '../actions/homeworks.actions';
 import { loadLessonPageTabs } from '../actions/lessons.actions';
 import { setCurrentUser, setCurrentUserRole } from '../actions/login.actions';
 import { loadGroups } from '../actions/newHomeworkForm.action';
-import { GroupResponse } from '../models/responses/GroupResponse';
-import { GroupResponseById } from '../models/responses/GroupResponseById';
 import { UserResponse } from '../models/responses/UserResponse';
-import { getGroupById, groupUrl } from '../shared/consts';
 import { UserRole } from '../shared/enums/UserRole';
 import { userRoleForEnum } from '../shared/helpers/userRoleForEnum';
 //import { UserRole } from '../shared/enums/UserRole';
@@ -77,21 +73,6 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
       dispatch(loadHomeworkPageTabs(user.groups));
       dispatch(loadLessonPageTabs(user.groups));
       dispatch(setCurrentUserRole(user.roles[0]));
-    });
-  baseWretch()
-    .url(groupUrl)
-    .get()
-    .json((data) => {
-      const groupsList = data as GroupResponse[];
-      const id: number = groupsList[0].id;
-      baseWretch()
-        .url(getGroupById(id))
-        .get()
-        .json((dataGroup) => {
-          dispatch(selectGroup(dataGroup as GroupResponseById));
-        });
-      dispatch(getGroups(groupsList));
-      dispatch(selectTab(id));
     });
 
   // const user = usersMock as UserResponse;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGroups, selectGroup, selectTab } from '../../actions/groups.actions';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
@@ -15,33 +15,40 @@ export const GroupsListPage = () => {
   const { groups, selectedGroup, selectedTab } = useSelector(
     (state: AppState) => state.groupsPageState as GroupsPageState
   );
-  // const { groups, selectedTab } = useSelector(
-  //   (state: AppState) => state.groupsPageState as GroupsPageState
-  // );
-  // const group:GroupResponseById={
-  //   students:[],
-  //   tutors:[],
-  //   teachers:[],
-  //   id:0
-  // }
-  // const [selectedGroup, setSelectedGroup]=useState<GroupResponseById>(group)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    baseWretch()
-      .url(getGroupById(selectedTab))
-      .get()
-      .json((dataGroup) => {
-        dispatch(selectGroup(dataGroup as GroupResponseById));
-      });
-    // baseWretch()
-    // .url(getGroupById(selectedTab))
-    // .get()
-    // .json((dataGroup) => {
-    //   setSelectedGroup(dataGroup as GroupResponseById);
-    // });
-    console.log(selectedGroup.students);
-    console.log(selectedTab);
+    if (groups.length == 0) {
+      baseWretch()
+        .url(groupUrl)
+        .get()
+        .json((data) => {
+          const groupsList = data as GroupResponse[];
+          const id: number = groupsList[0].id;
+          baseWretch()
+            .url(getGroupById(id))
+            .get()
+            .json((dataGroup) => {
+              dispatch(selectGroup(dataGroup as GroupResponseById));
+              dispatch(getGroups(groupsList));
+              dispatch(selectTab(id));
+            });
+          console.log(selectedTab);
+          console.log(selectedGroup.students);
+        });
+    } else {
+      baseWretch()
+        .url(getGroupById(selectedTab))
+        .get()
+        .json((GroupInfo) => {
+          dispatch(selectGroup(GroupInfo as GroupResponseById));
+        });
+      console.log(selectedTab);
+      console.log(selectedGroup.students);
+    }
+    // console.log(selectedTab);
+    // console.log(selectedGroup.students);
   }, [selectedTab]);
 
   return (
@@ -72,7 +79,7 @@ export const GroupsListPage = () => {
           <h2>Тьютор:</h2>
           <div className="list">
             {selectedGroup.tutors.map((tutor) => {
-              <span>{tutor.firstName}</span>;
+              <span>`${tutor.firstName + ' ' + tutor.lastName}`</span>;
             })}
           </div>
         </div>
@@ -80,7 +87,7 @@ export const GroupsListPage = () => {
           <div className="list">
             <h2>ФИО студента</h2>
             {selectedGroup.students.map((student) => {
-              <span>{student.firstName}</span>;
+              <span>`${student.firstName + ' ' + student.lastName}`</span>;
             })}
           </div>
           <a href="#">Редактировать список группы</a>
