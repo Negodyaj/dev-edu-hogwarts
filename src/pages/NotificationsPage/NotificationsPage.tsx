@@ -1,8 +1,5 @@
 import senderPhoto from './images/avatar.png';
-import {
-  NotificationsCard,
-  NotificationData,
-} from '../NotificationsPage/components/NotificationsCard';
+import { NotificationsCard, NotificationData } from './components/NotificationsCard';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -65,7 +62,7 @@ export const NotificationsPage = () => {
       if (item.id === 1) {
         return elem;
       } else {
-        return elem.readed === false;
+        return !elem.readed;
       }
     });
 

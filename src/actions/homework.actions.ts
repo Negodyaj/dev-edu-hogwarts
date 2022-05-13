@@ -4,6 +4,7 @@ export const GET_STUDENT_HOMEWORK = 'homework/GET_STUDENT_HOMEWORK' as const;
 export const EDIT_HOMEWORK = 'homework/EDIT_HOMEWORK' as const;
 export const LOAD_ANSWER = 'homework/LOAD_ANSWER' as const;
 export const GET_HOMEWORK_BY_ID = 'homework/GET_HOMEWORK_BY_ID' as const;
+export const CLEAR_HOMEWORK = 'homework/CLEAR_HOMEWORK' as const;
 
 export const loadHomework = (homework: Homework | undefined) => ({
   type: GET_HOMEWORK_BY_ID,
@@ -25,8 +26,13 @@ export const loadStudentHomework = (studentHomework: StudentHomework | undefined
   payload: studentHomework ?? undefined,
 });
 
+export const clearHomework = () => ({
+  type: CLEAR_HOMEWORK,
+});
+
 export type HomeworkPageAction =
   | ReturnType<typeof loadHomework>
   | ReturnType<typeof loadStudentHomework>
   | ReturnType<typeof editHomework>
-  | ReturnType<typeof loadAnswer>;
+  | ReturnType<typeof loadAnswer>
+  | ReturnType<typeof clearHomework>;
