@@ -13,8 +13,6 @@ import { LoginPageState } from '../../store/reducers/login.reducer';
 import defaultAvatar from '../../components/images/defaultavatar.png';
 import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
 import { collapseMainPanel } from '../../actions/mainPanel.actions';
-import { Link } from 'react-router-dom';
-
 const avData = {
   photo: '',
   firstName: '',
@@ -53,14 +51,13 @@ export const MainPanel = () => {
             <SvgLogo />
             <SvgLogoName />
           </div>
-          <Link
-            to={'/settings'}
+          <div
             className={`avatar-block transition-styles ${isCollapsed ? 'collapsed' : ''}${
               !currentUser ? 'margin-top' : ''
             }`}
           >
             <Avatar data={currentUser ? avData : defaultData} />
-          </Link>
+          </div>
         </div>
         <Navigation />
         <div></div>
