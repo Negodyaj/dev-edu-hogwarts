@@ -3,7 +3,7 @@ import { Avatar } from './Avatar/Avatar';
 import { Navigation } from './Navigation/Navigation';
 import { Exit } from './Exit/Exit';
 import { Toggle } from './Toggle/Toggle';
-import React, { useState } from 'react';
+import React from 'react';
 import { SvgLogo } from '../SvgIcon/SvgFiles/SvgLogo';
 import { SvgLogoName } from '../SvgIcon/SvgFiles/SvgLogoName';
 import { CollapseButton } from './CollapseButton/CollapseButton';
@@ -28,10 +28,6 @@ const defaultData = {
 };
 export const MainPanel = () => {
   const dispatch = useDispatch();
-  const [isToggled, setIsToggled] = useState<boolean>(false);
-  const handleClick = () => {
-    setIsToggled((s) => !s);
-  };
   const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   if (currentUser) {
@@ -63,10 +59,10 @@ export const MainPanel = () => {
           </Link>
         </div>
         <Navigation />
-        <div></div>
+        <div />
         <div className={`bottom-part transition-styles ${isCollapsed ? 'collapsed' : ''}`}>
           {currentUser ? <Exit /> : ''}
-          <Toggle isToggled={isToggled} onClick={handleClick}></Toggle>
+          <Toggle />
         </div>
       </div>
     </aside>

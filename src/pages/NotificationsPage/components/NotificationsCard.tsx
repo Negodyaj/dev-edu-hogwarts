@@ -24,10 +24,11 @@ export const NotificationsCard = (props: NotificationsProps) => {
           id="isChecked"
           type="checkbox"
           onClick={handleClick}
-          className={`button-read${isCollapsed == true ? `-clicked` : ``}`}
-        ></input>
+          checked={isCollapsed}
+          className={`button-read${isCollapsed ? `-clicked` : ``}`}
+        />
       </div>
-      <img src={avatar} />
+      <img src={props.data.senderPhoto} alt="Аватар пользователя" />
       <div className="notification-card-content">
         <div className="top-flex-container">
           <div>
