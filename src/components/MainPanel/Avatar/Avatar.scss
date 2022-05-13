@@ -1,11 +1,12 @@
 .avatar-img {
   position: relative;
-
   img {
     z-index: 1;
     position: absolute;
     top: 0;
     left: 0;
+    width: 45px;
+    height: 45px;
   }
 
   .svg-fond {
@@ -23,15 +24,15 @@
     }
   }
 }
-
 .avatar-name {
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 21px;
-  margin: 15px 0px 10px;
-  white-space: nowrap;
-  
+  white-space: nowrap;  
+}
+.margin-right-avatar{
+  margin-right: 5px;
 }
 .avatar-role {
   font-style: normal;
