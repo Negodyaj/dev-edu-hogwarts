@@ -1,15 +1,19 @@
-@import '../../../style/_colors.scss';
-.register-link{
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 21px;
-  color:  $lavender-color;
-}
-.login-link{
-  display: block;
-  font-weight: 700;
-font-size: 18px;
-line-height: 21px;
-color:$black;
-margin-bottom: 15px;
+@import "../../../style/_colors.scss";
+
+.main-nav-panel {
+  .auth-link {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: $black;
+    margin-bottom: 15px;
+  }
+
+  a.active-auth-link {
+    color: $lavender-color;
+  }
+
+  .flex-container {
+    flex-direction: column;
+  }
 }
