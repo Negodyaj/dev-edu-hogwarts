@@ -19,12 +19,7 @@ export const TabContainer = (props: TabContainerProps) => {
     <>
       <div className="tab-container">
         {props.tabContainerData?.map((item) => (
-          <TabItem
-            data={item}
-            key={item.id}
-            activeTab={props.selectedTab}
-            onClick={onTabClick}
-          />
+          <TabItem data={item} key={item.id} activeTab={props.selectedTab} onClick={onTabClick} />
         ))}
       </div>
     </>

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadHomeworks, selectTab } from '../../actions/homeworks.actions';
+import { selectTab } from '../../actions/homeworks.actions';
+import { loadHomeworks } from '../../actions/homeworks.thunks';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
-import { baseWretch } from '../../services/base-wretch.service';
 import { AppState } from '../../store/store';
 import { HomeworkCard } from './components/HomeworkCard';
 import { Homework } from '../../models/responses/HomeworksResponse';
