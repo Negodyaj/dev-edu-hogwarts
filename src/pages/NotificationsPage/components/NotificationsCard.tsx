@@ -5,10 +5,9 @@ import { useState } from 'react';
 import React from 'react';
 export type NotificationData = {
   id: number;
-  userId: number;
   text: string;
   roleId: number;
-  groupId: number; // на бэке нет даты отправки, времени отправки, и от кого отправлено уведомление и не ясно куда ведет кнопка перейти
+  group: number; // на бэке нет даты отправки, времени отправки, и от кого отправлено уведомление и не ясно куда ведет кнопка перейти
 };
 export type NotificationsProps = {
   data: NotificationData;

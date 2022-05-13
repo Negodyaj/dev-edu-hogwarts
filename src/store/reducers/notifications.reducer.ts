@@ -1,8 +1,7 @@
 import { Reducer } from 'redux';
 import {
-  SET_NOTIFICATIONS,
   FILTER_NOTIFICATIONS,
-  NotificationsPageAction,
+  NotificationsPageActions,
   SET_NOTIFICATIONS,
   // CHECK_NOTIFICATIONS,
 } from '../../actions/notifications.actions';
@@ -10,7 +9,6 @@ import { NotificationData } from '../../pages/NotificationsPage/components/Notif
 import { NotificationResponse } from '../../models/responses/NotificationResponse';
 
 export interface NotificationsPageState {
-  notifications: NotificationData[];
   filteredNotifications: NotificationData[];
   notifications: NotificationResponse[]; // check: boolean;
 }

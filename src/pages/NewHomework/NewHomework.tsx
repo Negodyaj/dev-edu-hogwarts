@@ -23,6 +23,7 @@ import { LoginPageState } from '../../store/reducers/login.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
 import { FilterList } from '../../components/FilterList/FilterList';
 // import { CoursesPageState } from '../../store/reducers/courses.reducer';
+// import { CoursesPageState } from '../../store/reducers/courses.reducer';
 
 export type AddTaskFormData = {
   name: string;
@@ -37,10 +38,9 @@ export type AddTaskFormData = {
 export const NewHomework = () => {
   const method = useForm<AddTaskFormData>();
   const dispatch = useDispatch();
-
-  const { links, inputLinkValue, group, selectedGroupTaskCount, selectGroupId } = useSelector(
-    (state: AppState) => state.newHomeworkFormState
-  );
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const { links, inputLinkValue, group, selectedGroupTaskCount, selectGroupId, course } =
+    useSelector((state: AppState) => state.newHomeworkFormState);
   const refLinkName = useRef<any>({});
 
   const memoizeMapLinks = useMemo(() => {
@@ -90,20 +90,12 @@ export const NewHomework = () => {
         {currentUser?.roles.includes(UserRole.Methodist) ? (
           <div className="form-element">
             Номер курса:
-            <RadioGroup
-              radioData={course}
-              name="groupId"
-              callback={getGroupId}
-            />
+            <RadioGroup radioData={course} name="groupId" callback={getGroupId} />
           </div>
         ) : (
           <div className="form-element">
             Номер группы:
-            <RadioGroup
-              radioData={group}
-              name="groupId"
-              callback={getGroupId}
-            />
+            <RadioGroup radioData={group} name="groupId" callback={getGroupId} />
           </div>
         )}
         <div className="form-element">

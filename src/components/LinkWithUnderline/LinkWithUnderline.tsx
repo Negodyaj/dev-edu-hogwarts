@@ -10,9 +10,7 @@ export type LinkWithUnderlineProps = {
 };
 
 export const LinkWithUnderline = (props: LinkWithUnderlineProps) => {
-  const { currentCourse } = useSelector(
-    (state: AppState) => state.coursesPageState
-  );
+  const { currentCourse } = useSelector((state: AppState) => state.coursesPageState);
   const dispatch = useDispatch();
   return (
     <Link

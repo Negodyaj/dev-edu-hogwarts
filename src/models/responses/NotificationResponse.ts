@@ -1,8 +1,8 @@
 export interface NotificationResponse {
   id: number;
-  //checked: boolean;
-  userId: number;
   text: string;
+  date: string;
+  //checked: boolean;
   roleId: number;
-  groupId: number;
+  group: number;
 }

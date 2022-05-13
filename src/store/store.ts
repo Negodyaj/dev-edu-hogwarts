@@ -19,10 +19,7 @@ import { homeworkPageReducer, HomeworkPageState } from './reducers/homework.redu
 import { newHomeworkFormReducer, NewHomeworkFormState } from './reducers/newHomeworkForm.reducer';
 import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
 import { mainPanelReducer, MainPanelState } from './reducers/mainPanel.reducer';
-import {
-  coursesPageReducer,
-  CoursesPageState,
-} from './reducers/courses.reducer';
+import { coursesPageReducer, CoursesPageState } from './reducers/courses.reducer';
 
 // Create an interface for the application state
 export interface AppState {

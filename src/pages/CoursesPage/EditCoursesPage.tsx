@@ -59,8 +59,7 @@ export const EditCoursesPage = () => {
   }, [selectedTabCoursePage]);
 
   useEffect(() => {
-    if (courses && courses?.length > 0)
-      dispatch(loadCoursePageTabs(courses as CourseResponse[]));
+    if (courses && courses?.length > 0) dispatch(loadCoursePageTabs(courses as CourseResponse[]));
   }, [courses]);
   return (
     <>

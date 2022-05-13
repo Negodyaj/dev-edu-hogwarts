@@ -27,10 +27,10 @@ const initialState: CoursesPageState = {
   courses: [],
 };
 
-export const coursesPageReducer: Reducer<
-  CoursesPageState,
-  CoursesPageAction
-> = (state = initialState, action) => {
+export const coursesPageReducer: Reducer<CoursesPageState, CoursesPageAction> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
     case LOAD_COURSES_TABS: {
       const courseTabs: TabData[] = action.payload.map((course) => {

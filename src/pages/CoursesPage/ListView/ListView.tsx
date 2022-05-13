@@ -9,11 +9,7 @@ import {
   DroppableProvided,
 } from 'react-beautiful-dnd';
 import { BackButton } from '../../../components/LinkArrow/BackButton';
-import {
-  Button,
-  ButtonModel,
-  ButtonType,
-} from '../../../components/Button/Button';
+import { Button, ButtonModel, ButtonType } from '../../../components/Button/Button';
 // import { baseWretch } from '../../../services/base-wretch.service';
 import { useForm } from 'react-hook-form';
 
@@ -80,10 +76,7 @@ export const ListView = (props: ListViewProps) => {
                   key={item.id}
                   isDragDisabled={!props.edit}
                 >
-                  {(
-                    draggableProvided: DraggableProvided,
-                    snapshot: DraggableStateSnapshot
-                  ) => (
+                  {(draggableProvided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                     <ListViewItem
                       index={index}
                       lesson={item}
@@ -126,11 +119,7 @@ export const ListView = (props: ListViewProps) => {
           model={ButtonModel.Colored}
           width="190"
         />
-        <Button
-          text={'Отмена'}
-          type={ButtonType.reset}
-          model={ButtonModel.Text}
-        />
+        <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text} />
         {/* </form> */}
       </div>
     </>
