@@ -41,7 +41,7 @@ export const Journal = ({ filteredData, data, filter }: JournalProps) => {
   };
 
   return (
-    <div className="flex-row journal-content-container">
+    <div className="flex-container journal-content-container">
       <div className="list-container">
         <div className="one-block students-list">
           <b>ФИО студента</b>
