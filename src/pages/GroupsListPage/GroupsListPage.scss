@@ -1,6 +1,7 @@
 @import './src/style/colors';
 
 .groups-page{
+
   .content-container {
     margin-top: 8px;
     padding-top: 30px;
@@ -8,12 +9,6 @@
     .groups-link {
       text-align: right;
       padding-bottom: 20px;
-      a {
-        font-size: 18px;
-        text-decoration: underline;
-        font-weight: 600;
-        margin: 0;
-      }
     }
 
     .groups-list {

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGroups, selectGroup, selectTab } from '../../actions/groups.actions';
+import { LinkWithUnderline } from '../../components/LinkWithUnderline/LinkWithUnderline';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { GroupResponse } from '../../models/responses/GroupResponse';
 import { GroupResponseById } from '../../models/responses/GroupResponseById';
@@ -45,21 +46,21 @@ export const GroupsListPage = () => {
         .json((GroupInfo) => {
           dispatch(selectGroup(GroupInfo as GroupResponseById));
         });
-      console.log(selectedTab);
-      console.log(selectedGroup.students);
     }
-    // console.log(selectedTab);
-    // console.log(selectedGroup.students);
   }, [selectedTab]);
+
+  const IconForGroupTabs: Icon[] = [Icon.Barrel, Icon.Computer, Icon.TwiceArrow, Icon.FolderWithTick, Icon.Computer];
+   
 
   return (
     <>
       <TabContainer
-        tabContainerData={groups?.map((item) => {
+        tabContainerData={groups?.map((item, index) => {
+          if (index>=IconForGroupTabs.length) {index=index-IconForGroupTabs.length} else index
           const tabItem: TabData = {
             id: item.id,
             text: item.name,
-            icon: Icon.Chevron,
+            icon: Icon.Computer,
           };
           return tabItem;
         })}
@@ -69,7 +70,7 @@ export const GroupsListPage = () => {
       <div className='groups-page'>
       <div className="content-container">
         <div className='groups-link'>
-        <a href="#">Редактировать</a>
+          <LinkWithUnderline path='#' text='Редактировать'/>
         </div>
         <div className="groups-list">
           <h2>Преподаватель:</h2>
@@ -97,7 +98,7 @@ export const GroupsListPage = () => {
           </div>
           </div>
           <div className='groups-link'>
-          <a  href="#">Редактировать список группы</a>
+            <LinkWithUnderline path='#' text='Редактировать список группы'/>
           </div>
           </div>
         </div>
