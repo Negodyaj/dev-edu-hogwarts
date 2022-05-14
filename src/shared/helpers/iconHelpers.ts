@@ -35,7 +35,7 @@ export const getGroupIcon = (index: number) => {
     case 2:
       return Icon.Chevron;
     case 3:
-      return Icon.FolderWithTick;
+      return Icon.Calendar;
     case 4:
       return Icon.Computer;
     default:

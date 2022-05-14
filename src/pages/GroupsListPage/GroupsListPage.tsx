@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGroups, selectGroup, selectTab } from '../../actions/groups.actions';
 import { Button, ButtonModel } from '../../components/Button/Button';
@@ -20,6 +20,16 @@ export const GroupsListPage = () => {
     (state: AppState) => state.groupsPageState as GroupsPageState
   );
 
+  const [indexForDisplay, setIndexForDisplay] = useState<number>(0);
+
+  const selectGroupToDisplay = (index: number) => {
+    const newGroups: GroupResponse[] = groups.slice(index, index + 3);
+    return newGroups;
+  };
+  const [groupsToDisplay, setGroupsToDisplay] = useState<GroupResponse[]>(
+    selectGroupToDisplay(indexForDisplay)
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,8 +48,6 @@ export const GroupsListPage = () => {
               dispatch(getGroups(groupsList));
               dispatch(selectTab(id));
             });
-          console.log(selectedTab);
-          console.log(selectedGroup.students);
         });
     } else {
       baseWretch()
@@ -49,26 +57,62 @@ export const GroupsListPage = () => {
           dispatch(selectGroup(GroupInfo as GroupResponseById));
         });
     }
-  }, [selectedTab]);
+    setGroupsToDisplay(selectGroupToDisplay(indexForDisplay));
+  }, [selectedTab, indexForDisplay]);
 
   return (
     <>
-      <div className="groups-header">
-        <TabContainer
-          tabContainerData={groups?.map((item, index) => {
-            index >= 5 ? (index = index - 5) : index;
-            const tabItem: TabData = {
-              id: item.id,
-              text: item.name,
-              icon: getGroupIcon(index),
-            };
-            return tabItem;
-          })}
-          selectedTab={selectedTab}
-          onClick={selectTab}
-        />
-        <Button model={ButtonModel.Ellipse} icon={Icon.Plus} url="/new-group" />
-      </div>
+      {groups.length >= 4 ? (
+        <div className="groups-header">
+          <Button
+            model={ButtonModel.EllipseWhite}
+            icon={Icon.LeftArrow}
+            disabled={(indexForDisplay == 0)}
+            onClick={() => {
+              setIndexForDisplay(indexForDisplay - 3);
+            }}
+          />
+          <TabContainer
+            tabContainerData={groupsToDisplay?.map((item, index) => {
+              index >= 5 ? (index = index - 5) : index;
+              const tabItem: TabData = {
+                id: item.id,
+                text: item.name,
+                icon: getGroupIcon(index),
+              };
+              return tabItem;
+            })}
+            selectedTab={selectedTab}
+            onClick={selectTab}
+          />
+          <Button
+            model={ButtonModel.EllipseWhite}
+            icon={Icon.RightArrow}
+            disabled={((indexForDisplay + 3)>(groups.length - 1))}
+            onClick={() => {
+              setIndexForDisplay(indexForDisplay + 3);
+            }}
+          />
+          <Button model={ButtonModel.EllipseColored} icon={Icon.Plus} url="/new-group" />
+        </div>
+      ) : (
+        <div className="groups-header">
+          <TabContainer
+            tabContainerData={groups?.map((item, index) => {
+              index >= 5 ? (index = index - 5) : index;
+              const tabItem: TabData = {
+                id: item.id,
+                text: item.name,
+                icon: getGroupIcon(index),
+              };
+              return tabItem;
+            })}
+            selectedTab={selectedTab}
+            onClick={selectTab}
+          />
+          <Button model={ButtonModel.EllipseColored} icon={Icon.Plus} url="/new-group" />
+        </div>
+      )}
       <div className="groups-page">
         <div className="content-container">
           <div className="groups-link">

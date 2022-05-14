@@ -15,26 +15,19 @@ a {
 } 
 
 .btn-fill {
-    //line-height: 51px;
     background: $lavender-color;
     color: $white;
     border: 0;
 
-    &.unavailable {
+    &.unavailable,
+    &:disabled {
         background: $dark-gray;
+        cursor: auto;
     }
 
     &:hover,
     &:active {
         background: $lavender-button-hover;
-    }
-
-    &.ellipse{
-      border-radius: 50%;
-      padding: 14px 12px 9px 12px;
-      margin: 20px 50px;
-      width: 45px;
-      height: 45px;
     }
 }
 
@@ -43,15 +36,18 @@ a {
     border: 1px solid $lavender-color;
     color: $black;
 
-    &.unavailable {
+    &.unavailable,
+    &:disabled {
         border: 1px solid $dark-gray;
         color: $dark-gray;
+        cursor: auto;
     }
 
     &:hover,
     &:active {
         background: $lavender-color;
     }
+
 }
 
 .btn-text {
@@ -61,6 +57,15 @@ a {
     border: 0;
     padding:15px 20px;
     background: none;
+}
+
+.ellipse{
+  border-radius: 50%;
+  padding: 12px;
+  margin: 20px 50px;
+  width: 45px;
+  height: 45px;
+  line-height: 12px;
 }
 
 
