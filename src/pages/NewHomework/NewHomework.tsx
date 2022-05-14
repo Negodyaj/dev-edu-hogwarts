@@ -4,7 +4,11 @@ import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { baseWretch } from '../../services/base-wretch.service';
-import { addNewTaskUrl, getHomeworksByGroupId } from '../../shared/consts';
+import {
+  addNewTaskUrl,
+  addNewTaskUrlByMethodist,
+  getHomeworksByGroupId,
+} from '../../shared/consts';
 import { SvgIcon } from '../../components/SvgIcon/SvgIcon';
 import { Icon } from '../../shared/enums/Icon';
 import { useEffect, useMemo, useRef } from 'react';
@@ -21,7 +25,7 @@ import { Homework } from '../../models/responses/HomeworksResponse';
 import { convertDate } from '../../shared/helpers/dateHelpers';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
-import { FilterList } from '../../components/FilterList/FilterList';
+// import { FilterList } from '../../components/FilterList/FilterList';
 // import { CoursesPageState } from '../../store/reducers/courses.reducer';
 // import { CoursesPageState } from '../../store/reducers/courses.reducer';
 
@@ -32,15 +36,19 @@ export type AddTaskFormData = {
     startDate: string;
     endDate: string;
   };
-  groupId: number;
+  groupId?: number;
+  courseId?: number;
 };
 
 export const NewHomework = () => {
   const method = useForm<AddTaskFormData>();
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
-  const { links, inputLinkValue, group, selectedGroupTaskCount, selectGroupId, course } =
-    useSelector((state: AppState) => state.newHomeworkFormState);
+  const { currentUser, currentRole } = useSelector(
+    (state: AppState) => state.loginPageState as LoginPageState
+  );
+  const { links, inputLinkValue, group, selectGroupId, course } = useSelector(
+    (state: AppState) => state.newHomeworkFormState
+  );
   const refLinkName = useRef<any>({});
 
   const memoizeMapLinks = useMemo(() => {
@@ -64,8 +72,11 @@ export const NewHomework = () => {
         endDate: convertDate(data.homework.endDate),
       },
     };
-
-    baseWretch().url(addNewTaskUrl).post(formData);
+    if (currentRole === UserRole.Teacher) {
+      baseWretch().url(addNewTaskUrl).post(formData);
+    } else {
+      baseWretch().url(addNewTaskUrlByMethodist).post(formData);
+    }
   };
 
   const getGroupId = (groupId: number) => {
@@ -98,12 +109,12 @@ export const NewHomework = () => {
             <RadioGroup radioData={group} name="groupId" callback={getGroupId} />
           </div>
         )}
-        <div className="form-element">
+        {/* <div className="form-element">
           <span>Номер задания:</span> {<FilterList data={[]}></FilterList>}
           <span className="homework-form_task">
             {selectedGroupTaskCount === 0 ? '' : selectedGroupTaskCount}
           </span>
-        </div>
+        </div> */}
 
         <div className="homework-form_dates form-grid-container">
           <div>

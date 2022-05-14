@@ -30,13 +30,24 @@ export const EditCoursesPage = () => {
       return;
     }
 
-    const newTopicsArray = Array.from(topics);
+    const newTopicsArray = [...topics];
     newTopicsArray?.splice(source.index, 1);
-    const dragElem = Object.assign(
-      [...topics].filter((item) => item.topic.id.toString() === draggableId)[0]
-    );
-    newTopicsArray?.splice(destination.index, 0, dragElem);
+    const currentEl = topics[+draggableId];
+    newTopicsArray?.splice(destination.index, 0, currentEl);
+    dispatch(setTopics(newTopicsArray));
+    const topicsArrayToSend = newTopicsArray.map((el) => {
+      return {
+        topicId: el.topic.id,
+        position: el.position,
+      };
+    });
+    baseWretch().url(`api/Courses/${selectedTabCoursePage}/program`).put(topicsArrayToSend);
+    console.log(topics);
+    console.log(newTopicsArray);
   };
+  useEffect(() => {
+    if (courses && courses?.length > 0) dispatch(loadCoursePageTabs(courses as CourseResponse[]));
+  }, [courses]);
   useEffect(() => {
     baseWretch()
       .url(`api/Courses/${selectedTabCoursePage}/topics`)
@@ -46,9 +57,6 @@ export const EditCoursesPage = () => {
       });
   }, [selectedTabCoursePage]);
 
-  useEffect(() => {
-    if (courses && courses?.length > 0) dispatch(loadCoursePageTabs(courses as CourseResponse[]));
-  }, [courses]);
   return (
     <>
       <TabContainer
@@ -60,7 +68,7 @@ export const EditCoursesPage = () => {
         <ListView
           data={
             topics
-              ? topics?.map((el) => {
+              ? topics.map((el) => {
                   const q: ListViewLessons = {
                     id: el.topic.id,
                     lessonNumber: el.position,

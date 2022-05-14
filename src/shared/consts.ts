@@ -5,6 +5,7 @@ export const lessonsUrl = 'lessons';
 export const usersUrl = 'api/Users';
 export const groupUrl = 'api/Groups';
 export const addNewTaskUrl = 'api/tasks/teacher';
+export const addNewTaskUrlByMethodist = 'api/tasks/methodist';
 export const getHomeworkById = (id: number) => `api/homeworks/${id}`;
 export const postStudentAnswer = (homeworkId: number) => `api/student-homeworks/${homeworkId}`;
 export const studentHomeworkById = (id: number) => `api/student-homeworks/${id}`;

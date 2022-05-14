@@ -7,8 +7,6 @@ import {
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { baseWretch } from '../../../../services/base-wretch.service';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../../../store/store';
 
 export type ListViewItemProps = {
   lesson: ListViewLessons;
@@ -30,23 +28,19 @@ export type TopicFormData = {
 };
 export const ListViewItem = (props: ListViewItemProps) => {
   const headItemStyleName = props.head ? 'title-head__item' : '';
-  const [hoursCount] = useState(props.lesson.hoursCount);
-  const [lessonName] = useState(props.lesson.lessonName);
-  const [lessonNumber, setLessonNumber] = useState(props.lesson.lessonNumber);
-  const { currentCourse } = useSelector((state: AppState) => state.coursesPageState);
+  const [hoursCount, setHoursCount] = useState(props.lesson.hoursCount);
+  const [lessonName, setLessonName] = useState(props.lesson.lessonName);
   const methods = useForm<TopicFormData>({
-    mode: 'onChange',
+    mode: 'onBlur',
   });
-  const onSubmit = () => {
-    debugger;
+  const onSubmit = (data: TopicFormData) =>
     baseWretch()
-      .url('api/Courses/' + currentCourse?.id + '/program')
+      .url('api/Topics/' + props.lesson.id)
       .put({
+        id: data.id,
         name: lessonName,
-        position: lessonNumber,
         duration: hoursCount,
       });
-  };
   return (
     <form>
       <div
@@ -65,14 +59,14 @@ export const ListViewItem = (props: ListViewItemProps) => {
             </div>
           )}
           {props.head || !props.dragSettings?.isDragDisabled ? (
-            lessonNumber
+            props.lesson.lessonNumber
           ) : (
             <input
               {...methods.register('position')}
               className="list-view-input"
               type="text"
-              value={lessonNumber}
-              onChange={(e) => setLessonNumber(e.currentTarget.value)}
+              value={props.lesson.lessonNumber}
+              // onChange={(e) => setLessonNumber(e.currentTarget.value)}
             />
           )}
         </span>
@@ -85,8 +79,9 @@ export const ListViewItem = (props: ListViewItemProps) => {
               className="list-view-input"
               type="text"
               value={lessonName}
-              // onChange={(e) => setLessonName(e.currentTarget.value)}
-              onChange={methods.handleSubmit(onSubmit)}
+              onBlur={methods.handleSubmit(onSubmit)}
+              onChange={(e) => setLessonName(e.currentTarget.value)}
+              // onChange={methods.handleSubmit(onSubmit)}
             />
           )}
         </span>
@@ -99,8 +94,9 @@ export const ListViewItem = (props: ListViewItemProps) => {
               className="list-view-input"
               type="text"
               value={hoursCount}
-              onChange={methods.handleSubmit(onSubmit)}
-              // onChange={(e) => setHoursCount(e.currentTarget.value)}
+              onBlur={methods.handleSubmit(onSubmit)}
+              // onChange={methods.handleSubmit(onSubmit)}
+              onChange={(e) => setHoursCount(e.currentTarget.value)}
             />
           )}
         </span>
