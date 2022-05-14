@@ -6,6 +6,7 @@
   position: relative;
   -ms-touch-action: none;
   background: $light-lavender-color;
+
   .swiper-horizontal > & {
     position: absolute;
     bottom: -50px;
@@ -40,6 +41,7 @@
   padding: 0;
   /* Fix of Webkit flickering */
   z-index: 1;
+  transition: width .5s ease-in-out;
 }
 .swiper-vertical > .swiper-wrapper {
   flex-direction: column;

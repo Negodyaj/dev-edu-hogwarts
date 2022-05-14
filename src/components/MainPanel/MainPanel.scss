@@ -77,6 +77,7 @@
   .main-nav-panel {
     width: 262px;
   }
+
   //////////
   @media (min-width: 359px) {
     .collapse-button {
@@ -160,6 +161,10 @@
 
   & + main .one-card-content {
     grid-template-columns: 153px 826px auto;
+  }
+
+  & + main .swiper {
+    width: 914px;
   }
 }
 body > .main-panel {

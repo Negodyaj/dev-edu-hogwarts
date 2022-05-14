@@ -33,11 +33,7 @@ export const AttendanceJournal = () => {
       {error ? (
         <ErrorMesage callback={loadAttendance(lessonsArr)} />
       ) : attendanceData ? (
-        <Journal
-          data={attendanceData}
-          filteredData={filteredStudentList}
-          filter={filterStudentsList}
-        />
+        <Journal filteredData={filteredStudentList} filter={filterStudentsList} />
       ) : (
         <span>Тут еще ничего нет</span>
       )}

@@ -2,34 +2,26 @@ import React from 'react';
 import './Journal.scss';
 import './swiperStyles.scss';
 import { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Controller, Scrollbar } from 'swiper';
+import SwiperCore from 'swiper';
 import { FilterItem, FilterList } from '../FilterList/FilterList';
 import { useLocation } from 'react-router-dom';
 import { AttendanceRatingColumn } from './components/AttendanceRatingColumn';
-import { AttendanceTypes } from '../../models/JournalModels';
 import { useDispatch } from 'react-redux';
+import { AttendanceHead } from './components/AttendanceHead';
+import { GeneralProgressHead } from './components/GeneralProgressHead';
+import { AttendanceScrollContent } from './components/AttendanceScrollContent';
+import { GeneralProgressScrollContent } from './components/GeneralProgressScrollContent';
 
 type JournalProps = {
-  data: any;
   filteredData: any;
   filter: any;
 };
 
-export const Journal = ({ filteredData, data, filter }: JournalProps) => {
+export const Journal = ({ filteredData, filter }: JournalProps) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [firstSwiper, setFirstSwiper] = useState<SwiperCore>();
   const [secondSwiper, setSecondSwiper] = useState<SwiperCore>();
-
-  const enteringStudentAttendance = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      const value = e.currentTarget.value;
-      // baseWretch().url(updateAttendanceForLesson(lesson.id, student.id, AttendanceTypes[+value]))...;
-      // dispatch =)
-      console.log(AttendanceTypes[+value]);
-    }
-  };
 
   const filterName = (item: FilterItem) => {
     // debugger;
@@ -43,7 +35,11 @@ export const Journal = ({ filteredData, data, filter }: JournalProps) => {
   return (
     <div className="flex-container journal-content-container">
       <div className="list-container">
-        <div className="one-block students-list">
+        <div
+          className={`one-block students-list${
+            location.pathname !== '/journal' ? ' tall-header-block' : ''
+          }`}
+        >
           <b>ФИО студента</b>
         </div>
         <div className="one-block students-list">
@@ -62,55 +58,20 @@ export const Journal = ({ filteredData, data, filter }: JournalProps) => {
             className="one-block students-list"
           >{`${student.LastName} ${student.name}`}</div>
         ))}
-        <div className="one-block students-list">ВСЕГО</div>
+        {location.pathname === '/journal' && <div className="one-block students-list">ВСЕГО</div>}
       </div>
       {location.pathname === '/journal' && <AttendanceRatingColumn data={filteredData} />}
       <div className="scroll-content-div">
-        <Swiper
-          modules={[Controller, Scrollbar]}
-          onSwiper={setSecondSwiper}
-          className="first-swiper"
-          slidesPerView={5}
-          scrollbar={{
-            draggable: true,
-            snapOnRelease: true,
-            lockClass: 'lock-scrollbar',
-          }}
-          controller={{ control: firstSwiper }}
-        >
-          {data.map((item: any) => (
-            <SwiperSlide key={item.id}>
-              <div className="one-block">
-                <b>{item.lesson}</b>
-              </div>
-              <div className="one-block" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <Swiper
-          modules={[Controller, Scrollbar]}
-          slidesPerView={5}
-          onSwiper={setFirstSwiper}
-          scrollbar={{ draggable: true, snapOnRelease: true }}
-          controller={{ control: secondSwiper }}
-        >
-          {data.map((item: any) => (
-            <SwiperSlide key={item.id}>
-              {filteredData.map((element: any) => {
-                const student = item.students.find((elem: any) => elem.name === element.name);
-                return (
-                  <input
-                    key={student.id}
-                    className="one-block list-view-input"
-                    defaultValue={student.check ?? 0}
-                    onKeyPress={(e) => enteringStudentAttendance(e)}
-                  />
-                );
-              })}
-              <div className="one-block">{item.sum}</div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {location.pathname === '/journal' ? (
+          <AttendanceHead setState={setSecondSwiper} control={firstSwiper} />
+        ) : (
+          <GeneralProgressHead setState={setSecondSwiper} control={firstSwiper} />
+        )}
+        {location.pathname === '/journal' ? (
+          <AttendanceScrollContent setState={setFirstSwiper} control={secondSwiper} />
+        ) : (
+          <GeneralProgressScrollContent setState={setFirstSwiper} control={secondSwiper} />
+        )}
       </div>
     </div>
   );

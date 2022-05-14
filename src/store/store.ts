@@ -23,7 +23,7 @@ import {
   attendanceJournalReducer,
   AttendanceJournalState,
 } from './reducers/attendanceJournal.reducer';
-import { GeneralProgresslState, generalProgressReducer } from './reducers/generalProgress.reducer';
+import { GeneralProgressState, generalProgressReducer } from './reducers/generalProgress.reducer';
 
 // Create an interface for the application state
 export interface AppState {
@@ -35,7 +35,7 @@ export interface AppState {
   homeworkPageState: HomeworkPageState;
   mainPanelState: MainPanelState | undefined;
   attendanceJournalState: AttendanceJournalState;
-  generalProgressState: GeneralProgresslState;
+  generalProgressState: GeneralProgressState;
 }
 
 // Create the root reducer

@@ -1,11 +1,25 @@
 import { TabContainer } from '../../components/TabContainer/TabContainer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
-import { selectTab } from '../../actions/generalProgress.actions';
+import {
+  filterStudentsList,
+  loadProgressSuccess,
+  selectTab,
+} from '../../actions/generalProgress.actions';
 import { BackButton } from '../../components/BackButton/BackButton';
+import { Journal } from '../../components/Journal/Journal';
+import { useEffect } from 'react';
+import { homeworksProgress } from './MockProgressData';
 
 export const GeneralProgressJournal = () => {
-  const { tabs, selectedTab } = useSelector((state: AppState) => state.generalProgressState);
+  const dispatch = useDispatch();
+  const { tabs, selectedTab, filteredStudentList } = useSelector(
+    (state: AppState) => state.generalProgressState
+  );
+
+  useEffect(() => {
+    dispatch(loadProgressSuccess(homeworksProgress));
+  }, []);
 
   return (
     <div className="journals">
@@ -17,6 +31,9 @@ export const GeneralProgressJournal = () => {
         onClick={selectTab}
       />
       <h2>Общая успеваемость</h2>
+      {filteredStudentList && (
+        <Journal filteredData={filteredStudentList} filter={filterStudentsList} />
+      )}
     </div>
   );
 };

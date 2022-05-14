@@ -6,6 +6,7 @@ export const SELECT_TAB = 'attendanceJournal/SELECT_TAB' as const;
 export const LOAD_ATTENDANCE = 'attendanceJournal/LOAD_ATTENDANCE' as const;
 export const FILTER_STUDENTS_LIST = 'attendanceJournal/FILTER_STUDENTS_LIST' as const;
 export const SET_STUDENT_ATTENDANCE = 'attendanceJournal/SET_STUDENT_ATTENDANCE' as const;
+export const SET_LESSON_DATE = 'attendanceJournal/SET_LESSON_DATE' as const;
 export const LOAD_ATTENDANCE_STARTED = 'attendanceJournal/LOAD_PROGRESS_STARTED' as const;
 export const LOAD_ATTENDANCE_SUCCESS = 'attendanceJournal/LOAD_PROGRESS_SUCCESS' as const;
 export const LOAD_ATTENDANCE_FAIL = 'attendanceJournal/LOAD_PROGRESS_FAIL' as const;
@@ -34,6 +35,11 @@ export const setStudentAttendance = (resultResponse: any[]) => ({
   payload: resultResponse,
 });
 
+export const setLessonDate = (lesson: any) => ({
+  type: SET_LESSON_DATE,
+  payload: lesson,
+});
+
 export const filterStudentsList = (students: any[]) => ({
   type: FILTER_STUDENTS_LIST,
   payload: students,
@@ -60,4 +66,5 @@ export type AttendanceJournalActions =
   | ReturnType<typeof loadAttendanceStarted>
   | ReturnType<typeof loadAttendanceSuccess>
   | ReturnType<typeof loadAttendanceFail>
-  | ReturnType<typeof filterStudentsList>;
+  | ReturnType<typeof filterStudentsList>
+  | ReturnType<typeof setLessonDate>;
