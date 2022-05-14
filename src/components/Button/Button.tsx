@@ -3,7 +3,7 @@ import { SvgIcon } from '../SvgIcon/SvgIcon';
 import { Icon } from '../../shared/enums/Icon';
 
 export type ButtonProps = {
-  text: string;
+  text?: string;
   type?: ButtonType;
   model: ButtonModel;
   icon?: Icon;
@@ -16,6 +16,7 @@ export enum ButtonModel {
   White,
   Colored,
   Text,
+  Ellipse,
 }
 
 export enum ButtonType {
@@ -33,6 +34,8 @@ export const Button = (props: ButtonProps) => {
         return 'btn-fill';
       case ButtonModel.Text:
         return 'btn-text';
+      case ButtonModel.Ellipse:
+        return 'btn-fill ellipse';
       default:
         return '';
     }

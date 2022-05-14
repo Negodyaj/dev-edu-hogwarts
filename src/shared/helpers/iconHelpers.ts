@@ -25,3 +25,20 @@ export const getCourseIcon = (courseName: CourseName) => {
       return Icon.Exit; //TODO: удалить
   }
 };
+
+export const getGroupIcon = (index: number) => {
+  switch (index) {
+    case 0:
+      return Icon.Barrel;
+    case 1:
+      return Icon.Computer;
+    case 2:
+      return Icon.Chevron;
+    case 3:
+      return Icon.FolderWithTick;
+    case 4:
+      return Icon.Computer;
+    default:
+      return Icon.Cake;
+  }
+};

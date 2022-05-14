@@ -28,6 +28,14 @@ a {
     &:active {
         background: $lavender-button-hover;
     }
+
+    &.ellipse{
+      border-radius: 50%;
+      padding: 14px 12px 9px 12px;
+      margin: 20px 50px;
+      width: 45px;
+      height: 45px;
+    }
 }
 
 .btn-white-with-border {

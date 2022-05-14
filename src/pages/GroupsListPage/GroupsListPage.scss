@@ -1,9 +1,13 @@
 @import './src/style/colors';
 
+.groups-header {
+  margin-bottom: 8px;
+  display: flex;
+}
+
 .groups-page{
 
   .content-container {
-    margin-top: 8px;
     padding-top: 30px;
   
     .groups-link {

@@ -28,6 +28,5 @@ export const enum Icon {
   CheckHomeworks,
   GeneralProgress,
   ButtonFly,
-  TwiceArrow,
-  FolderWithTick
+  FolderWithTick,
 }
