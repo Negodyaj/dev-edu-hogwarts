@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import '../SettingsPage/SettingsPage.scss';
 import { useForm } from 'react-hook-form';
-import { BackButton } from '../../components/LinkArrow/BackButton';
+import { BackButton } from '../../components/BackButton/BackButton';
 
 export type FormPasswordData = {
   oldPassword: string;

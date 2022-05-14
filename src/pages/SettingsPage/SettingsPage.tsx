@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { SvgPencil } from '../../components/SvgIcon/SvgFiles/SvgPencil';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
-import { AvatarComponent } from '../../components/AvatarComponent/AvatarComponent';
+import { AvatarUploader } from '../../components/AvatarUploader/AvatarUploader';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
@@ -135,7 +135,7 @@ export const SettingsPage = () => {
               </div>
             </div>
             <div className="settings-photo">
-              <AvatarComponent photo="http://localhost:3000/static/media/avatar_settings.f04f5af1751b20e8efb2.png" />
+              <AvatarUploader photo={currentUser?.photo} />
             </div>
           </div>
           <div className="form-grid-container">

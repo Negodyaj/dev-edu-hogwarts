@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import {
-  HomeworkPageAction,
+  HomeworksPageAction,
   SELECT_TAB,
   LOAD_TABS,
   EDIT_HOMEWORK_STATUS,
@@ -28,7 +28,7 @@ const initialState: HomeWorkPageState = {
   errorMessage: '',
 };
 
-export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworkPageAction> = (
+export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageAction> = (
   state = initialState,
   action
 ) => {

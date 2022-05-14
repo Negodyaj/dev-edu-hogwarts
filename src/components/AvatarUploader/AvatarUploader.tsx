@@ -1,16 +1,16 @@
-import './AvatarComponent.scss';
+import './AvatarUploader.scss';
 import { Icon } from '../../shared/enums/Icon';
 import { SvgIcon } from '../SvgIcon/SvgIcon';
 
-export type AvatarComponentProps = {
+export type AvatarUploaderProps = {
   photo?: string;
 };
 
-export const AvatarComponent = (props: AvatarComponentProps) => {
+export const AvatarUploader = (props: AvatarUploaderProps) => {
   return props.photo ? (
     <>
       <div className="avatar-text">
-        <img className="avatar-photo" src={props.photo}></img>
+        <img className="avatar-photo" src={`./static${props.photo}`} />
         <div className="svg-text">
           <SvgIcon icon={Icon.Picture} />
           <a href="#">Загрузить новое фото</a>

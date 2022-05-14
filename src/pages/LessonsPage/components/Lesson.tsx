@@ -1,4 +1,4 @@
-import styles from '../../LessonsPage/css/Lesson.scss';
+import styles from '../../LessonsPage/components/Lesson.scss';
 import classNames from 'classnames';
 import { SvgArrow } from '../../../components/SvgIcon/SvgFiles/SvgArrow';
 
