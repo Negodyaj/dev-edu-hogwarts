@@ -4,8 +4,12 @@ $translate-arrow: transform 0.25s ease;
 $zero-style: 0;
 $font-size: 18px;
 
-.drop-down-filter__wrapper {
+@mixin flex-end {
   display: flex;
+}
+
+.drop-down-filter__wrapper {
+  @include flex-end;
   font-size: $font-size;
   width: fit-content;
   position: relative;
@@ -20,7 +24,7 @@ $font-size: 18px;
 }
 
 .drop-down-filter {
-  display: flex;
+  @include flex-end;
   min-width: 148px;
   width: 100%;
   font-weight: 600;
@@ -31,6 +35,7 @@ $font-size: 18px;
     font-size: inherit;
     font-family: inherit;
     color: inherit;
+    text-align: end;
     padding: 0;
     margin: 0;
     border: 0;
@@ -40,6 +45,18 @@ $font-size: 18px;
 
     &:focus {
       outline: 0;
+    }
+
+    &.center {
+      justify-content: center;      
+    }
+
+    &.left {
+      justify-content: flex-start;
+    }
+
+    &.right {
+      justify-content: flex-end;
     }
   }
 
@@ -81,6 +98,18 @@ $font-size: 18px;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   z-index: 2;
+
+  &.center {
+    text-align: center;
+  }
+
+  &.left {
+    text-align: left;
+  }
+
+  &.right {
+    text-align: right;
+  }
 }
 
 .drop-down-filter__list {
