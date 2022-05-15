@@ -53,9 +53,7 @@ export const FilterList = (props: FilterListProps) => {
       </div>
 
       {isOpen && (
-        <div
-          className={`drop-down-filter__list-wrapper ${props.cssAlign ?? 'right'}`}
-        >
+        <div className={`drop-down-filter__list-wrapper ${props.cssAlign ?? 'right'}`}>
           <ul className={`drop-down-filter__list ${filterData.length > 4 ? 'overflow' : ''}`}>
             {filterData.map((elem) => (
               <li
