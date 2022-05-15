@@ -53,7 +53,7 @@ select{
   display: flex;  
   align-items: center;
   :hover{
-    
+
   }
 }
 
@@ -64,3 +64,8 @@ option{
   background-color: $light-gray;
 }
 
+.group-table-row{
+  .drop-down-filter__list-wrapper{
+    background-color: $light-gray;
+  }
+}

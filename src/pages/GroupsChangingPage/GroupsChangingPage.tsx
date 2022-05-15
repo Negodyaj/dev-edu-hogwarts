@@ -64,17 +64,17 @@ export const GroupsChangingPage = () => {
 
   return (
     <div className="content-container">
-      <div className='group-table-wrapper'>
-        <div className='groups-table-header group-table-flex-container'>
+      <div className="group-table-wrapper">
+        <div className="groups-table-header group-table-flex-container">
           <span>ФИО студента</span>
-          <span className='second-column'>Группа</span>
+          <span className="second-column">Группа</span>
         </div>
       </div>
       <div className="group-table-wrapper">
-        <div className='group-table-flex-container filters-row'>
+        <div className="group-table-flex-container filters-row">
           <FilterList data={surnameFilterData} callback={undefined} />
-          <div className='second-column'>
-            <FilterList data={groupFilterData} callback={undefined} />   
+          <div className="second-column">
+            <FilterList data={groupFilterData} callback={undefined} />
           </div>
         </div>
       </div>

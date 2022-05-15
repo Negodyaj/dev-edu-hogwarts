@@ -1,4 +1,5 @@
 import { SvgArrow } from '../../../components/SvgIcon/SvgFiles/SvgArrow';
+import { FilterItem, FilterList } from '../../../components/FilterList/FilterList';
 
 export type StudentsGroupChangingProps = {
   data: StudendsGroupRowModel;
@@ -12,24 +13,21 @@ export type StudendsGroupRowModel = {
   groupId: number;
 };
 
+const groupSelectData: FilterItem[] = [
+  { id: 2, name: 'Группа 1' },
+  { id: 3, name: 'Группа 2' },
+];
+
 export const StudentsGroupRow = (props: StudentsGroupChangingProps) => {
   const studentsGroupRow = props.data;
   return (
     <div>
-      <div className='group-table-row-wrapper'>
-        <div className='group-table-flex-container'>
+      <div className="group-table-row-wrapper">
+        <div className="group-table-flex-container group-table-row">
           <span>
             {studentsGroupRow.userName} {studentsGroupRow.userSurname}
           </span>
-          <span className='select-span'>
-            <select name="group-select select-options-wrapper" id="group-select">              
-                <option value="group-1">Группа 1</option>
-                <option value="group-2">Группа 2</option>              
-            </select>
-            <button className='select-button'>
-            <SvgArrow direction="bottom" />
-            </button>
-          </span>
+          <FilterList cssClass='' data={groupSelectData} callback={undefined}/>
         </div>
       </div>
     </div>
