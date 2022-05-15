@@ -9,8 +9,6 @@ import {
   DroppableProvided,
 } from 'react-beautiful-dnd';
 import { BackButton } from '../../../components/BackButton/BackButton';
-import { Button, ButtonModel, ButtonType } from '../../../components/Button/Button';
-import { useForm } from 'react-hook-form';
 
 export type ListViewProps = {
   data: Array<ListViewLessons>;
@@ -39,10 +37,6 @@ export const ListView = (props: ListViewProps) => {
       return <LinkWithUnderline text="Редактировать" path="edit-courses" />;
     }
   };
-
-  const methods = useForm<TopicFormData>({
-    mode: 'onChange',
-  });
   // const onSubmit = (data: TopicFormData) =>
   // baseWretch()
   //   .url(`api/Courses/${currentCourse?.id}/program`)
@@ -94,32 +88,6 @@ export const ListView = (props: ListViewProps) => {
             </div>
           )}
         </Droppable>
-      </div>
-      <div className="new-topic-form">
-        <h2>Новая тема</h2>
-        {/* <form onSubmit={methods.handleSubmit(onSubmit)}> */}
-        <div className="flex-container">
-          <div>
-            <h3>Тема</h3>
-            <input></input>
-          </div>
-          <div>
-            <h3>Название</h3>
-            <input {...methods.register('name')}></input>
-          </div>
-          <div>
-            <h3>Часы</h3>
-            <input {...methods.register('duration')}></input>
-          </div>
-        </div>
-        <Button
-          text={'Сохранить'}
-          type={ButtonType.submit}
-          model={ButtonModel.Colored}
-          width="190"
-        />
-        <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text} />
-        {/* </form> */}
       </div>
     </>
   );

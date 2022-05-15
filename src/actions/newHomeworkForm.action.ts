@@ -1,3 +1,4 @@
+import { CheckboxData } from '../components/CheckBoxGroup/CheckBox/CheckBox';
 import { CourseResponse } from '../models/responses/CourseResponse';
 import { GroupResponse } from '../models/responses/GroupResponse';
 import { Homework } from '../models/responses/HomeworksResponse';
@@ -23,12 +24,9 @@ export const loadGroups = (groups: GroupResponse[]) => ({
   })),
 });
 
-export const setCourses = (courses: CourseResponse[]) => ({
+export const setCourses = (courses: CheckboxData[]) => ({
   type: LOAD_COURSES,
-  payload: [...courses].map((item) => ({
-    text: item.name,
-    value: item.id,
-  })),
+  payload: courses,
 });
 
 export const selectGroup = (groupId: number) => ({

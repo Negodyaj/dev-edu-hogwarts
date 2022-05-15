@@ -55,6 +55,9 @@ export const HomeworksPage = () => {
           <span className="lack-of-homeworks">Домашних заданий еще нет</span>
         )}
       </div>
+      <div className="homework-results-container">
+        <h2>Результаты выполнения задания</h2>
+      </div>
     </>
   );
 };

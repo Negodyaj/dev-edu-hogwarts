@@ -9,13 +9,14 @@ import {
   SELECT_GROUP,
   SET_VALUE_INPUT_LINK,
 } from '../../actions/newHomeworkForm.action';
+import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 import { RadioData } from '../../components/RadioGroup/RadioButton/RadioButton';
 
 export interface NewHomeworkFormState {
   links: string[];
   inputLinkValue: string;
   group: RadioData[];
-  course: RadioData[];
+  checkboxCoursesData: CheckboxData[];
   selectGroupId: number;
   selectedGroupTaskCount: number;
 }
@@ -24,7 +25,7 @@ const initialState: NewHomeworkFormState = {
   links: [],
   inputLinkValue: '',
   group: [],
-  course: [],
+  checkboxCoursesData: [],
   selectGroupId: -1,
   selectedGroupTaskCount: 0,
 };
@@ -42,7 +43,7 @@ export const newHomeworkFormReducer: Reducer<NewHomeworkFormState, NewHomeworkFo
     case LOAD_COURSES:
       return {
         ...state,
-        course: [...action.payload],
+        checkboxCoursesData: action.payload,
       };
     case ADD_LINK:
       return {

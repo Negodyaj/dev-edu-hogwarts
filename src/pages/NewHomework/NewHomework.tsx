@@ -25,6 +25,9 @@ import { Homework } from '../../models/responses/HomeworksResponse';
 import { convertDate } from '../../shared/helpers/dateHelpers';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
+import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
+import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
+// import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
 // import { FilterList } from '../../components/FilterList/FilterList';
 // import { CoursesPageState } from '../../store/reducers/courses.reducer';
 // import { CoursesPageState } from '../../store/reducers/courses.reducer';
@@ -46,9 +49,10 @@ export const NewHomework = () => {
   const { currentUser, currentRole } = useSelector(
     (state: AppState) => state.loginPageState as LoginPageState
   );
-  const { links, inputLinkValue, group, selectGroupId, course } = useSelector(
+  const { links, inputLinkValue, group, selectGroupId } = useSelector(
     (state: AppState) => state.newHomeworkFormState
   );
+  const { courses } = useSelector((state: AppState) => state.coursesPageState);
   const refLinkName = useRef<any>({});
 
   const memoizeMapLinks = useMemo(() => {
@@ -83,7 +87,14 @@ export const NewHomework = () => {
     console.log(groupId);
     dispatch(selectGroup(groupId));
   };
-
+  const coursesData: CheckboxData[] | undefined = courses?.map((course) => {
+    const courseData: CheckboxData = {
+      value: course.id,
+      text: `${course.name}`,
+      isChecked: false,
+    };
+    return courseData;
+  });
   useEffect(() => {
     const groupId = method.getValues('groupId');
     if (groupId) {
@@ -93,7 +104,6 @@ export const NewHomework = () => {
         .json((data) => dispatch(getTasksCount(data as Homework[])));
     }
   }, [selectGroupId]);
-
   return (
     <FormProvider {...method}>
       <form className="form-container homework-form" onSubmit={method.handleSubmit(onSubmit)}>
@@ -101,7 +111,7 @@ export const NewHomework = () => {
         {currentUser?.roles.includes(UserRole.Methodist) ? (
           <div className="form-element">
             Номер курса:
-            <RadioGroup radioData={course} name="groupId" callback={getGroupId} />
+            {coursesData ? <CheckboxGroup checkboxArr={coursesData} name="courseIds" /> : ''}
           </div>
         ) : (
           <div className="form-element">
@@ -176,7 +186,12 @@ export const NewHomework = () => {
         </div>
 
         <div className="buttons-group">
-          <Button text="Опубликовать" model={ButtonModel.Colored} type={ButtonType.submit} />
+          {currentRole === UserRole.Teacher ? (
+            <Button text="Опубликовать" model={ButtonModel.Colored} type={ButtonType.submit} />
+          ) : (
+            ''
+          )}
+
           <Button
             text="Сохранить как черновик"
             model={ButtonModel.White}

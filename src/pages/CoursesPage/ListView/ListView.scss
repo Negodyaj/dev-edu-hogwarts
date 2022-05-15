@@ -6,17 +6,15 @@
     margin-top: -20px;
     margin-bottom: 20px;
   }
-    .link-with-text-decoration {
-      align-self: flex-end;
-    }
+  .link-with-text-decoration {
+    align-self: flex-end;
+  }
 
   &.link-arrow {
     place-self: baseline;
   }
 }
-.new-topic-form{
-  margin-top:50px;
-}
+
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -51,13 +49,13 @@
 
   &.dragging {
     position: relative;
-    
+
     & .list-view-input {
       background: $light-gray;
     }
-    
+
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: -29px;
       right: 0;
@@ -65,7 +63,7 @@
       height: 100%;
       background: $light-gray;
       box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.15);
-      border-radius: 15px;      
+      border-radius: 15px;
     }
   }
 
@@ -115,4 +113,49 @@
       margin: 3px 0 0 0;
     }
   }
+}
+
+.new-topic-form {
+  max-width: 940px;
+  margin-top: 50px;
+  padding: 0px 0px 0px 45px;
+  h2 {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 29px;
+    margin-bottom: 41px;
+  }
+  h3 {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    margin-bottom: 15px;
+  }
+  .flex-container {
+    margin-bottom: 70px;
+  }
+  .btn-text {
+    margin-left: 30px;
+  }
+}
+.form-input-topic {
+  width: 102px;
+  text-align: center;
+}
+.form-input-course-name {
+  width: 488px;
+}
+.new-topic {
+  margin-right: 81px;
+  h3 {
+    text-align: center;
+  }
+}
+.new-duration {
+  h3 {
+    text-align: center;
+  }
+}
+.new-course-name {
+  margin-right: 60px;
 }

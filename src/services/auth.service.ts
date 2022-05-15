@@ -3,7 +3,7 @@ import { loadCourses } from '../actions/courses.actions';
 import { loadHomeworkPageTabs } from '../actions/homeworks.actions';
 import { loadLessonPageTabs } from '../actions/lessons.actions';
 import { setCurrentUser, setCurrentUserRole } from '../actions/login.actions';
-import { loadGroups, setCourses } from '../actions/newHomeworkForm.action';
+import { loadGroups } from '../actions/newHomeworkForm.action';
 import { CourseResponse } from '../models/responses/CourseResponse';
 import { UserResponse } from '../models/responses/UserResponse';
 import { UserRole } from '../shared/enums/UserRole';
@@ -89,7 +89,6 @@ export const getCourses = (dispatch: Dispatch<any>) => {
     .get()
     .json((data) => {
       dispatch(loadCourses(data as CourseResponse[]));
-      dispatch(setCourses(data as CourseResponse[]));
     });
 };
 const parseToken = (token: string) => {
