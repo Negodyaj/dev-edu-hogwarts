@@ -4,16 +4,12 @@ $translate-arrow: transform 0.25s ease;
 $zero-style: 0;
 $font-size: 18px;
 
-@mixin flex-end {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .drop-down-filter__wrapper {
-  @include flex-end;
+  display: flex;
   font-size: $font-size;
   width: fit-content;
   position: relative;
+
 
   & button {
     padding: $zero-style;
@@ -24,7 +20,7 @@ $font-size: 18px;
 }
 
 .drop-down-filter {
-  @include flex-end;
+  display: flex;
   min-width: 148px;
   width: 100%;
   font-weight: 600;
@@ -35,7 +31,6 @@ $font-size: 18px;
     font-size: inherit;
     font-family: inherit;
     color: inherit;
-    text-align: end;
     padding: 0;
     margin: 0;
     border: 0;
@@ -79,7 +74,6 @@ $font-size: 18px;
   top: 28px;
   right: 6px;
   background-color: #fff;
-  text-align: right;
   position: absolute;
   padding: 10px 20px;
   max-height: 152px;

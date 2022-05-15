@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginPageState } from '../../../store/reducers/login.reducer';
 import { AppState } from '../../../store/store';
-import { FilterItem, FilterList } from '../../FilterList/FilterList';
+import { Align, FilterItem, FilterList } from '../../FilterList/FilterList';
 import { UserRole } from '../../../shared/enums/UserRole';
 import { setCurrentUserRole } from '../../../actions/login.actions';
 import { getUserRoleLocalName } from '../../../shared/helpers/translations';
@@ -24,6 +24,7 @@ export const CurrentUserRoles = () => {
         return newRole;
       })}
       callback={setUserRole}
+      cssAlign={Align.Left}
     />
   );
 };

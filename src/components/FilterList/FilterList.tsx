@@ -7,7 +7,19 @@ export type FilterListProps = {
   data: FilterItem[];
   cssClass?: string;
   callback?: (item: any) => void;
+  cssAlign?: Align;
+  // cssAlignForWrapper?: Justify
 };
+
+export enum Align {
+  Center='center',
+  Left='left',
+};
+
+// export enum Justify {
+//   Center='center',
+//   Left=''
+// };
 
 export type FilterItem = {
   id: number;
@@ -39,6 +51,7 @@ export const FilterList = (props: FilterListProps) => {
         onKeyPress={() => toggle()}
         onClick={() => toggle()}
         data-lesson-id={item?.id}
+        style={{justifyContent: `${props.cssAlign ?? 'right'}`}}
       >
         {item?.name}
 
@@ -46,7 +59,7 @@ export const FilterList = (props: FilterListProps) => {
       </div>
 
       {isOpen && (
-        <div className="drop-down-filter__list-wrapper">
+        <div className="drop-down-filter__list-wrapper" style={{textAlign: `${props.cssAlign ?? 'right'}`}}>
           <ul className={`drop-down-filter__list ${filterData.length > 4 ? 'overflow' : ''}`}>
             {filterData.map((elem) => (
               <li
