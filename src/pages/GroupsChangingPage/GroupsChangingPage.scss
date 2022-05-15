@@ -32,40 +32,12 @@
     justify-content: flex-start;
   }
 }
-select{  
-  -webkit-appearance: none;
-  border: none;
-  &:focus {
-    outline: none;
-  }
-}
-.select-span{
-  width: 133px;
-  display: flex;
-  justify-content: space-between;
-}
-.select-button{
-  width: 24px;
-  height: 24px;
-  border-radius: 5px;
-  border: 1px solid $medium-gray;
-  background-color: transparent;
-  display: flex;  
-  align-items: center;
-  :hover{
-
-  }
-}
-
-option{
-  border-bottom: 1px solid ;
-  width: 300px;
-  padding: 10px 20px;
-  background-color: $light-gray;
-}
-
 .group-table-row{
   .drop-down-filter__list-wrapper{
     background-color: $light-gray;
+  }
+  .drop-down-filter {
+    font-weight: 400;
+    font-size: 18px;
   }
 }

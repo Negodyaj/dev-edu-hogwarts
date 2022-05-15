@@ -1,8 +1,8 @@
-import { SvgArrow } from '../../../components/SvgIcon/SvgFiles/SvgArrow';
 import { FilterItem, FilterList } from '../../../components/FilterList/FilterList';
 
 export type StudentsGroupChangingProps = {
   data: StudendsGroupRowModel;
+  changeGroupId: (studentId: number, groupId: number) => void;
 };
 
 export type StudendsGroupRowModel = {
@@ -19,6 +19,9 @@ const groupSelectData: FilterItem[] = [
 ];
 
 export const StudentsGroupRow = (props: StudentsGroupChangingProps) => {
+  const onSelectGroup = (item: FilterItem) => {
+    props.changeGroupId(props.data.id, item.id);
+  };
   const studentsGroupRow = props.data;
   return (
     <div>
@@ -27,7 +30,7 @@ export const StudentsGroupRow = (props: StudentsGroupChangingProps) => {
           <span>
             {studentsGroupRow.userName} {studentsGroupRow.userSurname}
           </span>
-          <FilterList cssClass='' data={groupSelectData} callback={undefined}/>
+          <FilterList data={groupSelectData} callback={onSelectGroup} />
         </div>
       </div>
     </div>

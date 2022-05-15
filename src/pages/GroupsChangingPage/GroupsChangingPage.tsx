@@ -60,7 +60,67 @@ const groupFilterData: FilterItem[] = [
 ];
 
 export const GroupsChangingPage = () => {
-  const [students] = useState(studentsData);
+  const [students, setStudents] = useState(studentsData);
+  const [filterSurnameValue, setFilterSurnameValue] = useState(1);
+  const [filterGroupValue, setFilterGroupValue] = useState(0);
+  const [filtredList, setFiltredList] = useState(studentsData);
+
+  const applySurnameSorting = () => {
+    if (filterSurnameValue == 1) {
+      const sortedForward = filtredList.sort(function (prev, next) {
+        if (prev.userSurname < next.userSurname) {
+          return -1;
+        }
+        if (prev.userSurname > next.userSurname) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+      setFiltredList(sortedForward);
+    }
+    if (filterSurnameValue == 2) {
+      const sortedBackward = filtredList.sort(function (prev, next) {
+        if (prev.userSurname > next.userSurname) {
+          return -1;
+        }
+        if (prev.userSurname < next.userSurname) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+      setFiltredList(sortedBackward);
+    }
+  };
+
+  useEffect(() => applySurnameSorting(), [filterSurnameValue]);
+
+  const applySurnameFilter = (item: FilterItem) => {
+    setFilterSurnameValue(item.id);
+  };
+
+  const FilterByGroup = () => {
+    const filtered = students.filter(
+      (s) => filterGroupValue === 0 || (filterGroupValue > 0 && s.groupId === filterGroupValue)
+    );
+    setFiltredList(filtered);
+  };
+
+  useEffect(() => FilterByGroup(), [filterGroupValue]);
+
+  const applyGroupFilter = (item: FilterItem) => {
+    setFilterGroupValue(item.id);
+  };
+
+  const changeGroup = (studentId: number, groupId: number) => {
+    const studentIndex = students.findIndex((item) => item.id == studentId);
+    if (students[studentIndex].groupId) {
+      students[studentIndex].groupId = groupId;
+      console.log(students[studentIndex].groupId);
+    }
+    setStudents([...students]);
+  };
 
   return (
     <div className="content-container">
@@ -72,15 +132,15 @@ export const GroupsChangingPage = () => {
       </div>
       <div className="group-table-wrapper">
         <div className="group-table-flex-container filters-row">
-          <FilterList data={surnameFilterData} callback={undefined} />
+          <FilterList data={surnameFilterData} callback={applySurnameFilter} />
           <div className="second-column">
-            <FilterList data={groupFilterData} callback={undefined} />
+            <FilterList data={groupFilterData} callback={applyGroupFilter} />
           </div>
         </div>
       </div>
       <div>
-        {students.map((item) => (
-          <StudentsGroupRow data={item} />
+        {filtredList.map((item) => (
+          <StudentsGroupRow data={item} changeGroupId={changeGroup} />
         ))}
       </div>
     </div>
