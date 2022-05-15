@@ -11,7 +11,7 @@ export type ButtonProps = {
   link?: 'btn-link';
   width?: string;
   onClick?: () => void;
-  disabled?:boolean;
+  disabled?: boolean;
 };
 
 export enum ButtonModel {

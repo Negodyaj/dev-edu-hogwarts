@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGroups, selectGroup, selectTab } from '../../actions/groups.actions';
+import { selectTab } from '../../actions/groups.actions';
+import { loadGroupById, loadGroups } from '../../actions/groups.thunk';
 import { Button, ButtonModel } from '../../components/Button/Button';
 import { LinkWithUnderline } from '../../components/LinkWithUnderline/LinkWithUnderline';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { GroupResponse } from '../../models/responses/GroupResponse';
-import { GroupResponseById } from '../../models/responses/GroupResponseById';
 import { TabData } from '../../models/TabData';
-import { baseWretch } from '../../services/base-wretch.service';
-import { getGroupById, groupUrl } from '../../shared/consts';
 import { Icon } from '../../shared/enums/Icon';
 import { getGroupIcon } from '../../shared/helpers/iconHelpers';
 import { GroupsPageState } from '../../store/reducers/groups.reducer';
 import { AppState } from '../../store/store';
+import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import './GroupsListPage.scss';
 
 export const GroupsListPage = () => {
-  const { groups, selectedGroup, selectedTab } = useSelector(
+  const { groups, selectedGroup, selectedTab, isLoading } = useSelector(
     (state: AppState) => state.groupsPageState as GroupsPageState
   );
 
@@ -34,40 +33,22 @@ export const GroupsListPage = () => {
 
   useEffect(() => {
     if (groups.length == 0) {
-      baseWretch()
-        .url(groupUrl)
-        .get()
-        .json((data) => {
-          const groupsList = data as GroupResponse[];
-          const id: number = groupsList[0].id;
-          baseWretch()
-            .url(getGroupById(id))
-            .get()
-            .json((dataGroup) => {
-              dispatch(selectGroup(dataGroup as GroupResponseById));
-              dispatch(getGroups(groupsList));
-              dispatch(selectTab(id));
-            });
-        });
+      dispatch(loadGroups());
     } else {
-      baseWretch()
-        .url(getGroupById(selectedTab))
-        .get()
-        .json((GroupInfo) => {
-          dispatch(selectGroup(GroupInfo as GroupResponseById));
-        });
+      dispatch(loadGroupById(selectedTab));
     }
     setGroupsToDisplay(selectGroupToDisplay(indexForDisplay));
   }, [selectedTab, indexForDisplay]);
 
   return (
     <>
+      {isLoading && <Loader />}
       {groups.length >= 4 ? (
         <div className="groups-header">
           <Button
             model={ButtonModel.EllipseWhite}
             icon={Icon.LeftArrow}
-            disabled={(indexForDisplay == 0)}
+            disabled={indexForDisplay == 0}
             onClick={() => {
               setIndexForDisplay(indexForDisplay - 3);
             }}
@@ -88,7 +69,7 @@ export const GroupsListPage = () => {
           <Button
             model={ButtonModel.EllipseWhite}
             icon={Icon.RightArrow}
-            disabled={((indexForDisplay + 3)>(groups.length - 1))}
+            disabled={indexForDisplay + 3 > groups.length - 1}
             onClick={() => {
               setIndexForDisplay(indexForDisplay + 3);
             }}

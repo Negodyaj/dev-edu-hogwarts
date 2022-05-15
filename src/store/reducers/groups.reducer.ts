@@ -1,7 +1,9 @@
 import { Reducer } from 'redux';
 import {
-  GET_GROUPS,
   GroupsPageAction,
+  LOAD_GROUPS_FAIL,
+  LOAD_GROUPS_STARTED,
+  LOAD_GROUPS_SUCCESS,
   SELECT_GROUP,
   SELECT_TAB,
 } from '../../actions/groups.actions';
@@ -12,6 +14,8 @@ export interface GroupsPageState {
   groups: GroupResponse[];
   selectedGroup: GroupResponseById;
   selectedTab: number;
+  isLoading: boolean;
+  errorMessage: string;
 }
 
 const initialState: GroupsPageState = {
@@ -30,6 +34,8 @@ const initialState: GroupsPageState = {
     paymentPerMonth: 0,
   },
   selectedTab: -1,
+  isLoading: false,
+  errorMessage: '',
 };
 
 export const groupsPageReducer: Reducer<GroupsPageState, GroupsPageAction> = (
@@ -37,12 +43,27 @@ export const groupsPageReducer: Reducer<GroupsPageState, GroupsPageAction> = (
   action
 ) => {
   switch (action.type) {
-    case GET_GROUPS: {
+    case LOAD_GROUPS_SUCCESS: {
       const groupsList = action.payload;
       return {
         ...state,
         groups: action.payload,
         selectedTab: groupsList[0].id,
+        isLoading: false,
+      };
+    }
+    case LOAD_GROUPS_STARTED: {
+      return {
+        ...state,
+        isLoading: true,
+        errorMessage: '',
+      };
+    }
+    case LOAD_GROUPS_FAIL: {
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload,
       };
     }
     case SELECT_TAB: {
@@ -55,6 +76,7 @@ export const groupsPageReducer: Reducer<GroupsPageState, GroupsPageAction> = (
       return {
         ...state,
         selectedGroup: action.payload,
+        isLoading: false,
       };
     }
     default:
