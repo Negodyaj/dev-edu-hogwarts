@@ -8,9 +8,9 @@ import { Period } from '../../shared/enums/Period';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LessonsPageState } from '../../store/reducers/lessons.reducer';
-import { loadLessons, filterLessons, selectTab } from '../../actions/lessons.actions';
+import { loadLessons } from '../../actions/lessons.thunks';
+import { filterLessons, selectTab } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
-import { baseWretch } from '../../services/base-wretch.service';
 
 const lessonsFilterData: FilterItem[] = [
   { id: Period.All, name: 'Все' },
@@ -28,10 +28,7 @@ export const LessonsPage = () => {
 
   useEffect(() => {
     if (selectedTab > 0) {
-      baseWretch()
-        .url(`by-groupId/${selectedTab}`)
-        .get()
-        .json((data) => dispatch(loadLessons(data as LessonResponse[])));
+      dispatch(loadLessons(selectedTab));
     }
   }, [selectedTab]);
 
