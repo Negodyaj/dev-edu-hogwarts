@@ -21,6 +21,7 @@ import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { LoginPageState } from './store/reducers/login.reducer';
+import { AllUsersPage } from './pages/AllUsersPage/AllUsersPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ function App() {
           <Route path="group" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
           <Route path="payment-table" element={<PaymentsPage />} />
+          <Route path="all-users" element={<AllUsersPage />} />
         </Routes>
       </main>
     </div>
