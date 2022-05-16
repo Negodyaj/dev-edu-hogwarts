@@ -1,21 +1,23 @@
 .homework-result-container {
   padding: 50px 0 50px 45px;
+  width: 940px;
+  font-size: 18px;
 
-  table {
-    width: 940px;
-  }
-
-  th {
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 23.48px;
-    text-align: start;
-    height: 58px;
-  }
-
-  tr {
-    text-align: start;
+  .table-row {
+    display: grid;
+    grid-template-columns: minmax(141px, 305px) minmax(69px, 244px) minmax(98px, 245px) 109px;
     align-items: center;
+
+    &.header {
+      margin-bottom: 20px;
+      font-size: 20px;
+      line-height: 23.48px;
+      font-weight: 600;
+    }
+  }
+
+  .table-row + .table-row {
+    margin-top: 31px;
   }
 
   .drop-down-filter {
@@ -40,8 +42,8 @@
 }
 
 .homework-result-header {
-  margin-bottom: 32px;
-  font-size: 18px;
+  margin-bottom: 50px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 21.13px;
 }

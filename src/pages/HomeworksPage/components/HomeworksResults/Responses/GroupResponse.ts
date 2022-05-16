@@ -1,4 +1,4 @@
-import { CourseResponse } from '../CourseResponse';
+import { CourseResponse } from '../../../../../models/responses/CourseResponse';
 import { UserResponse } from './UserResponse';
 
 export interface GroupResponse {
