@@ -1,4 +1,4 @@
-import styles from '../../LessonsPage/css/Lesson.scss';
+import styles from '../../LessonsPage/components/Lesson.scss';
 import classNames from 'classnames';
 import { SvgArrow } from '../../../components/SvgIcon/SvgFiles/SvgArrow';
 
@@ -37,10 +37,7 @@ export const Lesson = (props: LessonProps) => {
         </div>
         <div className="lesson-theme font-600">{lesson.theme}</div>
 
-        <button
-          className={cx('circle', { 'is-active': isExpanded })}
-          onClick={toggleAccordionItem}
-        >
+        <button className={cx('circle', { 'is-active': isExpanded })} onClick={toggleAccordionItem}>
           <SvgArrow direction="bottom" />
         </button>
       </div>

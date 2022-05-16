@@ -1,58 +1,33 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import {
-  loadHomework,
-  loadStudentHomework,
-} from '../../../actions/homework.actions';
+import { clearHomework } from '../../../actions/homework.actions';
 import { HomeworkCard } from '../components/HomeworkCard';
 import { HomeworkCardContent } from '../components/HomeworkCardContent';
-import { BackButton } from '../../../components/LinkArrow/BackButton';
-import { baseWretch } from '../../../services/base-wretch.service';
-import {
-  getHomeworkById,
-  getStudentAnswerByTaskId,
-} from '../../../shared/consts';
-import {
-  Homework,
-  StudentHomework,
-} from '../../../models/responses/HomeworksResponse';
 import { AppState } from '../../../store/store';
-import { HomeworksResults } from '../components/HomeworksResults/HomeworksResults';
+import { loadHomework } from '../../../actions/homeworks.thunks';
 
 export const HomeworkPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { homework } = useSelector(
-    (state: AppState) => state.homeworkPageState
-  );
+  const { homework, isLoad } = useSelector((state: AppState) => state.homeworkPageState);
 
   useEffect(() => {
     if (id && +id !== homework?.id) {
-      baseWretch()
-        .url(getHomeworkById(+id))  //`api/homeworks/${id}`
-        .get()
-        .json((response) => {
-          dispatch(loadHomework(response as Homework));
-          baseWretch()
-            .url(getStudentAnswerByTaskId((response as Homework).task.id))  //`api/Tasks/${taskId}/answer`;
-            .get()
-            .json((studentHomework) => {
-              dispatch(loadStudentHomework(studentHomework as StudentHomework));
-            });
-        });
+      dispatch(loadHomework(+id));
     }
   }, []);
 
   return (
-    <>
-      <div className="homework-edit-page">
-        <BackButton path={'../homeworks'} />
+    <div className="homework-edit-page">
+      <BackButton path={'../homeworks'} callback={() => dispatch(clearHomework())} />
+      {!isLoad ? (
         <HomeworkCard>
           <HomeworkCardContent />
         </HomeworkCard>
-      </div>
-      <HomeworksResults />
-    </>
+      ) : (
+        <Loader />
+      )}
+    </div>
   );
 };

@@ -10,38 +10,25 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods dispatch and getState as parameters.
 */
 import thunk from 'redux-thunk';
-import {
-  lessonsPageReducer,
-  LessonsPageState,
-} from './reducers/lessons.reducer';
+import { lessonsPageReducer, LessonsPageState } from './reducers/lessons.reducer';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
-import {
-  homeworksPageReducer,
-  HomeWorkPageState,
-} from './reducers/homeworks.reducer';
+import { homeworksPageReducer, HomeWorkPageState } from './reducers/homeworks.reducer';
 
 // Import reducers and state type
-import {
-  homeworkPageReducer,
-  HomeworkPageState,
-} from './reducers/homework.reducer';
-import {
-  newHomeworkFormReducer,
-  NewHomeworkFormState,
-} from './reducers/newHomeworkForm.reducer';
-import {
-  NotificationsPageState,
-  notificationsPageReducer,
-} from './reducers/notifications.reducer';
+import { homeworkPageReducer, HomeworkPageState } from './reducers/homework.reducer';
+import { newHomeworkFormReducer, NewHomeworkFormState } from './reducers/newHomeworkForm.reducer';
+import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
+import { mainPanelReducer, MainPanelState } from './reducers/mainPanel.reducer';
 
 // Create an interface for the application state
 export interface AppState {
   homeworksPageState: HomeWorkPageState;
   newHomeworkFormState: NewHomeworkFormState;
-  notificationsPageState: NotificationsPageState;
+  notificationsPageState: NotificationsPageState | undefined;
   loginPageState: LoginPageState | undefined;
   lessonsPageState: LessonsPageState | undefined;
   homeworkPageState: HomeworkPageState;
+  mainPanelState: MainPanelState | undefined;
 }
 
 // Create the root reducer
@@ -52,13 +39,10 @@ const rootReducer = combineReducers<AppState>({
   homeworksPageState: homeworksPageReducer,
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
+  mainPanelState: mainPanelReducer,
 });
 
 // Create a configure store function of type `AppState`
 export default function configureStore(): Store<AppState, any> {
-  return createStore(
-    rootReducer,
-    undefined,
-    composeWithDevTools(applyMiddleware(thunk))
-  );
+  return createStore(rootReducer, undefined, composeWithDevTools(applyMiddleware(thunk)));
 }

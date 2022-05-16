@@ -8,7 +8,7 @@ import {
   Droppable,
   DroppableProvided,
 } from 'react-beautiful-dnd';
-import { BackButton } from '../../../components/LinkArrow/BackButton';
+import { BackButton } from '../../../components/BackButton/BackButton';
 
 export type ListViewProps = {
   data: Array<ListViewLessons>;
@@ -55,10 +55,7 @@ export const ListView = (props: ListViewProps) => {
                 key={item.id}
                 isDragDisabled={!props.edit}
               >
-                {(
-                  draggableProvided: DraggableProvided,
-                  snapshot: DraggableStateSnapshot
-                ) => (
+                {(draggableProvided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                   <ListViewItem
                     index={index}
                     lesson={item}

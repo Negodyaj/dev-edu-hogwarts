@@ -5,11 +5,7 @@ import { InputLink } from '../../../components/InputLink/InputLink';
 import { baseWretch } from '../../../services/base-wretch.service';
 import { studentHomeworkById, postStudentAnswer } from '../../../shared/consts';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  editHomework,
-  loadAnswer,
-  loadStudentHomework,
-} from '../../../actions/homework.actions';
+import { editHomework, loadAnswer, loadStudentHomework } from '../../../actions/homework.actions';
 import { useEffect } from 'react';
 import { AppState } from '../../../store/store';
 import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
@@ -64,13 +60,8 @@ export const HomeworkCardContent = () => {
   };
 
   useEffect(() => {
-    if (answer && !location.pathname.includes('edit'))
-      navigate(`/homeworks/${id}`);
-    else if (
-      !answer &&
-      !location.pathname.includes('edit') &&
-      !location.pathname.includes('new')
-    )
+    if (answer && !location.pathname.includes('edit')) navigate(`/homeworks/${id}`);
+    else if (!answer && !location.pathname.includes('edit') && !location.pathname.includes('new'))
       navigate(`new`);
   }, [answer]);
 
@@ -87,22 +78,13 @@ export const HomeworkCardContent = () => {
           {par}
         </p>
       ))}
-      {homework?.task.links && (
-        <span className="homework-description-title">Полезные ссылки</span>
-      )}
+      {homework?.task.links && <span className="homework-description-title">Полезные ссылки</span>}
       {homework?.task.links.split(' [link] ').map((link, index) => (
-        <a
-          href={link}
-          className="homework-useful-link"
-          target="_blank"
-          key={index}
-        >
+        <a href={link} className="homework-useful-link" target="_blank" key={index}>
           {link}
         </a>
       ))}
-      <span className="homework-description-title">
-        Ссылка на выполненное задание:
-      </span>
+      <span className="homework-description-title">Ссылка на выполненное задание:</span>
       {answer && !isEdit ? (
         <a href={answer} className="homework-github-link" target="_blank">
           Ссылка на GitHub
@@ -119,14 +101,9 @@ export const HomeworkCardContent = () => {
         </FormProvider>
       )}
       {answer && !isEdit && (
-        <LinkWithUnderline
-          text="Редактировать"
-          path={`homeworks/${homework?.id}/edit`}
-        />
+        <LinkWithUnderline text="Редактировать" path={`homeworks/${homework?.id}/edit`} />
       )}
-      <span className="homework-description-title">
-        Результат выполненного задания:
-      </span>
+      <span className="homework-description-title">Результат выполненного задания:</span>
     </>
   );
 };

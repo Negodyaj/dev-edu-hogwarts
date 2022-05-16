@@ -22,8 +22,7 @@ export const CheckboxBtn = (props: CheckboxProps) => {
         value={props.data.value}
         checked={
           (props.isSingle && watch(props.name) == props.data.value) ||
-          (!props.isSingle &&
-            watch(props.name)?.find((x: number) => x === props.data.value))
+          (!props.isSingle && watch(props.name)?.find((x: number) => x === props.data.value))
         }
         {...register(props.name, {
           required: true,

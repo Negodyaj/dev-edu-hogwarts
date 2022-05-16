@@ -17,11 +17,21 @@ body {
 main {
   flex-grow: 1;
   padding-top: 70px;
+  padding-left: 380px;
+  transition: padding-left ease-in-out 0.5s, padding-left ease-in-out 0.5s;
+}
+.closed{
+  padding-left: 114px;
+  transition: padding-left ease-in-out 0.5s, padding-left ease-in-out 0.5s;
 }
 
 .form-container {
   padding-left: 65px;
   padding-top: 20px;
+
+  &.login-page-form {
+    padding-top: 43px;
+  }
 }
 
 ::-moz-selection{
@@ -44,6 +54,7 @@ main {
 .flex-container {
   display: flex;
 }
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: $dark-gray;
   opacity: 1; /* Firefox */

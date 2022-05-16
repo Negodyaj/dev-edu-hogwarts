@@ -1,16 +1,18 @@
-export const LOAD_TABS = 'notifications/LOAD_TABS' as const;
+import { NotificationData } from '../pages/NotificationsPage/components/NotificationsCard';
 
-export const SELECT_TAB = 'notifications/SELECT_TAB' as const;
+export const SET_NOTIFICATIONS = 'notifications/SET_NOTIFICATIONS' as const;
+export const FILTER_NOTIFICATIONS = 'notifications/FILTER_NOTIFICATIONS' as const;
 
-export const loadTabs = () => ({
-  type: LOAD_TABS,
+export const setNotifications = (notifications: NotificationData[]) => ({
+  type: SET_NOTIFICATIONS,
+  payload: notifications,
 });
 
-export const selectTab = (id: number) => ({
-  type: SELECT_TAB,
-  payload: id,
+export const filterNotification = (notifications: NotificationData[]) => ({
+  type: FILTER_NOTIFICATIONS,
+  payload: notifications,
 });
 
-export type NotificationsPageAction =
-  | ReturnType<typeof loadTabs>
-  | ReturnType<typeof selectTab>;
+export type NotificationsPageActions =
+  | ReturnType<typeof setNotifications>
+  | ReturnType<typeof filterNotification>;
