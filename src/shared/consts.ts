@@ -17,6 +17,6 @@ export const getHomeworksByGroupId = (groupId: number) => {
 export const getStudentAnswerByTaskId = (taskId: number) => `api/Tasks/${taskId}/answer`;
 export const registerUrl = 'register';
 export const coursesUrl = 'api/Courses';
-export const getGroupById = (groupId: number) => {
-  return `api/Groups/${groupId}`;
+export const GroupByIdUrl = (groupId: number) => {
+  return `${groupUrl}/${groupId}`;
 };

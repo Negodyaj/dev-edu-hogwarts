@@ -27,16 +27,16 @@ export const getCourseIcon = (courseName: CourseName) => {
 };
 
 export const getGroupIcon = (index: number) => {
-  switch (index) {
-    case 0:
-      return Icon.Barrel;
+  switch (index + 1) {
     case 1:
-      return Icon.Computer;
+      return Icon.Barrel;
     case 2:
-      return Icon.Chevron;
+      return Icon.Computer;
     case 3:
-      return Icon.Calendar;
+      return Icon.Chevron;
     case 4:
+      return Icon.Calendar;
+    case 5:
       return Icon.Computer;
     default:
       return Icon.Cake;

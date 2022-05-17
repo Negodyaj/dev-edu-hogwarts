@@ -21,57 +21,71 @@ export const GroupsListPage = () => {
 
   const [indexForDisplay, setIndexForDisplay] = useState<number>(0);
 
-  const selectGroupToDisplay = (index: number) => {
-    const newGroups: GroupResponse[] = groups.slice(index, index + 3);
+  const selectGroupToDisplay = (index: number, numberOfDisplayedItems: number) => {
+    const newGroups: GroupResponse[] = groups.slice(index, index + numberOfDisplayedItems);
     return newGroups;
   };
+
+  const lengthOfTabsRow = 3;
+
   const [groupsToDisplay, setGroupsToDisplay] = useState<GroupResponse[]>(
-    selectGroupToDisplay(indexForDisplay)
+    selectGroupToDisplay(indexForDisplay, lengthOfTabsRow)
   );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (groups.length == 0) {
+    if (!groups.length) {
       dispatch(loadGroups());
+      setGroupsToDisplay(selectGroupToDisplay(indexForDisplay, lengthOfTabsRow));
     } else {
       dispatch(loadGroupById(selectedTab));
+      setGroupsToDisplay(selectGroupToDisplay(indexForDisplay, lengthOfTabsRow));
     }
-    setGroupsToDisplay(selectGroupToDisplay(indexForDisplay));
   }, [selectedTab, indexForDisplay]);
 
   return (
     <>
       {isLoading && <Loader />}
-      {groups.length >= 4 ? (
+      {groups.length > lengthOfTabsRow ? (
         <div className="groups-header">
           <Button
             model={ButtonModel.EllipseWhite}
-            icon={Icon.LeftArrow}
-            disabled={indexForDisplay == 0}
+            direction="left"
+            disabled={!indexForDisplay}
             onClick={() => {
-              setIndexForDisplay(indexForDisplay - 3);
+              setIndexForDisplay(indexForDisplay - lengthOfTabsRow);
             }}
           />
           <TabContainer
             tabContainerData={groupsToDisplay?.map((item, index) => {
-              index >= 5 ? (index = index - 5) : index;
-              const tabItem: TabData = {
-                id: item.id,
-                text: item.name,
-                icon: getGroupIcon(index),
-              };
-              return tabItem;
+              if (index >= 5) {
+                const temp = index - 5;
+                const tabItem: TabData = {
+                  id: item.id,
+                  text: item.name,
+                  icon: getGroupIcon(temp),
+                };
+                return tabItem;
+              } else {
+                const tabItem: TabData = {
+                  id: item.id,
+                  text: item.name,
+                  icon: getGroupIcon(index),
+                };
+                return tabItem;
+              }
             })}
             selectedTab={selectedTab}
             onClick={selectTab}
           />
           <Button
             model={ButtonModel.EllipseWhite}
-            icon={Icon.RightArrow}
-            disabled={indexForDisplay + 3 > groups.length - 1}
+            // icon={Icon.RightArrow}
+            direction="right"
+            disabled={indexForDisplay + lengthOfTabsRow > groups.length - 1}
             onClick={() => {
-              setIndexForDisplay(indexForDisplay + 3);
+              setIndexForDisplay(indexForDisplay + lengthOfTabsRow);
             }}
           />
           <Button model={ButtonModel.EllipseColored} icon={Icon.Plus} url="/new-group" />
@@ -80,7 +94,6 @@ export const GroupsListPage = () => {
         <div className="groups-header">
           <TabContainer
             tabContainerData={groups?.map((item, index) => {
-              index >= 5 ? (index = index - 5) : index;
               const tabItem: TabData = {
                 id: item.id,
                 text: item.name,

@@ -1,6 +1,7 @@
 import './Button.scss';
 import { SvgIcon } from '../SvgIcon/SvgIcon';
 import { Icon } from '../../shared/enums/Icon';
+import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
 
 export type ButtonProps = {
   text?: string;
@@ -12,6 +13,7 @@ export type ButtonProps = {
   width?: string;
   onClick?: () => void;
   disabled?: boolean;
+  direction?: string;
 };
 
 export enum ButtonModel {
@@ -56,6 +58,7 @@ export const Button = (props: ButtonProps) => {
     <a href={props.url} className={`btn ${buttonClass}`}>
       {props.text}
       {buttonImg}
+      {props.direction ? <SvgArrow direction={`${props.direction}`} /> : ''}
     </a>
   ) : (
     <button
@@ -67,6 +70,7 @@ export const Button = (props: ButtonProps) => {
     >
       {props.text}
       {buttonImg}
+      {props.direction ? <SvgArrow direction={`${props.direction}`} /> : ''}
     </button>
   );
 };
