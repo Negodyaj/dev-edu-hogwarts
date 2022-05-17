@@ -1,13 +1,20 @@
 import './NewGroupPage.scss';
 import '../../components/InputTextarea/InputTextarea.scss';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { baseWretch } from '../../services/base-wretch.service';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
-import { coursesUrl, groupUrl, usersUrl } from '../../shared/consts';
-import { FilterList } from '../../components/FilterList/FilterList';
+import { groupUrl } from '../../shared/consts';
+import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadCoursesAndUsers } from '../../actions/NewGroupForm.thunks';
+import { AppState } from '../../store/store';
+import { NewGroupFormState } from '../../store/reducers/NewGroupForm.reducer';
+import { UserRole } from '../../shared/enums/UserRole';
+import { getDataFromFormPage } from '../../actions/NewGroupForm.actions';
+import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 
 export type GroupFormData = {
   name: string;
@@ -19,13 +26,6 @@ export type GroupFormData = {
   timetable: string;
   paymentPerMonth: number;
   courseId: number;
-};
-
-export type User = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  roles: string[];
 };
 
 export type Course = {
@@ -53,26 +53,17 @@ export const NewGroupPage = () => {
     formState: { errors },
   } = methods;
 
-  const [users, setUsers] = useState<User[]>([]);
-  const [courses, setCourses] = useState<Course[]>([]);
+  const dispatch = useDispatch();
+  const { users, courses, isLoading } = useSelector(
+    (state: AppState) => state.newGroupFormState as NewGroupFormState
+  );
 
   useEffect(() => {
-    baseWretch()
-      .url(coursesUrl)
-      .get()
-      .json((data) => {
-        baseWretch()
-          .url(usersUrl)
-          .get()
-          .json((usersList) => {
-            setUsers(usersList as User[]);
-            setCourses(data as Course[]);
-          });
-      });
+    dispatch(loadCoursesAndUsers());
   }, []);
 
   const tutors: CheckboxData[] = users
-    .filter((u) => u.roles.includes('Tutor'))
+    .filter((u) => u.roles.includes(UserRole.Tutor))
     .map((tutor) => {
       const newTutor: CheckboxData = {
         value: tutor.id,
@@ -83,7 +74,7 @@ export const NewGroupPage = () => {
     });
 
   const teachers: CheckboxData[] = users
-    .filter((u) => u.roles.includes('Teacher'))
+    .filter((u) => u.roles.includes(UserRole.Teacher))
     .map((teacher) => {
       const newTeacher: CheckboxData = {
         value: teacher.id,
@@ -97,10 +88,12 @@ export const NewGroupPage = () => {
     if (typeof data.teacherIds === 'string') data.teacherIds = [+data.teacherIds];
     baseWretch().url(groupUrl).post(data);
     console.log(data);
+    dispatch(getDataFromFormPage(data));
   };
 
   return (
     <>
+      {isLoading && <Loader />}
       <div className="editing-page">
         <h1>Новая группа</h1>
         <FormProvider {...methods}>
@@ -113,7 +106,16 @@ export const NewGroupPage = () => {
             />
             {errors.name && <span>Вы не указали название</span>}
             <h2>Курс</h2>
-            <FilterList data={courses} callback={(item) => setValue('courseId', item.id)} />
+            <FilterList
+              data={courses.map((course) => {
+                const newCourse: FilterItem = {
+                  id: course.id,
+                  name: course.name,
+                };
+                return newCourse;
+              })}
+              callback={(item) => setValue('courseId', item.id)}
+            />
             {errors.courseId && <span>Вы не выбрали курс</span>}
             <div className="teachers-list">
               <h2>Преподаватель:</h2>
