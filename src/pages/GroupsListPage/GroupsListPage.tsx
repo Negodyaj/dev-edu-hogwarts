@@ -81,7 +81,6 @@ export const GroupsListPage = () => {
           />
           <Button
             model={ButtonModel.EllipseWhite}
-            // icon={Icon.RightArrow}
             direction="right"
             disabled={indexForDisplay + lengthOfTabsRow > groups.length - 1}
             onClick={() => {

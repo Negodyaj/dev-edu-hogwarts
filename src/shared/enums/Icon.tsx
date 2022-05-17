@@ -28,6 +28,4 @@ export const enum Icon {
   CheckHomeworks,
   GeneralProgress,
   ButtonFly,
-  LeftArrow,
-  RightArrow,
 }
