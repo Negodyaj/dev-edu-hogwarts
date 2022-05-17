@@ -1,3 +1,5 @@
+import { UserSimpleResponse } from './UserResponse';
+
 export interface Homework {
   id: number;
   startDate: string;
@@ -21,13 +23,7 @@ export interface StudentHomework {
   answer: string;
   status: StudentHomeworkStatus;
   completedDate: string;
-  user: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    photo: string;
-  };
+  user: UserSimpleResponse;
   isDeleted: boolean;
   homework: Homework;
 }
@@ -39,14 +35,4 @@ export enum StudentHomeworkStatus {
   ToVerifyFixes = 'ToVerifyFixes',
   Done = 'Done',
   DoneAfterDeadline = 'DoneAfterDeadline',
-}
-
-export interface HomeworkData {
-  id: number;
-  taskNumber: number;
-  title: string;
-  startDate: string;
-  endDate: string;
-  status: StudentHomeworkStatus;
-  elseData: string;
 }

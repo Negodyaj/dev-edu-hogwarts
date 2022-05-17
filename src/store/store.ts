@@ -20,6 +20,7 @@ import { newHomeworkFormReducer, NewHomeworkFormState } from './reducers/newHome
 import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
 import { groupsPageReducer, GroupsPageState } from './reducers/groups.reducer';
 import { mainPanelReducer, MainPanelState } from './reducers/mainPanel.reducer';
+import { NewGroupFormReducer, NewGroupFormState } from './reducers/NewGroupForm.reducer';
 
 // Create an interface for the application state
 export interface AppState {
@@ -31,6 +32,7 @@ export interface AppState {
   homeworkPageState: HomeworkPageState;
   mainPanelState: MainPanelState | undefined;
   groupsPageState: GroupsPageState;
+  newGroupFormState: NewGroupFormState;
 }
 
 // Create the root reducer
@@ -42,6 +44,7 @@ const rootReducer = combineReducers<AppState>({
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
   mainPanelState: mainPanelReducer,
+  newGroupFormState: NewGroupFormReducer,
   groupsPageState: groupsPageReducer,
 });
 
