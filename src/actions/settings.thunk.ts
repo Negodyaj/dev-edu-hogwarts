@@ -2,6 +2,8 @@ import moment from 'moment';
 import { Dispatch } from 'react';
 import { UserResponse } from '../models/responses/UserResponse';
 import { baseWretch } from '../services/base-wretch.service';
+import { updateUserUrl } from '../shared/consts';
+
 import {
   SettingsPageActions,
   updateUserDataFail,
@@ -16,7 +18,7 @@ export const updateUserData = (user: UserResponse) => {
   return (dispatch: Dispatch<SettingsPageActions>) => {
     dispatch(updateUserDataStarted());
     baseWretch()
-      .url('api/Users/' + user.id)
+      .url(updateUserUrl(user.id))
       .put({
         id: user.id,
         firstName: user.firstName,

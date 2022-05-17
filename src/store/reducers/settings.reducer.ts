@@ -1,5 +1,4 @@
 import { Reducer } from 'react';
-// import { useSelector } from 'react-redux';
 import {
   SettingsPageActions,
   UPDATE_USERDATA_FAIL,
@@ -7,9 +6,6 @@ import {
   UPDATE_USERDATA_SUCCESS,
 } from '../../actions/settings.actions';
 import { UserResponse } from '../../models/responses/UserResponse';
-// import { AppState } from '../store';
-// import { LoginPageState } from './login.reducer';
-// const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
 export interface SettingsPageState {
   userData?: UserResponse;
   isLoading: boolean;

@@ -29,9 +29,12 @@ export type UserFormData = {
 };
 
 export const SettingsPage = () => {
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const methods = useForm<UserResponse>({
     defaultValues: {
       birthDate: '',
+      id: currentUser?.id,
+      username: currentUser?.username,
     },
     mode: 'onChange',
   });
@@ -40,17 +43,14 @@ export const SettingsPage = () => {
     register,
     formState: { errors },
   } = methods;
-  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const { isLoading } = useSelector(
     (state: AppState) => state.settingsPageState as SettingsPageState
   );
   const dispatch = useDispatch();
   const onSubmit = (data: UserResponse) => {
     if (currentUser) {
-      data.id = currentUser?.id;
-      data.username = currentUser.username;
+      dispatch(updateUserData(data));
     }
-    dispatch(updateUserData(data));
   };
   return (
     <>
