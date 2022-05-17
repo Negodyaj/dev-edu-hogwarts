@@ -1,4 +1,4 @@
-import { ListView, ListViewLessons, TopicFormData } from './ListView/ListView';
+import { ListView, ListViewLessons } from './ListView/ListView';
 import { DragDropContext, DragUpdate } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
@@ -14,15 +14,14 @@ import { baseWretch } from '../../services/base-wretch.service';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { selectTabCoursePage } from '../../actions/courses.actions';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
-import { useForm } from 'react-hook-form';
 
 export const EditCoursesPage = () => {
   const { courses, topics, selectedTabCoursePage, courseTabs } = useSelector(
     (state: AppState) => state.coursesPageState
   );
-  const methods = useForm<TopicFormData>({
-    mode: 'onChange',
-  });
+  // const methods = useForm<TopicFormData>({
+  //   mode: 'onChange',
+  // });
   const dispatch = useDispatch();
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
@@ -40,15 +39,13 @@ export const EditCoursesPage = () => {
     const currentEl = topics[+draggableId];
     newTopicsArray?.splice(destination.index, 0, currentEl);
     dispatch(setTopics(newTopicsArray));
-    const topicsArrayToSend = newTopicsArray.map((el) => {
-      return {
-        topicId: el.topic.id,
-        position: el.position,
-      };
-    });
-    baseWretch().url(`api/Courses/${selectedTabCoursePage}/program`).put(topicsArrayToSend);
-    console.log(topics);
-    console.log(newTopicsArray);
+    // const topicsArrayToSend = newTopicsArray.map((el) => {
+    //   return {
+    //     topicId: el.topic.id,
+    //     position: el.position,
+    //   };
+    // });
+    // baseWretch().url(`api/Courses/${selectedTabCoursePage}/program`).put(topicsArrayToSend);
   };
   useEffect(() => {
     if (courses && courses?.length > 0) dispatch(loadCoursePageTabs(courses as CourseResponse[]));
@@ -104,7 +101,7 @@ export const EditCoursesPage = () => {
             <input
               placeholder="Введите текст"
               className="form-input form-input-course-name"
-              {...methods.register('name')}
+              // {...methods.register('name')}
             ></input>
           </div>
           <div className="new-duration">
@@ -112,7 +109,7 @@ export const EditCoursesPage = () => {
             <input
               placeholder="XX"
               className="form-input form-input-topic"
-              {...methods.register('duration')}
+              // {...methods.register('duration')}
             ></input>
           </div>
         </div>

@@ -1,5 +1,4 @@
 import { CheckboxData } from '../components/CheckBoxGroup/CheckBox/CheckBox';
-import { CourseResponse } from '../models/responses/CourseResponse';
 import { GroupResponse } from '../models/responses/GroupResponse';
 import { Homework } from '../models/responses/HomeworksResponse';
 

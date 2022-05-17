@@ -45,6 +45,7 @@ export const ListView = (props: ListViewProps) => {
   //     name: data.name
 
   //   });
+  // onSubmit был для того, чтоб закинуть все обновленные топики по курсу
   return (
     <>
       <div className="content-container flex-column">
@@ -64,7 +65,7 @@ export const ListView = (props: ListViewProps) => {
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {props.data.map((item, index) => (
                 <Draggable
-                  draggableId={index.toString()}
+                  draggableId={index.toString()} // необходимо подумать над тем, как меняются индексы
                   index={index}
                   key={item.id}
                   isDragDisabled={!props.edit}

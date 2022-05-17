@@ -6,7 +6,7 @@ import {
 } from 'react-beautiful-dnd';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { baseWretch } from '../../../../services/base-wretch.service';
+// import { baseWretch } from '../../../../services/base-wretch.service';
 
 export type ListViewItemProps = {
   lesson: ListViewLessons;
@@ -33,14 +33,14 @@ export const ListViewItem = (props: ListViewItemProps) => {
   const methods = useForm<TopicFormData>({
     mode: 'onBlur',
   });
-  const onSubmit = (data: TopicFormData) =>
-    baseWretch()
-      .url('api/Topics/' + props.lesson.id)
-      .put({
-        id: data.id,
-        name: lessonName,
-        duration: hoursCount,
-      });
+  // const onSubmit = (data: TopicFormData) =>
+  //   baseWretch()
+  //     .url('api/Topics/' + props.lesson.id)
+  //     .put({
+  //       id: data.id,
+  //       name: lessonName,
+  //       duration: hoursCount,
+  //     });
   return (
     <form>
       <div
@@ -79,7 +79,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
               className="list-view-input"
               type="text"
               value={lessonName}
-              onBlur={methods.handleSubmit(onSubmit)}
+              // onBlur={methods.handleSubmit(onSubmit)}
               onChange={(e) => setLessonName(e.currentTarget.value)}
               // onChange={methods.handleSubmit(onSubmit)}
             />
@@ -94,7 +94,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
               className="list-view-input"
               type="text"
               value={hoursCount}
-              onBlur={methods.handleSubmit(onSubmit)}
+              // onBlur={methods.handleSubmit(onSubmit)}
               // onChange={methods.handleSubmit(onSubmit)}
               onChange={(e) => setHoursCount(e.currentTarget.value)}
             />

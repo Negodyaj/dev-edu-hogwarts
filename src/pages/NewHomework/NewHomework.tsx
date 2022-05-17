@@ -124,8 +124,8 @@ export const NewHomework = () => {
           <span className="homework-form_task">
             {selectedGroupTaskCount === 0 ? '' : selectedGroupTaskCount}
           </span>
-        </div> */}
-
+        </div>  */}
+        {/* скрыт элемент фильтра, который лишний в макете */}
         <div className="homework-form_dates form-grid-container">
           <div>
             Дата выдачи задания
