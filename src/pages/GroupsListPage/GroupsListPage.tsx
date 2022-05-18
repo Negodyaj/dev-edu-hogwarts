@@ -64,22 +64,12 @@ export const GroupsListPage = () => {
           />
           <TabContainer
             tabContainerData={groupsToDisplay?.map((item, index) => {
-              if (index >= 5) {
-                const temp = index - 5;
-                const tabItem: TabData = {
-                  id: item.id,
-                  text: item.name,
-                  icon: getGroupIcon(temp),
-                };
-                return tabItem;
-              } else {
-                const tabItem: TabData = {
-                  id: item.id,
-                  text: item.name,
-                  icon: getGroupIcon(index),
-                };
-                return tabItem;
-              }
+              const tabItem: TabData = {
+                id: item.id,
+                text: item.name,
+                icon: getGroupIcon(index),
+              };
+              return tabItem;
             })}
             selectedTab={selectedTab}
             onClick={selectTab}
