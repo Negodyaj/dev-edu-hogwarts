@@ -109,17 +109,17 @@ export const NewGroupPage = () => {
             </div>
             <div className="form-element">
               Курс
-            <FilterList
-              data={courses.map((course) => {
-                const newCourse: FilterItem = {
-                  id: course.id,
-                  name: course.name,
-                };
-                return newCourse;
-              })}
-              callback={(item) => setValue('courseId', item.id)}
-            />
-            {errors.courseId && <span>Вы не выбрали курс</span>}
+              <FilterList
+                data={courses.map((course) => {
+                  const newCourse: FilterItem = {
+                    id: course.id,
+                    name: course.name,
+                  };
+                  return newCourse;
+                })}
+                callback={(item) => setValue('courseId', item.id)}
+              />
+              {errors.courseId && <span>Вы не выбрали курс</span>}
             </div>
             <div className="teachers-list">
               <h3>Преподаватель:</h3>
