@@ -34,6 +34,11 @@ export const GroupsListPage = () => {
 
   const dispatch = useDispatch();
 
+  const changeIndexForDisplay = (index: number) => {
+    setIndexForDisplay(index);
+    dispatch(selectTab(groups[index].id));
+  };
+
   useEffect(() => {
     if (!groups.length) {
       dispatch(loadGroups());
@@ -54,7 +59,7 @@ export const GroupsListPage = () => {
             direction="left"
             disabled={!indexForDisplay}
             onClick={() => {
-              setIndexForDisplay(indexForDisplay - lengthOfTabsRow);
+              changeIndexForDisplay(indexForDisplay - lengthOfTabsRow);
             }}
           />
           <TabContainer
@@ -84,7 +89,7 @@ export const GroupsListPage = () => {
             direction="right"
             disabled={indexForDisplay + lengthOfTabsRow > groups.length - 1}
             onClick={() => {
-              setIndexForDisplay(indexForDisplay + lengthOfTabsRow);
+              changeIndexForDisplay(indexForDisplay + lengthOfTabsRow);
             }}
           />
           <Button model={ButtonModel.EllipseColored} icon={Icon.Plus} url="/new-group" />

@@ -30,8 +30,8 @@ export const loadGroups = () => {
             dispatch(loadGroupsSuccess(groupsList));
             dispatch(selectTab(id));
           });
-      });
-    // .catch((error) => dispatch(loadGroupsFail(error.message)));
+      })
+      .catch((error) => dispatch(loadGroupsFail(error.message)));
   };
 };
 
