@@ -1,4 +1,3 @@
-import { HomeworkStatus } from '../../../../../models/HomeworkCardData';
 import { UserResponse } from './UserResponse';
 
 export interface AnswerResponse {
@@ -8,4 +7,14 @@ export interface AnswerResponse {
   completedDate: string;
   user: UserResponse;
   isDeleted: boolean;
+}
+
+//for Mock
+export enum HomeworkStatus {
+  Undone = 'Undone',
+  ToCheck = 'ToCheck',
+  ToFix = 'ToFix',
+  ToVerifyFixes = 'ToVerifyFixes',
+  Done = 'Done',
+  DoneAfterDeadline = 'DoneAfterDeadline',
 }

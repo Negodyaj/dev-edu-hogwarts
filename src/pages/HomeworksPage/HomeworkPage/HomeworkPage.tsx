@@ -6,11 +6,17 @@ import { HomeworkCard } from '../components/HomeworkCard';
 import { HomeworkCardContent } from '../components/HomeworkCardContent';
 import { AppState } from '../../../store/store';
 import { loadHomework } from '../../../actions/homeworks.thunks';
+import { Loader } from './Loader';
+import { BackButton } from '../../../components/BackButton/BackButton';
+import { HomeworksResults } from '../components/HomeworksResults/HomeworksResults';
+import { LoginPageState } from '../../../store/reducers/login.reducer';
+import { UserRole } from '../../../shared/enums/UserRole';
 
 export const HomeworkPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { homework, isLoad } = useSelector((state: AppState) => state.homeworkPageState);
+  const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
 
   useEffect(() => {
     if (id && +id !== homework?.id) {
@@ -28,6 +34,7 @@ export const HomeworkPage = () => {
       ) : (
         <Loader />
       )}
+      {currentRole === UserRole.Teacher ? <HomeworksResults /> : <></>}
     </div>
   );
 };
