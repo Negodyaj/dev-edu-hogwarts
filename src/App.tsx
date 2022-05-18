@@ -56,7 +56,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
           <Route path="new-homework" element={<NewHomework />} />
-          <Route path="group" element={<NewGroupPage />} />
+          <Route path="new-group" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
           <Route path="payment-table" element={<PaymentsPage />} />
           <Route path="journal" element={<AttendanceJournal />} />

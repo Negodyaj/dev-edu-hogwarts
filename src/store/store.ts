@@ -24,6 +24,7 @@ import {
   AttendanceJournalState,
 } from './reducers/attendanceJournal.reducer';
 import { GeneralProgressState, generalProgressReducer } from './reducers/generalProgress.reducer';
+import { NewGroupFormReducer, NewGroupFormState } from './reducers/NewGroupForm.reducer';
 
 // Create an interface for the application state
 export interface AppState {
@@ -36,6 +37,7 @@ export interface AppState {
   mainPanelState: MainPanelState | undefined;
   attendanceJournalState: AttendanceJournalState;
   generalProgressState: GeneralProgressState;
+  newGroupFormState: NewGroupFormState;
 }
 
 // Create the root reducer
@@ -49,6 +51,7 @@ const rootReducer = combineReducers<AppState>({
   mainPanelState: mainPanelReducer,
   attendanceJournalState: attendanceJournalReducer,
   generalProgressState: generalProgressReducer,
+  newGroupFormState: NewGroupFormReducer,
 });
 
 // Create a configure store function of type `AppState`

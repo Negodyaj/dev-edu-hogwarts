@@ -6,7 +6,6 @@ $font-size: 18px;
 
 @mixin flex-end {
   display: flex;
-  justify-content: flex-end;
 }
 
 .drop-down-filter__wrapper {
@@ -14,6 +13,7 @@ $font-size: 18px;
   font-size: $font-size;
   width: fit-content;
   position: relative;
+
 
   & button {
     padding: $zero-style;
@@ -45,6 +45,18 @@ $font-size: 18px;
 
     &:focus {
       outline: 0;
+    }
+
+    &.center {
+      justify-content: center;      
+    }
+
+    &.left {
+      justify-content: flex-start;
+    }
+
+    &.right {
+      justify-content: flex-end;
     }
   }
 
@@ -79,7 +91,6 @@ $font-size: 18px;
   top: 28px;
   right: 6px;
   background-color: #fff;
-  text-align: right;
   position: absolute;
   padding: 10px 20px;
   max-height: 152px;
@@ -87,6 +98,18 @@ $font-size: 18px;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   z-index: 2;
+
+  &.center {
+    text-align: center;
+  }
+
+  &.left {
+    text-align: left;
+  }
+
+  &.right {
+    text-align: right;
+  }
 }
 
 .drop-down-filter__list {
