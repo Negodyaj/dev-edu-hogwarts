@@ -7,6 +7,7 @@ export const LOAD_ATTENDANCE = 'attendanceJournal/LOAD_ATTENDANCE' as const;
 export const FILTER_STUDENTS_LIST = 'attendanceJournal/FILTER_STUDENTS_LIST' as const;
 export const SET_STUDENT_ATTENDANCE = 'attendanceJournal/SET_STUDENT_ATTENDANCE' as const;
 export const SET_LESSON_DATE = 'attendanceJournal/SET_LESSON_DATE' as const;
+export const ADD_NEW_LESSON = 'attendanceJournal/ADD_NEW_LESSON' as const;
 export const LOAD_ATTENDANCE_STARTED = 'attendanceJournal/LOAD_PROGRESS_STARTED' as const;
 export const LOAD_ATTENDANCE_SUCCESS = 'attendanceJournal/LOAD_PROGRESS_SUCCESS' as const;
 export const LOAD_ATTENDANCE_FAIL = 'attendanceJournal/LOAD_PROGRESS_FAIL' as const;
@@ -30,13 +31,18 @@ export const loadAttendance = (attendanceData: any[]) => ({
   payload: attendanceData,
 });
 
-export const setStudentAttendance = (resultResponse: any[]) => ({
+export const setStudentAttendance = (resultResponse: any) => ({
   type: SET_STUDENT_ATTENDANCE,
   payload: resultResponse,
 });
 
 export const setLessonDate = (lesson: any) => ({
   type: SET_LESSON_DATE,
+  payload: lesson,
+});
+
+export const addNewLesson = (lesson: any) => ({
+  type: ADD_NEW_LESSON,
   payload: lesson,
 });
 
@@ -67,4 +73,5 @@ export type AttendanceJournalActions =
   | ReturnType<typeof loadAttendanceSuccess>
   | ReturnType<typeof loadAttendanceFail>
   | ReturnType<typeof filterStudentsList>
-  | ReturnType<typeof setLessonDate>;
+  | ReturnType<typeof setLessonDate>
+  | ReturnType<typeof addNewLesson>;

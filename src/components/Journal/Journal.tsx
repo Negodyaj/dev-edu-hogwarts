@@ -3,7 +3,6 @@ import './Journal.scss';
 import './swiperStyles.scss';
 import { useState } from 'react';
 import SwiperCore from 'swiper';
-import { FilterItem, FilterList } from '../FilterList/FilterList';
 import { useLocation } from 'react-router-dom';
 import { AttendanceRatingColumn } from './components/AttendanceRatingColumn';
 import { useDispatch } from 'react-redux';
@@ -23,9 +22,9 @@ export const Journal = ({ filteredData, filter }: JournalProps) => {
   const [firstSwiper, setFirstSwiper] = useState<SwiperCore>();
   const [secondSwiper, setSecondSwiper] = useState<SwiperCore>();
 
-  const filterName = (item: FilterItem) => {
+  const filterName = (element: HTMLButtonElement) => {
     // debugger;
-    if (item.id === 1) {
+    if (element.dataset.sortName === 'reset') {
       dispatch(filter(filteredData.sort((a: any, b: any) => a.LastName.localeCompare(b.LastName))));
     } else {
       dispatch(filter(filteredData.sort((a: any, b: any) => a.name.localeCompare(b.name))));
@@ -43,14 +42,15 @@ export const Journal = ({ filteredData, filter }: JournalProps) => {
           <b>ФИО студента</b>
         </div>
         <div className="one-block students-list">
-          <FilterList
-            data={[
-              { id: 1, name: 'Сортировать по фамилии' },
-              { id: 2, name: 'Сортировать по имени' },
-            ]}
-            cssClass="table"
-            callback={filterName}
-          />
+          {location.pathname !== '/journal' && (
+            <button
+              className="btn btn-text"
+              onClick={(e) => filterName(e.currentTarget)}
+              data-sort-name="reset"
+            >
+              Сбросить сортировку
+            </button>
+          )}
         </div>
         {filteredData.map((student: any) => (
           <div

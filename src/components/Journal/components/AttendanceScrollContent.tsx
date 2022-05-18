@@ -1,10 +1,13 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Controller, Scrollbar } from 'swiper';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../../store/store';
-import { AttendanceTypes } from '../../../models/JournalModels';
+// import { AttendanceTypes } from '../../../models/JournalModels';
 import { MainPanelState } from '../../../store/reducers/mainPanel.reducer';
+import { FilterItem, FilterList } from '../../FilterList/FilterList';
+import { setStudentAttendance } from '../../../actions/attendanceJournal.actions';
+import { attendanceTypesFilter } from '../../../models/JournalModels';
 
 export type SwiperProps = {
   control?: SwiperCore;
@@ -12,18 +15,18 @@ export type SwiperProps = {
 };
 
 export const AttendanceScrollContent = ({ control, setState }: SwiperProps) => {
+  const dispatch = useDispatch();
   const { attendanceData, filteredStudentList } = useSelector(
     (state: AppState) => state.attendanceJournalState
   );
   const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
 
-  const enteringStudentAttendance = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      const value = e.currentTarget.value;
-      // baseWretch().url(updateAttendanceForLesson(lesson.id, student.id, AttendanceTypes[+value]))...;
-      // dispatch =)
-      console.log(AttendanceTypes[+value]);
-    }
+  const updateStudentAttendance = (lesson: any, student: any, filterItem: FilterItem) => {
+    // baseWretch().url(updateAttendanceForLesson(lesson.id, student.id, AttendanceTypes[filterItem.id]))...;
+    dispatch(
+      setStudentAttendance({ id: lesson.id, student: { ...student, check: filterItem.id } })
+    );
+    console.log({ id: lesson.id, student: { ...student, check: filterItem.id } });
   };
 
   return (
@@ -43,18 +46,25 @@ export const AttendanceScrollContent = ({ control, setState }: SwiperProps) => {
         <SwiperSlide key={item.id}>
           {filteredStudentList?.map((element: any) => {
             const student = item.students.find((elem: any) => elem.id === element.id);
+            const bindingCallback = updateStudentAttendance.bind(null, item, student);
             return (
-              <input
-                key={student.id}
-                className="one-block list-view-input"
-                defaultValue={student.check ?? 0}
-                onKeyPress={(e) => enteringStudentAttendance(e)}
-              />
+              <div className="one-block journal-filter-item">
+                <FilterList
+                  data={attendanceTypesFilter}
+                  callback={bindingCallback}
+                  arrowHidden={true}
+                  selected={attendanceTypesFilter.find(
+                    (filterItem: FilterItem) => filterItem.id === student.check
+                  )}
+                />
+              </div>
             );
           })}
           <div className="one-block">{item.sum}</div>
         </SwiperSlide>
       ))}
+
+      <SwiperSlide />
     </Swiper>
   );
 };

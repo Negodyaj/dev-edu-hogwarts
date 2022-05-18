@@ -48,7 +48,7 @@ export const GeneralProgressScrollContent = ({ control, setState }: SwiperProps)
               if (status === HomeworkStatus.ToVerifyFixes) {
                 return (
                   <div className="one-block block-column">
-                    <b>Проверка</b>
+                    <b>На проверке</b>
                     <span>исправлений</span>
                   </div>
                 );

@@ -19,6 +19,18 @@
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid $medium-gray;
+
+    & .btn-text {
+      padding: 0;
+    }
+
+    & .form-input_link__button {
+      margin: auto;
+    }
+  }
+
+  .one-block_borderless {
+    border: 0;
   }
 
   .block-column {
@@ -71,7 +83,7 @@
     }
 
     .rating {
-      width: 102px;
+      width: 215px;
 
       .indicator {
         width: 8px;
@@ -86,6 +98,7 @@
         &.green {
           background-color: $green;
         }
+
         &.yellow {
           background-color: $yellow;
         }
@@ -101,5 +114,22 @@
   .list-view-input {
     background-color: transparent;
     text-align: center;
+  }
+
+  .journal-filter-item {
+
+    & .drop-down-filter,
+    & .drop-down-filter__list-wrapper,
+    & .drop-down-filter__list {
+      min-width: max-content;
+    }
+
+    & .drop-down-filter {
+      font-weight: inherit;
+    }
+
+    & .drop-down-filter__list-wrapper {
+      right: -20px;
+    }
   }
 }

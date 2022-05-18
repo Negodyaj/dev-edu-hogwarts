@@ -6,6 +6,8 @@ import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
 export type FilterListProps = {
   data: FilterItem[];
   cssClass?: string;
+  arrowHidden?: boolean;
+  selected?: FilterItem;
   callback?: (item: any) => void;
 };
 
@@ -17,7 +19,7 @@ export type FilterItem = {
 export const FilterList = (props: FilterListProps) => {
   const filterData = props.data;
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [item, setItem] = useState<FilterItem>(filterData[0]);
+  const [item, setItem] = useState<FilterItem>(props.selected ?? filterData[0]);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -42,7 +44,7 @@ export const FilterList = (props: FilterListProps) => {
       >
         {item?.name}
 
-        <SvgArrow direction="bottom" />
+        {!props.arrowHidden && <SvgArrow direction={isOpen ? 'top' : 'bottom'} />}
       </div>
 
       {isOpen && (

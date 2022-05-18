@@ -49,9 +49,6 @@ function App() {
         <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
-          <Route path="homeworks/:id" element={<HomeworkPage />} />
-          <Route path="homeworks/:id/new" element={<HomeworkPage />} />
-          <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
           <Route path="lessons" element={<LessonsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="courses" element={<CoursesPage />} />
@@ -64,6 +61,9 @@ function App() {
           <Route path="payment-table" element={<PaymentsPage />} />
           <Route path="journal" element={<AttendanceJournal />} />
           <Route path="general-progress" element={<GeneralProgressJournal />} />
+          <Route path="homeworks/:id" element={<HomeworkPage />} />
+          <Route path="homeworks/:id/new" element={<HomeworkPage />} />
+          <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
         </Routes>
       </main>
     </div>

@@ -2,6 +2,7 @@ import { TabData } from '../../models/TabData';
 import { Reducer } from 'redux';
 import {
   AttendanceJournalActions,
+  ADD_NEW_LESSON,
   FILTER_STUDENTS_LIST,
   LOAD_ATTENDANCE,
   LOAD_ATTENDANCE_FAIL,
@@ -9,6 +10,8 @@ import {
   LOAD_ATTENDANCE_SUCCESS,
   LOAD_TABS,
   SELECT_TAB,
+  SET_LESSON_DATE,
+  SET_STUDENT_ATTENDANCE,
 } from '../../actions/attendanceJournal.actions';
 
 export type AttendanceJournalState = {
@@ -74,6 +77,35 @@ export const attendanceJournalReducer: Reducer<AttendanceJournalState, Attendanc
         ...state,
         error: action.payload,
         isLoad: false,
+      };
+    case SET_LESSON_DATE:
+      return {
+        ...state,
+        attendanceData: state.attendanceData?.map((lesson) =>
+          lesson.id === action.payload.id ? action.payload : lesson
+        ),
+        isLoad: false,
+      };
+    case ADD_NEW_LESSON:
+      state.attendanceData?.push(action.payload);
+      return {
+        ...state,
+        attendanceData: state.attendanceData,
+      };
+    case SET_STUDENT_ATTENDANCE:
+      return {
+        ...state,
+        attendanceData: state.attendanceData?.map((lesson) => {
+          if (lesson.id === action.payload.id) {
+            lesson.students.map((student: any) => {
+              if (student.id === action.payload.student.id) {
+                student.check = action.payload.student.check;
+              }
+              return student;
+            });
+          }
+          return lesson;
+        }),
       };
     default:
       return state;
