@@ -12,7 +12,7 @@ export type StudentModel = {
   group: string;
   groupId: number;
   email: string;
-  phoneNum: string; 
+  phoneNum: string;
 };
 
 const groupSelectData: FilterItem[] = [
@@ -25,20 +25,16 @@ export const StudentRow = (props: StudentProps) => {
     props.changeGroupId(props.data.id, item.id);
   };
   const studentsGroupRow = props.data;
-  return (    
-      <div className="group-table-row-wrapper">
-        <div className="group-table-grid-container group-table-row">
-          <span>
-            {studentsGroupRow.userName} {studentsGroupRow.userSurname}
-          </span>
-          <span>
-            {studentsGroupRow.email}
-          </span>
-          <span>
-            {studentsGroupRow.phoneNum}
-          </span>
-          <FilterList data={groupSelectData} callback={onSelectGroup} />
-        </div>
-      </div>    
+  return (
+    <div className="group-table-row-wrapper">
+      <div className="group-table-grid-container group-table-row">
+        <span>
+          {studentsGroupRow.userName} {studentsGroupRow.userSurname}
+        </span>
+        <span>{studentsGroupRow.email}</span>
+        <span>{studentsGroupRow.phoneNum}</span>
+        <FilterList data={groupSelectData} callback={onSelectGroup} />
+      </div>
+    </div>
   );
 };
