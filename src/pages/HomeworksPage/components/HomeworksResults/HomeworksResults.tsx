@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FilterItem, FilterList } from '../../../../components/FilterList/FilterList';
 import { GroupResponse } from './Responses/GroupResponse';
-import { UserResponse } from './Responses/UserResponse';
 import { baseWretch } from '../../../../services/base-wretch.service';
 import { groupUrl } from '../../../../shared/consts';
 import { AppState } from '../../../../store/store';
@@ -10,6 +9,7 @@ import './HomeworkResults.scss';
 import { AnswerResponse } from './Responses/AnswerResponse';
 import { HwResultRow } from './HwResultRow';
 import { AnswersMock } from './Responses/AnswersMock';
+import { UserSimpleResponse } from '../../../../models/responses/UserResponse';
 
 const toCheckHWFilterData: FilterItem[] = [
   { id: 0, name: 'Все' },
@@ -37,8 +37,8 @@ export const HomeworksResults = () => {
         .url(`${groupUrl}/${selectedTab}`) ///api/Groups/{id} -> to get students by group
         .get()
         .json((groupsData) => {
-          const studentList: UserResponse[] = (groupsData as GroupResponse)
-            .students as UserResponse[];
+          const studentList: UserSimpleResponse[] = (groupsData as GroupResponse)
+            .students as UserSimpleResponse[];
           const usersIds = studentList.map((user) => user.id);
           baseWretch()
             .url(`api/student-homeworks/task/${homework?.task.id}/answers`)

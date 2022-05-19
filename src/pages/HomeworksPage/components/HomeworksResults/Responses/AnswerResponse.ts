@@ -1,20 +1,11 @@
-import { UserResponse } from './UserResponse';
+import { StudentHomeworkStatus } from '../../../../../models/responses/HomeworksResponse';
+import { UserSimpleResponse } from '../../../../../models/responses/UserResponse';
 
 export interface AnswerResponse {
   id: number;
   answer: string;
-  status: HomeworkStatus;
+  status: StudentHomeworkStatus;
   completedDate: string;
-  user: UserResponse;
+  user: UserSimpleResponse;
   isDeleted: boolean;
-}
-
-//for Mock
-export enum HomeworkStatus {
-  Undone = 'Undone',
-  ToCheck = 'ToCheck',
-  ToFix = 'ToFix',
-  ToVerifyFixes = 'ToVerifyFixes',
-  Done = 'Done',
-  DoneAfterDeadline = 'DoneAfterDeadline',
 }

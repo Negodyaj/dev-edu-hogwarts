@@ -1,10 +1,11 @@
-import { AnswerResponse, HomeworkStatus } from './AnswerResponse';
+import { StudentHomeworkStatus } from '../../../../../models/responses/HomeworksResponse';
+import { AnswerResponse } from './AnswerResponse';
 
 export const AnswersMock: AnswerResponse[] = [
   {
     id: 0,
     answer: 'ответик1',
-    status: HomeworkStatus.Done,
+    status: StudentHomeworkStatus.Done,
     completedDate: '01.01.2001',
     user: {
       id: 0,
@@ -18,7 +19,7 @@ export const AnswersMock: AnswerResponse[] = [
   {
     id: 1,
     answer: 'ответик2',
-    status: HomeworkStatus.DoneAfterDeadline,
+    status: StudentHomeworkStatus.DoneAfterDeadline,
     completedDate: '01.01.2023',
     user: {
       id: 1,
@@ -32,7 +33,7 @@ export const AnswersMock: AnswerResponse[] = [
   {
     id: 2,
     answer: 'ответик3',
-    status: HomeworkStatus.ToCheck,
+    status: StudentHomeworkStatus.ToCheck,
     completedDate: '01.01.2023',
     user: {
       id: 2,
@@ -46,7 +47,7 @@ export const AnswersMock: AnswerResponse[] = [
   {
     id: 3,
     answer: '',
-    status: HomeworkStatus.Undone,
+    status: StudentHomeworkStatus.Undone,
     completedDate: '01.01.2023',
     user: {
       id: 3,
@@ -60,7 +61,7 @@ export const AnswersMock: AnswerResponse[] = [
   {
     id: 4,
     answer: 'ответик5',
-    status: HomeworkStatus.ToFix,
+    status: StudentHomeworkStatus.ToFix,
     completedDate: '01.01.2023',
     user: {
       id: 4,
@@ -74,7 +75,7 @@ export const AnswersMock: AnswerResponse[] = [
   {
     id: 5,
     answer: 'ответик6',
-    status: HomeworkStatus.ToVerifyFixes,
+    status: StudentHomeworkStatus.ToVerifyFixes,
     completedDate: '01.01.2023',
     user: {
       id: 5,
