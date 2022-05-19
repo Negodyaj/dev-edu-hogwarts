@@ -15,6 +15,7 @@ import { NewGroupFormState } from '../../store/reducers/NewGroupForm.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
 import { getDataFromFormPage } from '../../actions/NewGroupForm.actions';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
+import { useParams } from 'react-router-dom';
 
 export type GroupFormData = {
   name: string;
@@ -34,7 +35,12 @@ export type Course = {
 };
 
 export const NewGroupPage = () => {
+  const { id } = useParams();
+
+  // добавить useEffect, который по id задиспетчит thunk, который получит данные о группе и запишет их в стейт этой страницы
+
   const methods = useForm<GroupFormData>({
+    // инициализировать или этими значениями, или взятыми из стейта (в случае редактирования группы)
     defaultValues: {
       teacherIds: [],
       tutorIds: [],
@@ -95,7 +101,7 @@ export const NewGroupPage = () => {
     <>
       {isLoading && <Loader />}
       <div className="new-group-page">
-        <h2>Новая группа</h2>
+        <h2>{id ? `Редактирование группы ${id}` : 'Новая группа'}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-element">
