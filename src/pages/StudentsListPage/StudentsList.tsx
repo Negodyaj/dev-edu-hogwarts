@@ -1,8 +1,7 @@
-import { execArgv } from 'process';
 import React, { useEffect, useState } from 'react';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
-import { StudentsGroupRow } from './components/StudentsGroupChangingRow';
-import './GroupsChangingPage.scss';
+import { StudentRow } from './components/StudentsGroupChangingRow';
+import './StudentsListPage.scss';
 
 const studentsData = [
   {
@@ -72,7 +71,7 @@ const groupFilterData: FilterItem[] = [
   { id: 3, name: 'Группа 2' },
 ];
 
-export const GroupsChangingPage = () => {
+export const StudentsListPage = () => {
   const [students, setStudents] = useState(studentsData);
   const [filterSurnameValue, setFilterSurnameValue] = useState(1);
   const [filterGroupValue, setFilterGroupValue] = useState(0);
@@ -155,7 +154,7 @@ export const GroupsChangingPage = () => {
       </div>
       <div>
         {filtredList.map((item) => (
-          <StudentsGroupRow data={item} changeGroupId={changeGroup} />
+          <StudentRow data={item} changeGroupId={changeGroup} />
         ))}
       </div>
     </div>

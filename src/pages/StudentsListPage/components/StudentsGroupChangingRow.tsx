@@ -1,11 +1,11 @@
 import { FilterItem, FilterList } from '../../../components/FilterList/FilterList';
 
-export type StudentsGroupChangingProps = {
-  data: StudendsGroupRowModel;
+export type StudentProps = {
+  data: StudentModel;
   changeGroupId: (studentId: number, groupId: number) => void;
 };
 
-export type StudendsGroupRowModel = {
+export type StudentModel = {
   id: number;
   userName: string;
   userSurname: string;
@@ -20,7 +20,7 @@ const groupSelectData: FilterItem[] = [
   { id: 3, name: 'Группа 2' },
 ];
 
-export const StudentsGroupRow = (props: StudentsGroupChangingProps) => {
+export const StudentRow = (props: StudentProps) => {
   const onSelectGroup = (item: FilterItem) => {
     props.changeGroupId(props.data.id, item.id);
   };

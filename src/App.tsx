@@ -18,10 +18,10 @@ import { getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
 import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
-import { GroupsChangingPage } from './pages/GroupsChangingPage/GroupsChangingPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { LoginPageState } from './store/reducers/login.reducer';
+import { StudentsListPage } from './pages/StudentsListPage/StudentsList';
 
 function App() {
   const dispatch = useDispatch();
@@ -61,7 +61,7 @@ function App() {
           <Route path="group" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
           <Route path="payment-table" element={<PaymentsPage />} />
-          <Route path="groups" element={<GroupsChangingPage />} />
+          <Route path="students-list" element={<StudentsListPage />} />
         </Routes>
       </main>
     </div>
