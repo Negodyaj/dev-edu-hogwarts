@@ -2,8 +2,7 @@
 
 .groups-table-header{
   font-size: 20px;
-  font-weight: 600;
-  width: 436px;
+  font-weight: 600;  
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;  
@@ -13,23 +12,30 @@
   border-bottom: 1px solid $medium-gray;
 }
 .group-table-row-wrapper{
-  max-width: 850px;
+  // max-width: 850px;
   margin-top: 20px;
   margin-bottom: 30px;
 }
 .group-table-flex-container{
-  width: 438px;
   display: flex;
   justify-content: space-between;
 }
+.group-table-grid-container{  
+  display: grid;  
+  grid-template-columns: 250px 250px 200px 150px;
+
+}
 .filters-row{
   padding-top: 20px;
-  padding-bottom: 20px;  
+  padding-bottom: 20px;
+  .drop-down-filter__wrapper{
+    font-size: 14px;
+  }
 }
-.second-column{
-  width: 133px;
+.group-column{
+  padding-left: 25px;  
   .drop-down-filter{
-    justify-content: flex-start;
+    justify-content: center;
   }
 }
 .group-table-row{
@@ -39,5 +45,6 @@
   .drop-down-filter {
     font-weight: 400;
     font-size: 18px;
+    justify-content: center;
   }
 }

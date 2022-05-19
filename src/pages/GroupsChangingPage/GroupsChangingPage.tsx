@@ -1,3 +1,4 @@
+import { execArgv } from 'process';
 import React, { useEffect, useState } from 'react';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { StudentsGroupRow } from './components/StudentsGroupChangingRow';
@@ -10,6 +11,8 @@ const studentsData = [
     userSurname: 'Ефременков',
     group: 'Группа 1',
     groupId: 2,
+    email: 'chelovek@example.com',
+    phoneNum: '+7(999)888-77-66',
   },
   {
     id: 2,
@@ -17,6 +20,8 @@ const studentsData = [
     userSurname: 'Годунов',
     group: 'Группа 1',
     groupId: 2,
+    email: 'chelovek@example.com',
+    phoneNum: '+7(999)888-77-66',
   },
   {
     id: 3,
@@ -24,6 +29,8 @@ const studentsData = [
     userSurname: 'Гончаров',
     group: 'Группа 2',
     groupId: 3,
+    email: 'chelovek@example.com',
+    phoneNum: '+7(999)888-77-66',
   },
   {
     id: 4,
@@ -31,6 +38,8 @@ const studentsData = [
     userSurname: 'Нуриахметов',
     group: 'Группа 2',
     groupId: 3,
+    email: 'chelovek@example.com',
+    phoneNum: '+7(999)888-77-66',
   },
   {
     id: 5,
@@ -38,6 +47,8 @@ const studentsData = [
     userSurname: 'Юнусов',
     group: 'Группа 2',
     groupId: 3,
+    email: 'chelovek@example.com',
+    phoneNum: '+7(999)888-77-66',
   },
   {
     id: 6,
@@ -45,6 +56,8 @@ const studentsData = [
     userSurname: 'Ганеева',
     group: 'Группа 2',
     groupId: 3,
+    email: 'chelovek@example.com',
+    phoneNum: '+7(999)888-77-66',
   },
 ];
 
@@ -125,15 +138,17 @@ export const GroupsChangingPage = () => {
   return (
     <div className="content-container">
       <div className="group-table-wrapper">
-        <div className="groups-table-header group-table-flex-container">
+        <div className="groups-table-header group-table-grid-container">
           <span>ФИО студента</span>
-          <span className="second-column">Группа</span>
+          <span>E-mail</span>
+          <span>Телефон</span>
+          <span className="group-column">Группа</span>
         </div>
       </div>
       <div className="group-table-wrapper">
         <div className="group-table-flex-container filters-row">
           <FilterList data={surnameFilterData} callback={applySurnameFilter} />
-          <div className="second-column">
+          <div className="group-column">
             <FilterList data={groupFilterData} callback={applyGroupFilter} />
           </div>
         </div>
