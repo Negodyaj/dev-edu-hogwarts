@@ -13,7 +13,7 @@ const paymentsData = [
     firstPaymentStatus: '01.01.2022',
     secondPaymentStatus: '01.02.2022',
     thirdPaymentStatus: '01.03.2022',
-    fourthPaymentStatus: null
+    fourthPaymentStatus: null,
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const paymentsData = [
     firstPaymentStatus: '05.01.2022',
     secondPaymentStatus: null,
     thirdPaymentStatus: null,
-    fourthPaymentStatus: '05.05.2022'
+    fourthPaymentStatus: '05.05.2022',
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const paymentsData = [
     firstPaymentStatus: '03.01.2022',
     secondPaymentStatus: '06.02.2022',
     thirdPaymentStatus: null,
-    fourthPaymentStatus: null
+    fourthPaymentStatus: null,
   },
   {
     id: 4,
@@ -46,7 +46,7 @@ const paymentsData = [
     firstPaymentStatus: '03.01.2022',
     secondPaymentStatus: '06.02.2022',
     thirdPaymentStatus: '06.04.2022',
-    fourthPaymentStatus: '05.05.2022'
+    fourthPaymentStatus: '05.05.2022',
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const paymentsData = [
     firstPaymentStatus: null,
     secondPaymentStatus: null,
     thirdPaymentStatus: null,
-    fourthPaymentStatus: null
+    fourthPaymentStatus: null,
   },
   {
     id: 6,
@@ -68,7 +68,7 @@ const paymentsData = [
     firstPaymentStatus: null,
     secondPaymentStatus: '06.02.2022',
     thirdPaymentStatus: null,
-    fourthPaymentStatus: '05.05.2022'
+    fourthPaymentStatus: '05.05.2022',
   },
 ];
 
@@ -185,12 +185,12 @@ export const PaymentsPage = () => {
       <table className="payment-table">
         <thead>
           <tr>
-          <FilterList data={groupFilterData} callback={applyGroupFilter} />
+            <FilterList data={groupFilterData} callback={applyGroupFilter} />
           </tr>
         </thead>
         <thead>
           <tr>
-            <th scope="col">ФИО студента</th>            
+            <th scope="col">ФИО студента</th>
             <th scope="col">1 оплата</th>
             <th scope="col">2 оплата</th>
             <th scope="col">3 оплата</th>
@@ -218,7 +218,10 @@ export const PaymentsPage = () => {
               <FilterList data={paymentStatusFilterData} callback={applyThirdPaymentStatusFilter} />
             </th>
             <th scope="col">
-              <FilterList data={paymentStatusFilterData} callback={applyFourthPaymentStatusFilter} />
+              <FilterList
+                data={paymentStatusFilterData}
+                callback={applyFourthPaymentStatusFilter}
+              />
             </th>
           </tr>
         </thead>
