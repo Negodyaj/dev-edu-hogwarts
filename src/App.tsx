@@ -21,13 +21,17 @@ import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { LoginPageState } from './store/reducers/login.reducer';
+import { ModalWindowState } from './store/reducers/modalWindow.reducer';
+import { ModalWindow } from './components/ModalWindow/ModalWindow';
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
-
+  const { isModalOpen } = useSelector(
+    (state: AppState) => state.modalWindowState as ModalWindowState
+  );
   useEffect(() => {
     getCurrentUser(dispatch);
 
@@ -41,28 +45,31 @@ function App() {
   const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
 
   return (
-    <div className="flex-container">
-      <MainPanel />
-      <main className={isCollapsed ? 'closed' : ' '}>
-        <Routes>
-          <Route path="/" element={<NotificationsPage />} />
-          <Route path="homeworks" element={<HomeworksPage />} />
-          <Route path="homeworks/:id" element={<HomeworkPage />} />
-          <Route path="homeworks/:id/new" element={<HomeworkPage />} />
-          <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
-          <Route path="lessons" element={<LessonsPage />} />
-          <Route path="settings" element={<SettingsPage />} />
-          <Route path="courses" element={<CoursesPage />} />
-          <Route path="edit-courses" element={<EditCoursesPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegistrationPage />} />
-          <Route path="new-homework" element={<NewHomework />} />
-          <Route path="new-group" element={<NewGroupPage />} />
-          <Route path="homework-review" element={<HomeworkReviewPage />} />
-          <Route path="payment-table" element={<PaymentsPage />} />
-        </Routes>
-      </main>
-    </div>
+    <>
+      <div className={`flex-container ${isModalOpen ? 'pos-relative' : ''}`}>
+        <MainPanel />
+        <main className={isCollapsed ? 'closed' : ' '}>
+          <Routes>
+            <Route path="/" element={<NotificationsPage />} />
+            <Route path="homeworks" element={<HomeworksPage />} />
+            <Route path="homeworks/:id" element={<HomeworkPage />} />
+            <Route path="homeworks/:id/new" element={<HomeworkPage />} />
+            <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
+            <Route path="lessons" element={<LessonsPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="courses" element={<CoursesPage />} />
+            <Route path="edit-courses" element={<EditCoursesPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<RegistrationPage />} />
+            <Route path="new-homework" element={<NewHomework />} />
+            <Route path="new-group" element={<NewGroupPage />} />
+            <Route path="homework-review" element={<HomeworkReviewPage />} />
+            <Route path="payment-table" element={<PaymentsPage />} />
+          </Routes>
+        </main>
+      </div>
+      {isModalOpen && <ModalWindow />}
+    </>
   );
 }
 

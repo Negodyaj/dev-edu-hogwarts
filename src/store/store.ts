@@ -20,6 +20,7 @@ import { newHomeworkFormReducer, NewHomeworkFormState } from './reducers/newHome
 import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
 import { mainPanelReducer, MainPanelState } from './reducers/mainPanel.reducer';
 import { NewGroupFormReducer, NewGroupFormState } from './reducers/NewGroupForm.reducer';
+import { modalWindowReducer, ModalWindowState } from './reducers/modalWindow.reducer';
 
 // Create an interface for the application state
 export interface AppState {
@@ -31,6 +32,7 @@ export interface AppState {
   homeworkPageState: HomeworkPageState;
   mainPanelState: MainPanelState | undefined;
   newGroupFormState: NewGroupFormState;
+  modalWindowState: ModalWindowState | undefined;
 }
 
 // Create the root reducer
@@ -43,6 +45,7 @@ const rootReducer = combineReducers<AppState>({
   lessonsPageState: lessonsPageReducer,
   mainPanelState: mainPanelReducer,
   newGroupFormState: NewGroupFormReducer,
+  modalWindowState: modalWindowReducer,
 });
 
 // Create a configure store function of type `AppState`
