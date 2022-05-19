@@ -104,7 +104,7 @@ export const GroupsListPage = () => {
       <div className="groups-page">
         <div className="content-container">
           <div className="groups-link">
-            <LinkWithUnderline path="#" text="Редактировать" />
+            <LinkWithUnderline path={`groups/${selectedGroup.id}`} text="Редактировать" />
           </div>
           <div className="groups-list">
             <h2>Преподаватель:</h2>

@@ -59,6 +59,7 @@ function App() {
           <Route path="register" element={<RegistrationPage />} />
           <Route path="new-homework" element={<NewHomework />} />
           <Route path="new-group" element={<NewGroupPage />} />
+          <Route path="groups/:id" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
           <Route path="groups" element={<GroupsListPage />} />
           <Route path="payment-table" element={<PaymentsPage />} />

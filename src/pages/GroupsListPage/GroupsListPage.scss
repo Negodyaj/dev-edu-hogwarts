@@ -3,8 +3,30 @@
 .groups-header {
   margin-bottom: 8px;
   display: flex;
-  button{
-    padding: 10px;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+  
+  button:first-child {
+    margin-left: 0;
+
+    svg {
+      position: relative;
+      left: -1px;
+    }
+  }
+  
+  button ~ button {
+    margin-right: 0;
+
+    svg {
+      position: relative;
+      right: -1px;
+    }
   }
 }
 
