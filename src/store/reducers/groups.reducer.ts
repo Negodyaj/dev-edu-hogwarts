@@ -7,12 +7,12 @@ import {
   SELECT_GROUP,
   SELECT_TAB,
 } from '../../actions/groups.actions';
-import { GroupResponseById } from '../../models/responses/GroupResponseById';
+import { GroupResponseWithUsers } from '../../models/responses/GroupResponseWithUsers';
 import { GroupResponse } from '../../models/responses/GroupResponse';
 
 export interface GroupsPageState {
   groups: GroupResponse[];
-  selectedGroup: GroupResponseById;
+  selectedGroup: GroupResponseWithUsers;
   selectedTab: number;
   isLoading: boolean;
   errorMessage: string;

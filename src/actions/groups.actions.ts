@@ -1,4 +1,4 @@
-import { GroupResponseById } from '../models/responses/GroupResponseById';
+import { GroupResponseWithUsers } from '../models/responses/GroupResponseWithUsers';
 import { GroupResponse } from '../models/responses/GroupResponse';
 
 export const SELECT_GROUP = 'groups/SELECT_GROUP' as const;
@@ -7,7 +7,7 @@ export const LOAD_GROUPS_STARTED = 'groups/LOAD_GROUPS_STARTED' as const;
 export const LOAD_GROUPS_SUCCESS = 'groups/LOAD_GROUPS_SUCCESS' as const;
 export const LOAD_GROUPS_FAIL = 'groups/LOAD_GROUPS_FAIL' as const;
 
-export const selectGroup = (group: GroupResponseById) => ({
+export const selectGroup = (group: GroupResponseWithUsers) => ({
   type: SELECT_GROUP,
   payload: group,
 });
