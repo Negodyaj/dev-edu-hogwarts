@@ -13,6 +13,7 @@ const paymentsData = [
     firstPaymentStatus: '01.01.2022',
     secondPaymentStatus: '01.02.2022',
     thirdPaymentStatus: '01.03.2022',
+    fourthPaymentStatus: null
   },
   {
     id: 2,
@@ -23,6 +24,7 @@ const paymentsData = [
     firstPaymentStatus: '05.01.2022',
     secondPaymentStatus: null,
     thirdPaymentStatus: null,
+    fourthPaymentStatus: '05.05.2022'
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ const paymentsData = [
     firstPaymentStatus: '03.01.2022',
     secondPaymentStatus: '06.02.2022',
     thirdPaymentStatus: null,
+    fourthPaymentStatus: null
   },
   {
     id: 4,
@@ -43,6 +46,7 @@ const paymentsData = [
     firstPaymentStatus: '03.01.2022',
     secondPaymentStatus: '06.02.2022',
     thirdPaymentStatus: '06.04.2022',
+    fourthPaymentStatus: '05.05.2022'
   },
   {
     id: 5,
@@ -53,6 +57,7 @@ const paymentsData = [
     firstPaymentStatus: null,
     secondPaymentStatus: null,
     thirdPaymentStatus: null,
+    fourthPaymentStatus: null
   },
   {
     id: 6,
@@ -63,6 +68,7 @@ const paymentsData = [
     firstPaymentStatus: null,
     secondPaymentStatus: '06.02.2022',
     thirdPaymentStatus: null,
+    fourthPaymentStatus: '05.05.2022'
   },
 ];
 
@@ -90,6 +96,7 @@ export const PaymentsPage = () => {
   const [firstPaymentStatusFilterValue, setFirstPaymentStatusFilterValue] = useState(1);
   const [secondPaymentStatusFilterValue, setSecondPaymentStatusFilterValue] = useState(1);
   const [thirdPaymentStatusFilterValue, setThirdPaymentStatusFilterValue] = useState(1);
+  const [fourthPaymentStatusFilterValue, setFourthPaymentStatusFilterValue] = useState(1);
   const [filtredList, setFiltredList] = useState(paymentsData);
 
   const applyFilters = () => {
@@ -104,7 +111,10 @@ export const PaymentsPage = () => {
           (secondPaymentStatusFilterValue === 3 && !p.secondPaymentStatus)) &&
         (thirdPaymentStatusFilterValue === 1 ||
           (thirdPaymentStatusFilterValue === 2 && p.thirdPaymentStatus) ||
-          (thirdPaymentStatusFilterValue === 3 && !p.thirdPaymentStatus))
+          (thirdPaymentStatusFilterValue === 3 && !p.thirdPaymentStatus)) &&
+        (fourthPaymentStatusFilterValue === 1 ||
+          (fourthPaymentStatusFilterValue === 2 && p.fourthPaymentStatus) ||
+          (fourthPaymentStatusFilterValue === 3 && !p.fourthPaymentStatus))
     );
     setFiltredList(filtered);
   };
@@ -166,17 +176,25 @@ export const PaymentsPage = () => {
   const applyThirdPaymentStatusFilter = (item: FilterItem) => {
     setThirdPaymentStatusFilterValue(item.id);
   };
+  const applyFourthPaymentStatusFilter = (item: FilterItem) => {
+    setFourthPaymentStatusFilterValue(item.id);
+  };
 
   return (
     <div className="content-container">
       <table className="payment-table">
         <thead>
           <tr>
-            <th scope="col">ФИО студента</th>
-            <th scope="col">Группа</th>
+          <FilterList data={groupFilterData} callback={applyGroupFilter} />
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th scope="col">ФИО студента</th>            
             <th scope="col">1 оплата</th>
             <th scope="col">2 оплата</th>
             <th scope="col">3 оплата</th>
+            <th scope="col">4 оплата</th>
           </tr>
         </thead>
         <thead className="filter-thread">
@@ -184,9 +202,9 @@ export const PaymentsPage = () => {
             <th scope="col" className="name-column">
               <FilterList data={surnameFilterData} callback={applySurnameFilter} />
             </th>
-            <th scope="col">
+            {/* <th scope="col">
               <FilterList data={groupFilterData} callback={applyGroupFilter} />
-            </th>
+            </th> */}
             <th scope="col">
               <FilterList data={paymentStatusFilterData} callback={applyFirstPaymentStatusFilter} />
             </th>
@@ -198,6 +216,9 @@ export const PaymentsPage = () => {
             </th>
             <th scope="col">
               <FilterList data={paymentStatusFilterData} callback={applyThirdPaymentStatusFilter} />
+            </th>
+            <th scope="col">
+              <FilterList data={paymentStatusFilterData} callback={applyFourthPaymentStatusFilter} />
             </th>
           </tr>
         </thead>
