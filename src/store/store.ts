@@ -46,6 +46,7 @@ const rootReducer = combineReducers<AppState>({
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
   mainPanelState: mainPanelReducer,
+  settingsPageState: settingsPageReducer,
   newGroupFormState: NewGroupFormReducer,
   groupsPageState: groupsPageReducer,
   settingsPageState: settingsPageReducer,

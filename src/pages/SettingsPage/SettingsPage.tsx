@@ -1,17 +1,17 @@
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import '../SettingsPage/SettingsPage.scss';
 import '../SettingsPage/SettingsPage.scss';
-import { baseWretch } from '../../services/base-wretch.service';
 import '../../components/SvgIcon/SvgIcon';
 import { Link } from 'react-router-dom';
 import { SvgPencil } from '../../components/SvgIcon/SvgFiles/SvgPencil';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { AvatarUploader } from '../../components/AvatarUploader/AvatarUploader';
-import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
+import { updateUserData } from '../../actions/settings.thunk';
+import { UserResponse } from '../../models/responses/UserResponse';
 import { SettingsPageState } from '../../store/reducers/settings.reducer';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 
@@ -21,7 +21,6 @@ export type UserFormData = {
   lastName: string;
   patronymic: string;
   email: string;
-  password: string;
   birthDate: string;
   gitHubAccount: string;
   phoneNumber: string;
@@ -30,9 +29,12 @@ export type UserFormData = {
 };
 
 export const SettingsPage = () => {
-  const methods = useForm<UserFormData>({
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const methods = useForm<UserResponse>({
     defaultValues: {
       birthDate: '',
+      id: currentUser?.id,
+      username: currentUser?.username,
     },
     mode: 'onChange',
   });
@@ -41,31 +43,15 @@ export const SettingsPage = () => {
     register,
     formState: { errors },
   } = methods;
-  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const { isLoading } = useSelector(
     (state: AppState) => state.settingsPageState as SettingsPageState
   );
-  const convertDate = (date: string) => {
-    return moment(new Date(date)).format('DD.MM.YYYY').toString();
+  const dispatch = useDispatch();
+  const onSubmit = (data: UserResponse) => {
+    if (currentUser) {
+      dispatch(updateUserData(data));
+    }
   };
-
-  const onSubmit = (data: UserFormData) =>
-    baseWretch()
-      .url('api/Users/' + currentUser?.id)
-      .put({
-        id: data.id,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        patronymic: data.patronymic,
-        email: data.email,
-        password: data.password,
-        birthDate: convertDate(data.birthDate),
-        gitHubAccount: data.gitHubAccount,
-        phoneNumber: data.phoneNumber,
-        city: 1,
-        username: data.username,
-      });
-
   return (
     <>
       {isLoading ? (
@@ -160,7 +146,7 @@ export const SettingsPage = () => {
                       <div className="circle-password" />
                       <div className="circle-password" />
                     </div>
-                    <Link to={'/change-password'}>
+                    <Link to={'#'}>
                       <SvgPencil />
                     </Link>
                   </div>

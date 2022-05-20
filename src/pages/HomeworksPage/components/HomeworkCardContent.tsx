@@ -87,7 +87,7 @@ export const HomeworkCardContent = () => {
       <span className="homework-description-title">Ссылка на выполненное задание:</span>
       {answer && !isEdit ? (
         <a href={answer} className="homework-github-link" target="_blank">
-          Ссылка на GitHub
+          Выполненное задание
         </a>
       ) : (
         <FormProvider {...method}>
