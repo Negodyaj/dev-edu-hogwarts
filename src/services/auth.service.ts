@@ -78,6 +78,7 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
       dispatch(loadAttendanceTabs(groups));
       dispatch(loadGeneralProgressTabs(groups));
     });
+
   // const user = usersMock as UserResponse;
   // dispatch(setCurrentUser(user));
   // dispatch(loadGroups(user.groups));

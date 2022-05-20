@@ -8,12 +8,9 @@ export const addNewTaskUrl = 'api/tasks/teacher';
 export const getHomeworkById = (id: number) => `api/homeworks/${id}`;
 export const postStudentAnswer = (homeworkId: number) => `api/student-homeworks/${homeworkId}`;
 export const studentHomeworkById = (id: number) => `api/student-homeworks/${id}`;
-export const studentHomeworksByUserId = (userId: number) => {
-  return `api/student-homeworks/by-user/${userId}`;
-};
-export const getHomeworksByGroupId = (groupId: number) => {
-  return `api/Homeworks/by-group/${groupId}`;
-};
+export const studentHomeworksByUserId = (userId: number) =>
+  `api/student-homeworks/by-user/${userId}`;
+export const getHomeworksByGroupId = (groupId: number) => `api/Homeworks/by-group/${groupId}`;
 export const getStudentAnswerByTaskId = (taskId: number) => `api/Tasks/${taskId}/answer`;
 export const registerUrl = 'register';
 export const coursesUrl = 'api/Courses';
@@ -21,6 +18,5 @@ export const updateAttendanceForLesson = (
   lessonId: number,
   studentId: number,
   attendanceType: string
-) => {
-  return `api/Lessons/${lessonId}/student/${studentId}/attendance/${attendanceType}`;
-};
+) => `api/Lessons/${lessonId}/student/${studentId}/attendance/${attendanceType}`;
+export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;

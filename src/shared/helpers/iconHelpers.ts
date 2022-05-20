@@ -30,3 +30,20 @@ export const setRandomIconGroup = () => {
   const random = Math.random() * length;
   return +~~random;
 };
+
+export const getGroupIcon = (index: number) => {
+  switch (index + 1) {
+    case 1:
+      return Icon.Barrel;
+    case 2:
+      return Icon.Computer;
+    case 3:
+      return Icon.Chevron;
+    case 4:
+      return Icon.Calendar;
+    case 5:
+      return Icon.Computer;
+    default:
+      return Icon.Cake;
+  }
+};

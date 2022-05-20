@@ -18,6 +18,7 @@ import { homeworksPageReducer, HomeWorkPageState } from './reducers/homeworks.re
 import { homeworkPageReducer, HomeworkPageState } from './reducers/homework.reducer';
 import { newHomeworkFormReducer, NewHomeworkFormState } from './reducers/newHomeworkForm.reducer';
 import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
+import { groupsPageReducer, GroupsPageState } from './reducers/groups.reducer';
 import { mainPanelReducer, MainPanelState } from './reducers/mainPanel.reducer';
 import {
   attendanceJournalReducer,
@@ -37,6 +38,7 @@ export interface AppState {
   mainPanelState: MainPanelState | undefined;
   attendanceJournalState: AttendanceJournalState;
   generalProgressState: GeneralProgressState;
+  groupsPageState: GroupsPageState;
   newGroupFormState: NewGroupFormState;
 }
 
@@ -52,6 +54,7 @@ const rootReducer = combineReducers<AppState>({
   attendanceJournalState: attendanceJournalReducer,
   generalProgressState: generalProgressReducer,
   newGroupFormState: NewGroupFormReducer,
+  groupsPageState: groupsPageReducer,
 });
 
 // Create a configure store function of type `AppState`
