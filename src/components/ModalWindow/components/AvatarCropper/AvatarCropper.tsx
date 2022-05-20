@@ -9,7 +9,8 @@ import { AppState } from '../../../../store/store';
 import { SvgIcon } from '../../../SvgIcon/SvgIcon';
 import { ModalContent } from '../ModalContent';
 import './CustomAvatarEditor.scss';
-import getCroppedImg from './CropImage';
+import getCroppedImg, { dataURLtoFile } from './CropImage';
+import { baseWretch } from '../../../../services/base-wretch.service';
 
 function readFile(file: any) {
   return new Promise((resolve) => {
@@ -47,9 +48,12 @@ export const AvatarCropper = () => {
 
   const uploadPhoto = async () => {
     const canvas = await getCroppedImg(imageSrc, croppedAreaPixels);
+    const canvasDataURL = canvas.toDataURL('image/jpeg');
     console.log(canvas);
-    // const fd = new FormData();
-    // fd.append('avatar', canvas);
+    const newAvatar = dataURLtoFile(canvasDataURL, 'Avatar.jpeg');
+    console.log(newAvatar);
+    const fd = new FormData();
+    fd.append('avatar', newAvatar);
     // fetch('/api/Users/photo', {
     //   method: 'POST',
     //   body: fd,
@@ -57,6 +61,12 @@ export const AvatarCropper = () => {
     //   .then((res) => res.json())
     //   .then((json) => console.log(json))
     //   .catch((err) => console.error(err));
+    baseWretch()
+      .url('api/Users/photo')
+      .formData({
+        pictures: newAvatar,
+      })
+      .post();
   };
 
   return (
