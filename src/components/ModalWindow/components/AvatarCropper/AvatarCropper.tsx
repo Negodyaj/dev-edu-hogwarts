@@ -40,7 +40,6 @@ export const AvatarCropper = () => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       const imageDataUrl = await readFile(file);
-      // dispatch(setImgForEditor(imageDataUrl as string));
       setImageSrc(imageDataUrl);
       dispatch(setWindowType(ModalType.sendPhoto));
     }
@@ -48,19 +47,20 @@ export const AvatarCropper = () => {
 
   const uploadPhoto = async () => {
     const canvas = await getCroppedImg(imageSrc, croppedAreaPixels);
-    const fd = new FormData();
-    fd.append('avatar', canvas);
-    fetch('/api/Users/photo', {
-      method: 'POST',
-      body: fd,
-    })
-      .then((res) => res.json())
-      .then((json) => console.log(json))
-      .catch((err) => console.error(err));
+    console.log(canvas);
+    // const fd = new FormData();
+    // fd.append('avatar', canvas);
+    // fetch('/api/Users/photo', {
+    //   method: 'POST',
+    //   body: fd,
+    // })
+    //   .then((res) => res.json())
+    //   .then((json) => console.log(json))
+    //   .catch((err) => console.error(err));
   };
 
   return (
-    <form className={`modal-window ${ModalType}`}>
+    <div className={`modal-window ${ModalType}`}>
       {modalType === ModalType.loadModalPhoto ? (
         <div className="icons-container">
           <SvgIcon icon={Icon.Pic} />
@@ -107,6 +107,6 @@ export const AvatarCropper = () => {
           Отмена
         </button>
       </div>
-    </form>
+    </div>
   );
 };
