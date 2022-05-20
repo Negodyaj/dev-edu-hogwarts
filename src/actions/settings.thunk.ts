@@ -40,19 +40,17 @@ export const updateUserData = (user: UserResponse) => {
 };
 
 export const updateUserPassword = (password: FormPasswordData) => {
-  return (dispatch: Dispatch<SettingsPageActions>) => {
-    dispatch(updateUserDataStarted());
-    baseWretch()
-      .url(updatePassword)
-      .put({
+  return async (dispatch: Dispatch<SettingsPageActions>) => {
+    try {
+      dispatch(updateUserDataStarted());
+      await baseWretch().url(updatePassword).put({
         oldPassword: password.oldPassword,
         newPassword: password.newPassword,
         newPasswordRepeat: password.newPasswordRepeat,
-      })
-      .res((res) =>
-        res.ok
-          ? dispatch(updateUserPasswordSuccess(password))
-          : dispatch(updateUserDataFail('failed'))
-      );
+      });
+      dispatch(updateUserPasswordSuccess(password));
+    } catch (err: any) {
+      dispatch(updateUserDataFail(err.message));
+    }
   };
 };
