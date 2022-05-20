@@ -19,7 +19,7 @@ export const CoursesPage = () => {
   const { courseTabs, currentCourse, topics } = useSelector(
     (state: AppState) => state.coursesPageState
   );
-  const { courses, selectedTabCoursePage } = useSelector(
+  const { selectedTabCoursePage, courses } = useSelector(
     (state: AppState) => state.coursesPageState
   );
   useEffect(() => {
