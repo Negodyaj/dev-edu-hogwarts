@@ -18,7 +18,7 @@ export const TabItem = (props: TabProps) => {
       className={`tab-item ${props.data.id === props.activeTab ? 'active-tab' : ''}`}
       onClick={() => props.onClick(props.data.id)}
     >
-      {props.course && <CoursesTabIcons courseName={props.data.text} />}
+      {props.course && <CoursesTabIcons icon={props.data.text} />}
       {props.group && <GroupsSvgIcon icon={props.data.icon} />}
       <div>{props.data.text}</div>
     </div>

@@ -13,11 +13,11 @@ export enum CourseIcon {
 }
 
 export type DictionaryData = {
-  courseName?: string;
+  icon?: string;
 };
 
 export const CoursesTabIcons = (props: DictionaryData) => {
-  switch (props.courseName) {
+  switch (props.icon) {
     case 'Base':
       return <SvgBaseCourse />;
     case 'BaseJava':

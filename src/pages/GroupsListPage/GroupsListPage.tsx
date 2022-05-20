@@ -8,11 +8,11 @@ import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { GroupResponse } from '../../models/responses/GroupResponse';
 import { TabData } from '../../models/TabData';
 import { Icon } from '../../shared/enums/Icon';
-import { getGroupIcon } from '../../shared/helpers/iconHelpers';
 import { GroupsPageState } from '../../store/reducers/groups.reducer';
 import { AppState } from '../../store/store';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import './GroupsListPage.scss';
+import { GroupsIcon } from '../../components/SvgIcon/GroupsTabIcons';
 
 export const GroupsListPage = () => {
   const { groups, selectedGroup, selectedTab, isLoading } = useSelector(
@@ -67,10 +67,11 @@ export const GroupsListPage = () => {
               const tabItem: TabData = {
                 id: item.id,
                 text: item.name,
-                icon: getGroupIcon(index),
+                icon: GroupsIcon[index],
               };
               return tabItem;
             })}
+            group={true}
             selectedTab={selectedTab}
             onClick={selectTab}
           />
@@ -91,10 +92,11 @@ export const GroupsListPage = () => {
               const tabItem: TabData = {
                 id: item.id,
                 text: item.name,
-                icon: getGroupIcon(index),
+                icon: GroupsIcon[index],
               };
               return tabItem;
             })}
+            group={true}
             selectedTab={selectedTab}
             onClick={selectTab}
           />

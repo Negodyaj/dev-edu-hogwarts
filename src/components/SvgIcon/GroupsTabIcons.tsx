@@ -52,16 +52,3 @@ export const GroupsSvgIcon = (props: SvgIconProps) => {
       return <></>;
   }
 };
-
-export const GroupsTabIcons = [
-  GroupsIcon.Cake,
-  GroupsIcon.Cookie,
-  GroupsIcon.Planet,
-  GroupsIcon.Gift,
-  GroupsIcon.Sun,
-  GroupsIcon.CoffeeToGo,
-  GroupsIcon.Coffee,
-  GroupsIcon.Rainbow,
-  GroupsIcon.Star,
-  GroupsIcon.Moon,
-];
