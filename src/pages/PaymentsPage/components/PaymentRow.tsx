@@ -11,6 +11,7 @@ export type PaymentRowModel = {
   firstPaymentStatus?: string | null;
   secondPaymentStatus?: string | null;
   thirdPaymentStatus?: string | null;
+  fourthPaymentStatus: string | null;
 };
 
 export const PaymentRow = (props: PaymentRowProps) => {
@@ -20,10 +21,10 @@ export const PaymentRow = (props: PaymentRowProps) => {
       <td>
         {paymentRow.userName} {paymentRow.userSurname}
       </td>
-      <td>{paymentRow.group}</td>
       <td>{paymentRow.firstPaymentStatus}</td>
       <td>{paymentRow.secondPaymentStatus}</td>
       <td>{paymentRow.thirdPaymentStatus}</td>
+      <td>{paymentRow.fourthPaymentStatus}</td>
     </tr>
   );
 };
