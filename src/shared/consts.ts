@@ -15,3 +15,5 @@ export const getStudentAnswerByTaskId = (taskId: number) => `api/Tasks/${taskId}
 export const registerUrl = 'register';
 export const coursesUrl = 'api/Courses';
 export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
+export const updateUserUrl = (id: number) => `api/Users/${id}`;
+export const updatePassword = 'api/Users/password';
