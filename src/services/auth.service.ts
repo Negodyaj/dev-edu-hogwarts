@@ -76,6 +76,7 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
       dispatch(loadLessonPageTabs(user.groups));
       dispatch(setCurrentUserRole(user.roles[0]));
     });
+
   // const user = usersMock as UserResponse;
   // dispatch(setCurrentUser(user));
   // dispatch(loadGroups(user.groups));
