@@ -12,7 +12,7 @@ import { GroupsPageState } from '../../store/reducers/groups.reducer';
 import { AppState } from '../../store/store';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import './GroupsListPage.scss';
-import { GroupsIcon } from '../../components/SvgIcon/GroupsTabIcons';
+import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
 
 export const GroupsListPage = () => {
   const { groups, selectedGroup, selectedTab, isLoading } = useSelector(
@@ -21,10 +21,8 @@ export const GroupsListPage = () => {
 
   const [indexForDisplay, setIndexForDisplay] = useState<number>(0);
 
-  const selectGroupToDisplay = (index: number, numberOfDisplayedItems: number) => {
-    const newGroups: GroupResponse[] = groups.slice(index, index + numberOfDisplayedItems);
-    return newGroups;
-  };
+  const selectGroupToDisplay = (index: number, numberOfDisplayedItems: number) =>
+    groups.slice(index, index + numberOfDisplayedItems);
 
   const lengthOfTabsRow = 3;
 
@@ -67,11 +65,11 @@ export const GroupsListPage = () => {
               const tabItem: TabData = {
                 id: item.id,
                 text: item.name,
-                icon: GroupsIcon[index],
+                icon: CourseIcon[index],
               };
               return tabItem;
             })}
-            group={true}
+            course={true}
             selectedTab={selectedTab}
             onClick={selectTab}
           />
@@ -92,11 +90,11 @@ export const GroupsListPage = () => {
               const tabItem: TabData = {
                 id: item.id,
                 text: item.name,
-                icon: GroupsIcon[index],
+                icon: CourseIcon[index],
               };
               return tabItem;
             })}
-            group={true}
+            course={true}
             selectedTab={selectedTab}
             onClick={selectTab}
           />
