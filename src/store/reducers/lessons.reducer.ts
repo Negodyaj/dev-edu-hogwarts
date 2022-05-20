@@ -8,7 +8,7 @@ import {
 } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
 import { TabData } from '../../models/TabData';
-import { CourseName, getCourseIcon } from '../../shared/helpers/iconHelpers';
+import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
 
 export interface LessonsPageState {
   filteredLessons: LessonResponse[];
@@ -45,7 +45,7 @@ export const lessonsPageReducer: Reducer<LessonsPageState | undefined, LessonsPa
         const tabData: TabData = {
           id: group.id,
           text: group.course.name,
-          icon: getCourseIcon(group.course.name as CourseName),
+          icon: CourseIcon[group.id],
         };
         return tabData;
       });

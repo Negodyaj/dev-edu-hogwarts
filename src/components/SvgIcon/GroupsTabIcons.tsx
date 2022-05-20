@@ -23,30 +23,30 @@ export enum GroupsIcon {
 }
 
 export type SvgIconProps = {
-  icon: GroupsIcon;
+  icon: string;
 };
 
 export const GroupsSvgIcon = (props: SvgIconProps) => {
   switch (props.icon) {
-    case GroupsIcon.Cake:
+    case 'Cake':
       return <SvgCake />;
-    case GroupsIcon.Cookie:
+    case 'Cookie':
       return <SvgCookie />;
-    case GroupsIcon.Gift:
+    case 'Gift':
       return <SvgGift />;
-    case GroupsIcon.Planet:
+    case 'Planet':
       return <SvgPlanet />;
-    case GroupsIcon.Star:
+    case 'Star':
       return <SvgStar />;
-    case GroupsIcon.Sun:
+    case 'Sun':
       return <SvgSun />;
-    case GroupsIcon.CoffeeToGo:
+    case 'CoffeeToGo':
       return <SvgCoffeeToGo />;
-    case GroupsIcon.Coffee:
+    case 'Coffee':
       return <SvgCoffee />;
-    case GroupsIcon.Rainbow:
+    case 'Rainbow':
       return <SvgRainbow />;
-    case GroupsIcon.Moon:
+    case 'Moon':
       return <SvgMoon />;
     default:
       return <></>;

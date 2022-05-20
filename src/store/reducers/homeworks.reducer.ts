@@ -9,8 +9,8 @@ import {
   LOAD_HOMEWORKS_FAIL,
 } from '../../actions/homeworks.actions';
 import { TabData } from '../../models/TabData';
-import { Icon } from '../../shared/enums/Icon';
 import { Homework } from '../../models/responses/HomeworksResponse';
+import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
 
 export interface HomeWorkPageState {
   tabs?: TabData[];
@@ -44,7 +44,7 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageActio
         const tabData: TabData = {
           id: group.id,
           text: group.course.name,
-          icon: Icon.Pencil,
+          icon: CourseIcon[group.id],
         };
         return tabData;
       });

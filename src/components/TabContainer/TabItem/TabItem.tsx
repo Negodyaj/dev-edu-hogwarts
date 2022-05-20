@@ -2,7 +2,7 @@ import React from 'react';
 import './TabItem.scss';
 import { CoursesTabIcons } from '../../SvgIcon/CoursesTabIcons';
 import { TabData } from '../../../models/TabData';
-import { GroupsSvgIcon, GroupsTabIcons } from '../../SvgIcon/GroupsTabIcons';
+import { GroupsSvgIcon } from '../../SvgIcon/GroupsTabIcons';
 
 export type TabProps = {
   data: TabData;
@@ -19,7 +19,7 @@ export const TabItem = (props: TabProps) => {
       onClick={() => props.onClick(props.data.id)}
     >
       {props.course && <CoursesTabIcons courseName={props.data.text} />}
-      {props.group && <GroupsSvgIcon icon={GroupsTabIcons[props.data.icon]} />}
+      {props.group && <GroupsSvgIcon icon={props.data.icon} />}
       <div>{props.data.text}</div>
     </div>
   );

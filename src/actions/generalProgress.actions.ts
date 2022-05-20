@@ -1,5 +1,6 @@
 import { GroupResponse } from '../models/responses/GroupResponse';
 import { setRandomIconGroup } from '../shared/helpers/iconHelpers';
+import { GroupsIcon } from '../components/SvgIcon/GroupsTabIcons';
 
 export const LOAD_TABS = 'generalProgress/LOAD_TABS' as const;
 export const SELECT_TAB = 'generalProgress/SELECT_TAB' as const;
@@ -13,7 +14,7 @@ export const loadGeneralProgressTabs = (groups: GroupResponse[]) => ({
   payload: groups.map((group) => ({
     id: group.id,
     text: group.name,
-    icon: setRandomIconGroup(),
+    icon: GroupsIcon[setRandomIconGroup()],
   })),
 });
 

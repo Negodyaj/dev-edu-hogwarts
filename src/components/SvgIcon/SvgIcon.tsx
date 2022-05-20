@@ -3,9 +3,7 @@ import { SvgNotifications } from './SvgFiles/SvgNotifications';
 import { SvgLessons } from './SvgFiles/SvgLessons';
 import { SvgHomeWorks } from './SvgFiles/SvgHomeworks';
 import { SvgSettings } from './SvgFiles/SvgSettings';
-import { SvgBarrel } from './SvgFiles/SvgBarrel';
-import { SvgCalendar } from './SvgFiles/SvgCalendar';
-import { SvgChevron } from './SvgFiles/SvgChevron';
+import { SvgCalendar } from './SvgFiles/CoursesIcons/SvgCalendar';
 import { SvgComputer } from './SvgFiles/SvgComputer';
 import { SvgArrow } from './SvgFiles/SvgArrow';
 import { SvgPencil } from './SvgFiles/SvgPencil';
@@ -32,12 +30,8 @@ export type SvgIconProps = {
 
 export const SvgIcon = (props: SvgIconProps) => {
   switch (props.icon) {
-    case Icon.Barrel:
-      return <SvgBarrel />;
     case Icon.Calendar:
       return <SvgCalendar />;
-    case Icon.Chevron:
-      return <SvgChevron />;
     case Icon.Computer:
       return <SvgComputer />;
     case Icon.Notifications:

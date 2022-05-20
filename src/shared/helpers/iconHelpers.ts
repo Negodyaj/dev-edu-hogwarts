@@ -20,15 +20,13 @@ export const getCourseIcon = (courseName: CourseName) => {
       return Icon.Barrel;
     case FRONTEND_COURSE:
       return Icon.Chevron;
-    case QA_COURSE:
-      return Icon.Calendar;
     default:
-      return Icon.Exit; //TODO: удалить
+      return Icon.Calendar;
   }
 };
 
 export const setRandomIconGroup = () => {
   const length = GroupsTabIcons.length;
   const random = Math.random() * length;
-  return ~~random;
+  return +~~random;
 };

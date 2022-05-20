@@ -1,7 +1,16 @@
-import { SvgBackend } from './SvgFiles/SvgBackend';
-import { SvgBarrel } from './SvgFiles/SvgBarrel';
-import { SvgBaseCourse } from './SvgFiles/SvgBaseCourse';
-import { SvgFrontend } from './SvgFiles/SvgFrontend';
+import { SvgBackend } from './SvgFiles/CoursesIcons/SvgBackend';
+import { SvgBaseCourse } from './SvgFiles/CoursesIcons/SvgBaseCourse';
+import { SvgFrontend } from './SvgFiles/CoursesIcons/SvgFrontend';
+import { SvgCalendar } from './SvgFiles/CoursesIcons/SvgCalendar';
+
+export enum CourseIcon {
+  Base = 1,
+  BaseJava,
+  Backend,
+  BackendJava,
+  Frontend,
+  QA,
+}
 
 export type DictionaryData = {
   courseName?: string;
@@ -9,21 +18,17 @@ export type DictionaryData = {
 
 export const CoursesTabIcons = (props: DictionaryData) => {
   switch (props.courseName) {
-    case 'Базовый курс':
+    case 'Base':
       return <SvgBaseCourse />;
-    case 'Специализация Backend':
-      return <SvgBackend />;
-    case 'Специализация Frontend':
-      return <SvgFrontend />;
+    case 'BaseJava':
+      return <SvgBaseCourse />;
     case 'Backend':
+      return <SvgBackend />;
+    case 'BackendJava':
       return <SvgBackend />;
     case 'Frontend':
       return <SvgFrontend />;
-    case 'QA automation':
-      return <SvgBarrel />;
-    case 'Специализация':
-      return <SvgBackend />;
     default:
-      return <></>;
+      return <SvgCalendar />;
   }
 };
