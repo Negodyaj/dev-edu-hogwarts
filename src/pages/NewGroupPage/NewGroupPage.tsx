@@ -15,6 +15,7 @@ import { NewGroupFormState } from '../../store/reducers/NewGroupForm.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
 import { getDataFromFormPage } from '../../actions/NewGroupForm.actions';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
+import { useParams } from 'react-router-dom';
 
 export type GroupFormData = {
   name: string;
@@ -34,7 +35,12 @@ export type Course = {
 };
 
 export const NewGroupPage = () => {
+  const { id } = useParams();
+
+  // добавить useEffect, который по id задиспетчит thunk, который получит данные о группе и запишет их в стейт этой страницы
+
   const methods = useForm<GroupFormData>({
+    // инициализировать или этими значениями, или взятыми из стейта (в случае редактирования группы)
     defaultValues: {
       teacherIds: [],
       tutorIds: [],
@@ -94,38 +100,42 @@ export const NewGroupPage = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="editing-page">
-        <h1>Новая группа</h1>
+      <div className="new-group-page">
+        <h2>{id ? `Редактирование группы ${id}` : 'Новая группа'}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h2>Название</h2>
-            <input
-              className="textarea"
-              placeholder="Введите название"
-              {...register('name', { required: true })}
-            />
-            {errors.name && <span>Вы не указали название</span>}
-            <h2>Курс</h2>
-            <FilterList
-              data={courses.map((course) => {
-                const newCourse: FilterItem = {
-                  id: course.id,
-                  name: course.name,
-                };
-                return newCourse;
-              })}
-              callback={(item) => setValue('courseId', item.id)}
-            />
-            {errors.courseId && <span>Вы не выбрали курс</span>}
+            <div className="form-element">
+              Название
+              <input
+                className="form-input"
+                placeholder="Введите название"
+                {...register('name', { required: true })}
+              />
+              {errors.name && <span>Вы не указали название</span>}
+            </div>
+            <div className="form-element">
+              Курс
+              <FilterList
+                data={courses.map((course) => {
+                  const newCourse: FilterItem = {
+                    id: course.id,
+                    name: course.name,
+                  };
+                  return newCourse;
+                })}
+                callback={(item) => setValue('courseId', item.id)}
+              />
+              {errors.courseId && <span>Вы не выбрали курс</span>}
+            </div>
             <div className="teachers-list">
-              <h2>Преподаватель:</h2>
+              <h3>Преподаватель:</h3>
               <div className="list">
                 <CheckboxGroup checkboxArr={teachers} name="teacherIds" />
               </div>
               {errors.teacherIds && <span>Вы не выбрали преподавателя</span>}
             </div>
             <div className="tutors-list">
-              <h2>Тьютор:</h2>
+              <h3>Тьютор:</h3>
               <div className="list">
                 <CheckboxGroup checkboxArr={tutors} name="tutorIds" />
               </div>
@@ -138,13 +148,15 @@ export const NewGroupPage = () => {
               <input {...register('timetable')} />
               <input {...register('paymentPerMonth')} />
             </div>
-            <Button
-              model={ButtonModel.Colored}
-              text="Сохранить"
-              type={ButtonType.submit}
-              width="190px"
-            />
-            <Button model={ButtonModel.Text} text="Отмена" type={ButtonType.reset} />
+            <div className="buttons-group">
+              <Button
+                model={ButtonModel.Colored}
+                text="Сохранить"
+                type={ButtonType.submit}
+                width="190"
+              />
+              <Button model={ButtonModel.Text} text="Отмена" type={ButtonType.reset} />
+            </div>
           </form>
         </FormProvider>
       </div>
