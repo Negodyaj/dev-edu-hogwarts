@@ -49,7 +49,6 @@ const rootReducer = combineReducers<AppState>({
   settingsPageState: settingsPageReducer,
   newGroupFormState: NewGroupFormReducer,
   groupsPageState: groupsPageReducer,
-  settingsPageState: settingsPageReducer,
 });
 
 // Create a configure store function of type `AppState`
