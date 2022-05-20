@@ -26,8 +26,6 @@ export const Journal = ({ filteredData, filter }: JournalProps) => {
     // debugger;
     if (element.dataset.sortName === 'reset') {
       dispatch(filter(filteredData.sort((a: any, b: any) => a.LastName.localeCompare(b.LastName))));
-    } else {
-      dispatch(filter(filteredData.sort((a: any, b: any) => a.name.localeCompare(b.name))));
     }
   };
 
@@ -42,15 +40,13 @@ export const Journal = ({ filteredData, filter }: JournalProps) => {
           <b>ФИО студента</b>
         </div>
         <div className="one-block students-list">
-          {location.pathname !== '/journal' && (
-            <button
-              className="btn btn-text"
-              onClick={(e) => filterName(e.currentTarget)}
-              data-sort-name="reset"
-            >
-              Сбросить сортировку
-            </button>
-          )}
+          <button
+            className="btn btn-text"
+            onClick={(e) => filterName(e.currentTarget)}
+            data-sort-name="reset"
+          >
+            Сортировать по фамилии
+          </button>
         </div>
         {filteredData.map((student: any) => (
           <div

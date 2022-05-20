@@ -61,6 +61,11 @@
       font-weight: 400;
       color: $dark-gray;
     }
+
+    b:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 
   .text-overflow-wrap {
@@ -83,7 +88,7 @@
     }
 
     .rating {
-      width: 215px;
+      width: 102px;
 
       .indicator {
         width: 8px;
@@ -131,5 +136,21 @@
     & .drop-down-filter__list-wrapper {
       right: -20px;
     }
+  }
+
+  .sort-buttons {
+    align-items: center;
+    flex-direction: row;
+    path {
+      fill: $lavender-color;
+    }
+  }
+
+  .button-style-reset {
+    border: 0;
+    background: transparent;
+    width: fit-content;
+    cursor: pointer;
+    display: inline;
   }
 }

@@ -47,21 +47,21 @@ export const GeneralProgressScrollContent = ({ control, setState }: SwiperProps)
             {getStatus(homework.id)?.map((status) => {
               if (status === HomeworkStatus.ToVerifyFixes) {
                 return (
-                  <div className="one-block block-column">
-                    <b>На проверке</b>
-                    <span>исправлений</span>
+                  <div className="one-block block-column" key={uniqueId('status_')}>
+                    <b>Проверить</b>
+                    <span>правки</span>
                   </div>
                 );
               } else if (status === HomeworkStatus.DoneAfterDeadline) {
                 return (
-                  <div className="one-block block-column">
+                  <div className="one-block block-column" key={uniqueId('status_')}>
                     <b>Сдано</b>
                     <span>с опозданием</span>
                   </div>
                 );
               } else {
                 return (
-                  <div className="one-block block-column">
+                  <div className="one-block block-column" key={uniqueId('status_')}>
                     <b>{status}</b>
                   </div>
                 );

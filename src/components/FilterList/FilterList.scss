@@ -46,18 +46,18 @@ $font-size: 18px;
     &:focus {
       outline: 0;
     }
+  }
 
-    &.center {
-      justify-content: center;      
-    }
+  &.center {
+    justify-content: center;
+  }
 
-    &.left {
-      justify-content: flex-start;
-    }
+  &.left {
+    justify-content: flex-start;
+  }
 
-    &.right {
-      justify-content: flex-end;
-    }
+  &.right {
+    justify-content: flex-end;
   }
 
   & path {
@@ -97,13 +97,15 @@ $font-size: 18px;
   min-width: 140px;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
-  z-index: 2;
+  z-index: 6;
 
   &.center {
     text-align: center;
   }
 
   &.left {
+    right: auto;
+    left: -20px;
     text-align: left;
   }
 

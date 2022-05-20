@@ -47,7 +47,6 @@ export const FilterList = (props: FilterListProps) => {
         className={`drop-down-filter ${props.cssClass ?? ''} ${props.cssAlign ?? 'right'}`}
         onKeyPress={() => toggle()}
         onClick={() => toggle()}
-        data-lesson-id={item?.id}
       >
         {item?.name}
 

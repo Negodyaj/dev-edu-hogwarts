@@ -1,39 +1,31 @@
-import { FilterItem, FilterList } from '../../FilterList/FilterList';
 import { filterStudentsList } from '../../../actions/attendanceJournal.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../../store/store';
+import { SvgArrow } from '../../SvgIcon/SvgFiles/SvgArrow';
+import React from 'react';
 
 export const AttendanceRatingColumn = ({ data }: any) => {
   const dispatch = useDispatch();
   const { filteredStudentList } = useSelector((state: AppState) => state.attendanceJournalState);
 
-  const filterRating = (item: FilterItem) => {
-    // debugger;
-    if (item.id === 1) {
-      dispatch(
-        filterStudentsList(
-          filteredStudentList
-            ? filteredStudentList.sort((a: any, b: any) => a.LastName.localeCompare(b.LastName))
-            : []
-        )
-      );
-    } else if (item.id === 2) {
-      dispatch(
-        filterStudentsList(
-          filteredStudentList
-            ? filteredStudentList.sort((a: any, b: any) => a.percent - b.percent)
-            : []
-        )
-      );
-    } else if (item.id === 3) {
-      dispatch(
-        filterStudentsList(
-          filteredStudentList
-            ? filteredStudentList.sort((a: any, b: any) => b.percent - a.percent)
-            : []
-        )
-      );
-    }
+  const sortByAscending = () => {
+    dispatch(
+      filterStudentsList(
+        filteredStudentList
+          ? filteredStudentList.sort((a: any, b: any) => a.percent - b.percent)
+          : []
+      )
+    );
+  };
+
+  const sortByDescending = () => {
+    dispatch(
+      filterStudentsList(
+        filteredStudentList
+          ? filteredStudentList.sort((a: any, b: any) => b.percent - a.percent)
+          : []
+      )
+    );
   };
 
   return (
@@ -41,25 +33,13 @@ export const AttendanceRatingColumn = ({ data }: any) => {
       <div className="one-block rating">
         <b>%</b>
       </div>
-      <div className="one-block rating">
-        <FilterList
-          data={[
-            {
-              id: 1,
-              name: 'Не сортировать',
-            },
-            {
-              id: 2,
-              name: 'По возрастанию',
-            },
-            {
-              id: 3,
-              name: 'По убыванию',
-            },
-          ]}
-          cssClass="table"
-          callback={filterRating}
-        />
+      <div className="one-block rating sort-buttons">
+        <button className="button-style-reset" onClick={sortByDescending}>
+          <SvgArrow direction="top" />
+        </button>
+        <button className="button-style-reset" onClick={sortByAscending}>
+          <SvgArrow direction="bottom" />
+        </button>
       </div>
       {data.map((student: any, index: number) => {
         const successIndicator =

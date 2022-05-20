@@ -11,9 +11,9 @@ export type HomeworkFormData = {
 
 export enum HomeworkStatus {
   Undone = 'Не сдано',
-  ToCheck = 'На проверке',
-  ToFix = 'На исправлении',
-  ToVerifyFixes = 'На проверке исправлений',
+  ToCheck = 'Проверить',
+  ToFix = 'Исправить',
+  ToVerifyFixes = 'Проверить правки',
   Done = 'Сдано',
   DoneAfterDeadline = 'Сдано с опозданием',
 }

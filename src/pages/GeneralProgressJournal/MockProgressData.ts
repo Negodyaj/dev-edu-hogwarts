@@ -165,7 +165,7 @@ export const homeworksProgress = [
           startDate: '10.10.20',
           task: {
             id: 1,
-            name: 'Покрыть тестами первые три домашки',
+            name: 'Деструктуризация объектов',
           },
         },
       },
@@ -280,7 +280,7 @@ export const homeworksProgress = [
           startDate: '10.10.20',
           task: {
             id: 1,
-            name: 'Покрыть тестами первые три домашки',
+            name: 'Деструктуризация объектов',
           },
         },
       },

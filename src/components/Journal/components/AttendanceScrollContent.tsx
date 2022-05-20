@@ -26,7 +26,6 @@ export const AttendanceScrollContent = ({ control, setState }: SwiperProps) => {
     dispatch(
       setStudentAttendance({ id: lesson.id, student: { ...student, check: filterItem.id } })
     );
-    console.log({ id: lesson.id, student: { ...student, check: filterItem.id } });
   };
 
   return (
@@ -48,7 +47,7 @@ export const AttendanceScrollContent = ({ control, setState }: SwiperProps) => {
             const student = item.students.find((elem: any) => elem.id === element.id);
             const bindingCallback = updateStudentAttendance.bind(null, item, student);
             return (
-              <div className="one-block journal-filter-item">
+              <div className="one-block journal-filter-item" key={element.id}>
                 <FilterList
                   data={attendanceTypesFilter}
                   callback={bindingCallback}
