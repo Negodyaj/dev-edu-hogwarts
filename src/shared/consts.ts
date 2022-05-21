@@ -19,4 +19,5 @@ export const updateAttendanceForLesson = (
   studentId: number,
   attendanceType: string
 ) => `api/Lessons/${lessonId}/student/${studentId}/attendance/${attendanceType}`;
+export const updateUserUrl = (id: number) => `${usersUrl}/${id}`;
 export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
