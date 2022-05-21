@@ -117,7 +117,8 @@
     }
   }
 
-  & + main .content-container {
+  & + main .content-container,
+  & + main .buttons-after-list {
     width: 1206px;
   }
 

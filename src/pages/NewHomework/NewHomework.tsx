@@ -4,10 +4,14 @@ import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { baseWretch } from '../../services/base-wretch.service';
-import { addNewTaskUrl, getHomeworksByGroupId } from '../../shared/consts';
+import {
+  // addNewHomeworkWithTaskByTeacher,
+  // addNewTaskByTeacher,
+  getHomeworksByGroupId,
+} from '../../shared/consts';
 import { SvgIcon } from '../../components/SvgIcon/SvgIcon';
 import { Icon } from '../../shared/enums/Icon';
-import { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import {
@@ -19,20 +23,47 @@ import {
 import { AddedLink } from './components/AddedLink';
 import { Homework } from '../../models/responses/HomeworksResponse';
 import { convertDate } from '../../shared/helpers/dateHelpers';
+import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import moment from 'moment';
 
-export type AddTaskFormData = {
+export type AddHomeworkFormData = {
   name: string;
   description: string;
-  homework: {
-    startDate: string;
-    endDate: string;
-  };
+  startDate: string | Date;
+  endDate: string | Date;
   groupId: number;
 };
 
 export const NewHomework = () => {
-  const method = useForm<AddTaskFormData>();
+  const [isPublish, setIsPublish] = useState(true);
+  const validationSchema = yup.object().shape({
+    name: yup.string().required('Введите название'),
+    description: yup.string().required('Введите описание'),
+    endDate: yup.string().when('$publish', {
+      is: true,
+      then: yup
+        .string()
+        .required('Выберите дату окончания')
+        .test(
+          'check-date',
+          'Выберите дату окончания',
+          (date) =>
+            moment().format('DD.MM.YYYY').toString() !==
+            convertDate(date ? date : new Date().toString())
+        ),
+      otherwise: yup.string().notRequired(),
+    }),
+    groupId: yup.mixed().required('Выберите группу'),
+  });
+
+  const method = useForm<AddHomeworkFormData>({
+    resolver: yupResolver(validationSchema),
+    context: { publish: isPublish },
+  });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { links, inputLinkValue, group, selectedGroupTaskCount, selectGroupId } = useSelector(
     (state: AppState) => state.newHomeworkFormState
@@ -50,22 +81,43 @@ export const NewHomework = () => {
       dispatch(addLink(refLinkName.current.value));
   };
 
-  const onSubmit = (data: AddTaskFormData) => {
+  const onSubmit = (data: AddHomeworkFormData) => {
     const formData = {
       ...data,
       links: links.join(' [link] '),
       isRequired: true,
-      homework: {
-        startDate: convertDate(data.homework.startDate),
-        endDate: convertDate(data.homework.endDate),
-      },
+      startDate: data.startDate
+        ? convertDate(data.startDate.toString())
+        : moment().format('DD.MM.YYYY'),
+      endDate: convertDate(data.endDate.toString()),
     };
 
-    baseWretch().url(addNewTaskUrl).post(formData);
+    console.log(data, formData);
+
+    // if (isPublish) {
+    //   baseWretch().url(addNewHomeworkWithTaskByTeacher).post(formData);
+    // } else {
+    //   baseWretch()
+    //     .url(addNewTaskByTeacher)
+    //     .post({
+    //       name: formData.name,
+    //       description: formData.description,
+    //       groupId: formData.groupId,
+    //       links: links.join(' [link] '),
+    //       isRequired: true,
+    //     });
+    // }
+
+    links.length = 0;
+    method.reset({
+      name: '',
+      description: '',
+      startDate: new Date(),
+      endDate: new Date(),
+    });
   };
 
   const getGroupId = (groupId: number) => {
-    console.log(groupId);
     dispatch(selectGroup(groupId));
   };
 
@@ -88,6 +140,7 @@ export const NewHomework = () => {
           Номер группы:
           <RadioGroup radioData={group} name="groupId" callback={getGroupId} />
         </div>
+        <span className="invalid-feedback">{method.formState.errors.groupId?.message}</span>
 
         <div className="form-element">
           Номер задания:
@@ -104,41 +157,44 @@ export const NewHomework = () => {
           <div>
             Дата выдачи задания
             <Controller
-              name="homework.startDate"
+              name="startDate"
               control={method.control}
-              rules={{ required: true }}
+              // rules={{ required: isPublish === 'homework' }}
               render={({ field }) => <Datepicker field={field} />}
             />
           </div>
           <div>
             Срок сдачи задания
             <Controller
-              name="homework.endDate"
+              name="endDate"
               control={method.control}
-              rules={{ required: true }}
+              rules={{ required: isPublish }}
               render={({ field }) => <Datepicker field={field} />}
             />
           </div>
+          <span className="invalid-feedback">{method.formState.errors.endDate?.message}</span>
         </div>
 
         <div className="form-element">
           Название задания
           <input
-            className="form-input"
+            className={`form-input${method.formState.errors.name ? ' invalid' : ''}`}
             type="text"
             placeholder="Введите название"
             {...method.register('name', { required: true })}
           />
         </div>
+        <span className="invalid-feedback">{method.formState.errors.name?.message}</span>
 
         <div className="form-element">
           Описание задания
           <textarea
-            className="form-input"
+            className={`form-input${method.formState.errors.description ? ' invalid' : ''}`}
             placeholder="Введите текст"
             {...method.register('description', { required: true })}
           />
         </div>
+        <span className="invalid-feedback">{method.formState.errors.description?.message}</span>
 
         <div className="form-element">
           Полезные ссылки
@@ -160,13 +216,24 @@ export const NewHomework = () => {
         </div>
 
         <div className="buttons-group">
-          <Button text="Опубликовать" model={ButtonModel.Colored} type={ButtonType.submit} />
+          <Button
+            text="Опубликовать"
+            model={ButtonModel.Colored}
+            type={ButtonType.submit}
+            onClick={() => setIsPublish(true)}
+          />
           <Button
             text="Сохранить как черновик"
             model={ButtonModel.White}
             type={ButtonType.submit}
+            onClick={() => setIsPublish(false)}
           />
-          <Button text="Отмена" type={ButtonType.reset} model={ButtonModel.Text} url={'/'} />
+          <Button
+            text="Отмена"
+            type={ButtonType.reset}
+            model={ButtonModel.Text}
+            onClick={() => navigate(-1)}
+          />
         </div>
       </form>
     </FormProvider>
