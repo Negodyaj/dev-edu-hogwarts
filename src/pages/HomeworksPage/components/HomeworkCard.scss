@@ -96,7 +96,22 @@
 
 }
 
+.homework-draft {
+  grid-template-columns: auto;
+
+  .homework-title {
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+}
+
 .lack-of-homeworks {
   font-size: 21px;
   font-weight: 500;
+}
+
+.homeworks-drafts-page {
+  & .link-arrow {
+    margin-bottom: 20px;
+  }
 }

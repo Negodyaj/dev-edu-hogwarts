@@ -22,6 +22,7 @@ import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { LoginPageState } from './store/reducers/login.reducer';
+import { DraftHomeworksPage } from './pages/HomeworksPage/DraftHomeworksPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
         <Routes>
           <Route path="/" element={<NotificationsPage />} />
           <Route path="homeworks" element={<HomeworksPage />} />
+          <Route path="homeworks/drafts" element={<DraftHomeworksPage />} />
           <Route path="homeworks/:id" element={<HomeworkPage />} />
           <Route path="homeworks/:id/new" element={<HomeworkPage />} />
           <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />

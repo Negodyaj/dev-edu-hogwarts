@@ -42,7 +42,11 @@ export const HomeworksPage = () => {
               icon={Icon.Plus}
               onClick={() => navigate('/new-homework')}
             />
-            <Button model={ButtonModel.White} text="Сохраненные задания" />
+            <Button
+              model={ButtonModel.White}
+              text="Сохраненные задания"
+              onClick={() => navigate('drafts')}
+            />
           </div>
         )}
       </div>
