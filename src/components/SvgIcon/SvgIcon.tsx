@@ -4,7 +4,6 @@ import { SvgLessons } from './SvgFiles/SvgLessons';
 import { SvgHomeWorks } from './SvgFiles/SvgHomeworks';
 import { SvgSettings } from './SvgFiles/SvgSettings';
 import { SvgCalendar } from './SvgFiles/CoursesIcons/SvgCalendar';
-import { SvgComputer } from './SvgFiles/SvgComputer';
 import { SvgArrow } from './SvgFiles/SvgArrow';
 import { SvgPencil } from './SvgFiles/SvgPencil';
 import { SvgExit } from './SvgFiles/SvgExit';
@@ -32,8 +31,6 @@ export const SvgIcon = (props: SvgIconProps) => {
   switch (props.icon) {
     case Icon.Calendar:
       return <SvgCalendar />;
-    case Icon.Computer:
-      return <SvgComputer />;
     case Icon.Notifications:
       return <SvgNotifications />;
     case Icon.Lessons:

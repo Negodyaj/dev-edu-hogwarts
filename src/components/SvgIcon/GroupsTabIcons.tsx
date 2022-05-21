@@ -10,7 +10,7 @@ import { SvgRainbow } from './SvgFiles/GroupsIcons/SvgRainbow';
 import { SvgMoon } from './SvgFiles/GroupsIcons/SvgMoon';
 
 export enum GroupsIcon {
-  Cookie,
+  Cookie = 1,
   Cake,
   Gift,
   Planet,

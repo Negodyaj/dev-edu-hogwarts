@@ -6,7 +6,6 @@ import { Button, ButtonModel } from '../../components/Button/Button';
 import { LinkWithUnderline } from '../../components/LinkWithUnderline/LinkWithUnderline';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { GroupResponse } from '../../models/responses/GroupResponse';
-import { TabData } from '../../models/TabData';
 import { Icon } from '../../shared/enums/Icon';
 import { GroupsPageState } from '../../store/reducers/groups.reducer';
 import { AppState } from '../../store/store';
@@ -61,14 +60,11 @@ export const GroupsListPage = () => {
             }}
           />
           <TabContainer
-            tabContainerData={groupsToDisplay?.map((item, index) => {
-              const tabItem: TabData = {
-                id: item.id,
-                text: item.name,
-                icon: CourseIcon[index],
-              };
-              return tabItem;
-            })}
+            tabContainerData={groupsToDisplay?.map((item, index) => ({
+              id: item.id,
+              text: item.name,
+              icon: CourseIcon[index + 1],
+            }))}
             course={true}
             selectedTab={selectedTab}
             onClick={selectTab}
@@ -86,14 +82,11 @@ export const GroupsListPage = () => {
       ) : (
         <div className="groups-header">
           <TabContainer
-            tabContainerData={groups?.map((item, index) => {
-              const tabItem: TabData = {
-                id: item.id,
-                text: item.name,
-                icon: CourseIcon[index],
-              };
-              return tabItem;
-            })}
+            tabContainerData={groups?.map((item, index) => ({
+              id: item.id,
+              text: item.name,
+              icon: CourseIcon[index + 1],
+            }))}
             course={true}
             selectedTab={selectedTab}
             onClick={selectTab}

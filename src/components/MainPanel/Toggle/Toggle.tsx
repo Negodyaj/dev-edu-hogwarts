@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Toggle.scss';
-import { SvgMoon } from '../../SvgIcon/SvgFiles/SvgMoon';
+import { SvgMoon } from '../../SvgIcon/SvgFiles/GroupsIcons/SvgMoon';
 import { SvgSun } from '../../SvgIcon/SvgFiles/SvgSun';
 
 export const Toggle = () => {

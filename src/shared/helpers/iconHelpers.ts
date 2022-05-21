@@ -1,4 +1,4 @@
 export const setRandomIconGroup = () => {
-  const random = Math.random() * 10;
+  const random = Math.random() * 9 + 1;
   return +~~random;
 };
