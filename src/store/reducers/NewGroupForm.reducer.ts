@@ -9,7 +9,7 @@ import {
   NewGroupFormAction,
 } from '../../actions/NewGroupForm.actions';
 import { CourseResponse } from '../../models/responses/CourseResponse';
-import { UserResponseShort } from '../../models/responses/UserResponseShort';
+import { UserSimpleResponseWithRoles } from '../../models/responses/UserResponse';
 
 export interface NewGroupFormState {
   id: number;
@@ -22,7 +22,7 @@ export interface NewGroupFormState {
   timetable: string;
   paymentPerMonth: number;
   courseId: number;
-  users: UserResponseShort[];
+  users: UserSimpleResponseWithRoles[];
   courses: CourseResponse[];
   isLoading: boolean;
   errorMessage: string;

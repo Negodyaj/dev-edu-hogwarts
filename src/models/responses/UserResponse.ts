@@ -26,3 +26,7 @@ export interface UserSimpleResponse {
   email: string;
   photo: string;
 }
+
+export interface UserSimpleResponseWithRoles extends UserSimpleResponse {
+  roles: UserRole[];
+}

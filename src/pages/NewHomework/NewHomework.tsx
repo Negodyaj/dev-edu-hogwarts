@@ -5,8 +5,8 @@ import Datepicker from '../../components/Datepicker/Datepicker';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { baseWretch } from '../../services/base-wretch.service';
 import {
-  // addNewHomeworkWithTaskByTeacher,
-  // addNewTaskByTeacher,
+  addNewHomeworkWithTaskByTeacher,
+  addNewTaskByTeacher,
   getHomeworksByGroupId,
 } from '../../shared/consts';
 import { SvgIcon } from '../../components/SvgIcon/SvgIcon';
@@ -92,21 +92,19 @@ export const NewHomework = () => {
       endDate: convertDate(data.endDate.toString()),
     };
 
-    console.log(data, formData);
-
-    // if (isPublish) {
-    //   baseWretch().url(addNewHomeworkWithTaskByTeacher).post(formData);
-    // } else {
-    //   baseWretch()
-    //     .url(addNewTaskByTeacher)
-    //     .post({
-    //       name: formData.name,
-    //       description: formData.description,
-    //       groupId: formData.groupId,
-    //       links: links.join(' [link] '),
-    //       isRequired: true,
-    //     });
-    // }
+    if (isPublish) {
+      baseWretch().url(addNewHomeworkWithTaskByTeacher).post(formData);
+    } else {
+      baseWretch()
+        .url(addNewTaskByTeacher)
+        .post({
+          name: formData.name,
+          description: formData.description,
+          groupId: formData.groupId,
+          links: links.join(' [link] '),
+          isRequired: true,
+        });
+    }
 
     links.length = 0;
     method.reset({

@@ -1,6 +1,6 @@
 import { CourseResponse } from '../models/responses/CourseResponse';
-import { UserResponseShort } from '../models/responses/UserResponseShort';
 import { GroupFormData } from '../pages/NewGroupPage/NewGroupPage';
+import { UserSimpleResponseWithRoles } from '../models/responses/UserResponse';
 
 export const LOAD_STARTED = 'NewGroupForm/LOAD_STARTED' as const;
 export const LOAD_COURSES_SUCCESS = 'NewGroupForm/LOAD_COURSES_SUCCESS' as const;
@@ -23,7 +23,7 @@ export const loadCoursesSuccess = (courses: CourseResponse[]) => ({
   payload: courses,
 });
 
-export const loadUsersSuccess = (users: UserResponseShort[]) => ({
+export const loadUsersSuccess = (users: UserSimpleResponseWithRoles[]) => ({
   type: LOAD_USERS_SUCCESS,
   payload: users,
 });
