@@ -63,9 +63,10 @@ export const AvatarCropper = () => {
     //   .catch((err) => console.error(err));
     baseWretch()
       .url('api/Users/photo')
-      .formData({
-        pictures: newAvatar,
-      })
+      // .formData({
+      //   pictures: newAvatar,
+      // })
+      .formData(fd)
       .post();
   };
 
