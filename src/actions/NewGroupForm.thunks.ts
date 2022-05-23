@@ -26,10 +26,10 @@ export const loadCoursesAndUsers = () => {
           .get()
           .json((usersList) => {
             usersList.map((user: any) => {
-              user.roles = (user.roles as string[]).map((item) => {
-                const newRole: UserRole = userRoleForEnum(item);
-                return newRole;
-              });
+              const role: UserRole[] = (user.roles as string[]).map((item) =>
+                userRoleForEnum(item)
+              );
+              user.roles = role;
               return user as UserSimpleResponseWithRoles[];
             });
             dispatch(loadUsersSuccess(usersList as UserSimpleResponseWithRoles[]));
