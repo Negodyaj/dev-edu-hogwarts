@@ -6,7 +6,6 @@ import { loadGroups } from '../actions/newHomeworkForm.action';
 import { UserResponse } from '../models/responses/UserResponse';
 import { UserRole } from '../shared/enums/UserRole';
 import { userRoleForEnum } from '../shared/helpers/userRoleForEnum';
-//import { UserRole } from '../shared/enums/UserRole';
 import { baseWretch } from './base-wretch.service';
 import { getFromStorage, removeFromStorage, store } from './local-storage.service';
 
