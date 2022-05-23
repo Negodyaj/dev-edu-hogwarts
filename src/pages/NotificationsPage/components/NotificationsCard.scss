@@ -117,3 +117,11 @@
   margin-top: 8px;
   margin-bottom: 0;
 }
+
+.notifications-page {
+  .drop-down-filter {
+    width: 940px;
+    margin-bottom: 20px;
+    transition: width ease-in-out 0.5s;
+  }
+}
