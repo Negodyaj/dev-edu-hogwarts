@@ -29,6 +29,7 @@ import {
   getTask,
   NewHomeworkFormAction,
   postHomeworkFail,
+  postHomeworkStarted,
   postHomeworkSuccess,
 } from './newHomeworkForm.action';
 
@@ -62,6 +63,8 @@ export const loadHomework = (homeworkId: number) => {
 
 export const createNewHomework = (homeworkData: AddHomeworkFormData) => {
   return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+    dispatch(postHomeworkStarted());
+
     try {
       await baseWretch().url(addNewHomeworkWithTaskByTeacher).post(homeworkData);
       dispatch(postHomeworkSuccess());
@@ -73,6 +76,8 @@ export const createNewHomework = (homeworkData: AddHomeworkFormData) => {
 
 export const createNewTaskByTeacher = (homeworkData: AddHomeworkFormData, links: string[]) => {
   return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+    dispatch(postHomeworkStarted());
+
     try {
       await baseWretch()
         .url(addNewTaskByTeacher)

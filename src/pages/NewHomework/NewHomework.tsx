@@ -54,7 +54,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
           'check-date',
           'Выбрана некорректная дата',
           (date) =>
-            moment(new Date(), 'DD.MM.YYYY').toString() <=
+            moment(new Date(), 'DD.MM.YYYY').toString() !==
             convertDate(date ? date : new Date().toString())
         ),
       otherwise: yup.string().notRequired(),
@@ -69,8 +69,15 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { links, inputLinkValue, group, selectedGroupTaskCount, selectGroupId, errorMessage } =
-    useSelector((state: AppState) => state.newHomeworkFormState);
+  const {
+    links,
+    inputLinkValue,
+    group,
+    selectedGroupTaskCount,
+    selectGroupId,
+    errorMessage,
+    inProcess,
+  } = useSelector((state: AppState) => state.newHomeworkFormState);
   const refLinkName = useRef<any>({});
   const [linkValue, setLinkValue] = useState<string | undefined>(undefined);
 
@@ -107,10 +114,10 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
     debugger;
     if (isPublish) {
       if (!linkValue) {
-        createNewHomework(formData);
+        dispatch(createNewHomework(formData));
       }
     } else {
-      createNewTaskByTeacher(formData, links);
+      dispatch(createNewTaskByTeacher(formData, links));
     }
 
     if (!errorMessage) {
@@ -270,6 +277,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             text="Опубликовать"
             model={ButtonModel.Colored}
             type={ButtonType.submit}
+            disabled={inProcess}
             onClick={() => setIsPublish(true)}
           />
           <Button
