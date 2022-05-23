@@ -1,21 +1,27 @@
 import './Button.scss';
 import { SvgIcon } from '../SvgIcon/SvgIcon';
 import { Icon } from '../../shared/enums/Icon';
+import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
 
 export type ButtonProps = {
-  text: string;
+  text?: string;
   type?: ButtonType;
   model: ButtonModel;
   icon?: Icon;
   url?: string;
   link?: 'btn-link';
   width?: string;
+  onClick?: () => void;
+  disabled?: boolean;
+  direction?: string;
 };
 
 export enum ButtonModel {
   White,
   Colored,
   Text,
+  EllipseColored,
+  EllipseWhite,
 }
 
 export enum ButtonType {
@@ -33,6 +39,10 @@ export const Button = (props: ButtonProps) => {
         return 'btn-fill';
       case ButtonModel.Text:
         return 'btn-text';
+      case ButtonModel.EllipseColored:
+        return 'btn-fill ellipse';
+      case ButtonModel.EllipseWhite:
+        return 'btn-white-with-border ellipse';
       default:
         return '';
     }
@@ -48,15 +58,19 @@ export const Button = (props: ButtonProps) => {
     <a href={props.url} className={`btn ${buttonClass}`}>
       {props.text}
       {buttonImg}
+      {props.direction ? <SvgArrow direction={`${props.direction}`} /> : ''}
     </a>
   ) : (
     <button
       className={`btn ${buttonClass}`}
       type={props.type}
+      onClick={props.onClick}
+      disabled={props.disabled}
       style={{ width: `${props.width}px` }}
     >
       {props.text}
       {buttonImg}
+      {props.direction ? <SvgArrow direction={`${props.direction}`} /> : ''}
     </button>
   );
 };
