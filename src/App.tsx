@@ -22,6 +22,7 @@ import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { LoginPageState } from './store/reducers/login.reducer';
+import { NotificationsContainer } from './components/NotificationsContainer/NotificationsContainer';
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function App() {
           <Route path="groups" element={<GroupsListPage />} />
           <Route path="payment-table" element={<PaymentsPage />} />
         </Routes>
+        <NotificationsContainer />
       </main>
     </div>
   );
