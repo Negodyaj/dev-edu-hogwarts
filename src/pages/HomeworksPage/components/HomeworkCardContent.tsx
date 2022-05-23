@@ -87,7 +87,7 @@ export const HomeworkCardContent = () => {
           {link}
         </a>
       ))}
-      {currentRole === UserRole.Student ? (
+      {currentRole === UserRole.Student || location.pathname.includes('check-homework') ? (
         <>
           <span className="homework-description-title">Ссылка на выполненное задание:</span>
           {answer && !isEdit ? (

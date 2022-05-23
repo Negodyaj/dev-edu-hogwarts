@@ -3,6 +3,8 @@ import {
   ADD_LINK,
   GET_TASK,
   GET_TASKS_COUNT,
+  GET_TASKS_COUNT_IN_COURSE,
+  LOAD_COURSES,
   LOAD_GROUPS,
   NewHomeworkFormAction,
   POST_HOMEWORK_FAIL,
@@ -10,6 +12,7 @@ import {
   POST_HOMEWORK_SUCCESS,
   REMOVE_LINK,
   REMOVE_LINKS,
+  SELECT_COURSE,
   SELECT_GROUP,
   SET_VALUE_INPUT_LINK,
 } from '../../actions/newHomeworkForm.action';
@@ -21,10 +24,12 @@ export interface NewHomeworkFormState {
   inputLinkValue: string;
   group: RadioData[];
   selectGroupId: number;
-  selectedGroupTaskCount: number;
+  selectCourseId: number;
+  selectedTaskCount: number;
   errorMessage?: string;
   inProcess: boolean;
   task?: Task;
+  course: RadioData[];
 }
 
 const initialState: NewHomeworkFormState = {
@@ -32,10 +37,12 @@ const initialState: NewHomeworkFormState = {
   inputLinkValue: '',
   group: [],
   selectGroupId: -1,
-  selectedGroupTaskCount: 0,
+  selectCourseId: -1,
+  selectedTaskCount: 0,
   errorMessage: undefined,
   inProcess: false,
   task: undefined,
+  course: [],
 };
 
 export const newHomeworkFormReducer: Reducer<NewHomeworkFormState, NewHomeworkFormAction> = (
@@ -48,6 +55,11 @@ export const newHomeworkFormReducer: Reducer<NewHomeworkFormState, NewHomeworkFo
         ...state,
         group: [...action.payload],
       };
+    case LOAD_COURSES:
+      return {
+        ...state,
+        course: [...action.payload],
+      };
     case ADD_LINK:
       return {
         ...state,
@@ -58,11 +70,23 @@ export const newHomeworkFormReducer: Reducer<NewHomeworkFormState, NewHomeworkFo
       return {
         ...state,
         selectGroupId: action.payload,
+        selectCourseId: -1,
+      };
+    case SELECT_COURSE:
+      return {
+        ...state,
+        selectCourseId: action.payload,
+        selectGroupId: -1,
       };
     case GET_TASKS_COUNT:
       return {
         ...state,
-        selectedGroupTaskCount: action.payload,
+        selectedTaskCount: action.payload,
+      };
+    case GET_TASKS_COUNT_IN_COURSE:
+      return {
+        ...state,
+        selectedTaskCount: action.payload,
       };
     case GET_TASK:
       return {

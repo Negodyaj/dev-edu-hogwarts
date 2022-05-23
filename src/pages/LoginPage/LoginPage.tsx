@@ -53,11 +53,6 @@ export const LoginPage = () => {
     <div className="form-container login-page-form">
       <h2>Войти</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {errorMessage && (
-          <div className="invalid-feedback">
-            {errorMessage === 'Authorization exception' && 'Неправильные логин или пароль'}
-          </div>
-        )}
         <div className="form-element">
           E-mail
           <input
@@ -77,6 +72,11 @@ export const LoginPage = () => {
           />
         </div>
         {errors.password && <div className="invalid-feedback">{errors.password?.message}</div>}
+        {errorMessage && (
+          <div className="invalid-feedback">
+            {errorMessage === 'Authorization exception' && 'Неправильные логин или пароль'}
+          </div>
+        )}
         <div className="buttons-group">
           <Button
             text="Войти"

@@ -3,8 +3,6 @@ import './NewHomework.scss';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
-import { baseWretch } from '../../services/base-wretch.service';
-import { getHomeworksByGroupId } from '../../shared/consts';
 import { Icon } from '../../shared/enums/Icon';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,17 +11,27 @@ import {
   addLink,
   getTasksCount,
   removeLinks,
+  selectCourse,
   selectGroup,
   setValueInInput,
 } from '../../actions/newHomeworkForm.action';
 import { AddedLink } from './components/AddedLink';
 import { Homework, Task } from '../../models/responses/HomeworksResponse';
 import { convertDate } from '../../shared/helpers/dateHelpers';
-import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
-import { createNewHomework, createNewTaskByTeacher } from '../../actions/homeworks.thunks';
+import {
+  createNewHomework,
+  createNewTaskByMethodist,
+  createNewTaskByTeacher,
+  getCourses,
+  tasksCountInCourse,
+  tasksCountInGroup,
+} from '../../actions/homeworks.thunks';
+import { UserRole } from '../../shared/enums/UserRole';
+import { LoginPageState } from '../../store/reducers/login.reducer';
+import { validationSchema } from './components/ValidationSchema';
 
 export type AddHomeworkFormData = {
   name: string;
@@ -42,25 +50,6 @@ type HomeworkFormProps = {
 
 export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: HomeworkFormProps) => {
   const [isPublish, setIsPublish] = useState(true);
-  const validationSchema = yup.object().shape({
-    name: yup.string().required('Введите название'),
-    description: yup.string().required('Введите описание'),
-    endDate: yup.string().when('$publish', {
-      is: true,
-      then: yup
-        .string()
-        .required('Выберите дату окончания')
-        .test(
-          'check-date',
-          'Выбрана некорректная дата',
-          (date) =>
-            moment(new Date(), 'DD.MM.YYYY').toString() !==
-            convertDate(date ? date : new Date().toString())
-        ),
-      otherwise: yup.string().notRequired(),
-    }),
-    groupId: yup.mixed().required('Не выбрана ни одна группа'),
-  });
 
   const method = useForm<AddHomeworkFormData>({
     resolver: yupResolver(validationSchema),
@@ -73,11 +62,13 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
     links,
     inputLinkValue,
     group,
-    selectedGroupTaskCount,
+    course,
+    selectedTaskCount,
     selectGroupId,
     errorMessage,
     inProcess,
   } = useSelector((state: AppState) => state.newHomeworkFormState);
+  const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const refLinkName = useRef<any>({});
   const [linkValue, setLinkValue] = useState<string | undefined>(undefined);
 
@@ -117,7 +108,11 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
         dispatch(createNewHomework(formData));
       }
     } else {
-      dispatch(createNewTaskByTeacher(formData, links));
+      if (currentRole === UserRole.Teacher) {
+        dispatch(createNewTaskByTeacher(formData, links));
+      } else if (currentRole === UserRole.Methodist) {
+        dispatch(createNewTaskByMethodist(formData, links));
+      }
     }
 
     if (!errorMessage) {
@@ -131,11 +126,18 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
     }
   };
 
-  const getGroupId = (groupId: number) => {
-    dispatch(selectGroup(groupId));
+  const getId = (id: number) => {
+    if (currentRole === UserRole.Teacher) {
+      dispatch(selectGroup(id));
+    } else {
+      dispatch(selectCourse(id));
+    }
   };
 
   useEffect(() => {
+    if (currentRole === UserRole.Methodist) {
+      dispatch(getCourses());
+    }
     if (initialTask?.links) {
       const linksInResp = initialTask?.links.split(' [link] ');
       linksInResp.forEach((link) => dispatch(addLink(link)));
@@ -152,12 +154,11 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
   }, []);
 
   useEffect(() => {
-    const groupId = method.getValues('groupId');
-    if (groupId) {
-      baseWretch()
-        .url(getHomeworksByGroupId(groupId))
-        .get()
-        .json((data) => dispatch(getTasksCount(data as Homework[])));
+    const id = method.getValues('groupId');
+    if (currentRole === UserRole.Teacher && id) {
+      dispatch(tasksCountInGroup(id));
+    } else if (currentRole === UserRole.Methodist && id) {
+      dispatch(tasksCountInCourse(id));
     }
   }, [selectGroupId]);
 
@@ -166,14 +167,20 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
       <form className="form-container homework-form" onSubmit={method.handleSubmit(onSubmit)}>
         <h2 className="homework-form_title">Новое задание</h2>
 
-        <div className="form-element">
+        <div className="form-element flex-container">
           Номер группы:
-          <RadioGroup
-            radioData={group}
-            name="groupId"
-            callback={getGroupId}
-            selected={group.find((item) => item.value === selectedGroup)}
-          />
+          <div className="radio-group-container flex-container">
+            <RadioGroup
+              radioData={currentRole === UserRole.Methodist ? course : group}
+              name="groupId"
+              callback={getId}
+              selected={
+                currentRole === UserRole.Teacher
+                  ? group.find((item) => item.value === selectedGroup)
+                  : undefined
+              }
+            />
+          </div>
         </div>
         <span className="invalid-feedback">{method.formState.errors.groupId?.message}</span>
 
@@ -184,33 +191,38 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
               для визуализации оставляю так до ревью :^)
            */}
           <span className="homework-form_task">
-            {selectedGroupTaskCount === 0 ? '1' : selectedGroupTaskCount}
+            {selectedTaskCount === 0 ? '1' : selectedTaskCount}
           </span>
         </div>
 
-        <div className="homework-form_dates form-grid-container">
-          <div>
-            Дата выдачи задания
-            <Controller
-              name="startDate"
-              control={method.control}
-              defaultValue={moment(initialHomework?.startDate ?? new Date(), 'DD.MM.YYYY').toDate()}
-              // rules={{ required: isPublish === 'homework' }}
-              render={({ field }) => <Datepicker field={field} />}
-            />
+        {currentRole === UserRole.Teacher && (
+          <div className="homework-form_dates form-grid-container">
+            <div>
+              Дата выдачи задания
+              <Controller
+                name="startDate"
+                control={method.control}
+                defaultValue={moment(
+                  initialHomework?.startDate ?? new Date(),
+                  'DD.MM.YYYY'
+                ).toDate()}
+                // rules={{ required: isPublish === 'homework' }}
+                render={({ field }) => <Datepicker field={field} />}
+              />
+            </div>
+            <div>
+              Срок сдачи задания
+              <Controller
+                name="endDate"
+                control={method.control}
+                rules={{ required: isPublish }}
+                defaultValue={moment(initialHomework?.endDate ?? new Date(), 'DD.MM.YYYY').toDate()}
+                render={({ field }) => <Datepicker field={field} />}
+              />
+              <div className="invalid-feedback">{method.formState.errors.endDate?.message}</div>
+            </div>
           </div>
-          <div>
-            Срок сдачи задания
-            <Controller
-              name="endDate"
-              control={method.control}
-              rules={{ required: isPublish }}
-              defaultValue={moment(initialHomework?.endDate ?? new Date(), 'DD.MM.YYYY').toDate()}
-              render={({ field }) => <Datepicker field={field} />}
-            />
-            <div className="invalid-feedback">{method.formState.errors.endDate?.message}</div>
-          </div>
-        </div>
+        )}
 
         <div className="form-element">
           Название задания
@@ -270,13 +282,15 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
         {linkValue && <div className="invalid-feedback">{linkValue}</div>}
 
         <div className="buttons-group">
-          <Button
-            text="Опубликовать"
-            model={ButtonModel.Colored}
-            type={ButtonType.submit}
-            disabled={inProcess}
-            onClick={() => setIsPublish(true)}
-          />
+          {currentRole === UserRole.Teacher && (
+            <Button
+              text="Опубликовать"
+              model={ButtonModel.Colored}
+              type={ButtonType.submit}
+              disabled={inProcess}
+              onClick={() => setIsPublish(true)}
+            />
+          )}
           <Button
             text="Сохранить как черновик"
             model={ButtonModel.White}

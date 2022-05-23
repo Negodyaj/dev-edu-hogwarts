@@ -1,9 +1,9 @@
-import { CourseResponse } from './CourseResponse';
+import { CourseSimpleResponse } from './CourseSimpleResponse';
 
 export interface GroupResponse {
   id: number;
   name: string;
-  course: CourseResponse;
+  course: CourseSimpleResponse;
   groupStatus: string;
   startDate: string;
   endDate: string;

@@ -42,6 +42,10 @@
     overflow-wrap: break-word;
   }
 
+  .radio-group-container {
+    max-width: 690px;
+  }
+
   .form-input_link__container {
     display: flex;
     justify-content: flex-start;

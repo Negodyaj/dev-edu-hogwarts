@@ -1,4 +1,4 @@
-import { CourseResponse } from '../models/responses/CourseResponse';
+import { CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
 import { GroupFormData } from '../pages/NewGroupPage/NewGroupPage';
 import { UserSimpleResponseWithRoles } from '../models/responses/UserResponse';
 
@@ -18,7 +18,7 @@ export const loadFail = (message: string) => ({
   payload: message,
 });
 
-export const loadCoursesSuccess = (courses: CourseResponse[]) => ({
+export const loadCoursesSuccess = (courses: CourseSimpleResponse[]) => ({
   type: LOAD_COURSES_SUCCESS,
   payload: courses,
 });

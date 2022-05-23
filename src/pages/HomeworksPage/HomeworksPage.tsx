@@ -34,7 +34,7 @@ export const HomeworksPage = () => {
         ) : (
           <span className="lack-of-homeworks">Домашних заданий еще нет</span>
         )}
-        {currentRole === UserRole.Teacher && (
+        {(currentRole === UserRole.Teacher || currentRole === UserRole.Methodist) && (
           <div className="buttons-group flex-container buttons-after-list">
             <Button
               model={ButtonModel.Colored}
@@ -42,11 +42,13 @@ export const HomeworksPage = () => {
               icon={Icon.Plus}
               onClick={() => navigate('/new-homework')}
             />
-            <Button
-              model={ButtonModel.White}
-              text="Сохраненные задания"
-              onClick={() => navigate('drafts')}
-            />
+            {currentRole !== UserRole.Methodist && (
+              <Button
+                model={ButtonModel.White}
+                text="Сохраненные задания"
+                onClick={() => navigate('drafts')}
+              />
+            )}
           </div>
         )}
       </div>

@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { CourseResponse } from '../models/responses/CourseResponse';
+import { CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
 import { baseWretch } from '../services/base-wretch.service';
 import { coursesUrl, usersUrl } from '../shared/consts';
 import { UserRole } from '../shared/enums/UserRole';
@@ -33,7 +33,7 @@ export const loadCoursesAndUsers = () => {
               return user as UserSimpleResponseWithRoles[];
             });
             dispatch(loadUsersSuccess(usersList as UserSimpleResponseWithRoles[]));
-            dispatch(loadCoursesSuccess(data as CourseResponse[]));
+            dispatch(loadCoursesSuccess(data as CourseSimpleResponse[]));
           })
           .catch((error) => dispatch(loadFail(error.message)));
       });
