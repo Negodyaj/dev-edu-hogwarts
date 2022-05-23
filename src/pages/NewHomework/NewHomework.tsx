@@ -54,7 +54,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
           'check-date',
           'Выбрана некорректная дата',
           (date) =>
-            moment().format('DD.MM.YYYY').toString() <=
+            moment(new Date(), 'DD.MM.YYYY').toString() <=
             convertDate(date ? date : new Date().toString())
         ),
       otherwise: yup.string().notRequired(),
@@ -129,6 +129,9 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
   };
 
   useEffect(() => {
+    if (!initialHomework && !initialTask) {
+      navigate('/new-homework');
+    }
     if (initialTask?.links) {
       const linksInResp = initialTask?.links.split(' [link] ');
       linksInResp.forEach((link) => dispatch(addLink(link)));
@@ -187,7 +190,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             <Controller
               name="startDate"
               control={method.control}
-              defaultValue={moment(initialHomework?.startDate, 'DD.MM.YYYY').toDate()}
+              defaultValue={moment(initialHomework?.startDate ?? new Date(), 'DD.MM.YYYY').toDate()}
               // rules={{ required: isPublish === 'homework' }}
               render={({ field }) => <Datepicker field={field} />}
             />
@@ -198,7 +201,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
               name="endDate"
               control={method.control}
               rules={{ required: isPublish }}
-              defaultValue={moment(initialHomework?.endDate, 'DD.MM.YYYY').toDate()}
+              defaultValue={moment(initialHomework?.endDate ?? new Date(), 'DD.MM.YYYY').toDate()}
               render={({ field }) => <Datepicker field={field} />}
             />
             <div className="invalid-feedback">{method.formState.errors.endDate?.message}</div>
