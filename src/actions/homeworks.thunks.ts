@@ -2,9 +2,9 @@ import { Dispatch } from 'react';
 import { Homework, StudentHomework, Task } from '../models/responses/HomeworksResponse';
 import { baseWretch } from '../services/base-wretch.service';
 import {
-  addNewHomeworkWithTaskByTeacher,
-  addNewTaskByMethodist,
-  addNewTaskByTeacher,
+  addNewHomeworkWithTaskByTeacherUrl,
+  addNewTaskByMethodistUrl,
+  addNewTaskByTeacherUrl,
   courseById,
   coursesUrl,
   draftsByGroupId,
@@ -73,7 +73,7 @@ export const createNewHomework = (homeworkData: AddHomeworkFormData) => {
     dispatch(postHomeworkStarted());
 
     try {
-      await baseWretch().url(addNewHomeworkWithTaskByTeacher).post(homeworkData);
+      await baseWretch().url(addNewHomeworkWithTaskByTeacherUrl).post(homeworkData);
       dispatch(postHomeworkSuccess());
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
@@ -87,7 +87,7 @@ export const createNewTaskByTeacher = (homeworkData: AddHomeworkFormData, links:
 
     try {
       await baseWretch()
-        .url(addNewTaskByTeacher)
+        .url(addNewTaskByTeacherUrl)
         .post({
           name: homeworkData.name,
           description: homeworkData.description,
@@ -108,7 +108,7 @@ export const createNewTaskByMethodist = (homeworkData: AddHomeworkFormData, link
 
     try {
       await baseWretch()
-        .url(addNewTaskByMethodist)
+        .url(addNewTaskByMethodistUrl)
         .post({
           name: homeworkData.name,
           description: homeworkData.description,
