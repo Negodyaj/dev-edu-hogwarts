@@ -23,7 +23,7 @@ export const CurrentUserRoles = () => {
   return (
     <FilterList
       data={rolesInFilter}
-      selected={rolesInFilter.find((role) => currentRole === role.id)}
+      selected={currentRole}
       callback={setUserRole}
       cssAlign={Align.Left}
     />
