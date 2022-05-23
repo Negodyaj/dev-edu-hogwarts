@@ -33,7 +33,11 @@ export const StudentRow = (props: StudentProps) => {
         </span>
         <span>{studentsGroupRow.email}</span>
         <span>{studentsGroupRow.phoneNum}</span>
-        <FilterList data={groupSelectData} callback={onSelectGroup} />
+        <FilterList
+          data={groupSelectData}
+          callback={onSelectGroup}
+          selected={studentsGroupRow.groupId}
+        />
       </div>
     </div>
   );
