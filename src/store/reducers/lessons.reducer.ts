@@ -51,7 +51,7 @@ export const lessonsPageReducer: Reducer<LessonsPageState | undefined, LessonsPa
         const tabData: TabData = {
           id: group.id,
           text: group.course.name,
-          icon: getCourseIcon(group.course.name as CourseName),
+          icon: getCourseIcon(group.course.id as CourseName),
         };
         return tabData;
       });

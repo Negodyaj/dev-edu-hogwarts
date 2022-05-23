@@ -17,10 +17,12 @@ import { useEffect } from 'react';
 import { getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
+import { GroupsListPage } from './pages/GroupsListPage/GroupsListPage';
 import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { LoginPageState } from './store/reducers/login.reducer';
+import { StudentsListPage } from './pages/StudentsListPage/StudentsList';
 
 function App() {
   const dispatch = useDispatch();
@@ -57,9 +59,12 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegistrationPage />} />
           <Route path="new-homework" element={<NewHomework />} />
-          <Route path="group" element={<NewGroupPage />} />
+          <Route path="new-group" element={<NewGroupPage />} />
+          <Route path="groups/:id" element={<NewGroupPage />} />
           <Route path="homework-review" element={<HomeworkReviewPage />} />
+          <Route path="groups" element={<GroupsListPage />} />
           <Route path="payment-table" element={<PaymentsPage />} />
+          <Route path="students-list" element={<StudentsListPage />} />
         </Routes>
       </main>
     </div>
