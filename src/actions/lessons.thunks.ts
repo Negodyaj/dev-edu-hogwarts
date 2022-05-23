@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 import { LessonResponse } from '../models/responses/LessonResponse';
 import { baseWretch } from '../services/base-wretch.service';
-import { LessonsByGroupId } from '../shared/consts';
+import { lessonsByGroupId } from '../shared/consts';
 import { LessonsPageActions, loadLessonsStarted, loadLessonsSuccess } from './lessons.actions';
 
 export const loadLessons = (groupId: number) => {
@@ -9,7 +9,7 @@ export const loadLessons = (groupId: number) => {
     dispatch(loadLessonsStarted());
 
     baseWretch()
-      .url(LessonsByGroupId(groupId))
+      .url(lessonsByGroupId(groupId))
       .get()
       .json((data) => dispatch(loadLessonsSuccess(data as LessonResponse[])));
   };
