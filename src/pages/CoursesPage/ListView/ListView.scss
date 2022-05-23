@@ -1,14 +1,14 @@
 @import "./src/style/colors";
 
-.content-container {
-  &>a {
+.flex-column {
+  & > .link-with-text-decoration,
+  & > .link-arrow {
     margin-top: -20px;
     margin-bottom: 20px;
-
-    &.link-with-text-decoration {
+  }
+    .link-with-text-decoration {
       align-self: flex-end;
     }
-  }
 
   &.link-arrow {
     place-self: baseline;
@@ -50,7 +50,7 @@
   &.dragging {
     position: relative;
     
-    & input {
+    & .list-view-input {
       background: $light-gray;
     }
     
@@ -67,7 +67,7 @@
     }
   }
 
-  input {
+  .list-view-input {
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
@@ -75,6 +75,7 @@
     padding: 0;
     height: fit-content;
     width: 100%;
+    margin: 0;
 
     &:focus {
       outline: 0;
@@ -86,7 +87,7 @@
     place-self: center;
     position: relative;
 
-    input {
+    .list-view-input {
       text-align: center;
     }
   }

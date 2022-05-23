@@ -1,34 +1,37 @@
 import { Reducer } from 'redux';
 import {
-  HomeworkPageAction,
+  HomeworksPageAction,
   SELECT_TAB,
   LOAD_TABS,
-  LOAD_HOMEWORKS,
-  LOAD_HWANSWER,
+  EDIT_HOMEWORK_STATUS,
+  LOAD_HOMEWORKS_STARTED,
+  LOAD_HOMEWORKS_SUCCESS,
+  LOAD_HOMEWORKS_FAIL,
 } from '../../actions/homeworks.actions';
-import { HomeworkCardResponse } from '../../models/responses/HomeworkCardResponse';
-import { HomeworkStudentAnswer } from '../../models/responses/HomeworkStudentAnswer';
 import { TabData } from '../../models/TabData';
 import { Icon } from '../../shared/enums/Icon';
+import { Homework } from '../../models/responses/HomeworksResponse';
 
 export interface HomeWorkPageState {
   tabs?: TabData[];
   selectedTab: number;
-  homeworks?: HomeworkCardResponse[];
-  answers?: HomeworkStudentAnswer[];
+  homeworks?: Homework[];
+  isLoading: boolean;
+  errorMessage: string;
 }
 
 const initialState: HomeWorkPageState = {
   tabs: [],
   selectedTab: -1,
   homeworks: [],
-  answers: [],
+  isLoading: false,
+  errorMessage: '',
 };
 
-export const homeworkPageReducer: Reducer<
-  HomeWorkPageState,
-  HomeworkPageAction
-> = (state = initialState, action) => {
+export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageAction> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
     case SELECT_TAB: {
       return {
@@ -49,18 +52,37 @@ export const homeworkPageReducer: Reducer<
         ...state,
         tabs: tabs,
         selectedTab: tabs[0]?.id,
+        homeworks: [],
       };
     }
-    case LOAD_HOMEWORKS: {
+    case LOAD_HOMEWORKS_STARTED: {
+      return {
+        ...state,
+        isLoading: true,
+        errorMessage: '',
+      };
+    }
+    case LOAD_HOMEWORKS_SUCCESS: {
       return {
         ...state,
         homeworks: action.payload,
+        isLoading: false,
       };
     }
-    case LOAD_HWANSWER: {
+    case LOAD_HOMEWORKS_FAIL: {
       return {
         ...state,
-        answers: action.payload,
+        isLoading: false,
+        errorMessage: action.payload,
+      };
+    }
+    case EDIT_HOMEWORK_STATUS: {
+      return {
+        ...state,
+        homeworks: state.homeworks?.map((item) => {
+          if (item.id === action.payload.homework.id) item.status = action.payload.status;
+          return item;
+        }),
       };
     }
     default:

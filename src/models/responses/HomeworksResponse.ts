@@ -1,27 +1,38 @@
+import { UserSimpleResponse } from './UserResponse';
+
 export interface Homework {
   id: number;
   startDate: string;
   endDate: string;
-  task: {
-    id: number;
-    name: string;
-    description: string;
-    links: string;
-    isRequired: boolean;
-    isDeleted: boolean;
-  };
+  status: StudentHomeworkStatus;
+  number: number;
+  task: Task;
 }
 
-export interface HomeworkWithGroup extends Homework {
-  group: {
-    id: number;
-    name: string;
-    groupStatus: GroupStatus;
-    startDate: string;
-    isDeleted: boolean;
-  };
+export interface Task {
+  id: number;
+  name: string;
+  description: string;
+  links: string;
+  isRequired: boolean;
+  isDeleted: boolean;
 }
 
-enum GroupStatus {
-  Forming = 'Forming',
+export interface StudentHomework {
+  id: number;
+  answer: string;
+  status: StudentHomeworkStatus;
+  completedDate: string;
+  user: UserSimpleResponse;
+  isDeleted: boolean;
+  homework: Homework;
+}
+
+export enum StudentHomeworkStatus {
+  Undone = 'Undone',
+  ToCheck = 'ToCheck',
+  ToFix = 'ToFix',
+  ToVerifyFixes = 'ToVerifyFixes',
+  Done = 'Done',
+  DoneAfterDeadline = 'DoneAfterDeadline',
 }

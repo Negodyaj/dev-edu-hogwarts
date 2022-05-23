@@ -1,19 +1,16 @@
-import { HomeworkCardResponse } from '../models/responses/HomeworkCardResponse';
 import { GroupResponse } from '../models/responses/GroupResponse';
-import { HomeworkStudentAnswer } from '../models/responses/HomeworkStudentAnswer';
+import { Homework, StudentHomework } from '../models/responses/HomeworksResponse';
 export const LOAD_TABS = 'homeworks/LOAD_TABS' as const;
 export const SELECT_TAB = 'homeworks/SELECT_TAB' as const;
-export const LOAD_HWANSWER = 'homeworks/LOAD_HWANSWER' as const;
 export const LOAD_HOMEWORKS = 'homeworks/LOAD_HOMEWORKS' as const;
+export const LOAD_HOMEWORKS_STARTED = 'homeworks/LOAD_HOMEWORKS_STARTED' as const;
+export const LOAD_HOMEWORKS_SUCCESS = 'homeworks/LOAD_HOMEWORKS_SUCCESS' as const;
+export const LOAD_HOMEWORKS_FAIL = 'homeworks/LOAD_HOMEWORKS_FAIL' as const;
+export const EDIT_HOMEWORK_STATUS = 'homeworks/EDIT_HOMEWORK_STATUS' as const;
 
 export const loadHomeworkPageTabs = (groups: GroupResponse[]) => ({
   type: LOAD_TABS,
   payload: groups,
-});
-
-export const loadHomeworkAnswers = (answers: HomeworkStudentAnswer[]) => ({
-  type: LOAD_HWANSWER,
-  payload: answers,
 });
 
 export const selectTab = (id: number) => ({
@@ -21,13 +18,29 @@ export const selectTab = (id: number) => ({
   payload: id,
 });
 
-export const loadHomeworks = (homeworks: HomeworkCardResponse[]) => ({
-  type: LOAD_HOMEWORKS,
+export const loadHomeworksStarted = () => ({
+  type: LOAD_HOMEWORKS_STARTED,
+});
+
+export const loadHomeworksSuccess = (homeworks: Homework[]) => ({
+  type: LOAD_HOMEWORKS_SUCCESS,
   payload: homeworks,
 });
 
-export type HomeworkPageAction =
+export const loadHomeworksFail = (message: string) => ({
+  type: LOAD_HOMEWORKS_FAIL,
+  payload: message,
+});
+
+export const editHomeworkStatus = (homework: StudentHomework) => ({
+  type: EDIT_HOMEWORK_STATUS,
+  payload: homework,
+});
+
+export type HomeworksPageAction =
   | ReturnType<typeof loadHomeworkPageTabs>
   | ReturnType<typeof selectTab>
-  | ReturnType<typeof loadHomeworks>
-  | ReturnType<typeof loadHomeworkAnswers>;
+  | ReturnType<typeof loadHomeworksStarted>
+  | ReturnType<typeof loadHomeworksSuccess>
+  | ReturnType<typeof loadHomeworksFail>
+  | ReturnType<typeof editHomeworkStatus>;

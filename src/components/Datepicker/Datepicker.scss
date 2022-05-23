@@ -7,44 +7,17 @@ $border-radius: 7px;
   padding: 0;
 }
 
-.form-input {
-  max-width: 870px;
-  width: 100%;
-  display: block;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  min-height: 56px;
-  background: $white;
-  border: 1px solid $medium-gray;
-  outline-color: transparent;
-  border-radius: 5px;
-  padding: 14px 20px 15px 22px;
-  margin-top: 10px;
-  transition: outline-color .3s ease;
-
-  &::placeholder {
-    font-weight: 400;
-    color: $dark-gray;
-  }
-
-  &:focus {
-    outline: 1px solid $lavender-color;
-  }
-}
-
 .date-picker{
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
 
   & .form-control {
     @include border-padding-zero;
     font-family: inherit;
     outline: 0;
+    width: 100%;
     font-weight: 400;
     font-size: 18px;
-    line-height: 25px;
   }
 
   &.active-dp {
@@ -80,7 +53,7 @@ table {
   width: 100%;
   padding: 5px;
   margin-top: 1px;
-  z-index: 99 !important;
+  z-index: 10;
   background: $white;
   box-shadow: 4px 7px 15px $box-shadow-datepicker-color;
   border-radius: 15px;

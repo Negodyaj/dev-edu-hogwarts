@@ -13,10 +13,7 @@ export const EditCoursesPage = () => {
       return;
     }
 
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
 

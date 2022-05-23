@@ -2,13 +2,14 @@ import { useState } from 'react';
 import '../components/NotificationsCard.scss';
 import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
 export type NotificationData = {
-  id: number;
+  id?: number;
   sender: string;
   senderPhoto: string;
   senderRole: string;
   message: string;
   date: string;
   time: string;
+  readed: boolean;
 };
 export type NotificationsProps = {
   data: NotificationData;
@@ -26,10 +27,10 @@ export const NotificationsCard = (props: NotificationsProps) => {
           type="checkbox"
           onClick={handleClick}
           checked={isCollapsed}
-          className={`button-read${isCollapsed == true ? `-clicked` : ``}`}
-        ></input>
+          className={`button-read${isCollapsed ? `-clicked` : ``}`}
+        />
       </div>
-      <img src={props.data.senderPhoto}></img>
+      <img src={props.data.senderPhoto} alt="Аватар пользователя" />
       <div className="notification-card-content">
         <div className="top-flex-container">
           <div>

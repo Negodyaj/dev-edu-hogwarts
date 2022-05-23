@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import '../SettingsPage/SettingsPage.scss';
 import { useForm } from 'react-hook-form';
-import { BackButton } from '../../components/LinkArrow/BackButton';
+import { BackButton } from '../../components/BackButton/BackButton';
 
 export type FormPasswordData = {
   oldPassword: string;
@@ -54,43 +54,33 @@ export const SettingsPassword = () => {
       <BackButton />
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className="title">Редактирование пароля</p>
-        <div className="grid-container">
+        <div className="form-grid-container">
           <div>
             <p>Cтарый пароль</p>
             <input
               type="password"
               className={`form-control ${isOk ? 'is-invalid' : ''}`}
               {...register('oldPassword', {})}
-            ></input>
-            <div className="invalid-feedback">
-              {errors.oldPassword?.message}
-            </div>
+            />
+            <div className="invalid-feedback">{errors.oldPassword?.message}</div>
           </div>
           <div className="new-password">
             <p>Новый пароль</p>
             <input
               type="password"
               {...register('newPassword')}
-              className={`form-control ${
-                errors.newPassword ? 'is-invalid' : ''
-              }`}
-            ></input>
-            <div className="invalid-feedback">
-              {errors.newPassword?.message}
-            </div>
+              className={`form-control ${errors.newPassword ? 'is-invalid' : ''}`}
+            />
+            <div className="invalid-feedback">{errors.newPassword?.message}</div>
           </div>
           <div className="repeate-password">
             <p>Повторите новый пароль</p>
             <input
               type="password"
               {...register('newPasswordRepeat')}
-              className={`form-control ${
-                errors.newPasswordRepeat ? 'is-invalid' : ''
-              }`}
-            ></input>
-            <div className="invalid-feedback">
-              {errors.newPasswordRepeat?.message}
-            </div>
+              className={`form-control ${errors.newPasswordRepeat ? 'is-invalid' : ''}`}
+            />
+            <div className="invalid-feedback">{errors.newPasswordRepeat?.message}</div>
           </div>
         </div>
         <button type="submit" className="submit-button">

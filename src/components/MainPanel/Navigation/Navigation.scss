@@ -1,0 +1,19 @@
+@import "../../../style/_colors.scss";
+
+.main-nav-panel {
+  .auth-link {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    color: $black;
+    margin-bottom: 15px;
+  }
+
+  a.active-auth-link {
+    color: $lavender-color;
+  }
+
+  .flex-container {
+    flex-direction: column;
+  }
+}

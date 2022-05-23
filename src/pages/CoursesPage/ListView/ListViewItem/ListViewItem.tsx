@@ -33,37 +33,31 @@ export const ListViewItem = (props: ListViewItemProps) => {
       ref={props.dragSettings?.innerRef}
       {...props.dragSettings?.prop1}
     >
-      <span
-        className={`${
-          !props.head ? 'nums flex-container' : ''
-        } ${headItemStyleName}`}
-      >
+      <span className={`${!props.head ? 'nums flex-container' : ''} ${headItemStyleName}`}>
         {props.dragSettings?.isDragDisabled && !props.head && (
           <div className="draggable-pointer" {...props.dragSettings?.prop2}>
-            <span></span>
-            <span></span>
-            <span></span>
+            <span />
+            <span />
+            <span />
           </div>
         )}
         {props.head || !props.dragSettings?.isDragDisabled ? (
           lessonNumber
         ) : (
           <input
+            className="list-view-input"
             type="text"
             value={lessonNumber}
             onChange={(e) => setLessonNumber(e.currentTarget.value)}
           />
         )}
       </span>
-      <span
-        className={`${
-          props.head ? 'lesson-name-head' : 'lesson-name'
-        } ${headItemStyleName}`}
-      >
+      <span className={`${props.head ? 'lesson-name-head' : 'lesson-name'} ${headItemStyleName}`}>
         {props.head || !props.dragSettings?.isDragDisabled ? (
           lessonName
         ) : (
           <input
+            className="list-view-input"
             type="text"
             value={lessonName}
             onChange={(e) => setLessonName(e.currentTarget.value)}
@@ -75,6 +69,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
           hoursCount
         ) : (
           <input
+            className="list-view-input"
             type="text"
             value={hoursCount}
             onChange={(e) => setHoursCount(e.currentTarget.value)}

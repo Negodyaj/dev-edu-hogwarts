@@ -1,0 +1,27 @@
+@import "./src/style/colors";
+
+.payment-table {
+  border-spacing: 0 30px;  
+  thead {
+    th {
+      text-align: left;
+      border-bottom: 1px solid $medium-gray;
+      padding-bottom: 20px;
+      .drop-down-filter {
+        justify-content: left;
+        min-width: 100%;
+      }
+    }
+  }
+  .filter-thread {
+    th {
+      
+    }
+  }
+  .name-column {
+    width: 305px;
+  }
+ 
+}
+  
+

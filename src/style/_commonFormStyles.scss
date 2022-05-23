@@ -1,0 +1,74 @@
+@import './src/style/colors';
+
+.form-input {
+  width: 438px;
+  display: block;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  min-height: 56px;
+  background: $white;
+  border: 1px solid $medium-gray;
+  outline-color: transparent;
+  border-radius: 5px;
+  padding: 14px 20px 15px 22px;
+  margin-top: 10px;
+  transition: outline-color .3s ease;
+
+  &::placeholder {
+    font-weight: 400;
+    color: $dark-gray;
+  }
+
+  &:focus {
+    outline: 1px solid $lavender-color;
+  }
+}
+
+.homework-form .form-input {
+  width: 870px;
+}
+
+.login-page-form .form-input,
+.homework-form_dates .form-input {
+  width: 400px;
+}
+
+.form-element {
+  margin-top: 30px;
+  font-size: 18px;
+  font-weight: 500;
+
+  &:first-child {
+    margin-top: 50px;
+  }
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.form-grid-container {
+  column-gap: 20px;
+  display: grid;
+  grid-template-columns: 438px 438px;
+
+  & .form-element {
+    margin-top: 30px;
+  }
+}
+
+.buttons-group {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 70px 0;
+}
+
+.custom-password {
+  font-size: 30px;
+  color:gray;
+  letter-spacing: 5px;
+  padding-bottom: 0;
+  padding-top: 0;
+}

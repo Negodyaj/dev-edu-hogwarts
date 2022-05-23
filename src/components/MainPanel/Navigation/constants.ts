@@ -1,0 +1,16 @@
+export const homeworksLink = '/homeworks';
+export const coursesLink = '/courses';
+export const editCoursesLink = '/edit-courses';
+export const notificationsLink = '/';
+export const newHomeworkLink = '/new-homework';
+export const settingsLink = '/settings';
+export const lessonsLink = '/lessons';
+export const newLessonLink = '/new-lesson';
+export const checkHomeworkLink = '/check-homework';
+export const generalProgressLink = '/general-progress';
+export const journalLink = '/journal';
+export const groupsLink = '/groups';
+export const newGroupLink = '/new-group';
+export const studentListLink = '/students-list';
+export const paymentTableLink = '/payment-table';
+export const allUsersLink = '/all-users';

@@ -2,14 +2,9 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import './NewHomework.scss';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import Datepicker from '../../components/Datepicker/Datepicker';
-import {
-  Button,
-  ButtonModel,
-  ButtonType,
-} from '../../components/Button/Button';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { baseWretch } from '../../services/base-wretch.service';
 import { addNewTaskUrl, getHomeworksByGroupId } from '../../shared/consts';
-import moment from 'moment';
 import { SvgIcon } from '../../components/SvgIcon/SvgIcon';
 import { Icon } from '../../shared/enums/Icon';
 import { useEffect, useMemo, useRef } from 'react';
@@ -23,6 +18,7 @@ import {
 } from '../../actions/newHomeworkForm.action';
 import { AddedLink } from './components/AddedLink';
 import { Homework } from '../../models/responses/HomeworksResponse';
+import { convertDate } from '../../shared/helpers/dateHelpers';
 
 export type AddTaskFormData = {
   name: string;
@@ -38,33 +34,20 @@ export const NewHomework = () => {
   const method = useForm<AddTaskFormData>();
   const dispatch = useDispatch();
 
-  const {
-    links,
-    inputLinkValue,
-    group,
-    selectedGroupTaskCount,
-    selectGroupId,
-  } = useSelector((state: AppState) => state.newHomeworkFormState);
+  const { links, inputLinkValue, group, selectedGroupTaskCount, selectGroupId } = useSelector(
+    (state: AppState) => state.newHomeworkFormState
+  );
   const refLinkName = useRef<any>({});
 
   const memoizeMapLinks = useMemo(() => {
     return links.map((item, index) => {
-      console.log('render links');
       return <AddedLink key={index} itemNumber={index} source={item} />;
     });
   }, [links]);
 
   const addLinkInForm = () => {
-    if (
-      inputLinkValue &&
-      /^[a-z]+:\/\//i.test(inputLinkValue) &&
-      !links.includes(inputLinkValue)
-    )
+    if (inputLinkValue && /^[a-z]+:\/\//i.test(inputLinkValue) && !links.includes(inputLinkValue))
       dispatch(addLink(refLinkName.current.value));
-  };
-
-  const convertDate = (date: string) => {
-    return moment(new Date(date)).format('DD.MM.YYYY').toString();
   };
 
   const onSubmit = (data: AddTaskFormData) => {
@@ -85,8 +68,6 @@ export const NewHomework = () => {
     console.log(groupId);
     dispatch(selectGroup(groupId));
   };
-  // const saveDraft = () => {
-  // };
 
   useEffect(() => {
     const groupId = method.getValues('groupId');
@@ -100,18 +81,15 @@ export const NewHomework = () => {
 
   return (
     <FormProvider {...method}>
-      <form
-        className="form-container homework-form"
-        onSubmit={method.handleSubmit(onSubmit)}
-      >
-        <span className="homework-form_title">Новое задание</span>
+      <form className="form-container homework-form" onSubmit={method.handleSubmit(onSubmit)}>
+        <h2 className="homework-form_title">Новое задание</h2>
 
-        <div className="homework-form_area">
+        <div className="form-element">
           Номер группы:
           <RadioGroup radioData={group} name="groupId" callback={getGroupId} />
         </div>
 
-        <div className="homework-form_area">
+        <div className="form-element">
           Номер задания:
           {/*
               По-хорошему, обещали на бэке номера таскам выдавать,
@@ -122,7 +100,7 @@ export const NewHomework = () => {
           </span>
         </div>
 
-        <div className="homework-form_dates">
+        <div className="homework-form_dates form-grid-container">
           <div>
             Дата выдачи задания
             <Controller
@@ -143,7 +121,7 @@ export const NewHomework = () => {
           </div>
         </div>
 
-        <div className="homework-form_area">
+        <div className="form-element">
           Название задания
           <input
             className="form-input"
@@ -153,7 +131,7 @@ export const NewHomework = () => {
           />
         </div>
 
-        <div className="homework-form_area">
+        <div className="form-element">
           Описание задания
           <textarea
             className="form-input"
@@ -162,16 +140,15 @@ export const NewHomework = () => {
           />
         </div>
 
-        <div className="homework-form_area">
+        <div className="form-element">
           Полезные ссылки
           {links.length > 0 && memoizeMapLinks}
           <div className="form-input_link__container">
             <textarea
-              className="form-input form-input_link"
+              className="form-input_link form-input"
               ref={refLinkName}
               value={inputLinkValue}
               onChange={(event) => {
-                console.log('render input');
                 dispatch(setValueInInput(event.target.value));
               }}
               placeholder="Вставьте ссылку"
@@ -183,22 +160,13 @@ export const NewHomework = () => {
         </div>
 
         <div className="buttons-group">
-          <Button
-            text="Опубликовать"
-            type={ButtonType.submit}
-            model={ButtonModel.Colored}
-          />
+          <Button text="Опубликовать" model={ButtonModel.Colored} type={ButtonType.submit} />
           <Button
             text="Сохранить как черновик"
-            type={ButtonType.submit}
             model={ButtonModel.White}
+            type={ButtonType.submit}
           />
-          <Button
-            text="Отмена"
-            type={ButtonType.reset}
-            model={ButtonModel.Text}
-            url={'/'}
-          />
+          <Button text="Отмена" type={ButtonType.reset} model={ButtonModel.Text} url={'/'} />
         </div>
       </form>
     </FormProvider>

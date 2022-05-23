@@ -1,0 +1,82 @@
+@import './src/style/colors';
+
+.groups-header {
+  margin-bottom: 8px;
+  display: flex;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+  
+  button:first-child {
+    margin-left: 0;
+
+    svg {
+      position: relative;
+      left: -1px;
+    }
+  }
+  
+  button ~ button {
+    margin-right: 0;
+
+    svg {
+      position: relative;
+      right: -1px;
+    }
+  }
+}
+
+.groups-page{
+
+  .content-container {
+    padding-top: 30px;
+  
+    .groups-link {
+      text-align: right;
+      padding-bottom: 20px;
+    }
+
+    .groups-list {
+      padding-top:20px;
+      display: grid;
+      grid-template-columns: 305px auto;
+      border-top: 1px solid $medium-gray;
+      
+      h2 {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 23px;
+        padding-bottom: 20px;
+      }
+    }
+
+    .names-list {
+      font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        span {
+          display: block;
+          padding-bottom: 20px;
+        }
+    }
+  
+    .student-list {
+      padding:30px 0;
+      display: grid;
+      grid-template-columns: auto 267px;
+      border-top: 1px solid $medium-gray;
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      span {
+        padding-top: 30px;
+        display: block;
+      }
+    }
+  }
+}

@@ -7,7 +7,14 @@ export type FilterListProps = {
   data: FilterItem[];
   cssClass?: string;
   callback?: (item: any) => void;
+  cssAlign?: Align;
+  // cssAlignForWrapper?: Justify
 };
+
+export enum Align {
+  Center = 'center',
+  Left = 'left',
+}
 
 export type FilterItem = {
   id: number;
@@ -28,14 +35,14 @@ export const FilterList = (props: FilterListProps) => {
   const clickOutside = useDetectClickOutside({ onTriggered: closeDropdown });
 
   const onElementClick = (elem: FilterItem) => {
-    setItem?.(elem);
+    setItem(elem);
     props.callback?.(elem);
   };
 
   return (
     <div className="drop-down-filter__wrapper" ref={clickOutside}>
       <div
-        className={`drop-down-filter ${props.cssClass ?? ''}`}
+        className={`drop-down-filter ${props.cssClass ?? ''} ${props.cssAlign ?? 'right'}`}
         onKeyPress={() => toggle()}
         onClick={() => toggle()}
         data-lesson-id={item?.id}
@@ -46,18 +53,12 @@ export const FilterList = (props: FilterListProps) => {
       </div>
 
       {isOpen && (
-        <div className="drop-down-filter__list-wrapper">
-          <ul
-            className={`drop-down-filter__list ${
-              filterData.length > 4 ? 'overflow' : ''
-            }`}
-          >
+        <div className={`drop-down-filter__list-wrapper ${props.cssAlign ?? 'right'}`}>
+          <ul className={`drop-down-filter__list ${filterData.length > 4 ? 'overflow' : ''}`}>
             {filterData.map((elem) => (
               <li
                 key={elem.id}
-                className={`drop-down-filter__element ${
-                  elem.id === item?.id ? 'selected' : ''
-                }`}
+                className={`drop-down-filter__element ${elem.id === item?.id ? 'selected' : ''}`}
                 onClick={() => onElementClick(elem)}
               >
                 {elem.name}

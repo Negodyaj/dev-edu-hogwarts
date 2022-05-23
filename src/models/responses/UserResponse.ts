@@ -1,4 +1,5 @@
 import { GroupResponse } from './GroupResponse';
+import { UserRole } from '../../shared/enums/UserRole';
 
 export interface UserResponse {
   id: number;
@@ -6,7 +7,7 @@ export interface UserResponse {
   lastName: string;
   email: string;
   photo: string;
-  roles: string[];
+  roles: UserRole[];
   patronymic: string;
   username: string;
   registrationDate: string;
@@ -16,4 +17,12 @@ export interface UserResponse {
   gitHubAccount: string;
   city: 1;
   groups: GroupResponse[];
+}
+
+export interface UserSimpleResponse {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  photo: string;
 }

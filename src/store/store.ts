@@ -5,28 +5,23 @@ createStore: Creates a Redux store that holds the state tree
 Store: The TS Type used for the store, or state tree
 */
 import { applyMiddleware, combineReducers, createStore, Store } from 'redux';
+import { composeWithDevTools } from '@redux-devtools/extension';
 /*  Thunk
 Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is met. The inner function receives the store methods dispatch and getState as parameters.
 */
 import thunk from 'redux-thunk';
-import {
-  lessonsPageReducer,
-  LessonsPageState,
-} from './reducers/lessons.reducer';
+import { lessonsPageReducer, LessonsPageState } from './reducers/lessons.reducer';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
-import {
-  homeworkPageReducer,
-  HomeWorkPageState,
-} from './reducers/homeworks.reducer';
+import { homeworksPageReducer, HomeWorkPageState } from './reducers/homeworks.reducer';
+
 // Import reducers and state type
-import {
-  newHomeworkFormReducer,
-  NewHomeworkFormState,
-} from './reducers/newHomeworkForm.reducer';
-import {
-  NotificationsPageState,
-  notificationsPageReducer,
-} from './reducers/notifications.reducer';
+import { homeworkPageReducer, HomeworkPageState } from './reducers/homework.reducer';
+import { newHomeworkFormReducer, NewHomeworkFormState } from './reducers/newHomeworkForm.reducer';
+import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
+import { groupsPageReducer, GroupsPageState } from './reducers/groups.reducer';
+import { mainPanelReducer, MainPanelState } from './reducers/mainPanel.reducer';
+import { NewGroupFormReducer, NewGroupFormState } from './reducers/NewGroupForm.reducer';
+import { settingsPageReducer, SettingsPageState } from './reducers/settings.reducer';
 
 // Create an interface for the application state
 export interface AppState {
@@ -35,18 +30,28 @@ export interface AppState {
   notificationsPageState: NotificationsPageState | undefined;
   loginPageState: LoginPageState | undefined;
   lessonsPageState: LessonsPageState | undefined;
+  homeworkPageState: HomeworkPageState;
+  mainPanelState: MainPanelState | undefined;
+  groupsPageState: GroupsPageState;
+  newGroupFormState: NewGroupFormState;
+  settingsPageState: SettingsPageState | undefined;
 }
 
 // Create the root reducer
 const rootReducer = combineReducers<AppState>({
   notificationsPageState: notificationsPageReducer,
   loginPageState: loginPageReducer,
-  homeworksPageState: homeworkPageReducer,
+  homeworkPageState: homeworkPageReducer,
+  homeworksPageState: homeworksPageReducer,
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
+  mainPanelState: mainPanelReducer,
+  settingsPageState: settingsPageReducer,
+  newGroupFormState: NewGroupFormReducer,
+  groupsPageState: groupsPageReducer,
 });
 
 // Create a configure store function of type `AppState`
 export default function configureStore(): Store<AppState, any> {
-  return createStore(rootReducer, undefined, applyMiddleware(thunk));
+  return createStore(rootReducer, undefined, composeWithDevTools(applyMiddleware(thunk)));
 }

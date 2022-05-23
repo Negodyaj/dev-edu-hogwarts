@@ -7,7 +7,7 @@
   display: flex;
   transition: width 0.5s ease-in-out, opacity 0.3s ease-in-out;
   width: 262px;
-  
+
   & svg {
     flex-shrink: 0;
   }
@@ -29,7 +29,7 @@
   path {
     stroke: white;
   }
-  .with-color-on-hover{
+  .with-color-on-hover {
     fill: white;
   }
 }
@@ -38,3 +38,21 @@
   margin-top: 23px;
 }
 
+.subbutton:not(.collapsed-mode),
+.subbutton:not(.collapsed-mode).active,
+.subbutton:not(.collapsed-mode):hover {
+  path {
+    stroke: transparent;
+    fill: transparent;
+  }
+}
+
+.nav-link.subbutton {
+  margin-top: 0;
+}
+
+@media (max-height: 880px) {
+  .nav-link + .nav-link:not(.subbutton) {
+    margin-top: 11px;
+  }
+}
