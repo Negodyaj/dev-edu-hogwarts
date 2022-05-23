@@ -55,14 +55,14 @@ export const Button = (props: ButtonProps) => {
   }
 
   return props.url ? (
-    <a href={props.url} className={`btn ${buttonClass}`}>
+    <a href={props.url} className={`btn ${buttonClass} flex-container`}>
       {props.text}
       {buttonImg}
       {props.direction ? <SvgArrow direction={`${props.direction}`} /> : ''}
     </a>
   ) : (
     <button
-      className={`btn ${buttonClass}`}
+      className={`btn ${buttonClass} flex-container`}
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}

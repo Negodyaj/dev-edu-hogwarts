@@ -136,9 +136,6 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
   };
 
   useEffect(() => {
-    if (!initialHomework && !initialTask) {
-      navigate('/new-homework');
-    }
     if (initialTask?.links) {
       const linksInResp = initialTask?.links.split(' [link] ');
       linksInResp.forEach((link) => dispatch(addLink(link)));
@@ -290,7 +287,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             text="Отмена"
             type={ButtonType.reset}
             model={ButtonModel.Text}
-            onClick={() => navigate('/homeworks')}
+            onClick={() => navigate(-1)}
           />
           {location.pathname.includes('edit') && (
             <Button
