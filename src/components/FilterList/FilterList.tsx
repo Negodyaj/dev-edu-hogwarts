@@ -6,9 +6,9 @@ import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
 export type FilterListProps = {
   data: FilterItem[];
   cssClass?: string;
+  selected?: number;
   callback?: (item: any) => void;
   cssAlign?: Align;
-  // cssAlignForWrapper?: Justify
 };
 
 export enum Align {
@@ -23,8 +23,9 @@ export type FilterItem = {
 
 export const FilterList = (props: FilterListProps) => {
   const filterData = props.data;
+  const selectedItem = props.selected ? filterData.find((x) => x.id === props.selected) : undefined;
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [item, setItem] = useState<FilterItem>(filterData[0]);
+  const [item, setItem] = useState<FilterItem>(selectedItem ?? filterData[0]);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -42,14 +43,14 @@ export const FilterList = (props: FilterListProps) => {
   return (
     <div className="drop-down-filter__wrapper" ref={clickOutside}>
       <div
-        className={`drop-down-filter ${props.cssClass ?? ''} ${props.cssAlign ?? 'right'}`}
+        className={`drop-down-filter ${props.cssClass ?? ''} ${props.cssAlign ?? ''}`}
         onKeyPress={() => toggle()}
         onClick={() => toggle()}
         data-lesson-id={item?.id}
       >
         {item?.name}
 
-        <SvgArrow direction="bottom" />
+        <SvgArrow direction={isOpen ? 'top' : 'bottom'} />
       </div>
 
       {isOpen && (

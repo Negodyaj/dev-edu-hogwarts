@@ -8,7 +8,13 @@ import { getUserRoleLocalName } from '../../../shared/helpers/translations';
 
 export const CurrentUserRoles = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const { currentUser, currentRole } = useSelector(
+    (state: AppState) => state.loginPageState as LoginPageState
+  );
+  const rolesInFilter = currentUser!.roles.map((role) => ({
+    id: role,
+    name: getUserRoleLocalName(role),
+  }));
 
   const setUserRole = (item: FilterItem) => {
     dispatch(setCurrentUserRole(item.id as UserRole));
@@ -16,13 +22,8 @@ export const CurrentUserRoles = () => {
 
   return (
     <FilterList
-      data={currentUser!.roles.map((role) => {
-        const newRole: FilterItem = {
-          id: role,
-          name: getUserRoleLocalName(role),
-        };
-        return newRole;
-      })}
+      data={rolesInFilter}
+      selected={currentRole}
       callback={setUserRole}
       cssAlign={Align.Left}
     />
