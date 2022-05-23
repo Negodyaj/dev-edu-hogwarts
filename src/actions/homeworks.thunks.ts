@@ -1,9 +1,19 @@
 import { Dispatch } from 'react';
-import { Homework, StudentHomework } from '../models/responses/HomeworksResponse';
+import { Homework, StudentHomework, Task } from '../models/responses/HomeworksResponse';
 import { baseWretch } from '../services/base-wretch.service';
-import { getHomeworkById, getHomeworksByGroupId, getStudentAnswerByTaskId } from '../shared/consts';
+import {
+  addNewHomeworkWithTaskByTeacher,
+  addNewTaskByTeacher,
+  draftsByGroupId,
+  getHomeworkById,
+  getHomeworksByGroupId,
+  getStudentAnswerByTaskId,
+  taskById,
+} from '../shared/consts';
 import {
   HomeworksPageAction,
+  loadDraftHomeworksSuccess,
+  loadHomeworksFail,
   loadHomeworksStarted,
   loadHomeworksSuccess,
 } from './homeworks.actions';
@@ -14,6 +24,13 @@ import {
   loadHomeworkSuccess,
   loadStudentHomework,
 } from './homework.actions';
+import { AddHomeworkFormData } from '../pages/NewHomework/NewHomework';
+import {
+  getTask,
+  NewHomeworkFormAction,
+  postHomeworkFail,
+  postHomeworkSuccess,
+} from './newHomeworkForm.action';
 
 export const loadHomeworks = (groupId: number) => {
   return async (dispatch: Dispatch<HomeworksPageAction>) => {
@@ -39,6 +56,60 @@ export const loadHomework = (homeworkId: number) => {
       dispatch(loadStudentHomework(studentHomework));
     } catch (error: any) {
       dispatch(loadHomeworkFail(error.message));
+    }
+  };
+};
+
+export const createNewHomework = (homeworkData: AddHomeworkFormData) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+    try {
+      await baseWretch().url(addNewHomeworkWithTaskByTeacher).post(homeworkData);
+      dispatch(postHomeworkSuccess());
+    } catch (e: any) {
+      dispatch(postHomeworkFail(e.message));
+    }
+  };
+};
+
+export const createNewTaskByTeacher = (homeworkData: AddHomeworkFormData, links: string[]) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+    try {
+      await baseWretch()
+        .url(addNewTaskByTeacher)
+        .post({
+          name: homeworkData.name,
+          description: homeworkData.description,
+          groupId: homeworkData.groupId,
+          links: links.join(' [link] '),
+          isRequired: true,
+        });
+      dispatch(postHomeworkSuccess());
+    } catch (e: any) {
+      dispatch(postHomeworkFail(e.message));
+    }
+  };
+};
+
+export const loadDraftsByGroupId = (groupId: number) => {
+  return async (dispatch: Dispatch<HomeworksPageAction>) => {
+    dispatch(loadHomeworksStarted());
+
+    try {
+      const drafts = await baseWretch().url(draftsByGroupId(groupId)).get().json<Task[]>();
+      dispatch(loadDraftHomeworksSuccess(drafts));
+    } catch (e: any) {
+      dispatch(loadHomeworksFail(e.message));
+    }
+  };
+};
+
+export const getTaskById = (taskId: number) => {
+  return async (dispatch: Dispatch<any>) => {
+    try {
+      const task = await baseWretch().url(taskById(taskId)).get().json<Task>();
+      dispatch(getTask(task));
+    } catch (e: any) {
+      dispatch(postHomeworkFail(e.message));
     }
   };
 };

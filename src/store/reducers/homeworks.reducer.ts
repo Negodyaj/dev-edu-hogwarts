@@ -70,6 +70,7 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageActio
         ...state,
         homeworks: action.payload,
         isLoading: false,
+        errorMessage: '',
       };
     }
     case LOAD_DRAFT_HOMEWORKS_SUCCESS: {
@@ -77,6 +78,7 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageActio
         ...state,
         draftHomeworks: action.payload,
         isLoading: false,
+        errorMessage: '',
       };
     }
     case LOAD_HOMEWORKS_FAIL: {

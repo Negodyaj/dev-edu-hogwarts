@@ -18,7 +18,6 @@ a {
     background: $lavender-color;
     color: $white;
     border: 0;
-    display: inline-flex;
     column-gap: 4px;
 
     &.unavailable,
@@ -27,8 +26,8 @@ a {
         cursor: auto;
     }
 
-    &:hover,
-    &:active {
+    &:hover:not(&:disabled),
+    &:active:not(&:disabled) {
         background: $lavender-button-hover;
     }
 }
@@ -45,8 +44,8 @@ a {
         cursor: auto;
     }
 
-    &:hover,
-    &:active {
+    &:hover:not(&:disabled),
+    &:active:not(&:disabled) {
         background: $lavender-color;
     }
 

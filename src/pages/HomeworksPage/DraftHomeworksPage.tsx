@@ -1,12 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
-import { loadDraftHomeworksSuccess, selectTab } from '../../actions/homeworks.actions';
+import { selectTab } from '../../actions/homeworks.actions';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
-import { baseWretch } from '../../services/base-wretch.service';
-import { Task } from '../../models/responses/HomeworksResponse';
 import { HomeworkDraft } from './components/HomeworkDraft';
 import { BackButton } from '../../components/BackButton/BackButton';
+import { loadDraftsByGroupId } from '../../actions/homeworks.thunks';
 
 export const DraftHomeworksPage = () => {
   const dispatch = useDispatch();
@@ -16,10 +15,9 @@ export const DraftHomeworksPage = () => {
   const ref = useRef(selectedTab);
 
   useEffect(() => {
-    baseWretch()
-      .url(`api/Tasks/by-group/${selectedTab}`)
-      .get()
-      .json((value) => dispatch(loadDraftHomeworksSuccess(value as Task[])));
+    if (selectedTab > 0) {
+      dispatch(loadDraftsByGroupId(selectedTab));
+    }
   }, [selectedTab]);
 
   return (

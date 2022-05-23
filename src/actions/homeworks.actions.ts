@@ -2,7 +2,6 @@ import { GroupResponse } from '../models/responses/GroupResponse';
 import { Homework, StudentHomework, Task } from '../models/responses/HomeworksResponse';
 export const LOAD_TABS = 'homeworks/LOAD_TABS' as const;
 export const SELECT_TAB = 'homeworks/SELECT_TAB' as const;
-export const LOAD_HOMEWORKS = 'homeworks/LOAD_HOMEWORKS' as const;
 export const LOAD_HOMEWORKS_STARTED = 'homeworks/LOAD_HOMEWORKS_STARTED' as const;
 export const LOAD_HOMEWORKS_SUCCESS = 'homeworks/LOAD_HOMEWORKS_SUCCESS' as const;
 export const LOAD_DRAFT_HOMEWORKS_SUCCESS = 'homeworks/LOAD_DRAFT_HOMEWORKS_SUCCESS' as const;

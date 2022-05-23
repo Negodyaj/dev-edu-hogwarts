@@ -4,12 +4,7 @@ import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { baseWretch } from '../../services/base-wretch.service';
-import {
-  addNewHomeworkWithTaskByTeacher,
-  addNewTaskByTeacher,
-  getHomeworksByGroupId,
-} from '../../shared/consts';
-import { SvgIcon } from '../../components/SvgIcon/SvgIcon';
+import { getHomeworksByGroupId } from '../../shared/consts';
 import { Icon } from '../../shared/enums/Icon';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,26 +12,35 @@ import { AppState } from '../../store/store';
 import {
   addLink,
   getTasksCount,
+  removeLinks,
   selectGroup,
   setValueInInput,
 } from '../../actions/newHomeworkForm.action';
 import { AddedLink } from './components/AddedLink';
-import { Homework } from '../../models/responses/HomeworksResponse';
+import { Homework, Task } from '../../models/responses/HomeworksResponse';
 import { convertDate } from '../../shared/helpers/dateHelpers';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
+import { createNewHomework, createNewTaskByTeacher } from '../../actions/homeworks.thunks';
 
 export type AddHomeworkFormData = {
   name: string;
   description: string;
   startDate: string | Date;
   endDate: string | Date;
+  links: string;
   groupId: number;
 };
 
-export const NewHomework = () => {
+type HomeworkFormProps = {
+  initialTask?: Task;
+  initialHomework?: Homework;
+  selectedGroup?: number;
+};
+
+export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: HomeworkFormProps) => {
   const [isPublish, setIsPublish] = useState(true);
   const validationSchema = yup.object().shape({
     name: yup.string().required('Введите название'),
@@ -48,14 +52,14 @@ export const NewHomework = () => {
         .required('Выберите дату окончания')
         .test(
           'check-date',
-          'Выберите дату окончания',
+          'Выбрана некорректная дата',
           (date) =>
-            moment().format('DD.MM.YYYY').toString() !==
+            moment().format('DD.MM.YYYY').toString() <=
             convertDate(date ? date : new Date().toString())
         ),
       otherwise: yup.string().notRequired(),
     }),
-    groupId: yup.mixed().required('Выберите группу'),
+    groupId: yup.mixed().required('Не выбрана ни одна группа'),
   });
 
   const method = useForm<AddHomeworkFormData>({
@@ -65,10 +69,10 @@ export const NewHomework = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { links, inputLinkValue, group, selectedGroupTaskCount, selectGroupId } = useSelector(
-    (state: AppState) => state.newHomeworkFormState
-  );
+  const { links, inputLinkValue, group, selectedGroupTaskCount, selectGroupId, errorMessage } =
+    useSelector((state: AppState) => state.newHomeworkFormState);
   const refLinkName = useRef<any>({});
+  const [linkValue, setLinkValue] = useState<string | undefined>(undefined);
 
   const memoizeMapLinks = useMemo(() => {
     return links.map((item, index) => {
@@ -76,9 +80,18 @@ export const NewHomework = () => {
     });
   }, [links]);
 
-  const addLinkInForm = () => {
-    if (inputLinkValue && /^[a-z]+:\/\//i.test(inputLinkValue) && !links.includes(inputLinkValue))
-      dispatch(addLink(refLinkName.current.value));
+  const addLinkInForm = (value?: string) => {
+    if (
+      (inputLinkValue &&
+        /^[a-z]+:\/\//i.test(value ?? inputLinkValue) &&
+        !links.includes(value ?? inputLinkValue)) ||
+      inputLinkValue.length === 0 ||
+      value === ''
+    ) {
+      setLinkValue(undefined);
+    } else {
+      setLinkValue('Введите корректную ссылку');
+    }
   };
 
   const onSubmit = (data: AddHomeworkFormData) => {
@@ -91,33 +104,45 @@ export const NewHomework = () => {
         : moment().format('DD.MM.YYYY'),
       endDate: convertDate(data.endDate.toString()),
     };
-
+    debugger;
     if (isPublish) {
-      baseWretch().url(addNewHomeworkWithTaskByTeacher).post(formData);
+      if (!linkValue) {
+        createNewHomework(formData);
+      }
     } else {
-      baseWretch()
-        .url(addNewTaskByTeacher)
-        .post({
-          name: formData.name,
-          description: formData.description,
-          groupId: formData.groupId,
-          links: links.join(' [link] '),
-          isRequired: true,
-        });
+      createNewTaskByTeacher(formData, links);
     }
 
-    links.length = 0;
-    method.reset({
-      name: '',
-      description: '',
-      startDate: new Date(),
-      endDate: new Date(),
-    });
+    if (!errorMessage) {
+      links.length = 0;
+      method.reset({
+        name: '',
+        description: '',
+        startDate: new Date(),
+        endDate: new Date(),
+      });
+    }
   };
 
   const getGroupId = (groupId: number) => {
     dispatch(selectGroup(groupId));
   };
+
+  useEffect(() => {
+    if (initialTask?.links) {
+      const linksInResp = initialTask?.links.split(' [link] ');
+      linksInResp.forEach((link) => dispatch(addLink(link)));
+    } else if (initialHomework?.task.links) {
+      const linksInResp = initialHomework?.task.links.split(' [link] ');
+      linksInResp.forEach((link) => dispatch(addLink(link)));
+    }
+    return () => {
+      method.reset();
+      dispatch(removeLinks());
+      dispatch(setValueInInput(''));
+      dispatch(getTasksCount([]));
+    };
+  }, []);
 
   useEffect(() => {
     const groupId = method.getValues('groupId');
@@ -136,7 +161,12 @@ export const NewHomework = () => {
 
         <div className="form-element">
           Номер группы:
-          <RadioGroup radioData={group} name="groupId" callback={getGroupId} />
+          <RadioGroup
+            radioData={group}
+            name="groupId"
+            callback={getGroupId}
+            selected={group.find((item) => item.value === selectedGroup)}
+          />
         </div>
         <span className="invalid-feedback">{method.formState.errors.groupId?.message}</span>
 
@@ -147,7 +177,7 @@ export const NewHomework = () => {
               для визуализации оставляю так до ревью :^)
            */}
           <span className="homework-form_task">
-            {selectedGroupTaskCount === 0 ? '' : selectedGroupTaskCount}
+            {selectedGroupTaskCount === 0 ? '1' : selectedGroupTaskCount}
           </span>
         </div>
 
@@ -157,6 +187,7 @@ export const NewHomework = () => {
             <Controller
               name="startDate"
               control={method.control}
+              defaultValue={moment(initialHomework?.startDate, 'DD.MM.YYYY').toDate()}
               // rules={{ required: isPublish === 'homework' }}
               render={({ field }) => <Datepicker field={field} />}
             />
@@ -167,51 +198,69 @@ export const NewHomework = () => {
               name="endDate"
               control={method.control}
               rules={{ required: isPublish }}
+              defaultValue={moment(initialHomework?.endDate, 'DD.MM.YYYY').toDate()}
               render={({ field }) => <Datepicker field={field} />}
             />
+            <div className="invalid-feedback">{method.formState.errors.endDate?.message}</div>
           </div>
-          <span className="invalid-feedback">{method.formState.errors.endDate?.message}</span>
         </div>
 
         <div className="form-element">
           Название задания
           <input
-            className={`form-input${method.formState.errors.name ? ' invalid' : ''}`}
+            className={`form-input${method.formState.errors.name ? ' invalid-input' : ''}`}
             type="text"
             placeholder="Введите название"
+            defaultValue={initialTask?.name ?? initialHomework?.task.name ?? ''}
             {...method.register('name', { required: true })}
           />
         </div>
-        <span className="invalid-feedback">{method.formState.errors.name?.message}</span>
+        <div className="invalid-feedback">{method.formState.errors.name?.message}</div>
 
         <div className="form-element">
           Описание задания
           <textarea
-            className={`form-input${method.formState.errors.description ? ' invalid' : ''}`}
+            className={`form-input${method.formState.errors.description ? ' invalid-input' : ''}`}
             placeholder="Введите текст"
+            defaultValue={initialTask?.description ?? initialHomework?.task.description ?? ''}
             {...method.register('description', { required: true })}
           />
         </div>
-        <span className="invalid-feedback">{method.formState.errors.description?.message}</span>
+        <div className="invalid-feedback">{method.formState.errors.description?.message}</div>
 
         <div className="form-element">
           Полезные ссылки
           {links.length > 0 && memoizeMapLinks}
           <div className="form-input_link__container">
             <textarea
-              className="form-input_link form-input"
+              className={`form-input_link form-input${linkValue ? ' invalid-input' : ''}`}
               ref={refLinkName}
               value={inputLinkValue}
-              onChange={(event) => {
-                dispatch(setValueInInput(event.target.value));
+              onInput={(event) => {
+                const value = (event.target as HTMLTextAreaElement).value;
+                dispatch(setValueInInput(value));
+                addLinkInForm(value);
+              }}
+              onPaste={(event) => {
+                const value = event.clipboardData.getData('Text');
+                dispatch(setValueInInput(value));
+                addLinkInForm(value);
               }}
               placeholder="Вставьте ссылку"
             />
-            <div onClick={addLinkInForm} className="form-input_link__button">
-              <SvgIcon icon={Icon.Plus} />
-            </div>
+            <Button
+              icon={Icon.Plus}
+              type={ButtonType.button}
+              onClick={() => {
+                if (inputLinkValue?.length > 0 && !linkValue) {
+                  dispatch(addLink(refLinkName.current.value));
+                }
+              }}
+              model={ButtonModel.EllipseColored}
+            />
           </div>
         </div>
+        {linkValue && <div className="invalid-feedback">{linkValue}</div>}
 
         <div className="buttons-group">
           <Button
@@ -230,8 +279,16 @@ export const NewHomework = () => {
             text="Отмена"
             type={ButtonType.reset}
             model={ButtonModel.Text}
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/homeworks')}
           />
+          {location.pathname.includes('edit') && (
+            <Button
+              text="Удалить занятие"
+              type={ButtonType.button}
+              model={ButtonModel.Text}
+              width="250"
+            />
+          )}
         </div>
       </form>
     </FormProvider>

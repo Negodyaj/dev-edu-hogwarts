@@ -5,6 +5,7 @@ export type RadioProps = {
   data: RadioData;
   nameOfRadioGroup: string;
   callback?: (value: number) => void;
+  selected?: boolean;
 };
 
 export type RadioData = {
@@ -25,6 +26,7 @@ export const RadioButton = (props: RadioProps) => {
         type="radio"
         value={props.data.value}
         onClick={() => onRadioClick(props.data.value)}
+        defaultChecked={props.selected}
         {...register(`${props.nameOfRadioGroup}`)}
       />
       <span className="radio-text">{props.data.text}</span>
