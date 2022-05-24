@@ -1,7 +1,7 @@
 export const baseUrl = 'https://piter-education.ru:7070';
 
 export const loginUrl = 'sign-in';
-export const lessonsUrl = 'lessons';
+export const lessonsUrl = 'api/lessons';
 export const usersUrl = 'api/Users';
 export const groupUrl = 'api/Groups';
 export const addNewTaskUrl = 'api/tasks/teacher';
@@ -18,6 +18,9 @@ export const updateAttendanceForLesson = (
   lessonId: number,
   studentId: number,
   attendanceType: string
-) => `api/Lessons/${lessonId}/student/${studentId}/attendance/${attendanceType}`;
+) => `${lessonsUrl}/${lessonId}/student/${studentId}/attendance/${attendanceType}`;
+export const lessonsByGroupId = (groupId: number) => {
+  return `${lessonsUrl}/by-group/${groupId}`;
+};
 export const updateUserUrl = (id: number) => `${usersUrl}/${id}`;
 export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;

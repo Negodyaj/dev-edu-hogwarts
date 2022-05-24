@@ -122,6 +122,13 @@
     width: 1206px;
   }
 
+  & + main .notifications-page {
+    .drop-down-filter {
+      width: 1206px;
+      margin-bottom: 20px;
+    }
+  }
+
   .logo-container {
     width: 40px;
     margin-left: 7px;

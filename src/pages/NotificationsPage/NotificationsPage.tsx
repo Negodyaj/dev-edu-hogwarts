@@ -75,13 +75,13 @@ export const NotificationsPage = () => {
   ];
 
   return (
-    <>
+    <div className="notifications-page">
       <FilterList data={notificationsFilterData} callback={applyNotificationsFilter} />
       <div className="card-container content-container">
         {filteredNotifications.map((notification: any) => (
           <NotificationsCard data={notification} />
         ))}
       </div>
-    </>
+    </div>
   );
 };

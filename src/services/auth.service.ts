@@ -64,10 +64,7 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
     .url(`api/Users/self`)
     .get()
     .json((data) => {
-      const userRoles: UserRole[] = (data.roles as string[]).map((role) => {
-        const userRole: UserRole = userRoleForEnum(role);
-        return userRole;
-      });
+      const userRoles: UserRole[] = (data.roles as string[]).map((role) => userRoleForEnum(role));
       const user = data as UserResponse;
       const groups = user.groups;
       user.roles = userRoles;

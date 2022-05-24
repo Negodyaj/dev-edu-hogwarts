@@ -26,4 +26,5 @@ export const enum Icon {
   CheckHomeworks,
   GeneralProgress,
   ButtonFly,
+  Pic,
 }
