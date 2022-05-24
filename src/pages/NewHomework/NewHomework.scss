@@ -42,6 +42,17 @@
     overflow-wrap: break-word;
   }
 
+  .delete-button {
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+
+    & .btn {
+      padding: 0;
+      color: $pale-red-color;
+    }
+  }
+
   .radio-group-container {
     max-width: 690px;
   }
@@ -68,7 +79,6 @@
       &:hover {
         background-color: $lavender-button-hover;
       }
-
     }
 
     .form-input_link__delete-link {

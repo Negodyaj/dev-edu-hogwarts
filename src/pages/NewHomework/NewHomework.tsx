@@ -37,6 +37,13 @@ import {
   validateLinkPath,
 } from '../../shared/helpers/homeworkFormHelper';
 import { loadHomeworkSuccess } from '../../actions/homework.actions';
+import {
+  getHomeworkToDelete,
+  getTaskToDelete,
+  setWindowState,
+  setWindowType,
+} from '../../actions/modalWindow.actions';
+import { ModalType } from '../../shared/enums/modalType';
 
 export type AddHomeworkFormData = {
   startDate: string | Date;
@@ -293,12 +300,23 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             onClick={() => navigate(-1)}
           />
           {isEdit && (
-            <Button
-              text="Удалить занятие"
-              type={ButtonType.button}
-              model={ButtonModel.Text}
-              width="250"
-            />
+            <div className="flex-container delete-button">
+              <Button
+                text="Удалить задание"
+                type={ButtonType.button}
+                model={ButtonModel.Text}
+                onClick={() => {
+                  dispatch(setWindowType(ModalType.deleteHomework));
+                  dispatch(setWindowState(true));
+                  if (initialHomework) {
+                    dispatch(getHomeworkToDelete(initialHomework));
+                  }
+                  if (initialTask) {
+                    dispatch(getTaskToDelete(initialTask));
+                  }
+                }}
+              />
+            </div>
           )}
         </div>
       </form>

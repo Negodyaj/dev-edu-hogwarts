@@ -8,5 +8,7 @@ export const ModalContent = (type: ModalType, userToDelete?: number) => {
       return 'Выбранная область будет показываться в вашем профиле';
     case ModalType.deleteUser:
       return `Вы уверены, что хотите удалить пользователя ${userToDelete}?`;
+    case ModalType.deleteHomework:
+      return `Вы уверены, что хотите удалить задание?`;
   }
 };

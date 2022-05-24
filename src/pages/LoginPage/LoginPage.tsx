@@ -85,7 +85,13 @@ export const LoginPage = () => {
             width="190"
             disabled={inProcess}
           />
-          <Button text="Отмена" model={ButtonModel.Text} type={ButtonType.reset} width="223" />
+          <Button
+            text="Отмена"
+            model={ButtonModel.Text}
+            type={ButtonType.reset}
+            disabled={inProcess}
+            width="223"
+          />
         </div>
       </form>
     </div>

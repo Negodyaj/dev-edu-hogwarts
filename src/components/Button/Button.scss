@@ -21,7 +21,6 @@ a {
     border: 0;
     column-gap: 4px;
 
-    &.unavailable,
     &:disabled {
         background: $dark-gray;
         cursor: auto;
@@ -38,7 +37,6 @@ a {
     border: 1px solid $lavender-color;
     color: $black;
 
-    &.unavailable,
     &:disabled {
         border: 1px solid $dark-gray;
         color: $dark-gray;
@@ -59,6 +57,11 @@ a {
     border: 0;
     padding:15px 20px;
     background: none;
+
+    &:disabled {
+        color: $dark-gray;
+        cursor: auto;
+    }
 }
 
 .ellipse{

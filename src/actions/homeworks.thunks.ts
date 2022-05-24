@@ -39,6 +39,16 @@ import {
   postHomeworkSuccess,
 } from './newHomeworkForm.action';
 import { CourseResponse, CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
+import {
+  deleteFail,
+  deleteStart,
+  deleteSuccess,
+  getHomeworkToDelete,
+  getTaskToDelete,
+  ModalWindowActions,
+} from './modalWindow.actions';
+import { useNavigateAfterDelete } from '../shared/helpers/homeworkFormHelper';
+import { homeworksLink } from '../components/MainPanel/Navigation/constants';
 
 export const loadHomeworks = (groupId: number) => {
   return async (dispatch: Dispatch<HomeworksPageAction>) => {
@@ -216,6 +226,34 @@ export const updateHomework = (homeworkId: number, data: AddHomeworkFormData) =>
       dispatch(postHomeworkSuccess());
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
+    }
+  };
+};
+
+export const deleteHomework = (homeworkId: number | string) => {
+  return async (dispatch: Dispatch<ModalWindowActions>) => {
+    dispatch(deleteStart());
+    try {
+      await baseWretch().url(homeworkById(homeworkId)).delete();
+      dispatch(deleteSuccess());
+      dispatch(getHomeworkToDelete(undefined));
+      useNavigateAfterDelete(homeworksLink);
+    } catch (e: any) {
+      dispatch(deleteFail(e.message));
+    }
+  };
+};
+
+export const deleteTask = (taskId: number | string) => {
+  return async (dispatch: Dispatch<ModalWindowActions>) => {
+    dispatch(deleteStart());
+    try {
+      await baseWretch().url(taskById(taskId)).delete();
+      dispatch(deleteSuccess());
+      dispatch(getTaskToDelete(undefined));
+      useNavigateAfterDelete(`${homeworksLink}/drafts`);
+    } catch (e: any) {
+      dispatch(deleteFail(e.message));
     }
   };
 };

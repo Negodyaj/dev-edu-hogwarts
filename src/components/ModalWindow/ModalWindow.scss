@@ -24,6 +24,11 @@
     }
   }
 
+  .buttons-group {
+    margin: 0;
+    justify-content: center;
+  }
+
   .icons-container {
     margin: 0 auto;
     width: 45px;
@@ -42,6 +47,10 @@
 
   .red-colored {
     background-color: $pale-red-color;
+
+    path {
+      stroke: $white;
+    }
   }
   .red-bordered {
     border-color: $pale-red-color;
