@@ -21,6 +21,7 @@ import { NotificationsPageState, notificationsPageReducer } from './reducers/not
 import { groupsPageReducer, GroupsPageState } from './reducers/groups.reducer';
 import { mainPanelReducer, MainPanelState } from './reducers/mainPanel.reducer';
 import { NewGroupFormReducer, NewGroupFormState } from './reducers/NewGroupForm.reducer';
+import { settingsPageReducer, SettingsPageState } from './reducers/settings.reducer';
 import { modalWindowReducer, ModalWindowState } from './reducers/modalWindow.reducer';
 
 // Create an interface for the application state
@@ -34,6 +35,7 @@ export interface AppState {
   mainPanelState: MainPanelState | undefined;
   groupsPageState: GroupsPageState;
   newGroupFormState: NewGroupFormState;
+  settingsPageState: SettingsPageState | undefined;
   modalWindowState: ModalWindowState | undefined;
 }
 
@@ -46,6 +48,7 @@ const rootReducer = combineReducers<AppState>({
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
   mainPanelState: mainPanelReducer,
+  settingsPageState: settingsPageReducer,
   newGroupFormState: NewGroupFormReducer,
   groupsPageState: groupsPageReducer,
   modalWindowState: modalWindowReducer,

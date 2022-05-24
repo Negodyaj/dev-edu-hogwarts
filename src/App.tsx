@@ -21,6 +21,7 @@ import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { LoginPageState } from './store/reducers/login.reducer';
+import { StudentsListPage } from './pages/StudentsListPage/StudentsList';
 import { ModalWindowState } from './store/reducers/modalWindow.reducer';
 import { ModalWindow } from './components/ModalWindow/ModalWindow';
 
@@ -65,10 +66,12 @@ function App() {
             <Route path="new-group" element={<NewGroupPage />} />
             <Route path="groups/:id" element={<NewGroupPage />} />
             <Route path="homework-review" element={<HomeworkReviewPage />} />
-            <Route path="payment-table" element={<PaymentsPage />} />
-          </Routes>
-        </main>
-      </div>
+          <Route path="groups" element={<GroupsListPage />} />
+          <Route path="payment-table" element={<PaymentsPage />} />
+          <Route path="students-list" element={<StudentsListPage />} />
+        </Routes>
+      </main>
+    </div>
       {isModalOpen && <ModalWindow />}
     </>
   );
