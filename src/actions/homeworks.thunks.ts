@@ -8,10 +8,11 @@ import {
   courseById,
   coursesUrl,
   draftsByGroupId,
-  getHomeworkById,
+  homeworkById,
   getHomeworksByGroupId,
   getStudentAnswerByTaskId,
   taskById,
+  updateAnExistingTaskUrl,
 } from '../shared/consts';
 import {
   HomeworksPageAction,
@@ -54,7 +55,7 @@ export const loadHomework = (homeworkId: number) => {
     dispatch(loadHomeworkStarted());
 
     try {
-      const homework = await baseWretch().url(getHomeworkById(homeworkId)).get().json<Homework>();
+      const homework = await baseWretch().url(homeworkById(homeworkId)).get().json<Homework>();
       dispatch(loadHomeworkSuccess(homework));
 
       const studentHomework = await baseWretch()
@@ -174,6 +175,40 @@ export const tasksCountInCourse = (courseId: number) => {
     try {
       const course = await baseWretch().url(courseById(courseId)).get().json<CourseResponse>();
       dispatch(getTasksCountInCourse(course.tasks));
+    } catch (e: any) {
+      dispatch(postHomeworkFail(e.message));
+    }
+  };
+};
+
+export const updateTask = (taskId: number, data: AddHomeworkFormData) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+    if (taskId < 0) {
+      dispatch(postHomeworkFail('Что-то пошло не так'));
+    }
+    try {
+      await baseWretch().url(updateAnExistingTaskUrl(taskId)).put({
+        name: data.name,
+        description: data.description,
+        links: data.links,
+        isRequired: true,
+      });
+    } catch (e: any) {
+      dispatch(postHomeworkFail(e.message));
+    }
+  };
+};
+
+export const updateHomework = (homeworkId: number, data: AddHomeworkFormData) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+    if (homeworkId < 0) {
+      dispatch(postHomeworkFail('Что-то пошло не так'));
+    }
+    try {
+      await baseWretch().url(updateAnExistingTaskUrl(homeworkId)).put({
+        startDate: data.startDate,
+        endDate: data.endDate,
+      });
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
     }

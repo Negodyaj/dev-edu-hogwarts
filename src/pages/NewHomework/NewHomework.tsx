@@ -28,16 +28,19 @@ import {
   getCourses,
   tasksCountInCourse,
   tasksCountInGroup,
+  updateHomework,
+  updateTask,
 } from '../../actions/homeworks.thunks';
 import { UserRole } from '../../shared/enums/UserRole';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { validationSchema } from './components/ValidationSchema';
+import { loadHomeworkSuccess } from '../../actions/homework.actions';
 
 export type AddHomeworkFormData = {
-  name: string;
-  description: string;
   startDate: string | Date;
   endDate: string | Date;
+  name: string;
+  description: string;
   links: string;
   groupId: number;
 };
@@ -50,6 +53,7 @@ type HomeworkFormProps = {
 
 export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: HomeworkFormProps) => {
   const [isPublish, setIsPublish] = useState(true);
+  const isEdit = location.pathname.includes('edit');
 
   const method = useForm<AddHomeworkFormData>({
     resolver: yupResolver(validationSchema),
@@ -105,7 +109,27 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
     debugger;
     if (isPublish) {
       if (!linkValue) {
-        dispatch(createNewHomework(formData));
+        if (isEdit) {
+          dispatch(updateHomework(initialHomework?.id ?? -1, formData));
+          dispatch(
+            loadHomeworkSuccess({
+              ...initialHomework!,
+              startDate: formData.startDate,
+              endDate: formData.endDate,
+              task: {
+                id: initialHomework!.task.id,
+                groupId: formData.groupId,
+                name: formData.name,
+                description: formData.description,
+                links: formData.links,
+                isRequired: true,
+                isDeleted: false,
+              },
+            })
+          );
+        } else {
+          dispatch(createNewHomework(formData));
+        }
       }
     } else {
       if (currentRole === UserRole.Teacher) {
@@ -115,14 +139,13 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
       }
     }
 
+    if (isEdit) {
+      dispatch(updateTask(initialTask?.id ?? initialHomework?.task.id ?? -1, formData));
+    }
+
     if (!errorMessage) {
       links.length = 0;
-      method.reset({
-        name: '',
-        description: '',
-        startDate: new Date(),
-        endDate: new Date(),
-      });
+      method.reset();
     }
   };
 
@@ -288,14 +311,24 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
               model={ButtonModel.Colored}
               type={ButtonType.submit}
               disabled={inProcess}
-              onClick={() => setIsPublish(true)}
+              onClick={() => {
+                setIsPublish(true);
+                if (isEdit) {
+                  navigate(-1);
+                }
+              }}
             />
           )}
           <Button
             text="Сохранить как черновик"
             model={ButtonModel.White}
             type={ButtonType.submit}
-            onClick={() => setIsPublish(false)}
+            onClick={() => {
+              setIsPublish(false);
+              if (isEdit) {
+                navigate(-1);
+              }
+            }}
           />
           <Button
             text="Отмена"
@@ -303,7 +336,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             model={ButtonModel.Text}
             onClick={() => navigate(-1)}
           />
-          {location.pathname.includes('edit') && (
+          {isEdit && (
             <Button
               text="Удалить занятие"
               type={ButtonType.button}
