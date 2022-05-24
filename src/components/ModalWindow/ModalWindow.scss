@@ -1,5 +1,7 @@
+@import "src/style/colors";
+
 .modal-background {
-  background-color: #8a8a8a59;
+  background-color: $modal-background-color;
   width: 100%;
   height: 100vh;
   top: 0;
@@ -27,7 +29,7 @@
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background-color: #A786DF;
+    background-color: $lavender-color;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,10 +41,10 @@
   }
 
   .red-colored {
-    background-color: #F45B69;
+    background-color: $pale-red-color;
   }
   .red-bordered {
-    border-color: #F45B69;
+    border-color: $pale-red-color;
   }
 
   .btn + .btn {
@@ -61,4 +63,8 @@
 
 .display-none {
   display: none;
+}
+
+.flex-container.inactive {
+  pointer-events: none;
 }

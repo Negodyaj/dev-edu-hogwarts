@@ -8,7 +8,7 @@ import { ModalWindowState } from '../../../../store/reducers/modalWindow.reducer
 import { AppState } from '../../../../store/store';
 import { SvgIcon } from '../../../SvgIcon/SvgIcon';
 import { ModalContent } from '../ModalContent';
-import './CustomAvatarEditor.scss';
+import './AvatarCropper.scss';
 import getCroppedImg, { dataURLtoFile } from './CropImage';
 import { baseWretch } from '../../../../services/base-wretch.service';
 
@@ -30,11 +30,10 @@ export const AvatarCropper = () => {
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  // const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-  //   setCroppedAreaPixels(croppedAreaPixels)
-  // }, [])
-  const onCropComplete = useCallback((croppedAreaPxls) => {
+  const onCropComplete = useCallback((croppedArea, croppedAreaPxls) => {  // eslint-disable-line
     setCroppedAreaPixels(croppedAreaPxls);
+    return;
+    console.log(croppedArea);
   }, []);
 
   const onFileChanged = async (e: any) => {
@@ -49,29 +48,21 @@ export const AvatarCropper = () => {
   const uploadPhoto = async () => {
     const canvas = await getCroppedImg(imageSrc, croppedAreaPixels);
     const canvasDataURL = canvas.toDataURL('image/jpeg');
-    console.log(canvas);
-    const newAvatar = dataURLtoFile(canvasDataURL, 'Avatar.jpeg');
-    console.log(newAvatar);
+    const newAvatar = dataURLtoFile(canvasDataURL, 'avatar.jpeg');
+
     const fd = new FormData();
-    fd.append('avatar', newAvatar);
-    // fetch('/api/Users/photo', {
-    //   method: 'POST',
-    //   body: fd,
-    // })
-    //   .then((res) => res.json())
-    //   .then((json) => console.log(json))
-    //   .catch((err) => console.error(err));
+    fd.append('photo', newAvatar);
+
     baseWretch()
       .url('api/Users/photo')
-      // .formData({
-      //   pictures: newAvatar,
-      // })
-      .formData(fd)
+      .formData({
+        photo: newAvatar,
+      })
       .post();
   };
 
   return (
-    <div className={`modal-window ${ModalType}`}>
+    <form className={`modal-window ${ModalType}`}>
       {modalType === ModalType.loadModalPhoto ? (
         <div className="icons-container">
           <SvgIcon icon={Icon.Pic} />
@@ -118,6 +109,6 @@ export const AvatarCropper = () => {
           Отмена
         </button>
       </div>
-    </div>
+    </form>
   );
 };

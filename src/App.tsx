@@ -46,7 +46,7 @@ function App() {
 
   return (
     <>
-      <div className={`flex-container ${isModalOpen ? 'pos-relative' : ''}`}>
+      <div className={`flex-container ${isModalOpen && 'inactive'}`}>
         <MainPanel />
         <main className={isCollapsed ? 'closed' : ' '}>
           <Routes>
