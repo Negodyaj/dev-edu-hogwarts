@@ -1,5 +1,5 @@
-import { StudentHomeworkStatus } from '../../../../../models/responses/HomeworksResponse';
-import { UserSimpleResponse } from '../../../../../models/responses/UserResponse';
+import { UserSimpleResponse } from './UserResponse';
+import { StudentHomeworkStatus } from '../../shared/enums/StudentHomeworkStatus';
 
 export interface AnswerResponse {
   id: number;

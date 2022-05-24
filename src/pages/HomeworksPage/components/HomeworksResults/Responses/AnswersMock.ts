@@ -1,5 +1,5 @@
-import { StudentHomeworkStatus } from '../../../../../models/responses/HomeworksResponse';
-import { AnswerResponse } from './AnswerResponse';
+import { StudentHomeworkStatus } from '../../../../../shared/enums/StudentHomeworkStatus';
+import { AnswerResponse } from '../../../../../models/responses/AnswerResponse';
 
 export const AnswersMock: AnswerResponse[] = [
   {

@@ -1,17 +1,19 @@
+@import "./src/style/colors";
+
 .homework-result-container {
   padding: 50px 0 50px 45px;
-  width: 940px;
   font-size: 18px;
+  width: 940px;
 
   .table-row {
     display: grid;
-    grid-template-columns: minmax(141px, 305px) minmax(69px, 244px) minmax(98px, 245px) 109px;
+    grid-template-columns: 1fr 244px 245px 109px;
     align-items: center;
 
     &.header {
       margin-bottom: 20px;
       font-size: 20px;
-      line-height: 23.48px;
+      line-height: 23px;
       font-weight: 600;
     }
   }
@@ -28,6 +30,10 @@
     height: 58px;
     position: relative;
   }
+  
+  .filter-inside.table-row {
+    margin: 0;
+  }
 
   .filter-inside::before {
     content: '';
@@ -36,8 +42,8 @@
     right: 0px; 
     bottom: 0px;    
     left: 0px;
-    border-top: 1px solid #DBDBDB;
-    border-bottom: 1px solid #DBDBDB;
+    border-top: 1px solid $medium-gray;
+    border-bottom: 1px solid $medium-gray;
   }
 }
 
@@ -45,5 +51,11 @@
   margin-bottom: 50px;
   font-size: 20px;
   font-weight: 600;
-  line-height: 21.13px;
+  line-height: 21px;
+}
+
+.closed {
+  .homework-result-container {
+    width: 1206px;
+  }
 }

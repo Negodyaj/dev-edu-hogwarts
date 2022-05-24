@@ -34,7 +34,7 @@ export const HomeworkPage = () => {
       ) : (
         <Loader />
       )}
-      {currentRole === UserRole.Teacher ? <HomeworksResults /> : <></>}
+      {currentRole == UserRole.Teacher && <HomeworksResults />}
     </div>
   );
 };

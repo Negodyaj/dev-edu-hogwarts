@@ -3,7 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { StudentHomework } from '../../../models/responses/HomeworksResponse';
 import { InputLink } from '../../../components/InputLink/InputLink';
 import { baseWretch } from '../../../services/base-wretch.service';
-import { studentHomeworkById, postStudentAnswer } from '../../../shared/consts';
+import { getStudentHomeworkByIdUrl, postStudentAnswer } from '../../../shared/consts';
 import { useDispatch, useSelector } from 'react-redux';
 import { editHomework, loadAnswer, loadStudentHomework } from '../../../actions/homework.actions';
 import { useEffect } from 'react';
@@ -49,7 +49,7 @@ export const HomeworkCardContent = () => {
     };
     if (studentHomeworkProgress?.id) {
       baseWretch()
-        .url(studentHomeworkById(studentHomeworkProgress?.id)) //`api/student-homeworks/${id}`
+        .url(getStudentHomeworkByIdUrl(studentHomeworkProgress?.id))
         .put(dateToPost)
         .json((res) => {
           const studentHomework = res as StudentHomework;
