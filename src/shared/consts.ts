@@ -10,7 +10,6 @@ export const coursesUrl = 'api/Courses';
 export const addNewTaskByTeacherUrl = `${taskUrl}/teacher`;
 export const addNewTaskByMethodistUrl = `${taskUrl}/methodist`;
 export const addNewHomeworkWithTaskByTeacherUrl = `${taskUrl}/publish-homework`;
-export const updateAnExistingTaskUrl = (taskId: number) => `${taskUrl}/${taskId}`;
 export const taskById = (taskId: number) => `${taskUrl}/${taskId}`;
 export const courseById = (courseId: number) => `${coursesUrl}/${courseId}/full`;
 export const draftsByGroupId = (groupId: number) => `${taskUrl}/by-group/${groupId}`;

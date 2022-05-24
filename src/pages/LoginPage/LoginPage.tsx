@@ -19,7 +19,7 @@ export const LoginPage = () => {
   const validationSchema = yup.object().shape({
     email: yup
       .string()
-      .matches(/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/, 'Введен некорректный почтовый адрес')
+      .matches(/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/, 'Введен некорректный email')
       .required('Вы не указали почту'),
     password: yup.string().required('Введите пароль'),
   });

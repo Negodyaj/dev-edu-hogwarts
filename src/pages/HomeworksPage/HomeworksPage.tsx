@@ -10,6 +10,7 @@ import { UserRole } from '../../shared/enums/UserRole';
 import { Button, ButtonModel } from '../../components/Button/Button';
 import { Icon } from '../../shared/enums/Icon';
 import { useNavigate } from 'react-router-dom';
+import { newHomeworkLink } from '../../components/MainPanel/Navigation/constants';
 
 export const HomeworksPage = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ export const HomeworksPage = () => {
               model={ButtonModel.Colored}
               text="Добавить задание"
               icon={Icon.Plus}
-              onClick={() => navigate('/new-homework')}
+              onClick={() => navigate(newHomeworkLink)}
             />
             {currentRole !== UserRole.Methodist && (
               <Button

@@ -92,6 +92,7 @@ export const newHomeworkFormReducer: Reducer<NewHomeworkFormState, NewHomeworkFo
       return {
         ...state,
         task: action.payload,
+        inProcess: false,
       };
     case REMOVE_LINK:
       return {

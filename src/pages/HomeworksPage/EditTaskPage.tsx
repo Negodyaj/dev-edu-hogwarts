@@ -11,11 +11,10 @@ export const EditTaskPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { task, inProcess } = useSelector((state: AppState) => state.newHomeworkFormState);
-  const { homework } = useSelector((state: AppState) => state.homeworkPageState);
   const { selectedTab } = useSelector((state: AppState) => state.homeworksPageState);
 
   useEffect(() => {
-    if (id && !homework) {
+    if (id) {
       dispatch(getTaskById(+id));
     }
     return () => {
@@ -24,12 +23,6 @@ export const EditTaskPage = () => {
   }, []);
 
   return (
-    <>
-      {inProcess ? (
-        <Loader />
-      ) : (
-        <NewHomework initialHomework={homework} initialTask={task} selectedGroup={selectedTab} />
-      )}
-    </>
+    <>{inProcess ? <Loader /> : <NewHomework initialTask={task} selectedGroup={selectedTab} />}</>
   );
 };

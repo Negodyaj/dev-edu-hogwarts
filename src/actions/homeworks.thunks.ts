@@ -12,7 +12,6 @@ import {
   getHomeworksByGroupId,
   getStudentAnswerByTaskId,
   taskById,
-  updateAnExistingTaskUrl,
 } from '../shared/consts';
 import {
   HomeworksPageAction,
@@ -139,9 +138,11 @@ export const loadDraftsByGroupId = (groupId: number) => {
 
 export const getTaskById = (taskId: number) => {
   return async (dispatch: Dispatch<any>) => {
+    dispatch(postHomeworkStarted());
     try {
       const task = await baseWretch().url(taskById(taskId)).get().json<Task>();
       dispatch(getTask(task));
+      dispatch(postHomeworkSuccess());
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
     }
@@ -183,16 +184,18 @@ export const tasksCountInCourse = (courseId: number) => {
 
 export const updateTask = (taskId: number, data: AddHomeworkFormData) => {
   return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+    dispatch(postHomeworkStarted());
     if (taskId < 0) {
       dispatch(postHomeworkFail('Что-то пошло не так'));
     }
     try {
-      await baseWretch().url(updateAnExistingTaskUrl(taskId)).put({
+      await baseWretch().url(taskById(taskId)).put({
         name: data.name,
         description: data.description,
         links: data.links,
         isRequired: true,
       });
+      dispatch(postHomeworkSuccess());
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
     }
@@ -201,14 +204,16 @@ export const updateTask = (taskId: number, data: AddHomeworkFormData) => {
 
 export const updateHomework = (homeworkId: number, data: AddHomeworkFormData) => {
   return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+    dispatch(postHomeworkStarted());
     if (homeworkId < 0) {
       dispatch(postHomeworkFail('Что-то пошло не так'));
     }
     try {
-      await baseWretch().url(updateAnExistingTaskUrl(homeworkId)).put({
+      await baseWretch().url(homeworkById(homeworkId)).put({
         startDate: data.startDate,
         endDate: data.endDate,
       });
+      dispatch(postHomeworkSuccess());
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
     }

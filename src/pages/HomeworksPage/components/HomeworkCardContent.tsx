@@ -14,6 +14,12 @@ import { HomeworkFormData } from '../../../models/HomeworkCardData';
 import { editHomeworkStatus } from '../../../actions/homeworks.actions';
 import { LoginPageState } from '../../../store/reducers/login.reducer';
 import { UserRole } from '../../../shared/enums/UserRole';
+import {
+  checkHomeworkLink,
+  homeworkByIdLink,
+  homeworkStudentAnswerEditLink,
+  newHomeworkEditLink,
+} from '../../../components/MainPanel/Navigation/constants';
 
 export const HomeworkCardContent = () => {
   // debugger;
@@ -63,7 +69,7 @@ export const HomeworkCardContent = () => {
   };
 
   useEffect(() => {
-    if (answer && !location.pathname.includes('edit')) navigate(`/homeworks/${id}`);
+    if (answer && !location.pathname.includes('edit')) navigate(homeworkByIdLink(id));
     else if (!answer && !location.pathname.includes('edit') && !location.pathname.includes('new'))
       navigate(`new`);
   }, [answer]);
@@ -106,14 +112,17 @@ export const HomeworkCardContent = () => {
             </FormProvider>
           )}
           {answer && !isEdit && (
-            <LinkWithUnderline text="Редактировать" path={`homeworks/${homework?.id}/edit`} />
+            <LinkWithUnderline
+              text="Редактировать"
+              path={homeworkStudentAnswerEditLink(homework?.id)}
+            />
           )}
           <span className="homework-description-title">Результат выполненного задания:</span>
         </>
       ) : (
         currentRole === UserRole.Teacher &&
-        !location.pathname.includes('check-homework') && (
-          <LinkWithUnderline text="Редактировать" path={`new-homework/edit/${homework?.id}`} />
+        !location.pathname.includes(checkHomeworkLink) && (
+          <LinkWithUnderline text="Редактировать" path={newHomeworkEditLink(homework?.id)} />
         )
       )}
     </>

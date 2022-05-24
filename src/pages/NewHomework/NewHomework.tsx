@@ -9,22 +9,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import {
   addLink,
-  getTasksCount,
-  removeLinks,
   selectCourse,
   selectGroup,
   setValueInInput,
 } from '../../actions/newHomeworkForm.action';
 import { AddedLink } from './components/AddedLink';
 import { Homework, Task } from '../../models/responses/HomeworksResponse';
-import { convertDate } from '../../shared/helpers/dateHelpers';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
 import {
   createNewHomework,
-  createNewTaskByMethodist,
-  createNewTaskByTeacher,
   getCourses,
   tasksCountInCourse,
   tasksCountInGroup,
@@ -34,6 +29,13 @@ import {
 import { UserRole } from '../../shared/enums/UserRole';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { validationSchema } from './components/ValidationSchema';
+import {
+  createHomeworkFromData,
+  fixHomeworkFormData,
+  resetForm,
+  returnFunctionByRole,
+  validateLinkPath,
+} from '../../shared/helpers/homeworkFormHelper';
 import { loadHomeworkSuccess } from '../../actions/homework.actions';
 
 export type AddHomeworkFormData = {
@@ -42,7 +44,7 @@ export type AddHomeworkFormData = {
   name: string;
   description: string;
   links: string;
-  groupId: number;
+  groupId?: number;
 };
 
 type HomeworkFormProps = {
@@ -57,7 +59,18 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
 
   const method = useForm<AddHomeworkFormData>({
     resolver: yupResolver(validationSchema),
-    context: { publish: isPublish },
+    context: { publish: isPublish, edit: !!initialHomework },
+    defaultValues: {
+      startDate: initialHomework?.startDate
+        ? moment(initialHomework?.startDate, 'DD.MM.YYYY').toDate()
+        : '',
+      endDate: initialHomework?.endDate
+        ? moment(initialHomework?.endDate, 'DD.MM.YYYY').toDate()
+        : '',
+      name: initialTask?.name ?? initialHomework?.task.name ?? '',
+      description: initialTask?.description ?? initialHomework?.task.description ?? '',
+      groupId: initialTask?.groupId ?? initialHomework?.task.groupId ?? undefined,
+    },
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -78,75 +91,43 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
 
   const memoizeMapLinks = useMemo(() => {
     return links.map((item, index) => {
-      return <AddedLink key={index} itemNumber={index} source={item} />;
+      return item !== '' && <AddedLink key={index} itemNumber={index} source={item} />;
     });
   }, [links]);
 
-  const addLinkInForm = (value?: string) => {
-    if (
-      (inputLinkValue &&
-        /^[a-z]+:\/\//i.test(value ?? inputLinkValue) &&
-        !links.includes(value ?? inputLinkValue)) ||
-      inputLinkValue.length === 0 ||
-      value === ''
-    ) {
-      setLinkValue(undefined);
-    } else {
-      setLinkValue('Введите корректную ссылку');
-    }
-  };
+  const addLinkInForm = (value?: string) =>
+    validateLinkPath(inputLinkValue, links, value)
+      ? setLinkValue(undefined)
+      : setLinkValue('Введите корректную ссылку');
 
-  const onSubmit = (data: AddHomeworkFormData) => {
-    const formData = {
-      ...data,
-      links: links.join(' [link] '),
-      isRequired: true,
-      startDate: data.startDate
-        ? convertDate(data.startDate.toString())
-        : moment().format('DD.MM.YYYY'),
-      endDate: convertDate(data.endDate.toString()),
-    };
+  const createNewHandleSubmit = (data: AddHomeworkFormData) => {
+    const formData = fixHomeworkFormData(data, links);
     debugger;
     if (isPublish) {
-      if (!linkValue) {
-        if (isEdit) {
-          dispatch(updateHomework(initialHomework?.id ?? -1, formData));
-          dispatch(
-            loadHomeworkSuccess({
-              ...initialHomework!,
-              startDate: formData.startDate,
-              endDate: formData.endDate,
-              task: {
-                id: initialHomework!.task.id,
-                groupId: formData.groupId,
-                name: formData.name,
-                description: formData.description,
-                links: formData.links,
-                isRequired: true,
-                isDeleted: false,
-              },
-            })
-          );
-        } else {
-          dispatch(createNewHomework(formData));
-        }
-      }
+      dispatch(createNewHomework(formData));
     } else {
-      if (currentRole === UserRole.Teacher) {
-        dispatch(createNewTaskByTeacher(formData, links));
-      } else if (currentRole === UserRole.Methodist) {
-        dispatch(createNewTaskByMethodist(formData, links));
-      }
-    }
-
-    if (isEdit) {
-      dispatch(updateTask(initialTask?.id ?? initialHomework?.task.id ?? -1, formData));
+      const roleFunction = returnFunctionByRole(currentRole);
+      dispatch(roleFunction(formData));
     }
 
     if (!errorMessage) {
-      links.length = 0;
-      method.reset();
+      resetForm(links, dispatch, method);
     }
+  };
+
+  const editExistHandleSubmit = (data: AddHomeworkFormData) => {
+    const formData = fixHomeworkFormData(data, links);
+    debugger;
+    if (isPublish) {
+      dispatch(createNewHomework(formData));
+    } else {
+      if (initialHomework) {
+        dispatch(updateHomework(initialHomework?.id ?? -1, formData));
+        dispatch(loadHomeworkSuccess(createHomeworkFromData(initialHomework, formData)));
+      }
+    }
+
+    dispatch(updateTask(initialHomework?.task.id ?? initialTask?.id ?? -1, formData));
   };
 
   const getId = (id: number) => {
@@ -161,18 +142,15 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
     if (currentRole === UserRole.Methodist) {
       dispatch(getCourses());
     }
-    if (initialTask?.links) {
+    if (initialTask) {
       const linksInResp = initialTask?.links.split(' [link] ');
       linksInResp.forEach((link) => dispatch(addLink(link)));
-    } else if (initialHomework?.task.links) {
+    } else if (initialHomework) {
       const linksInResp = initialHomework?.task.links.split(' [link] ');
       linksInResp.forEach((link) => dispatch(addLink(link)));
     }
     return () => {
-      method.reset();
-      dispatch(removeLinks());
-      dispatch(setValueInInput(''));
-      dispatch(getTasksCount([]));
+      resetForm(links, dispatch, method);
     };
   }, []);
 
@@ -187,7 +165,10 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
 
   return (
     <FormProvider {...method}>
-      <form className="form-container homework-form" onSubmit={method.handleSubmit(onSubmit)}>
+      <form
+        className="form-container homework-form"
+        onSubmit={method.handleSubmit(isEdit ? editExistHandleSubmit : createNewHandleSubmit)}
+      >
         <h2 className="homework-form_title">Новое задание</h2>
 
         <div className="form-element flex-container">
@@ -197,11 +178,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
               radioData={currentRole === UserRole.Methodist ? course : group}
               name="groupId"
               callback={getId}
-              selected={
-                currentRole === UserRole.Teacher
-                  ? group.find((item) => item.value === selectedGroup)
-                  : undefined
-              }
+              selected={currentRole === UserRole.Teacher ? selectedGroup : undefined}
             />
           </div>
         </div>
@@ -209,10 +186,6 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
 
         <div className="form-element">
           Номер задания:
-          {/*
-              По-хорошему, обещали на бэке номера таскам выдавать,
-              для визуализации оставляю так до ревью :^)
-           */}
           <span className="homework-form_task">
             {selectedTaskCount === 0 ? '1' : selectedTaskCount}
           </span>
@@ -225,11 +198,6 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
               <Controller
                 name="startDate"
                 control={method.control}
-                defaultValue={moment(
-                  initialHomework?.startDate ?? new Date(),
-                  'DD.MM.YYYY'
-                ).toDate()}
-                // rules={{ required: isPublish === 'homework' }}
                 render={({ field }) => <Datepicker field={field} />}
               />
             </div>
@@ -239,7 +207,6 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
                 name="endDate"
                 control={method.control}
                 rules={{ required: isPublish }}
-                defaultValue={moment(initialHomework?.endDate ?? new Date(), 'DD.MM.YYYY').toDate()}
                 render={({ field }) => <Datepicker field={field} />}
               />
               <div className="invalid-feedback">{method.formState.errors.endDate?.message}</div>
@@ -253,7 +220,6 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             className={`form-input${method.formState.errors.name ? ' invalid-input' : ''}`}
             type="text"
             placeholder="Введите название"
-            defaultValue={initialTask?.name ?? initialHomework?.task.name ?? ''}
             {...method.register('name', { required: true })}
           />
         </div>
@@ -264,7 +230,6 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
           <textarea
             className={`form-input${method.formState.errors.description ? ' invalid-input' : ''}`}
             placeholder="Введите текст"
-            defaultValue={initialTask?.description ?? initialHomework?.task.description ?? ''}
             {...method.register('description', { required: true })}
           />
         </div>
@@ -305,30 +270,21 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
         {linkValue && <div className="invalid-feedback">{linkValue}</div>}
 
         <div className="buttons-group">
-          {currentRole === UserRole.Teacher && (
+          {currentRole === UserRole.Teacher && !initialHomework && (
             <Button
               text="Опубликовать"
               model={ButtonModel.Colored}
               type={ButtonType.submit}
-              disabled={inProcess}
-              onClick={() => {
-                setIsPublish(true);
-                if (isEdit) {
-                  navigate(-1);
-                }
-              }}
+              disabled={inProcess || !!linkValue}
+              onClick={() => setIsPublish(true)}
             />
           )}
           <Button
-            text="Сохранить как черновик"
+            text={isEdit ? 'Сохранить' : 'Сохранить как черновик'}
             model={ButtonModel.White}
             type={ButtonType.submit}
-            onClick={() => {
-              setIsPublish(false);
-              if (isEdit) {
-                navigate(-1);
-              }
-            }}
+            disabled={inProcess || !!linkValue}
+            onClick={() => setIsPublish(false)}
           />
           <Button
             text="Отмена"
