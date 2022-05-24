@@ -328,3 +328,5 @@ export const lessonsArr = [
     ],
   },
 ];
+
+export const lessonsEmptyArr = [];

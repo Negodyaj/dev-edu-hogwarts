@@ -52,7 +52,8 @@ export const attendanceJournalReducer: Reducer<AttendanceJournalState, Attendanc
       return {
         ...state,
         attendanceData: action.payload,
-        filteredStudentList: action.payload[0].students,
+        filteredStudentList:
+          action.payload && action.payload.length > 0 ? action.payload[0].students : undefined,
         isLoad: false,
         error: undefined,
       };

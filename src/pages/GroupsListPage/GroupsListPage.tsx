@@ -60,10 +60,10 @@ export const GroupsListPage = () => {
             }}
           />
           <TabContainer
-            tabContainerData={groupsToDisplay?.map((item, index) => ({
+            tabContainerData={groupsToDisplay?.map((item) => ({
               id: item.id,
               text: item.name,
-              icon: CourseIcon[index + 1],
+              icon: CourseIcon[item.course.id],
             }))}
             course={true}
             selectedTab={selectedTab}
@@ -82,10 +82,10 @@ export const GroupsListPage = () => {
       ) : (
         <div className="groups-header">
           <TabContainer
-            tabContainerData={groups?.map((item, index) => ({
+            tabContainerData={groups?.map((item) => ({
               id: item.id,
               text: item.name,
-              icon: CourseIcon[index + 1],
+              icon: CourseIcon[item.course.id],
             }))}
             course={true}
             selectedTab={selectedTab}

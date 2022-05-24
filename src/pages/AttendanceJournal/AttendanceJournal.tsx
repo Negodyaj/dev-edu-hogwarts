@@ -7,9 +7,11 @@ import {
   loadAttendance,
   selectTab,
 } from '../../actions/attendanceJournal.actions';
-import { lessonsArr } from './DataMock';
+import { lessonsArr, lessonsEmptyArr } from './DataMock';
 import { useEffect } from 'react';
 import { ErrorMesage } from '../../components/Journal/components/ErrorMesage';
+import { Button, ButtonModel } from '../../components/Button/Button';
+import { Icon } from '../../shared/enums/Icon';
 
 export const AttendanceJournal = () => {
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ export const AttendanceJournal = () => {
   );
 
   useEffect(() => {
-    dispatch(loadAttendance(lessonsArr));
+    dispatch(loadAttendance(lessonsEmptyArr));
   }, []);
 
   return (
@@ -32,10 +34,18 @@ export const AttendanceJournal = () => {
       <h2>Журнал посещаемости</h2>
       {error ? (
         <ErrorMesage callback={loadAttendance(lessonsArr)} />
-      ) : attendanceData ? (
+      ) : attendanceData && [...attendanceData].length > 0 ? (
         <Journal filteredData={filteredStudentList} filter={filterStudentsList} />
       ) : (
-        <span>Тут еще ничего нет</span>
+        <div className="flex-container">
+          <span>Тут еще ничего нет</span>
+          <Button
+            model={ButtonModel.Colored}
+            text="Добавить занятие"
+            icon={Icon.Plus}
+            width="243"
+          />
+        </div>
       )}
     </div>
   );

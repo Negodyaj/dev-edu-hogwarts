@@ -4,12 +4,12 @@ import { SvgFrontend } from './SvgFiles/CoursesIcons/SvgFrontend';
 import { SvgCalendar } from './SvgFiles/CoursesIcons/SvgCalendar';
 
 export enum CourseIcon {
-  Base = 1,
-  BaseJava,
-  Backend,
-  BackendJava,
-  Frontend,
-  QA,
+  Base = 1370,
+  BaseJava = 2374,
+  Backend = 2371,
+  BackendJava = 2375,
+  Frontend = 1371,
+  QA = 2376,
 }
 
 export type DictionaryData = {
