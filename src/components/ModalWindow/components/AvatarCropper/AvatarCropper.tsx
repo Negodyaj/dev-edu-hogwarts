@@ -30,10 +30,8 @@ export const AvatarCropper = () => {
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  const onCropComplete = useCallback((croppedArea, croppedAreaPxls) => {  // eslint-disable-line
+  const onCropComplete = useCallback((_, croppedAreaPxls) => {
     setCroppedAreaPixels(croppedAreaPxls);
-    return;
-    console.log(croppedArea);
   }, []);
 
   const onFileChanged = async (e: any) => {
