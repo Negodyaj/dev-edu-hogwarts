@@ -3,11 +3,12 @@ import { RegisterFormData } from '../pages/RegistrationPage/RegistrationPage';
 import { baseWretch } from '../services/base-wretch.service';
 import { registerUrl } from '../shared/consts';
 import { convertDate } from '../shared/helpers/dateHelpers';
-import { 
-  registrationFailed, 
-  RegistrationPageActions, 
-  registrationStarted, 
-  registrationSuccess } from './registration.actions';
+import {
+  registrationFailed,
+  RegistrationPageActions,
+  registrationStarted,
+  registrationSuccess,
+} from './registration.actions';
 
 export const onRegistration = (data: RegisterFormData) => {
   return (dispatch: Dispatch<RegistrationPageActions>) => {
@@ -26,7 +27,7 @@ export const onRegistration = (data: RegisterFormData) => {
         birthdate: convertDate(data.birthDate),
         city: 1,
       })
-      .res((res) => 
+      .res((res) =>
         res.ok ? dispatch(registrationSuccess(data)) : dispatch(registrationFailed('fail'))
       );
   };

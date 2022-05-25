@@ -60,6 +60,7 @@ function App() {
             <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
             <Route path="lessons" element={<LessonsPage />} />
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="/change-password" element={<SettingsPassword />} />
             <Route path="courses" element={<CoursesPage />} />
             <Route path="edit-courses" element={<EditCoursesPage />} />
             <Route path="login" element={<LoginPage />} />
