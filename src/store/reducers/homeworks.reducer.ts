@@ -111,7 +111,7 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageActio
     case LOAD_TASKS_SUCCESS: {
       return {
         ...state,
-        tasks: action.payload,
+        tasks: [...action.payload],
         isLoading: false,
       };
     }
