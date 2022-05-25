@@ -9,7 +9,7 @@ import {
   registrationStarted, 
   registrationSuccess } from './registration.actions';
 
-export const register = (data: RegisterFormData) => {
+export const onRegistration = (data: RegisterFormData) => {
   return (dispatch: Dispatch<RegistrationPageActions>) => {
     dispatch(registrationStarted());
 

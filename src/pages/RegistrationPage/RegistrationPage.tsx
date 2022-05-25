@@ -10,7 +10,7 @@ import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { RegistrationPageState } from '../../store/reducers/registration.reducer';
-import { register } from '../../actions/registration.thunk';
+import { onRegistration } from '../../actions/registration.thunk';
 
 export type RegisterFormData = {
   firstName: string;
@@ -28,12 +28,13 @@ export const RegistrationPage = () => {
 
   const method = useForm<RegisterFormData>();
 
+  const { register, getValues, formState: { errors }, handleSubmit, watch } = method;
+
   const { isLoading } = useSelector((state: AppState) => state.registrationPageState as RegistrationPageState)
   const dispatch = useDispatch();
   const onSubmit = (data: RegisterFormData) => {
-    dispatch(register(data)) 
+    dispatch(onRegistration(data)) 
   }
-    
 
   return (
     <>
@@ -105,8 +106,16 @@ export const RegistrationPage = () => {
                   maxLength: 20,
                   pattern: /^[a-zа-яё]+$/i,
                 })}
-                //отбить валидацию длины и допустимых символов
               />
+              {method.formState.errors?.lastName?.type === 'required' && (
+              <p className="asterisk">Обязательно для заполнения</p>
+              )}
+              {method.formState.errors?.lastName?.type === 'maxLength' && (
+                <p className="asterisk">Превышена допустимая длина 20 символов</p>
+              )}
+              {method.formState.errors?.lastName?.type === 'pattern' && (
+                <p className="asterisk">Недопустимые символы</p>
+              )}
             </div>
           </div>
           <div className="form-grid-container">
@@ -118,6 +127,7 @@ export const RegistrationPage = () => {
                 rules={{ required: true }}
                 render={({ field }) => <Datepicker field={field} />}
               />
+
               {//сделать диапазон с 1900 по 2021 год (?)
               }
             </div>
@@ -132,18 +142,38 @@ export const RegistrationPage = () => {
                 className="custom-password form-input"
                 {...method.register('password', {
                   required: true,
+                  minLength: 8,
                 })}
               />
               {method.formState.errors?.password?.type === 'required' && (
                 <p className="attention">Обязательно для заполнения</p>
-                //указать минимальную длину пароля в 8 знаков
+              )}
+              {method.formState.errors?.password?.type === 'minLength' && (
+                <p className="attention">Минимальная длина - 8 знаков</p>
               )}
             </div>
             <div className="form-element">
               <label htmlFor="repeat-password">
                 Повторить пароль<span className="asterisk">*</span>
               </label>
-              <input type="password" className="custom-password form-input" />
+              <input 
+                type="password" 
+                className="custom-password form-input"
+                {...method.register('password', {
+                  required: true,
+                  validate: (val: string) => {
+                    if (watch('password') != val) {
+                      return "Your passwords do no match"
+                    }
+                  },
+                })}
+              />
+              {method.formState.errors?.password?.type === 'required' && (
+                <p className="attention">Обязательно для заполнения</p>
+              )}
+              {method.formState.errors?.password?.type === 'validate' && (
+                <p className="attention">Пароли не совпадают</p>
+              )}
             </div>
           </div>
           <div className="form-grid-container">
@@ -220,3 +250,5 @@ export const RegistrationPage = () => {
     </>
   );
 };
+
+
