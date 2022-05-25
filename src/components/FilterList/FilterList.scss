@@ -30,6 +30,15 @@ $font-size: 18px;
   width: 100%;
   font-weight: 600;
   cursor: pointer;
+  justify-content: flex-end;
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.left {
+    justify-content: flex-start;
+  }
 
   & input {
     font-weight: inherit;
@@ -46,18 +55,6 @@ $font-size: 18px;
 
     &:focus {
       outline: 0;
-    }
-
-    &.center {
-      justify-content: center;      
-    }
-
-    &.left {
-      justify-content: flex-start;
-    }
-
-    &.right {
-      justify-content: flex-end;
     }
   }
 
@@ -91,6 +88,7 @@ $font-size: 18px;
 .drop-down-filter__list-wrapper {
   top: 28px;
   right: 6px;
+  text-align: right;
   background-color: #fff;
   position: absolute;
   padding: 10px 20px;
@@ -106,10 +104,8 @@ $font-size: 18px;
 
   &.left {
     text-align: left;
-  }
-
-  &.right {
-    text-align: right;
+    right: auto;
+    left: -20px;
   }
 }
 
