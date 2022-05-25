@@ -38,7 +38,11 @@ export const RegistrationPage = () => {
       birthDate: yup
         .date()
         .min(new Date('01.01.1900'), 'Введите корректную дату')
-        .max(new Date('01.01.2021'), 'Введите корректную дату'),
+        .max(new Date('01.01.2021'), 'Введите корректную дату')
+        .required('Введите корректную дату'),
+      phoneNumber: yup
+        .string()
+        .notRequired(),
     });
 
   const method = useForm<RegisterFormData>({ resolver: yupResolver(schema()) });
@@ -198,7 +202,7 @@ export const RegistrationPage = () => {
                   className="form-input"
                   placeholder="+7(999)888-77-66"
                   {...method.register('phoneNumber', {
-                    required: true,
+                    //required: true,
                     pattern: /^[0-9]+$/i,
                   })}
                 />
