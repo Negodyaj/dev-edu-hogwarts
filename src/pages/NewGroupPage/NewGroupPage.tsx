@@ -1,7 +1,7 @@
 import './NewGroupPage.scss';
 import '../../components/InputTextarea/InputTextarea.scss';
 import { useEffect } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { baseWretch } from '../../services/base-wretch.service';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
@@ -16,6 +16,10 @@ import { UserRole } from '../../shared/enums/UserRole';
 import { getDataFromFormPage } from '../../actions/NewGroupForm.actions';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import { useParams } from 'react-router-dom';
+import Datepicker from '../../components/Datepicker/Datepicker';
+import { convertDate } from '../../shared/helpers/dateHelpers';
+import { GroupStatus } from '../../shared/enums/GroupStatus';
+import { groupStatusEnumReverse } from '../../shared/helpers/groupStatusForEnum';
 
 export type GroupFormData = {
   name: string;
@@ -44,11 +48,12 @@ export const NewGroupPage = () => {
     defaultValues: {
       teacherIds: [],
       tutorIds: [],
-      // courseId: -1,
-      startDate: '21.03.2000',
-      endDate: '01.01.2010',
-      timetable: 'string',
-      paymentPerMonth: 0,
+      courseId: -1,
+      groupStatusId: groupStatusEnumReverse(GroupStatus.Forming),
+      // startDate: '21.03.2000',
+      // endDate: '01.01.2010',
+      // timetable: '',
+      // paymentPerMonth: 0,
     },
   });
 
@@ -92,6 +97,8 @@ export const NewGroupPage = () => {
 
   const onSubmit = (data: GroupFormData) => {
     if (typeof data.teacherIds === 'string') data.teacherIds = [+data.teacherIds];
+    data.startDate = convertDate(data.startDate);
+    data.endDate = convertDate(data.endDate);
     baseWretch().url(groupUrl).post(data);
     console.log(data);
     dispatch(getDataFromFormPage(data));
@@ -113,8 +120,8 @@ export const NewGroupPage = () => {
               />
               {errors.name && <span>Вы не указали название</span>}
             </div>
-            <div className="form-element">
-              Курс
+            <div className="form-element choose-course">
+              Курс:
               <FilterList
                 data={courses.map((course) => {
                   const newCourse: FilterItem = {
@@ -126,6 +133,60 @@ export const NewGroupPage = () => {
                 callback={(item) => setValue('courseId', item.id)}
               />
               {errors.courseId && <span>Вы не выбрали курс</span>}
+            </div>
+            <div className="form-element form-grid-container">
+              <div>
+                Дата начала занятий
+                <Controller
+                  name="startDate"
+                  control={methods.control}
+                  rules={{ required: true }}
+                  render={({ field }) => <Datepicker field={field} />}
+                />
+              </div>
+              <div>
+                Дата окончания занятий
+                <Controller
+                  name="endDate"
+                  control={methods.control}
+                  rules={{ required: true }}
+                  render={({ field }) => <Datepicker field={field} />}
+                />
+              </div>
+            </div>
+            <div className="form-element">
+              Расписание занятий
+              <input
+                className="form-input"
+                placeholder="Введите текст"
+                {...register('timetable', { required: true })}
+              />
+              {errors.timetable && <span>Вы не составили расписание</span>}
+            </div>
+            <div className="form-element">
+              Оплата за месяц
+              <input
+                className="form-input"
+                placeholder="Введите сумму"
+                {...register('paymentPerMonth', { required: true, pattern: /^[ 0-9]+$/ })}
+              />
+              {errors.paymentPerMonth?.type === 'required' && <span>Вы не ввели сумму</span>}
+              {errors.paymentPerMonth?.type === 'pattern' && (
+                <span>Проверьте корректность данных</span>
+              )}
+            </div>
+            <div className="form-element">
+              Число платежей
+              {/* <FilterList
+              data={courses.map((course) => {
+                const newCourse: FilterItem = {
+                  id: course.id,
+                  name: course.name,
+                };
+                return newCourse;
+              })}
+              callback={(item) => setValue('courseId', item.id)}
+            /> */}
             </div>
             <div className="teachers-list">
               <h3>Преподаватель:</h3>
@@ -143,10 +204,6 @@ export const NewGroupPage = () => {
             </div>
             <div className="default-value">
               <input {...register('groupStatusId')} />
-              <input {...register('startDate')} />
-              <input {...register('endDate')} />
-              <input {...register('timetable')} />
-              <input {...register('paymentPerMonth')} />
             </div>
             <div className="buttons-group">
               <Button

@@ -1,3 +1,4 @@
+import { GroupStatus } from '../enums/GroupStatus';
 import { UserRole } from '../enums/UserRole';
 
 export const getUserRoleLocalName = (role: UserRole) => {
@@ -16,6 +17,21 @@ export const getUserRoleLocalName = (role: UserRole) => {
       return 'Тьютор';
     case UserRole.DefaultRole:
       return '';
+    default:
+      return '';
+  }
+};
+
+export const getGroupStatusLocalName = (status: GroupStatus) => {
+  switch (status) {
+    case GroupStatus.Forming:
+      return 'Формируется';
+    case GroupStatus.ReadyToStudy:
+      return 'Готова к обучению';
+    case GroupStatus.InProgress:
+      return 'В процессе обучения';
+    case GroupStatus.Completed:
+      return 'Обучение завершено';
     default:
       return '';
   }

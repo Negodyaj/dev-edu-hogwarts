@@ -11,6 +11,12 @@
     font-size: 18px;
     font-weight: 500;
   }
+
+}
+
+.choose-course {
+  display: grid;
+  grid-template-columns: 71px auto;
 }
 
 .default-value {
