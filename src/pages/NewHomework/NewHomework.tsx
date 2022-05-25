@@ -207,6 +207,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
                 control={method.control}
                 render={({ field }) => <Datepicker field={field} />}
               />
+              <div className="invalid-feedback">{method.formState.errors.startDate?.message}</div>
             </div>
             <div>
               Срок сдачи задания
