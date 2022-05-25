@@ -7,6 +7,7 @@ import { Button, ButtonModel, ButtonType } from '../../components/Button/Button'
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { convertDate } from '../../shared/helpers/dateHelpers';
 import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
+import { useState } from 'react';
 
 export type RegisterFormData = {
   firstName: string;
@@ -20,8 +21,11 @@ export type RegisterFormData = {
 
 export const RegistrationPage = () => {
   const method = useForm<RegisterFormData>();
+  const [check, setCheck] = useState(false);
 
-  const onSubmit = (data: RegisterFormData) =>
+  const onSubmit = (data: RegisterFormData) => {
+    debugger;
+    console.log(data);
     baseWretch()
       .url(registerUrl)
       .post({
@@ -31,12 +35,13 @@ export const RegistrationPage = () => {
         city: 1,
       })
       .text((token) => setToken(token));
+  };
 
   return (
     <FormProvider {...method}>
-      <div className="register-form-wrapper">
-        <h2>Регистрация</h2>
-        <form onSubmit={method.handleSubmit(onSubmit)}>
+      <form onSubmit={method.handleSubmit(onSubmit)}>
+        <div className="register-form-wrapper">
+          <h2>Регистрация</h2>
           <div className="form-element">
             <label htmlFor="lastName">
               Фамилия
@@ -53,15 +58,13 @@ export const RegistrationPage = () => {
                 pattern: /^[A-Za-z]+$/i,
               })}
             />
-            {method.formState.errors?.lastName?.type === 'required' && (
+            {method.formState.errors?.lastName && (
               <p className="asterisk">Обязательно для заполнения</p>
             )}
-            {method.formState.errors?.lastName?.type === 'maxLength' && (
+            {method.formState.errors?.lastName && (
               <p className="asterisk">Превышена допустимая длина 20 символов</p>
             )}
-            {method.formState.errors?.lastName?.type === 'pattern' && (
-              <p className="asterisk">Недопустимые символы</p>
-            )}
+            {method.formState.errors?.lastName && <p className="asterisk">Недопустимые символы</p>}
           </div>
           <div className="form-grid-container">
             <div className="form-element">
@@ -190,8 +193,9 @@ export const RegistrationPage = () => {
               data={{
                 value: 0,
                 text: '',
-                isChecked: false,
+                isChecked: check,
               }}
+              onClick={() => setCheck(!check)}
               name="policy"
               isSingle={true}
             />
@@ -202,8 +206,8 @@ export const RegistrationPage = () => {
               </a>
             </label>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </FormProvider>
   );
 };
