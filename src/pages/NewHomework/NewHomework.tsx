@@ -66,7 +66,12 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
 
   const method = useForm<AddHomeworkFormData>({
     resolver: yupResolver(validationSchema),
-    context: { publish: isPublish, edit: !!initialHomework },
+    context: {
+      publish: isPublish,
+      edit: !!initialHomework,
+      start: initialHomework?.startDate,
+      end: initialHomework?.endDate,
+    },
     defaultValues: {
       startDate: initialHomework?.startDate
         ? moment(initialHomework?.startDate, 'DD.MM.YYYY').toDate()
