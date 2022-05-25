@@ -1,16 +1,15 @@
 import './RegistrationPage.scss';
-import { Controller, useForm, FormProvider } from 'react-hook-form';
-import { setToken } from '../../services/auth.service';
-import { baseWretch } from '../../services/base-wretch.service';
-import { registerUrl } from '../../shared/consts';
+import { Controller, useForm, FormProvider, appendErrors } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import Datepicker from '../../components/Datepicker/Datepicker';
-import { convertDate } from '../../shared/helpers/dateHelpers';
 import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { RegistrationPageState } from '../../store/reducers/registration.reducer';
 import { onRegistration } from '../../actions/registration.thunk';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
 
 export type RegisterFormData = {
   firstName: string;
@@ -22,14 +21,27 @@ export type RegisterFormData = {
   phoneNumber: string;
   city: 1;
   username: string;
+  confirmPassword: string;
 };
 
 export const RegistrationPage = () => {
 
-  const method = useForm<RegisterFormData>();
+  const schema = () =>
+  yup.object().shape({
+    password: yup.string()
+      .required("Обязательно для заполнения")
+      .min(8, "Минимальная длина - 8 знаков"),
+    confirmPassword: yup.string()
+      .required("Обязательно для заполнения")
+      .min(8, "Минимальная длина - 8 знаков")
+      .oneOf([yup.ref("password"), null], "Пароли не совпадают"),
+    birthDate: yup.date()
+      .min(new Date('01.01.1900'), "Введите корректную дату")
+      .max(new Date('01.01.2021'), "Введите корректную дату")
+  });
 
-  const { register, getValues, formState: { errors }, handleSubmit, watch } = method;
-
+  const method = useForm<RegisterFormData>({ resolver: yupResolver(schema()) });
+  const { formState: { errors } } = method;
   const { isLoading } = useSelector((state: AppState) => state.registrationPageState as RegistrationPageState)
   const dispatch = useDispatch();
   const onSubmit = (data: RegisterFormData) => {
@@ -127,9 +139,7 @@ export const RegistrationPage = () => {
                 rules={{ required: true }}
                 render={({ field }) => <Datepicker field={field} />}
               />
-
-              {//сделать диапазон с 1900 по 2021 год (?)
-              }
+              <p className="attention">{errors.birthDate?.message}</p>
             </div>
           </div>
           <div className="form-grid-container">
@@ -140,40 +150,22 @@ export const RegistrationPage = () => {
               <input
                 type="password"
                 className="custom-password form-input"
-                {...method.register('password', {
-                  required: true,
-                  minLength: 8,
-                })}
+                {...method.register('password', {})}
               />
-              {method.formState.errors?.password?.type === 'required' && (
-                <p className="attention">Обязательно для заполнения</p>
-              )}
-              {method.formState.errors?.password?.type === 'minLength' && (
-                <p className="attention">Минимальная длина - 8 знаков</p>
-              )}
+              <p className="attention">{errors.password?.message}</p>
+              
             </div>
             <div className="form-element">
               <label htmlFor="repeat-password">
                 Повторить пароль<span className="asterisk">*</span>
               </label>
-              <input 
+              <input
                 type="password" 
                 className="custom-password form-input"
-                {...method.register('password', {
-                  required: true,
-                  validate: (val: string) => {
-                    if (watch('password') != val) {
-                      return "Your passwords do no match"
-                    }
-                  },
-                })}
+                {...method.register('confirmPassword', {})}
               />
-              {method.formState.errors?.password?.type === 'required' && (
-                <p className="attention">Обязательно для заполнения</p>
-              )}
-              {method.formState.errors?.password?.type === 'validate' && (
-                <p className="attention">Пароли не совпадают</p>
-              )}
+              <p className="attention">{errors.confirmPassword?.message}</p>
+            
             </div>
           </div>
           <div className="form-grid-container">
@@ -208,7 +200,7 @@ export const RegistrationPage = () => {
                 })}
               />
               {method.formState.errors?.phoneNumber?.type === 'pattern' && (
-                <p className="attention">Введите данные корректно</p>
+                <p className="attention">Введите корректный номер</p>
               )}
             </div>
           </div>
@@ -235,11 +227,12 @@ export const RegistrationPage = () => {
               name="policy"
               isSingle={true}
             />
+            {/*пока не получилось поправить чекбокс*/}
             <label htmlFor="policy" id="policy-label">
               Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями{' '}
               <a href={'#'} className="link-policy" aria-label="policy">
                 политики конфиденциальности
-                {//обязательная галочка
+                {
                 }
               </a>
             </label>
