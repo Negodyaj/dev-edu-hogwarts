@@ -24,8 +24,6 @@ export const RegistrationPage = () => {
   const [check, setCheck] = useState(false);
 
   const onSubmit = (data: RegisterFormData) => {
-    debugger;
-    console.log(data);
     baseWretch()
       .url(registerUrl)
       .post({
