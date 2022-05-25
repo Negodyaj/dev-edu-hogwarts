@@ -197,12 +197,14 @@ export const updateTask = (taskId: number, data: AddHomeworkFormData) => {
       dispatch(postHomeworkFail('Что-то пошло не так'));
     }
     try {
-      await baseWretch().url(taskById(taskId)).put({
+      const task = {
         name: data.name,
         description: data.description,
         links: data.links,
         isRequired: true,
-      });
+      };
+      await baseWretch().url(taskById(taskId)).put(task);
+      dispatch(getTask({ ...task, id: taskId, isDeleted: false }));
       dispatch(postHomeworkSuccess());
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
