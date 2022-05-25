@@ -7,6 +7,9 @@ import { Button, ButtonModel, ButtonType } from '../../components/Button/Button'
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { convertDate } from '../../shared/helpers/dateHelpers';
 import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { RegistrationPageState } from '../../store/reducers/registration.reducer';
 
 export type RegisterFormData = {
   firstName: string;
@@ -19,9 +22,14 @@ export type RegisterFormData = {
 };
 
 export const RegistrationPage = () => {
+
   const method = useForm<RegisterFormData>();
 
-  const onSubmit = (data: RegisterFormData) =>
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state: AppState) => state.registrationPageState as RegistrationPageState)
+  const onSubmit = (data: RegisterFormData) => {
+    //dispatch(register(data)) //сделать санки
+    ///*
     baseWretch()
       .url(registerUrl)
       .post({
@@ -30,7 +38,10 @@ export const RegistrationPage = () => {
         birthdate: convertDate(data.birthDate),
         city: 1,
       })
-      .text((token) => setToken(token));
+      .res((data) => console.log(data)); //res
+      //*/
+  }
+    
 
   return (
     <FormProvider {...method}>
@@ -50,7 +61,7 @@ export const RegistrationPage = () => {
               {...method.register('lastName', {
                 required: true,
                 maxLength: 20,
-                pattern: /^[A-Za-z]+$/i,
+                pattern: /^[a-zа-яё]+$/i,
               })}
             />
             {method.formState.errors?.lastName?.type === 'required' && (
@@ -76,7 +87,7 @@ export const RegistrationPage = () => {
                 {...method.register('firstName', {
                   required: true,
                   maxLength: 20,
-                  pattern: /^[A-Za-z]+$/i,
+                  pattern: /^[a-zа-яё]+$/i,
                 })}
               />
               {method.formState.errors?.firstName?.type === 'required' && (
@@ -97,8 +108,10 @@ export const RegistrationPage = () => {
                 placeholder="Сергеевич"
                 {...method.register('patronymic', {
                   required: true,
-                  pattern: /^[А-Я][а-я]+$/i,
+                  maxLength: 20,
+                  pattern: /^[a-zа-яё]+$/i,
                 })}
+                //отбить валидацию длины и допустимых символов
               />
             </div>
           </div>
@@ -111,6 +124,8 @@ export const RegistrationPage = () => {
                 rules={{ required: true }}
                 render={({ field }) => <Datepicker field={field} />}
               />
+              {//сделать диапазон с 1900 по 2021 год (?)
+              }
             </div>
           </div>
           <div className="form-grid-container">
@@ -127,6 +142,7 @@ export const RegistrationPage = () => {
               />
               {method.formState.errors?.password?.type === 'required' && (
                 <p className="attention">Обязательно для заполнения</p>
+                //указать минимальную длину пароля в 8 знаков
               )}
             </div>
             <div className="form-element">
@@ -199,6 +215,8 @@ export const RegistrationPage = () => {
               Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями{' '}
               <a href={'#'} className="link-policy" aria-label="policy">
                 политики конфиденциальности
+                {//обязательная галочка
+                }
               </a>
             </label>
           </div>
