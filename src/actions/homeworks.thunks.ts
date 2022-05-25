@@ -47,8 +47,6 @@ import {
   getTaskToDelete,
   ModalWindowActions,
 } from './modalWindow.actions';
-import { useNavigateAfterDelete } from '../shared/helpers/homeworkFormHelper';
-import { homeworksLink } from '../components/MainPanel/Navigation/constants';
 
 export const loadHomeworks = (groupId: number) => {
   return async (dispatch: Dispatch<HomeworksPageAction>) => {
@@ -237,7 +235,6 @@ export const deleteHomework = (homeworkId: number | string) => {
       await baseWretch().url(homeworkById(homeworkId)).delete();
       dispatch(deleteSuccess());
       dispatch(getHomeworkToDelete(undefined));
-      useNavigateAfterDelete(homeworksLink);
     } catch (e: any) {
       dispatch(deleteFail(e.message));
     }
@@ -251,7 +248,6 @@ export const deleteTask = (taskId: number | string) => {
       await baseWretch().url(taskById(taskId)).delete();
       dispatch(deleteSuccess());
       dispatch(getTaskToDelete(undefined));
-      useNavigateAfterDelete(`${homeworksLink}/drafts`);
     } catch (e: any) {
       dispatch(deleteFail(e.message));
     }

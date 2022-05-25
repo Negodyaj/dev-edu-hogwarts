@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setWindowState } from '../../../../actions/modalWindow.actions';
+import { deleteFail, setWindowState } from '../../../../actions/modalWindow.actions';
 import { Icon } from '../../../../shared/enums/Icon';
 import { SvgIcon } from '../../../SvgIcon/SvgIcon';
 import { ModalContent } from '../ModalContent';
@@ -7,9 +7,12 @@ import { Button, ButtonModel } from '../../../Button/Button';
 import { AppState } from '../../../../store/store';
 import { ModalWindowState } from '../../../../store/reducers/modalWindow.reducer';
 import { deleteHomework, deleteTask } from '../../../../actions/homeworks.thunks';
+import { homeworksLink } from '../../../MainPanel/Navigation/constants';
+import { useNavigate } from 'react-router-dom';
 
 export const ModalDeleteHomework = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { modalType, homeworkToDelete, taskToDelete, inProcess, errorMessage } = useSelector(
     (state: AppState) => state.modalWindowState as ModalWindowState
   );
@@ -28,11 +31,17 @@ export const ModalDeleteHomework = () => {
             model={ButtonModel.Colored}
             disabled={inProcess}
             onClick={() => {
+              let navigateLink = homeworksLink;
               if (homeworkToDelete) {
                 dispatch(deleteHomework(homeworkToDelete.id));
               }
               if (taskToDelete) {
                 dispatch(deleteTask(taskToDelete.id));
+                navigateLink = `${homeworksLink}/drafts`;
+              }
+              if (!inProcess && !errorMessage) {
+                navigate(navigateLink);
+                dispatch(setWindowState(false));
               }
             }}
             text="Удалить"
@@ -41,7 +50,10 @@ export const ModalDeleteHomework = () => {
         <Button
           model={ButtonModel.Text}
           disabled={inProcess}
-          onClick={() => dispatch(setWindowState(false))}
+          onClick={() => {
+            dispatch(setWindowState(false));
+            dispatch(deleteFail(undefined));
+          }}
           text="Отмена"
         />
       </div>

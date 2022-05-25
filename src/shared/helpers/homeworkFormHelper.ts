@@ -12,7 +12,6 @@ import { Homework } from '../../models/responses/HomeworksResponse';
 import { UserRole } from '../enums/UserRole';
 import { convertDate } from './dateHelpers';
 import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
 
 export const resetForm = (
   links: string[],
@@ -65,10 +64,3 @@ export const fixHomeworkFormData = (data: AddHomeworkFormData, links: string[]) 
   startDate: data.startDate ? convertDate(data.startDate) : moment().format('DD.MM.YYYY'),
   endDate: convertDate(data.endDate),
 });
-
-// чета как будто бы какой-то кринж делать обертку над хуком)))
-export const useNavigateAfterDelete = (link: string) => {
-  const navigate = useNavigate();
-
-  navigate(link);
-};

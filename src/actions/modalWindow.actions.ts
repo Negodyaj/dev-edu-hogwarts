@@ -44,7 +44,7 @@ export const deleteSuccess = () => ({
   type: DELETE_SUCCESS,
 });
 
-export const deleteFail = (message: string) => ({
+export const deleteFail = (message?: string) => ({
   type: DELETE_FAIL,
   payload: message,
 });
