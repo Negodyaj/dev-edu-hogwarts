@@ -26,7 +26,7 @@ const initialState: GroupsPageState = {
     tutors: [],
     id: 0,
     name: '',
-    course: { id: 0, name: '', isDeleted: false },
+    course: { id: 0, name: '', isDeleted: false, description: '', topics: [] },
     groupStatus: '',
     startDate: '',
     endDate: '',

@@ -12,6 +12,8 @@ import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWit
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { HomeworkFormData } from '../../../models/HomeworkCardData';
 import { editHomeworkStatus } from '../../../actions/homeworks.actions';
+import { UserRole } from '../../../shared/enums/UserRole';
+import { LoginPageState } from '../../../store/reducers/login.reducer';
 
 export const HomeworkCardContent = () => {
   // debugger;
@@ -20,6 +22,7 @@ export const HomeworkCardContent = () => {
   const { homework, studentHomeworkProgress, isEdit } = useSelector(
     (state: AppState) => state.homeworkPageState
   );
+  const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -72,38 +75,57 @@ export const HomeworkCardContent = () => {
 
   return (
     <>
-      <span className="homework-description-title">Описание задания</span>
-      {homework?.task.description.split('\n').map((par, index) => (
-        <p className="homework-card__description" key={index}>
-          {par}
-        </p>
-      ))}
-      {homework?.task.links && <span className="homework-description-title">Полезные ссылки</span>}
-      {homework?.task.links.split(' [link] ').map((link, index) => (
-        <a href={link} className="homework-useful-link" target="_blank" key={index}>
-          {link}
-        </a>
-      ))}
-      <span className="homework-description-title">Ссылка на выполненное задание:</span>
-      {answer && !isEdit ? (
-        <a href={answer} className="homework-github-link" target="_blank">
-          Выполненное задание
-        </a>
+      {currentRole === UserRole.Student ? (
+        <div>
+          <span className="homework-description-title">Описание задания</span>
+          {homework?.task.description.split('\n').map((par, index) => (
+            <p className="homework-card__description" key={index}>
+              {par}
+            </p>
+          ))}
+          {homework?.task.links && (
+            <span className="homework-description-title">Полезные ссылки</span>
+          )}
+          {homework?.task.links.split(' [link] ').map((link, index) => (
+            <a href={link} className="homework-useful-link" target="_blank" key={index}>
+              {link}
+            </a>
+          ))}
+          {currentRole == UserRole.Student ? (
+            <span className="homework-description-title">Ссылка на выполненное задание:</span>
+          ) : (
+            ''
+          )}
+          {answer && !isEdit ? (
+            <a href={answer} className="homework-github-link" target="_blank">
+              Выполненное задание
+            </a>
+          ) : (
+            <FormProvider {...method}>
+              <form onSubmit={method.handleSubmit(isEdit ? onSaveEdit : onSubmit)}>
+                <InputLink
+                  placeholder={'Ссылка на GitHub или архив'}
+                  inputName="answer"
+                  inputValue={answer}
+                />
+              </form>
+            </FormProvider>
+          )}
+          {answer && !isEdit && (
+            <LinkWithUnderline text="Редактировать" path={`homeworks/${homework?.id}/edit`} />
+          )}
+          <span className="homework-description-title">Результат выполненного задания:</span>
+        </div>
       ) : (
-        <FormProvider {...method}>
-          <form onSubmit={method.handleSubmit(isEdit ? onSaveEdit : onSubmit)}>
-            <InputLink
-              placeholder={'Ссылка на GitHub или архив'}
-              inputName="answer"
-              inputValue={answer}
-            />
-          </form>
-        </FormProvider>
+        <div>
+          <span className="homework-description-title">Описание задания</span>
+          {homework?.task.description.split('\n').map((par, index) => (
+            <p className="homework-card__description" key={index}>
+              {par}
+            </p>
+          ))}
+        </div>
       )}
-      {answer && !isEdit && (
-        <LinkWithUnderline text="Редактировать" path={`homeworks/${homework?.id}/edit`} />
-      )}
-      <span className="homework-description-title">Результат выполненного задания:</span>
     </>
   );
 };

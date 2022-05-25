@@ -1,11 +1,18 @@
 import { Dispatch } from 'react';
-import { Homework, StudentHomework } from '../models/responses/HomeworksResponse';
+import { Homework, StudentHomework, Task } from '../models/responses/HomeworksResponse';
 import { baseWretch } from '../services/base-wretch.service';
-import { getHomeworkById, getHomeworksByGroupId, getStudentAnswerByTaskId } from '../shared/consts';
+import {
+  getHomeworkById,
+  getHomeworksByGroupId,
+  getStudentAnswerByTaskId,
+  getTasksByCourseId,
+} from '../shared/consts';
 import {
   HomeworksPageAction,
   loadHomeworksStarted,
   loadHomeworksSuccess,
+  loadTasksStarted,
+  loadTasksSuccess,
 } from './homeworks.actions';
 import {
   HomeworkPageAction,
@@ -21,6 +28,14 @@ export const loadHomeworks = (groupId: number) => {
 
     const data = await baseWretch().url(getHomeworksByGroupId(groupId)).get().json<Homework[]>();
     dispatch(loadHomeworksSuccess(data));
+  };
+};
+
+export const loadTasksByCourse = (courseId: number) => {
+  return async (dispatch: Dispatch<HomeworksPageAction>) => {
+    dispatch(loadTasksStarted());
+    const data = await baseWretch().url(getTasksByCourseId(courseId)).get().json<Task[]>();
+    dispatch(loadTasksSuccess(data));
   };
 };
 

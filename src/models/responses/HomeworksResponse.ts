@@ -14,6 +14,7 @@ export interface Task {
   name: string;
   description: string;
   links: string;
+  number: number;
   isRequired: boolean;
   isDeleted: boolean;
 }

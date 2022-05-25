@@ -9,38 +9,59 @@ export const HomeworkCard = (props: HomeworkProps) => {
   const { homework, studentHomeworkProgress } = useSelector(
     (state: AppState) => state.homeworkPageState
   );
-  const homeworkId = props.data?.id ?? homework?.id;
-
+  const { homeworks } = useSelector((state: AppState) => state.homeworksPageState);
+  const homeworkId = props.homeworkData?.id ?? homework?.id;
   return (
     <div
       className={`homework-card-content content-container ${
         props.children ? 'one-card-content' : ''
       }`}
     >
-      <span className="task-number">Задание {props.data?.number}</span>
+      <span className="task-number">
+        Задание{' '}
+        {homeworks && homeworks?.length > 0 ? props.homeworkData?.number : props.taskData?.id}
+      </span>
       <div className="homework-card-description">
         <div className="homework-dates">
-          <span>Дата выдачи</span>
-          <span>{props.data?.startDate ?? homework?.startDate}</span>
+          {homeworks && homeworks?.length > 0 ? <span>Дата выдачи</span> : ''}
+          <span>
+            {homeworks && homeworks?.length > 0
+              ? props.homeworkData?.startDate ?? homework?.startDate
+              : ''}
+          </span>
         </div>
         <div className="homework-dates">
-          <span>Срок сдачи</span>
-          <span>{props.data?.endDate ?? homework?.endDate}</span>
+          {homeworks && homeworks?.length > 0 ? <span>Cрок сдачи</span> : ''}
+          <span>
+            {homeworks && homeworks?.length > 0
+              ? props.homeworkData?.endDate ?? homework?.endDate
+              : ''}
+          </span>
         </div>
-        <span className="homework-title">{props.data?.task.name ?? homework?.task.name}</span>
+        <span className="homework-title">
+          {homeworks && homeworks?.length > 0
+            ? props.homeworkData?.task.name ?? homework?.task.name
+            : props.taskData?.name}
+        </span>
         {props.children ? (
           props.children
         ) : (
           <LinkArrow text="к заданию" to={`homeworks/${homeworkId}`} />
         )}
       </div>
-      <span className="task-status">
-        {
-          HomeworkStatus[
-            props.data?.status ?? studentHomeworkProgress?.status ?? StudentHomeworkStatus.Undone
-          ]
-        }
-      </span>
+      {homeworks && homeworks?.length > 0 ? (
+        <span className="task-status">
+          {
+            HomeworkStatus[
+              props.homeworkData?.status ??
+                studentHomeworkProgress?.status ??
+                StudentHomeworkStatus.Undone
+            ]
+          }
+        </span>
+      ) : (
+        ''
+      )}
     </div>
   );
 };
