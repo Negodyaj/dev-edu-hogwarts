@@ -10,6 +10,7 @@ import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { RegistrationPageState } from '../../store/reducers/registration.reducer';
+import { register } from '../../actions/registration.thunk';
 
 export type RegisterFormData = {
   firstName: string;
@@ -19,31 +20,24 @@ export type RegisterFormData = {
   birthDate: string;
   password: string;
   phoneNumber: string;
+  city: 1;
+  username: string;
 };
 
 export const RegistrationPage = () => {
 
   const method = useForm<RegisterFormData>();
 
-  const dispatch = useDispatch();
   const { isLoading } = useSelector((state: AppState) => state.registrationPageState as RegistrationPageState)
+  const dispatch = useDispatch();
   const onSubmit = (data: RegisterFormData) => {
-    //dispatch(register(data)) //сделать санки
-    ///*
-    baseWretch()
-      .url(registerUrl)
-      .post({
-        ...data,
-        username: 'string',
-        birthdate: convertDate(data.birthDate),
-        city: 1,
-      })
-      .res((data) => console.log(data)); //res
-      //*/
+    dispatch(register(data)) 
   }
     
 
   return (
+    <>
+    {isLoading && 'LOADING'}
     <FormProvider {...method}>
       <div className="register-form-wrapper">
         <h2>Регистрация</h2>
@@ -223,5 +217,6 @@ export const RegistrationPage = () => {
         </form>
       </div>
     </FormProvider>
+    </>
   );
 };
