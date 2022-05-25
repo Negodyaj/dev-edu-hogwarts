@@ -35,13 +35,7 @@ export const SettingsPassword = () => {
         .required('Введите новый пароль')
         .oneOf([Yup.ref('newPassword')], 'Пароли должны совпадать'),
       oldPassword: Yup.string(),
-      //.oneOf([Yup.ref(`${password}`)], "error")
     });
-  // const stopLoading = () => {
-  //   setTimeout(() => {
-  //     dispatch(updateUserDataFail('fail'));
-  //   }, 3000);
-  // };
   const formOptions = { resolver: yupResolver(validationSchema()) };
   const {
     register,
