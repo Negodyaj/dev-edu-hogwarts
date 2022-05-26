@@ -1,4 +1,5 @@
 import { UserResponse } from '../models/responses/UserResponse';
+import { FormPasswordData } from '../pages/SettingsPage/SettingsPassword';
 
 export const UPDATE_USERDATA = 'settings/UPDATE_USERDATA' as const;
 export const UPDATE_USERDATA_STARTED = 'settings/UPDATE_USERDATA_STARTED' as const;
@@ -14,6 +15,11 @@ export const updateUserDataSuccess = (userData: UserResponse) => ({
   payload: userData,
 });
 
+export const updateUserPasswordSuccess = (password: FormPasswordData) => ({
+  type: UPDATE_USERDATA_SUCCESS,
+  payload: password,
+});
+
 export const updateUserDataFail = (message: string) => ({
   type: UPDATE_USERDATA_FAIL,
   payload: message,
@@ -22,4 +28,5 @@ export const updateUserDataFail = (message: string) => ({
 export type SettingsPageActions =
   | ReturnType<typeof updateUserDataStarted>
   | ReturnType<typeof updateUserDataSuccess>
-  | ReturnType<typeof updateUserDataFail>;
+  | ReturnType<typeof updateUserDataFail>
+  | ReturnType<typeof updateUserPasswordSuccess>;
