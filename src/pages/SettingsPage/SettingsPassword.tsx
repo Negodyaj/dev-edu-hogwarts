@@ -67,7 +67,9 @@ export const SettingsPassword = () => {
                 <input
                   type="password"
                   {...register('newPassword')}
-                  className={` form-input form-control ${errors.newPassword ? 'invalid-input' : ''}`}
+                  className={` form-input form-control ${
+                    errors.newPassword ? 'invalid-input' : ''
+                  }`}
                 />
                 <div className="invalid-feedback">{errors.newPassword?.message}</div>
               </div>
