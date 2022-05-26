@@ -72,11 +72,12 @@ function App() {
             <Route path="payment-table" element={<PaymentsPage />} />
             <Route path="students-list" element={<StudentsListPage />} />
           </Routes>
+          <NotificationsContainer />
         </main>
       </div>
       {isModalOpen && <ModalWindow />}
     </>
-        <NotificationsContainer />
+        
   );
 }
 

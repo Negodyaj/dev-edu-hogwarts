@@ -4,41 +4,31 @@ import './NotificationsContainer.scss';
 import { SvgOk } from '../SvgIcon/SvgFiles/NotificationSvg/SvgOk';
 import { SvgFail } from '../SvgIcon/SvgFiles/NotificationSvg/SvgFail';
 import React from 'react';
-
-export type Notifs = {
-  img: any;
-  text: string;
-  type: string;
-};
-
-const notifs: Notifs[] = [
-  {
-    img: <SvgOk />,
-    text: 'Вы успешно зарегистрипровались!',
-    type: 'good',
-  },
-  {
-    img: <SvgFail />,
-    text: 'Что-то пошло не так =(',
-    type: 'bad',
-  },
-];
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { NotificationsContainerState } from '../../store/reducers/notificationsContainer.reducer';
+import { addNotification } from '../../actions/notificationsContainer.actions';
 
 export function NotificationsContainer() {
+  const { container } = useSelector(
+    (state: AppState) => state.notificationsContainerState as NotificationsContainerState);
+  
+  const dispatch = useDispatch();
   const empty: any[] = [];
   const [containerState, setContainerState] = useState(empty);
 
-  function handleClick(notif: Notifs) {
-    setContainerState(containerState.concat(notif));
+  /*function handleClick(notificationType: number) {
+    dispatch(addNotification(notificationType));
   }
+  
+  <button onClick={() => handleClick(0)}>Хороший нотиф</button>
+      <button onClick={() => handleClick(1)}>Плохой нотиф</button>
+  */
 
   return (
     <>
-      <button onClick={() => handleClick(notifs[0])}>Хороший нотиф</button>
-      <button onClick={() => handleClick(notifs[1])}>Плохой нотиф</button>
-
       <div className="notifications-container">
-        {containerState.map((item, i) => (
+        {container.map((item, i) => (
           <NotificationItem data={item} key={i} />
         ))}
       </div>

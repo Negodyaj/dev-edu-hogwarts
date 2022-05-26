@@ -3,6 +3,9 @@ import { RegisterFormData } from '../pages/RegistrationPage/RegistrationPage';
 import { baseWretch } from '../services/base-wretch.service';
 import { registerUrl } from '../shared/consts';
 import { convertDate } from '../shared/helpers/dateHelpers';
+import { 
+  NotificationsContainerActions, 
+  addNotification } from './notificationsContainer.actions';
 import {
   registrationFailed,
   RegistrationPageActions,
@@ -11,7 +14,7 @@ import {
 } from './registration.actions';
 
 export const onRegistration = (data: RegisterFormData) => {
-  return (dispatch: Dispatch<RegistrationPageActions>) => {
+  return (dispatch: Dispatch<RegistrationPageActions | NotificationsContainerActions>) => {
     dispatch(registrationStarted());
 
     baseWretch()
@@ -28,7 +31,13 @@ export const onRegistration = (data: RegisterFormData) => {
         city: 1,
       })
       .res((res) =>
-        res.ok ? dispatch(registrationSuccess(data)) : dispatch(registrationFailed('fail'))
-      );
+        {if (res.ok) {
+          dispatch(registrationSuccess(data));
+          dispatch(addNotification(0))
+        }} )
+      .catch(() => {
+        dispatch(registrationFailed('fail'));
+        dispatch(addNotification(1));
+        });
   };
 };
