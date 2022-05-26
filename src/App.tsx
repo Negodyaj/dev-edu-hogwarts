@@ -21,6 +21,7 @@ import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { LoginPageState } from './store/reducers/login.reducer';
+import { SettingsPassword } from './pages/SettingsPage/SettingsPassword';
 import { StudentsListPage } from './pages/StudentsListPage/StudentsList';
 import { ModalWindowState } from './store/reducers/modalWindow.reducer';
 import { ModalWindow } from './components/ModalWindow/ModalWindow';
@@ -59,6 +60,7 @@ function App() {
             <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
             <Route path="lessons" element={<LessonsPage />} />
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="/change-password" element={<SettingsPassword />} />
             <Route path="courses" element={<CoursesPage />} />
             <Route path="edit-courses" element={<EditCoursesPage />} />
             <Route path="login" element={<LoginPage />} />
