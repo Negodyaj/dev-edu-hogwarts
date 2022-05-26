@@ -23,6 +23,7 @@ import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { LoginPageState } from './store/reducers/login.reducer';
 import { DraftHomeworksPage } from './pages/HomeworksPage/DraftHomeworksPage';
 import { EditHomeworkPage } from './pages/HomeworksPage/EditHomeworkPage';
+import { SettingsPassword } from './pages/SettingsPage/SettingsPassword';
 import { StudentsListPage } from './pages/StudentsListPage/StudentsList';
 import { EditTaskPage } from './pages/HomeworksPage/EditTaskPage';
 import { ModalWindowState } from './store/reducers/modalWindow.reducer';
@@ -64,6 +65,7 @@ function App() {
             <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
             <Route path="lessons" element={<LessonsPage />} />
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="/change-password" element={<SettingsPassword />} />
             <Route path="courses" element={<CoursesPage />} />
             <Route path="edit-courses" element={<EditCoursesPage />} />
             <Route path="login" element={<LoginPage />} />

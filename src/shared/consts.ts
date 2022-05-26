@@ -25,3 +25,4 @@ export const lessonsByGroupId = (groupId: number) => {
 export const getStudentAnswerByTaskId = (taskId: number) => `${taskUrl}/${taskId}/answer`;
 export const updateUserUrl = (id: number) => `${usersUrl}/${id}`;
 export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
+export const updatePassword = 'api/Users/password';
