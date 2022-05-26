@@ -37,7 +37,7 @@
   position: relative;
   list-style: none;
   min-height: 50px;
-  width: 610px;
+  width: calc(100% - 120px);
   padding: 0;
   /* Fix of Webkit flickering */
   z-index: 1;

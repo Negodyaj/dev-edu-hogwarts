@@ -32,7 +32,7 @@ export const GeneralProgressScrollContent = ({ control, setState }: SwiperProps)
     <Swiper
       modules={[Controller, Scrollbar]}
       onSwiper={setState}
-      slidesPerView={isCollapsed ? 5.25 : 3.52}
+      slidesPerView={isCollapsed ? 7.9 : 6.4}
       allowTouchMove={false}
       scrollbar={{
         draggable: true,
@@ -40,6 +40,7 @@ export const GeneralProgressScrollContent = ({ control, setState }: SwiperProps)
         lockClass: 'lock-scrollbar',
       }}
       controller={{ control: control }}
+      initialSlide={progressData?.[0].homeworks.length}
     >
       {progressData &&
         progressData[0].homeworks.map((homework: any) => (

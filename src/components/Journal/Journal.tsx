@@ -10,6 +10,7 @@ import { AttendanceHead } from './components/AttendanceHead';
 import { GeneralProgressHead } from './components/GeneralProgressHead';
 import { AttendanceScrollContent } from './components/AttendanceScrollContent';
 import { GeneralProgressScrollContent } from './components/GeneralProgressScrollContent';
+import { journalLink } from '../MainPanel/Navigation/constants';
 
 type JournalProps = {
   filteredData: any;
@@ -34,7 +35,7 @@ export const Journal = ({ filteredData, filter }: JournalProps) => {
       <div className="list-container">
         <div
           className={`one-block students-list${
-            location.pathname !== '/journal' ? ' tall-header-block' : ''
+            location.pathname !== journalLink ? ' tall-header-block' : ''
           }`}
         >
           <b>ФИО студента</b>
@@ -54,16 +55,16 @@ export const Journal = ({ filteredData, filter }: JournalProps) => {
             className="one-block students-list"
           >{`${student.LastName} ${student.name}`}</div>
         ))}
-        {location.pathname === '/journal' && <div className="one-block students-list">ВСЕГО</div>}
+        {location.pathname === journalLink && <div className="one-block students-list">ВСЕГО</div>}
       </div>
-      {location.pathname === '/journal' && <AttendanceRatingColumn data={filteredData} />}
+      {location.pathname === journalLink && <AttendanceRatingColumn data={filteredData} />}
       <div className="scroll-content-div">
-        {location.pathname === '/journal' ? (
+        {location.pathname === journalLink ? (
           <AttendanceHead setState={setSecondSwiper} control={firstSwiper} />
         ) : (
           <GeneralProgressHead setState={setSecondSwiper} control={firstSwiper} />
         )}
-        {location.pathname === '/journal' ? (
+        {location.pathname === journalLink ? (
           <AttendanceScrollContent setState={setFirstSwiper} control={secondSwiper} />
         ) : (
           <GeneralProgressScrollContent setState={setFirstSwiper} control={secondSwiper} />

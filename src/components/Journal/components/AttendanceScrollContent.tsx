@@ -32,7 +32,7 @@ export const AttendanceScrollContent = ({ control, setState }: SwiperProps) => {
     <Swiper
       modules={[Controller, Scrollbar]}
       onSwiper={setState}
-      slidesPerView={isCollapsed ? 7.53 : 5.04}
+      slidesPerView={isCollapsed ? 10.5 : 8.5}
       allowTouchMove={false}
       scrollbar={{
         draggable: true,
@@ -40,6 +40,7 @@ export const AttendanceScrollContent = ({ control, setState }: SwiperProps) => {
         lockClass: 'lock-scrollbar',
       }}
       controller={{ control: control }}
+      initialSlide={attendanceData?.length}
     >
       {attendanceData?.map((item: any) => (
         <SwiperSlide key={item.id}>

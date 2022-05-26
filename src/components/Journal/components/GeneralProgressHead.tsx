@@ -16,8 +16,6 @@ export type SwiperProps = {
 export const GeneralProgressHead = ({ control, setState }: SwiperProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const selectedItemInFilter = (value: number) =>
-  //   activeFilter !== value ? statusTypesFilter[0] : undefined;
   const { progressData } = useSelector((state: AppState) => state.generalProgressState);
   const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
 
@@ -84,7 +82,7 @@ export const GeneralProgressHead = ({ control, setState }: SwiperProps) => {
       modules={[Controller, Scrollbar]}
       onSwiper={setState}
       className="first-swiper"
-      slidesPerView={isCollapsed ? 5.25 : 3.52}
+      slidesPerView={isCollapsed ? 7.9 : 6.4}
       allowTouchMove={false}
       scrollbar={{
         draggable: true,
@@ -92,6 +90,7 @@ export const GeneralProgressHead = ({ control, setState }: SwiperProps) => {
         lockClass: 'lock-scrollbar',
       }}
       controller={{ control: control }}
+      initialSlide={progressData?.[0].homeworks.length}
     >
       {progressData &&
         progressData[0].homeworks.map((item: any) => {
