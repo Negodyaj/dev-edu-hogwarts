@@ -1,13 +1,17 @@
 import {
   getTasksCount,
-  NewHomeworkFormAction,
   removeLinks,
+  selectGroup,
   setValueInInput,
 } from '../../actions/newHomeworkForm.action';
 import { Dispatch } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { AddHomeworkFormData } from '../../pages/NewHomework/NewHomework';
-import { createNewTaskByMethodist, createNewTaskByTeacher } from '../../actions/homeworks.thunks';
+import {
+  createNewTaskByMethodist,
+  createNewTaskByTeacher,
+  tasksCountInGroup,
+} from '../../actions/homeworks.thunks';
 import { Homework } from '../../models/responses/HomeworksResponse';
 import { UserRole } from '../enums/UserRole';
 import { convertDate } from './dateHelpers';
@@ -15,7 +19,7 @@ import moment from 'moment';
 
 export const resetForm = (
   links: string[],
-  dispatch: Dispatch<NewHomeworkFormAction>,
+  dispatch: Dispatch<any>,
   method: UseFormReturn<AddHomeworkFormData, any>
 ) => {
   links.length = 0;
@@ -28,6 +32,8 @@ export const resetForm = (
   dispatch(removeLinks());
   dispatch(setValueInInput(''));
   dispatch(getTasksCount([]));
+  dispatch(tasksCountInGroup(0));
+  dispatch(selectGroup(-1));
 };
 
 export const createHomeworkFromData = (homework: Homework, data: AddHomeworkFormData) => {

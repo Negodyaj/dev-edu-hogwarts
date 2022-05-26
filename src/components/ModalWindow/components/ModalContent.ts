@@ -10,5 +10,9 @@ export const ModalContent = (type: ModalType, userToDelete?: number) => {
       return `Вы уверены, что хотите удалить пользователя ${userToDelete}?`;
     case ModalType.deleteHomework:
       return `Вы уверены, что хотите удалить задание?`;
+    case ModalType.deleteHomeworkSuccess:
+      return `Задание успешно удалено.`;
+    case ModalType.deleteHomeworkError:
+      return `Ой, что-то пошло не так, попробуйте позже!`;
   }
 };

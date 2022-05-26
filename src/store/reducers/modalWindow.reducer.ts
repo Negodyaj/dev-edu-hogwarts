@@ -43,6 +43,7 @@ export const modalWindowReducer: Reducer<ModalWindowState | undefined, ModalWind
       return {
         ...state,
         isModalOpen: action.payload,
+        errorMessage: undefined,
       };
     case SET_WINDOW_TYPE: {
       return {

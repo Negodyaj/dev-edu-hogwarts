@@ -16,6 +16,8 @@ export const baseWretch = () =>
     .catcher(403, (error) => {
       throw new Error((JSON.parse(error.message) as Errors).Message);
     })
-    .catcher(404, (error) => console.log(error))
+    .catcher(404, (error) => {
+      throw new Error(error.message);
+    })
     .catcher(409, (error) => console.log(error.response))
     .catcher(422, (error) => console.log(error.response));

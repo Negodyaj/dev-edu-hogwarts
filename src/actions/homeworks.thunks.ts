@@ -8,9 +8,9 @@ import {
   courseById,
   coursesUrl,
   draftsByGroupId,
-  homeworkById,
   getHomeworksByGroupId,
   getStudentAnswerByTaskId,
+  homeworkById,
   taskById,
 } from '../shared/consts';
 import {
@@ -43,10 +43,10 @@ import {
   deleteFail,
   deleteStart,
   deleteSuccess,
-  getHomeworkToDelete,
-  getTaskToDelete,
   ModalWindowActions,
+  setWindowType,
 } from './modalWindow.actions';
+import { ModalType } from '../shared/enums/modalType';
 
 export const loadHomeworks = (groupId: number) => {
   return async (dispatch: Dispatch<HomeworksPageAction>) => {
@@ -120,7 +120,7 @@ export const createNewTaskByMethodist = (homeworkData: AddHomeworkFormData, link
         .post({
           name: homeworkData.name,
           description: homeworkData.description,
-          groupId: homeworkData.groupId,
+          courseId: homeworkData.groupId,
           links: links.join(' [link] '),
           isRequired: true,
         });
@@ -234,10 +234,11 @@ export const deleteHomework = (homeworkId: number | string) => {
   return async (dispatch: Dispatch<ModalWindowActions>) => {
     dispatch(deleteStart());
     try {
-      await baseWretch().url(homeworkById(homeworkId)).delete();
+      await baseWretch().url(homeworkById(homeworkId)).delete().res();
       dispatch(deleteSuccess());
-      dispatch(getHomeworkToDelete(undefined));
+      dispatch(setWindowType(ModalType.deleteHomeworkSuccess));
     } catch (e: any) {
+      dispatch(setWindowType(ModalType.deleteHomeworkError));
       dispatch(deleteFail(e.message));
     }
   };
@@ -246,12 +247,14 @@ export const deleteHomework = (homeworkId: number | string) => {
 export const deleteTask = (taskId: number | string) => {
   return async (dispatch: Dispatch<ModalWindowActions>) => {
     dispatch(deleteStart());
+
     try {
-      await baseWretch().url(taskById(taskId)).delete();
+      await baseWretch().url(taskById(taskId)).delete().res();
       dispatch(deleteSuccess());
-      dispatch(getTaskToDelete(undefined));
+      dispatch(setWindowType(ModalType.deleteHomeworkSuccess));
     } catch (e: any) {
       dispatch(deleteFail(e.message));
+      dispatch(setWindowType(ModalType.deleteHomeworkError));
     }
   };
 };

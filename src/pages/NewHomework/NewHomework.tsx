@@ -119,7 +119,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
       dispatch(createNewHomework(formData));
     } else {
       const roleFunction = returnFunctionByRole(currentRole);
-      dispatch(roleFunction(formData));
+      dispatch(roleFunction(formData, links));
     }
 
     if (!errorMessage) {
@@ -168,8 +168,8 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
 
   useEffect(() => {
     const id = method.getValues('groupId');
-    if (currentRole === UserRole.Teacher && id) {
-      dispatch(tasksCountInGroup(id));
+    if (currentRole === UserRole.Teacher) {
+      dispatch(tasksCountInGroup(id ? id : selectGroupId !== -1 ? selectGroupId : -1));
     } else if (currentRole === UserRole.Methodist && id) {
       dispatch(tasksCountInCourse(id));
     }

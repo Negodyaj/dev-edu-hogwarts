@@ -1,19 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteFail, setWindowState } from '../../../../actions/modalWindow.actions';
-import { Icon } from '../../../../shared/enums/Icon';
-import { SvgIcon } from '../../../SvgIcon/SvgIcon';
+import { setWindowState } from '../../../../actions/modalWindow.actions';
 import { ModalContent } from '../ModalContent';
 import { Button, ButtonModel } from '../../../Button/Button';
 import { AppState } from '../../../../store/store';
 import { ModalWindowState } from '../../../../store/reducers/modalWindow.reducer';
 import { deleteHomework, deleteTask } from '../../../../actions/homeworks.thunks';
-import { homeworksLink } from '../../../MainPanel/Navigation/constants';
-import { useNavigate } from 'react-router-dom';
+import { Icon } from '../../../../shared/enums/Icon';
+import { SvgIcon } from '../../../SvgIcon/SvgIcon';
 
 export const ModalDeleteHomework = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { modalType, homeworkToDelete, taskToDelete, inProcess, errorMessage } = useSelector(
+  const { modalType, homeworkToDelete, taskToDelete, inProcess } = useSelector(
     (state: AppState) => state.modalWindowState as ModalWindowState
   );
 
@@ -22,37 +19,26 @@ export const ModalDeleteHomework = () => {
       <div className="icons-container red-colored">
         <SvgIcon icon={Icon.Cross} />
       </div>
-      <div className="modal-content">
-        {!errorMessage ? ModalContent(modalType) : 'Ой, что-то пошло не так, попробуйте позже!'}
-      </div>
+      <div className="modal-content">{ModalContent(modalType)}</div>
       <div className="buttons-group">
-        {!errorMessage && (
-          <Button
-            model={ButtonModel.Colored}
-            disabled={inProcess}
-            onClick={() => {
-              let navigateLink = homeworksLink;
-              if (homeworkToDelete) {
-                dispatch(deleteHomework(homeworkToDelete.id));
-              }
-              if (taskToDelete) {
-                dispatch(deleteTask(taskToDelete.id));
-                navigateLink = `${homeworksLink}/drafts`;
-              }
-              if (!inProcess && !errorMessage) {
-                navigate(navigateLink);
-                dispatch(setWindowState(false));
-              }
-            }}
-            text="Удалить"
-          />
-        )}
+        <Button
+          model={ButtonModel.Colored}
+          disabled={inProcess}
+          onClick={() => {
+            if (homeworkToDelete) {
+              dispatch(deleteHomework(homeworkToDelete.id));
+            }
+            if (taskToDelete) {
+              dispatch(deleteTask(taskToDelete.id));
+            }
+          }}
+          text="Удалить"
+        />
         <Button
           model={ButtonModel.Text}
           disabled={inProcess}
           onClick={() => {
             dispatch(setWindowState(false));
-            dispatch(deleteFail(undefined));
           }}
           text="Отмена"
         />

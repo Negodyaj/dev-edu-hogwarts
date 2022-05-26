@@ -13,13 +13,12 @@
   width: 360px;
   background-color: white;
   padding: 42px 42px 70px 67px;
-  position: fixed;
+  position: relative;
   transition: width ease-in-out 0.5s, padding-left ease-in-out 0.5s;
   box-shadow: 4px 7px 15px #0000001a;
   overflow: hidden;
   margin-right: 20px;
   flex-shrink: 0;
-  height: 100%;
 
   .main-panel-container {
     width: 262px;
