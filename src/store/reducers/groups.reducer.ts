@@ -32,6 +32,7 @@ const initialState: GroupsPageState = {
     endDate: '',
     timetable: '',
     paymentPerMonth: 0,
+    paymentsCount: 0,
   },
   selectedTab: -1,
   isLoading: false,

@@ -9,4 +9,5 @@ export interface GroupResponse {
   endDate: string;
   timetable: string;
   paymentPerMonth: number;
+  paymentsCount: number;
 }

@@ -31,6 +31,7 @@ export type GroupFormData = {
   timetable: string;
   paymentPerMonth: number;
   courseId: number;
+  paymentsCount: number;
 };
 
 export type Course = {
@@ -38,6 +39,18 @@ export type Course = {
   name: string;
 };
 
+export const paymentsCount = [
+  {
+    id: 1,
+    name: '3',
+    value: 3,
+  },
+  {
+    id: 2,
+    name: '4',
+    value: 4,
+  },
+];
 export const NewGroupPage = () => {
   const { id } = useParams();
 
@@ -175,18 +188,12 @@ export const NewGroupPage = () => {
                 <span>Проверьте корректность данных</span>
               )}
             </div>
-            <div className="form-element">
+            <div className="form-element choose-count">
               Число платежей
-              {/* <FilterList
-              data={courses.map((course) => {
-                const newCourse: FilterItem = {
-                  id: course.id,
-                  name: course.name,
-                };
-                return newCourse;
-              })}
-              callback={(item) => setValue('courseId', item.id)}
-            /> */}
+              <FilterList
+                data={paymentsCount}
+                callback={(item) => setValue('paymentsCount', item.value)}
+              />
             </div>
             <div className="teachers-list">
               <h3>Преподаватель:</h3>

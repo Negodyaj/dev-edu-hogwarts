@@ -21,6 +21,7 @@ export interface NewGroupFormState {
   endDate: string;
   timetable: string;
   paymentPerMonth: number;
+  paymentsCount: number;
   courseId: number;
   users: UserResponseShort[];
   courses: CourseResponse[];
@@ -37,6 +38,7 @@ const initialState: NewGroupFormState = {
   endDate: '',
   timetable: '',
   paymentPerMonth: 0,
+  paymentsCount: 0,
   courseId: 0,
   users: [],
   courses: [],
@@ -86,6 +88,7 @@ export const NewGroupFormReducer: Reducer<NewGroupFormState, NewGroupFormAction>
         endDate: action.payload.endDate,
         timetable: action.payload.timetable,
         paymentPerMonth: action.payload.paymentPerMonth,
+        paymentsCount: action.payload.paymentsCount,
         courseId: action.payload.courseId,
       };
     }
