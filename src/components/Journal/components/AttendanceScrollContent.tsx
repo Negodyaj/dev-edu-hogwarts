@@ -52,9 +52,7 @@ export const AttendanceScrollContent = ({ control, setState }: SwiperProps) => {
                   data={attendanceTypesFilter}
                   callback={bindingCallback}
                   arrowHidden={true}
-                  selected={attendanceTypesFilter.find(
-                    (filterItem: FilterItem) => filterItem.id === student.check
-                  )}
+                  selected={student.check}
                 />
               </div>
             );

@@ -7,7 +7,7 @@ import {
   loadAttendance,
   selectTab,
 } from '../../actions/attendanceJournal.actions';
-import { lessonsArr, lessonsEmptyArr } from './DataMock';
+import { lessonsArr } from './DataMock';
 import { useEffect } from 'react';
 import { ErrorMesage } from '../../components/Journal/components/ErrorMesage';
 import { Button, ButtonModel } from '../../components/Button/Button';
@@ -20,7 +20,7 @@ export const AttendanceJournal = () => {
   );
 
   useEffect(() => {
-    dispatch(loadAttendance(lessonsEmptyArr));
+    dispatch(loadAttendance(lessonsArr));
   }, []);
 
   return (
@@ -37,7 +37,7 @@ export const AttendanceJournal = () => {
       ) : attendanceData && [...attendanceData].length > 0 ? (
         <Journal filteredData={filteredStudentList} filter={filterStudentsList} />
       ) : (
-        <div className="flex-container">
+        <div className="error-container">
           <span>Тут еще ничего нет</span>
           <Button
             model={ButtonModel.Colored}
