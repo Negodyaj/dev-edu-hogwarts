@@ -18,3 +18,11 @@ export interface UserResponse {
   city: 1;
   groups: GroupResponse[];
 }
+
+export interface UserSimpleResponse {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  photo: string;
+}

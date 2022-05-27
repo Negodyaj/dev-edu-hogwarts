@@ -1,0 +1,70 @@
+@import "src/style/colors";
+
+.modal-background {
+  background-color: $modal-background-color;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+.modal-window {
+  width: 532px;
+  padding: 70px 90px 70px 90px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 15px;
+ 
+  .buttons-container {
+    text-align: center;
+    .btn-text {
+      padding: 0;
+    }
+  }
+
+  .icons-container {
+    margin: 0 auto;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: $lavender-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .red-colored {
+    background-color: $pale-red-color;
+  }
+  .red-bordered {
+    border-color: $pale-red-color;
+  }
+
+  .btn + .btn {
+    margin-left: 50px;
+  }
+}
+
+.modal-content {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 23.4px;
+}
+
+.display-none {
+  display: none;
+}
+
+.flex-container.inactive {
+  pointer-events: none;
+}

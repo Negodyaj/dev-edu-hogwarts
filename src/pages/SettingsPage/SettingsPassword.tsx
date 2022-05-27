@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { baseWretch } from '../../services/base-wretch.service';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import '../SettingsPage/SettingsPage.scss';
 import { useForm } from 'react-hook-form';
 import { BackButton } from '../../components/BackButton/BackButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserPassword } from '../../actions/settings.thunk';
+import { AppState } from '../../store/store';
+import { SettingsPageState } from '../../store/reducers/settings.reducer';
+import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 
 export type FormPasswordData = {
   oldPassword: string;
@@ -13,22 +18,14 @@ export type FormPasswordData = {
 };
 
 export const SettingsPassword = () => {
-  const [isOk, setIsOk] = useState<boolean>(false);
-  const onSubmit = (data: FormPasswordData) =>
-    baseWretch()
-      .url('api/Users/password')
-      .put({
-        oldPassword: data.oldPassword,
-        newPassword: data.newPassword,
-        newPasswordRepeat: data.newPasswordRepeat,
-      })
-      .res((res) => {
-        if (res.status == 403) {
-          setIsOk(true);
-        }
-        console.log(res);
-      });
-
+  const [isOk] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const onSubmit = (data: FormPasswordData) => {
+    dispatch(updateUserPassword(data));
+  };
+  const { isLoading } = useSelector(
+    (state: AppState) => state.settingsPageState as SettingsPageState
+  );
   const validationSchema = () =>
     Yup.object().shape({
       newPassword: Yup.string()
@@ -38,58 +35,66 @@ export const SettingsPassword = () => {
         .required('Введите новый пароль')
         .oneOf([Yup.ref('newPassword')], 'Пароли должны совпадать'),
       oldPassword: Yup.string(),
-      //.oneOf([Yup.ref(`${password}`)], "error")
     });
-
   const formOptions = { resolver: yupResolver(validationSchema()) };
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<FormPasswordData>(formOptions);
 
   return (
-    <div className="settings-container">
-      <BackButton />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <p className="title">Редактирование пароля</p>
-        <div className="form-grid-container">
-          <div>
-            <p>Cтарый пароль</p>
-            <input
-              type="password"
-              className={`form-control ${isOk ? 'is-invalid' : ''}`}
-              {...register('oldPassword', {})}
-            />
-            <div className="invalid-feedback">{errors.oldPassword?.message}</div>
-          </div>
-          <div className="new-password">
-            <p>Новый пароль</p>
-            <input
-              type="password"
-              {...register('newPassword')}
-              className={`form-control ${errors.newPassword ? 'is-invalid' : ''}`}
-            />
-            <div className="invalid-feedback">{errors.newPassword?.message}</div>
-          </div>
-          <div className="repeate-password">
-            <p>Повторите новый пароль</p>
-            <input
-              type="password"
-              {...register('newPasswordRepeat')}
-              className={`form-control ${errors.newPasswordRepeat ? 'is-invalid' : ''}`}
-            />
-            <div className="invalid-feedback">{errors.newPasswordRepeat?.message}</div>
-          </div>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="settings-container">
+          <BackButton />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <p className="title">Редактирование пароля</p>
+            <div className="form-grid-container">
+              <div className="form-element">
+                <p>Cтарый пароль</p>
+                <input
+                  type="password"
+                  className={`form-input form-control ${isOk ? 'is-invalid' : ''}`}
+                  {...register('oldPassword', {})}
+                />
+                <div className="invalid-feedback">{errors.oldPassword?.message}</div>
+              </div>
+              <div className="form-element">
+                <p>Новый пароль</p>
+                <input
+                  type="password"
+                  {...register('newPassword')}
+                  className={` form-input form-control ${errors.newPassword ? 'is-invalid' : ''}`}
+                />
+                <div className="invalid-feedback">{errors.newPassword?.message}</div>
+              </div>
+              <div className="form-element">
+                <p>Повторите новый пароль</p>
+                <input
+                  type="password"
+                  {...register('newPasswordRepeat')}
+                  className={`form-input form-control ${
+                    errors.newPasswordRepeat ? 'is-invalid' : ''
+                  }`}
+                />
+                <div className="invalid-feedback">{errors.newPasswordRepeat?.message}</div>
+              </div>
+            </div>
+            <div className="buttons-group">
+              <Button
+                text={'Сохранить'}
+                type={ButtonType.submit}
+                model={ButtonModel.Colored}
+                width="190"
+              />
+              <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text} />
+            </div>
+          </form>
         </div>
-        <button type="submit" className="submit-button">
-          Сохранить
-        </button>
-        <button type="reset" onClick={() => reset()} className="submit-button">
-          Отмена
-        </button>
-      </form>
-    </div>
+      )}
+    </>
   );
 };
