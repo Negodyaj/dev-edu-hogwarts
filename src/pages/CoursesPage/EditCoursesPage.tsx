@@ -2,26 +2,28 @@ import { ListView } from './ListView/ListView';
 import { DragDropContext, DragUpdate } from 'react-beautiful-dnd';
 import { useState } from 'react';
 import { lessons } from './ListView/exampleData';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import './EditCoursesPage.scss';
 
-//вопросы: 
-//как сгенерить айдишник (он должен с бэка приходить вроде?)
+//вопросы:
 //как сделать так чтобы при отправке темы в массив поля ресетились
 //после нажатия ресет можно отправить пустой инпут (сделать onError?)
-//цифра меняется автоматически, но постится правильная только если один раз нажать на инпут с ней
 
 export type UserFormData = {
-    id: number;
-    lessonNumber: number;
-    lessonName: string;
-    hoursCount: number;
+  id: number;
+  lessonNumber: number;
+  lessonName: string;
+  hoursCount: number;
 };
 
 export const EditCoursesPage = () => {
   const [lessonsData, setLessonsData] = useState(lessons); // Это типа данные, которые нам придут
-  const { register, handleSubmit, formState: { errors } } = useForm<UserFormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserFormData>();
 
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
@@ -45,8 +47,8 @@ export const EditCoursesPage = () => {
   };
 
   const onSubmit = (data: UserFormData) => {
-    setLessonsData(lessonsData.concat(data))
-    //console.log(lessonsData, data);
+    setLessonsData(lessonsData.concat(data));
+    console.log(lessonsData, data);
   };
 
   return (
@@ -61,35 +63,40 @@ export const EditCoursesPage = () => {
           <div className="inputs">
             <div>
               <span>Тема</span>
-              <input className="form-input short" defaultValue={lessonsData.length+1} {...register("lessonNumber", { required: true })}/>
+              <input
+                className="form-input short"
+                placeholder="0"
+                {...register('lessonNumber', { required: true })}
+              />
+              {errors.lessonNumber && <span>Введи номер темы</span>}
             </div>
             <div>
               <span>Название</span>
-              <input className="form-input long" placeholder="Введите текст" {...register("lessonName", { required: true })} />
+              <input
+                className="form-input long"
+                placeholder="Введите текст"
+                {...register('lessonName', { required: true })}
+              />
               {errors.lessonName && <span>Введи название темы</span>}
             </div>
             <div>
               <span>Часы</span>
-              <input className="form-input short" type="number" placeholder="XX" {...register("hoursCount", { required: true })} />
+              <input
+                className="form-input short"
+                type="number"
+                placeholder="XX"
+                min={1}
+                {...register('hoursCount', { required: true })}
+              />
               {errors.hoursCount && <span>Введи часы</span>}
             </div>
           </div>
           <div className="button-container">
-            <Button
-              text="Сохранить"
-              model={ButtonModel.Colored}
-              type={ButtonType.submit}
-            />
-            <Button 
-              text="Отмена"
-              type={ButtonType.reset}
-              model={ButtonModel.Text} 
-            />
+            <Button text="Сохранить" model={ButtonModel.Colored} type={ButtonType.submit} />
+            <Button text="Отмена" type={ButtonType.reset} model={ButtonModel.Text} />
           </div>
-          
         </form>
       </div>
-      
     </>
   );
 };
