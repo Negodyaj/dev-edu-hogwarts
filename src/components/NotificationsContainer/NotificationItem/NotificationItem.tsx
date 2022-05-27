@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Icon } from '../../../shared/enums/Icon';
+import { NotificationType } from '../../../shared/enums/NotificationType';
+import { SvgIcon } from '../../SvgIcon/SvgIcon';
 import './NotificationItem.scss';
 
 export type NotificationProps = {
@@ -6,15 +9,15 @@ export type NotificationProps = {
 };
 
 export type NotificationData = {
-  img: any;
   text: string;
-  type: string;
+  type: NotificationType;
 };
 
 export const NotificationItem = (props: NotificationProps) => {
   const [invisible, setInvisible] = useState('');
+  const isGood = props.data.type === NotificationType.Good;
   useEffect(() => {
-    if (props.data.type === 'good') {
+    if (isGood) {
       setTimeout(() => setInvisible('invisible'), 2500);
     } else {
       setTimeout(() => setInvisible('invisible'), 4000);
@@ -22,17 +25,15 @@ export const NotificationItem = (props: NotificationProps) => {
   }, []);
 
   return (
-    <>
-      <div
-        onClick={() => {
-          setInvisible('invisible');
-        }}
-        className={`notification-window ${invisible}
-        `}
-      >
-        {props.data.img}
-        <p className="notification-text">{props.data.text}</p>
-      </div>
-    </>
+    <div
+      onClick={() => {
+        setInvisible('invisible');
+      }}
+      className={`notification-window ${invisible}
+      `}
+    >
+      <SvgIcon icon={isGood ? Icon.Ok : Icon.Fail} />
+      <p className="notification-text">{props.data.text}</p>
+    </div>
   );
 };

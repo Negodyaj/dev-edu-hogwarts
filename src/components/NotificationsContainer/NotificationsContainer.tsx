@@ -5,17 +5,15 @@ import { AppState } from '../../store/store';
 import { NotificationsContainerState } from '../../store/reducers/notificationsContainer.reducer';
 
 export const NotificationsContainer = () => {
-  const { container } = useSelector(
+  const { notifications } = useSelector(
     (state: AppState) => state.notificationsContainerState as NotificationsContainerState
   );
 
   return (
-    <>
-      <div className="notifications-container">
-        {container.map((item, i) => (
-          <NotificationItem data={item} key={i} />
-        ))}
-      </div>
-    </>
+    <div className="notifications-container">
+      {notifications.map((item, i) => (
+        <NotificationItem data={item} key={`notification-${i}`} />
+      ))}
+    </div>
   );
 };

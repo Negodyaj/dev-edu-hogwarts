@@ -2,6 +2,7 @@ import { Dispatch } from 'react';
 import { RegisterFormData } from '../pages/RegistrationPage/RegistrationPage';
 import { baseWretch } from '../services/base-wretch.service';
 import { registerUrl } from '../shared/consts';
+import { NotificationType } from '../shared/enums/NotificationType';
 import { convertDate } from '../shared/helpers/dateHelpers';
 import { NotificationsContainerActions, addNotification } from './notificationsContainer.actions';
 import {
@@ -31,12 +32,12 @@ export const onRegistration = (data: RegisterFormData) => {
       .res((res) => {
         if (res.ok) {
           dispatch(registrationSuccess(data));
-          dispatch(addNotification(0));
+          dispatch(addNotification({ text: 'Добро пожаловать!!', type: NotificationType.Good }));
         }
       })
       .catch(() => {
         dispatch(registrationFailed('fail'));
-        dispatch(addNotification(1));
+        dispatch(addNotification({ text: 'Чот наебнулось(', type: NotificationType.Bad }));
       });
   };
 };

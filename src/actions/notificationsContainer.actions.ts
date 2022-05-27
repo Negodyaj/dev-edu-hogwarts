@@ -1,8 +1,10 @@
+import { NotificationData } from '../components/NotificationsContainer/NotificationItem/NotificationItem';
+
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION' as const;
 
-export const addNotification = (notificationType: number) => ({
+export const addNotification = (notification: NotificationData) => ({
   type: ADD_NOTIFICATION,
-  payload: notificationType,
+  payload: notification,
 });
 
 export type NotificationsContainerActions = ReturnType<typeof addNotification>;

@@ -3,14 +3,14 @@ import {
   ADD_NOTIFICATION,
   NotificationsContainerActions,
 } from '../../actions/notificationsContainer.actions';
-import { Notifs, notifs } from '../../models/NotificationsData';
+import { NotificationData } from '../../components/NotificationsContainer/NotificationItem/NotificationItem';
 
 export interface NotificationsContainerState {
-  container: Notifs[];
+  notifications: NotificationData[];
 }
 
 export const initialState: NotificationsContainerState = {
-  container: [],
+  notifications: [],
 };
 
 export const notificationsContainerReducer: Reducer<
@@ -19,10 +19,9 @@ export const notificationsContainerReducer: Reducer<
 > = (state = initialState, action) => {
   switch (action.type) {
     case ADD_NOTIFICATION:
-      const updContainer = state.container.concat(notifs[action.payload]);
       return {
         ...state,
-        container: updContainer,
+        notifications: [...state.notifications, action.payload],
       };
     default:
       return state;
