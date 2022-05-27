@@ -3,9 +3,7 @@ import { RegisterFormData } from '../pages/RegistrationPage/RegistrationPage';
 import { baseWretch } from '../services/base-wretch.service';
 import { registerUrl } from '../shared/consts';
 import { convertDate } from '../shared/helpers/dateHelpers';
-import { 
-  NotificationsContainerActions, 
-  addNotification } from './notificationsContainer.actions';
+import { NotificationsContainerActions, addNotification } from './notificationsContainer.actions';
 import {
   registrationFailed,
   RegistrationPageActions,
@@ -30,14 +28,15 @@ export const onRegistration = (data: RegisterFormData) => {
         birthdate: convertDate(data.birthDate),
         city: 1,
       })
-      .res((res) =>
-        {if (res.ok) {
+      .res((res) => {
+        if (res.ok) {
           dispatch(registrationSuccess(data));
-          dispatch(addNotification(0))
-        }} )
+          dispatch(addNotification(0));
+        }
+      })
       .catch(() => {
         dispatch(registrationFailed('fail'));
         dispatch(addNotification(1));
-        });
+      });
   };
 };

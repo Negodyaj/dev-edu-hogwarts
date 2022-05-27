@@ -24,7 +24,10 @@ import { NewGroupFormReducer, NewGroupFormState } from './reducers/NewGroupForm.
 import { settingsPageReducer, SettingsPageState } from './reducers/settings.reducer';
 import { modalWindowReducer, ModalWindowState } from './reducers/modalWindow.reducer';
 import { registrationPageReducer, RegistrationPageState } from './reducers/registration.reducer';
-import { notificationsContainerReducer, NotificationsContainerState } from './reducers/notificationsContainer.reducer';
+import {
+  notificationsContainerReducer,
+  NotificationsContainerState,
+} from './reducers/notificationsContainer.reducer';
 
 // Create an interface for the application state
 export interface AppState {
