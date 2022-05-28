@@ -224,7 +224,7 @@ export const NewHomework = () => {
             model={ButtonModel.White}
             type={ButtonType.submit}
           />
-          <Button text="Отмена" type={ButtonType.reset} model={ButtonModel.Text} url={'/'} />
+          <Button text="Отмена" type={ButtonType.reset} model={ButtonModel.Text} />
         </div>
       </form>
     </FormProvider>
