@@ -1,11 +1,13 @@
 import { Homework, Task } from './responses/HomeworksResponse';
 
 export type HomeworkProps = {
-  homeworkData?: Homework;
-  taskData?: Task;
+  data?: Homework;
   children?: JSX.Element;
 };
-
+export type TaskProps = {
+  data?: Task;
+  children?: JSX.Element;
+};
 export type HomeworkFormData = {
   answer: string;
 };

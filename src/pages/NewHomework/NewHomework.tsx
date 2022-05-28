@@ -8,6 +8,7 @@ import {
   addNewTaskUrl,
   addNewTaskUrlByMethodist,
   getHomeworksByGroupId,
+  updateTaskUrl,
 } from '../../shared/consts';
 import { SvgIcon } from '../../components/SvgIcon/SvgIcon';
 import { Icon } from '../../shared/enums/Icon';
@@ -27,46 +28,51 @@ import { LoginPageState } from '../../store/reducers/login.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
 import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
+import { useLocation } from 'react-router-dom';
+// import { setPrevURL } from '../../actions/homework.actions';
 // import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
 // import { FilterList } from '../../components/FilterList/FilterList';
 // import { CoursesPageState } from '../../store/reducers/courses.reducer';
 // import { CoursesPageState } from '../../store/reducers/courses.reducer';
 
-export type AddTaskFormData = {
-  name: string;
-  description: string;
+export interface AddTaskFormData extends UpdateTaskFormData {
+  // name: string;
+  // description: string;
   homework: {
     startDate: string;
     endDate: string;
   };
   groupId?: number;
   courseId?: number;
+}
+export type UpdateTaskFormData = {
+  name: string;
+  description: string;
 };
-
 export const NewHomework = () => {
-  const method = useForm<AddTaskFormData>();
+  const location = useLocation();
+  console.log(location.key);
+  const { prevPageURL, task } = useSelector((state: AppState) => state.homeworkPageState);
+  const method = useForm<any>();
   const dispatch = useDispatch();
-  const { currentUser, currentRole } = useSelector(
-    (state: AppState) => state.loginPageState as LoginPageState
-  );
+  const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const { links, inputLinkValue, group, selectGroupId } = useSelector(
     (state: AppState) => state.newHomeworkFormState
   );
   const { courses } = useSelector((state: AppState) => state.coursesPageState);
   const refLinkName = useRef<any>({});
-
   const memoizeMapLinks = useMemo(() => {
     return links.map((item, index) => {
       return <AddedLink key={index} itemNumber={index} source={item} />;
     });
   }, [links]);
-
+  console.log(prevPageURL);
   const addLinkInForm = () => {
     if (inputLinkValue && /^[a-z]+:\/\//i.test(inputLinkValue) && !links.includes(inputLinkValue))
       dispatch(addLink(refLinkName.current.value));
   };
-
-  const onSubmit = (data: AddTaskFormData) => {
+  const onSubmitAddnewTask = (data: AddTaskFormData) => {
+    debugger;
     const formData = {
       ...data,
       links: links.join(' [link] '),
@@ -78,11 +84,18 @@ export const NewHomework = () => {
     };
     if (currentRole === UserRole.Teacher) {
       baseWretch().url(addNewTaskUrl).post(formData);
-    } else {
+    } else if (currentRole === UserRole.Methodist) {
       baseWretch().url(addNewTaskUrlByMethodist).post(formData);
     }
   };
-
+  const onSubmitUpdateTask = (data: UpdateTaskFormData) => {
+    const formData = {
+      ...data,
+      links: links.join(' [link] '),
+      isRequired: true,
+    };
+    if (task) baseWretch().url(updateTaskUrl(task.id)).put(formData);
+  };
   const getGroupId = (groupId: number) => {
     console.log(groupId);
     dispatch(selectGroup(groupId));
@@ -95,6 +108,7 @@ export const NewHomework = () => {
     };
     return courseData;
   });
+
   useEffect(() => {
     const groupId = method.getValues('groupId');
     if (groupId) {
@@ -106,18 +120,27 @@ export const NewHomework = () => {
   }, [selectGroupId]);
   return (
     <FormProvider {...method}>
-      <form className="form-container homework-form" onSubmit={method.handleSubmit(onSubmit)}>
-        <h2 className="homework-form_title">Новое задание</h2>
-        {currentUser?.roles.includes(UserRole.Methodist) ? (
+      <form
+        className="form-container homework-form"
+        onSubmit={method.handleSubmit(
+          !prevPageURL.includes('/homeworks') ? onSubmitAddnewTask : onSubmitUpdateTask
+        )}
+      >
+        <h2 className="homework-form_title">
+          {prevPageURL.includes('/homeworks') ? 'Редактировать задание' : 'Новое задание'}
+        </h2>
+        {currentRole == UserRole.Methodist && !prevPageURL.includes('/homeworks') ? (
           <div className="form-element">
             Номер курса:
             {coursesData ? <CheckboxGroup checkboxArr={coursesData} name="courseIds" /> : ''}
           </div>
-        ) : (
+        ) : currentRole != UserRole.Methodist ? (
           <div className="form-element">
             Номер группы:
             <RadioGroup radioData={group} name="groupId" callback={getGroupId} />
           </div>
+        ) : (
+          ''
         )}
         {/* <div className="form-element">
           <span>Номер задания:</span> {<FilterList data={[]}></FilterList>}
@@ -126,33 +149,36 @@ export const NewHomework = () => {
           </span>
         </div>  */}
         {/* скрыт элемент фильтра, который лишний в макете */}
-        <div className="homework-form_dates form-grid-container">
-          <div>
-            Дата выдачи задания
-            <Controller
-              name="homework.startDate"
-              control={method.control}
-              rules={{ required: true }}
-              render={({ field }) => <Datepicker field={field} />}
-            />
+        {!prevPageURL.includes('/homeworks') ? (
+          <div className="homework-form_dates form-grid-container">
+            <div>
+              Дата выдачи задания
+              <Controller
+                name="homework.startDate"
+                control={method.control}
+                rules={{ required: true }}
+                render={({ field }) => <Datepicker field={field} />}
+              />
+            </div>
+            <div>
+              Срок сдачи задания
+              <Controller
+                name="homework.endDate"
+                control={method.control}
+                rules={{ required: true }}
+                render={({ field }) => <Datepicker field={field} />}
+              />
+            </div>
           </div>
-          <div>
-            Срок сдачи задания
-            <Controller
-              name="homework.endDate"
-              control={method.control}
-              rules={{ required: true }}
-              render={({ field }) => <Datepicker field={field} />}
-            />
-          </div>
-        </div>
-
+        ) : (
+          ''
+        )}
         <div className="form-element">
           Название задания
           <input
             className="form-input"
             type="text"
-            placeholder="Введите название"
+            placeholder={!prevPageURL.includes('/homeworks') ? 'Введите название' : `${task?.name}`}
             {...method.register('name', { required: true })}
           />
         </div>
@@ -161,7 +187,9 @@ export const NewHomework = () => {
           Описание задания
           <textarea
             className="form-input"
-            placeholder="Введите текст"
+            placeholder={
+              !prevPageURL.includes('/homeworks') ? 'Введите текст' : `${task?.description}`
+            }
             {...method.register('description', { required: true })}
           />
         </div>
@@ -184,7 +212,6 @@ export const NewHomework = () => {
             </div>
           </div>
         </div>
-
         <div className="buttons-group">
           {currentRole === UserRole.Teacher ? (
             <Button text="Опубликовать" model={ButtonModel.Colored} type={ButtonType.submit} />

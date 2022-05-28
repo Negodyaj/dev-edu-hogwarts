@@ -9,6 +9,7 @@ import { LoginPageState } from '../../store/reducers/login.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
 // import { loadCourses } from '../../actions/courses.actions';
 import { CourseResponse } from '../../models/responses/CourseResponse';
+import { TaskCard } from './components/TaskCard';
 // import { selectTabCoursePage } from '../../actions/courses.actions';
 // import { baseWretch } from '../../services/base-wretch.service';
 export const HomeworksPage = () => {
@@ -16,20 +17,9 @@ export const HomeworksPage = () => {
   const { tabs, selectedTab, tasks, homeworks } = useSelector(
     (state: AppState) => state.homeworksPageState
   );
+  const { task } = useSelector((state: AppState) => state.homeworkPageState);
   const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
-  // const { courseTabs } = useSelector((state: AppState) => state.coursesPageState);
   const { courses } = useSelector((state: AppState) => state.coursesPageState);
-  // подгружаю курсы
-  // useEffect(() => {
-  //   if (currentRole == UserRole.Methodist) {
-  //     baseWretch()
-  //       .url('api/Courses')
-  //       .get()
-  //       .json((data) => dispatch(loadCourses(data as CourseResponse[])));
-  //   }
-  // }, [selectedTabCoursePage]);
-
-  // подгружаю все табы
   useEffect(() => {
     if (courses && courses?.length > 0)
       if (currentRole == UserRole.Methodist) {
@@ -48,6 +38,11 @@ export const HomeworksPage = () => {
       dispatch(loadTasksByCourse(selectedTab));
     }
   }, [selectedTab]);
+  useEffect(() => {
+    if (selectedTab > 0 && currentRole == UserRole.Methodist) {
+      dispatch(loadTasksByCourse(selectedTab));
+    }
+  }, [task]);
 
   return (
     <>
@@ -55,12 +50,12 @@ export const HomeworksPage = () => {
         <TabContainer tabContainerData={tabs} selectedTab={selectedTab} onClick={selectTab} />
         {currentRole == UserRole.Methodist ? (
           tasks && tasks.length > 0 ? (
-            tasks.map((tsk) => <HomeworkCard taskData={tsk} key={tsk.id} />)
+            tasks.map((tsk) => <TaskCard data={tsk} key={tsk.id} />)
           ) : (
             <span className="lack-of-homeworks">Домашних заданий еще нет</span>
           )
         ) : homeworks && homeworks.length > 0 ? (
-          homeworks.map((hwk) => <HomeworkCard homeworkData={hwk} key={hwk.id} />)
+          homeworks.map((hwk) => <HomeworkCard data={hwk} key={hwk.id} />)
         ) : (
           <span className="lack-of-homeworks">Домашних заданий еще нет</span>
         )}

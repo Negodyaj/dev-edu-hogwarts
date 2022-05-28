@@ -5,6 +5,7 @@ import {
   getHomeworkById,
   getHomeworksByGroupId,
   getStudentAnswerByTaskId,
+  getTaskById,
   getTasksByCourseId,
 } from '../shared/consts';
 import {
@@ -20,6 +21,9 @@ import {
   loadHomeworkStarted,
   loadHomeworkSuccess,
   loadStudentHomework,
+  loadTaskFailed,
+  loadTaskStarted,
+  loadTaskSuccess,
 } from './homework.actions';
 
 export const loadHomeworks = (groupId: number) => {
@@ -54,6 +58,18 @@ export const loadHomework = (homeworkId: number) => {
       dispatch(loadStudentHomework(studentHomework));
     } catch (error: any) {
       dispatch(loadHomeworkFail(error.message));
+    }
+  };
+};
+
+export const loadTask = (taskId: number) => {
+  return async (dispatch: Dispatch<HomeworkPageAction>) => {
+    dispatch(loadTaskStarted());
+    try {
+      const task = await baseWretch().url(getTaskById(taskId)).get().json<Task>();
+      dispatch(loadTaskSuccess(task));
+    } catch (error: any) {
+      dispatch(loadTaskFailed(error.message));
     }
   };
 };
