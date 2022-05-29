@@ -32,7 +32,6 @@ export const TaskCardContent = () => {
           Редактировать
         </Link>
       )}
-      <span className="homework-description-title">Результат выполненного задания:</span>
     </>
   );
 };

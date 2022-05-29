@@ -7,7 +7,6 @@ import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
 export const TaskCard = (props: TaskProps) => {
   const { task } = useSelector((state: AppState) => state.homeworkPageState);
   const taskId = props.data?.id ?? task?.id;
-
   return (
     <div
       className={`homework-card-content content-container ${

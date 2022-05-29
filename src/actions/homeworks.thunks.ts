@@ -39,7 +39,13 @@ export const loadTasksByCourse = (courseId: number) => {
   return async (dispatch: Dispatch<HomeworksPageAction>) => {
     dispatch(loadTasksStarted());
     const data = await baseWretch().url(getTasksByCourseId(courseId)).get().json<Task[]>();
-    dispatch(loadTasksSuccess(data));
+    const data2 = data.map((el, idx) => {
+      return {
+        ...el,
+        number: idx + 1,
+      };
+    });
+    dispatch(loadTasksSuccess(data2));
   };
 };
 

@@ -16,6 +16,7 @@ import { TaskCard } from '../components/TaskCard';
 export const HomeworkPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  // const { tasks } = useSelector((state: AppState) => state.homeworksPageState);
   const { homework, isLoad, task } = useSelector((state: AppState) => state.homeworkPageState);
   const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   useEffect(() => {

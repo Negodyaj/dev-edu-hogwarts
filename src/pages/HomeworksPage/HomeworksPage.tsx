@@ -10,6 +10,7 @@ import { UserRole } from '../../shared/enums/UserRole';
 // import { loadCourses } from '../../actions/courses.actions';
 import { CourseResponse } from '../../models/responses/CourseResponse';
 import { TaskCard } from './components/TaskCard';
+// import { Task } from '../../models/responses/HomeworksResponse';
 // import { selectTabCoursePage } from '../../actions/courses.actions';
 // import { baseWretch } from '../../services/base-wretch.service';
 export const HomeworksPage = () => {
@@ -43,14 +44,13 @@ export const HomeworksPage = () => {
       dispatch(loadTasksByCourse(selectedTab));
     }
   }, [task]);
-
   return (
     <>
       <div>
         <TabContainer tabContainerData={tabs} selectedTab={selectedTab} onClick={selectTab} />
         {currentRole == UserRole.Methodist ? (
           tasks && tasks.length > 0 ? (
-            tasks.map((tsk) => <TaskCard data={tsk} key={tsk.id} />)
+            tasks?.map((tsk) => <TaskCard data={tsk} key={tsk.id} />)
           ) : (
             <span className="lack-of-homeworks">Домашних заданий еще нет</span>
           )

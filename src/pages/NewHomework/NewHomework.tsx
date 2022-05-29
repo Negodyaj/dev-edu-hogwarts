@@ -130,7 +130,7 @@ export const NewHomework = () => {
           {prevPageURL.includes('/homeworks') ? 'Редактировать задание' : 'Новое задание'}
         </h2>
         {currentRole == UserRole.Methodist && !prevPageURL.includes('/homeworks') ? (
-          <div className="form-element">
+          <div className="form-element courses-list">
             Номер курса:
             {coursesData ? <CheckboxGroup checkboxArr={coursesData} name="courseIds" /> : ''}
           </div>
@@ -175,23 +175,38 @@ export const NewHomework = () => {
         )}
         <div className="form-element">
           Название задания
-          <input
-            className="form-input"
-            type="text"
-            placeholder={!prevPageURL.includes('/homeworks') ? 'Введите название' : `${task?.name}`}
-            {...method.register('name', { required: true })}
-          />
+          {!prevPageURL.includes('/homeworks') ? (
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Введите название"
+              {...method.register('name', { required: true })}
+            />
+          ) : (
+            <input
+              className="form-input"
+              type="text"
+              defaultValue={task?.name}
+              {...method.register('name', { required: true })}
+            />
+          )}
         </div>
 
         <div className="form-element">
           Описание задания
-          <textarea
-            className="form-input"
-            placeholder={
-              !prevPageURL.includes('/homeworks') ? 'Введите текст' : `${task?.description}`
-            }
-            {...method.register('description', { required: true })}
-          />
+          {!prevPageURL.includes('/homeworks') ? (
+            <textarea
+              className="form-input"
+              placeholder="Введите текст"
+              {...method.register('description', { required: true })}
+            />
+          ) : (
+            <textarea
+              className="form-input"
+              defaultValue={task?.description}
+              {...method.register('description', { required: true })}
+            />
+          )}
         </div>
 
         <div className="form-element">
