@@ -1,0 +1,61 @@
+@import "./src/style/colors";
+
+.homework-result-container {
+  padding: 50px 0 50px 45px;
+  font-size: 18px;
+  width: 940px;
+
+  .table-row {
+    display: grid;
+    grid-template-columns: 1fr 244px 245px 109px;
+    align-items: center;
+
+    &.header {
+      margin-bottom: 20px;
+      font-size: 20px;
+      line-height: 23px;
+      font-weight: 600;
+    }
+  }
+
+  .table-row + .table-row {
+    margin-top: 31px;
+  }
+
+  .drop-down-filter {
+    justify-content: flex-start;
+  }
+
+  .filter-inside {
+    height: 58px;
+    position: relative;
+  }
+  
+  .filter-inside.table-row {
+    margin: 0;
+  }
+
+  .filter-inside::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0px; 
+    bottom: 0px;    
+    left: 0px;
+    border-top: 1px solid $medium-gray;
+    border-bottom: 1px solid $medium-gray;
+  }
+}
+
+.homework-result-header {
+  margin-bottom: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 21px;
+}
+
+.closed {
+  .homework-result-container {
+    width: 1206px;
+  }
+}
