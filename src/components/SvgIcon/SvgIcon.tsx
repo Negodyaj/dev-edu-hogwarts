@@ -27,6 +27,9 @@ import { SvgAddNewHomework } from './SvgFiles/SvgAddNewHomework';
 import { SvgCheckHomeworks } from './SvgFiles/SvgCheckHomeworks';
 import { SvgGeneralProgress } from './SvgFiles/SvgGeneralProgress';
 import { SvgButtonFly } from './SvgFiles/SvgButtonFly';
+import { SvgPic } from './SvgFiles/SvgPic';
+import { SvgFail } from './SvgFiles/NotificationSvg/SvgFail';
+import { SvgOk } from './SvgFiles/NotificationSvg/SvgOk';
 
 export type SvgIconProps = {
   icon: Icon;
@@ -90,6 +93,12 @@ export const SvgIcon = (props: SvgIconProps) => {
       return <SvgGeneralProgress />;
     case Icon.ButtonFly:
       return <SvgButtonFly />;
+    case Icon.Pic:
+      return <SvgPic />;
+    case Icon.Fail:
+      return <SvgFail />;
+    case Icon.Ok:
+      return <SvgOk />;
     default:
       return <></>;
   }

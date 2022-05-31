@@ -2,9 +2,11 @@ import { Reducer } from 'react';
 import {
   FILTER_LESSONS,
   LessonsPageActions,
-  LOAD_LESSONS,
   SELECT_TAB,
   LOAD_TABS,
+  LOAD_LESSONS_STARTED,
+  LOAD_LESSONS_SUCCESS,
+  LOAD_LESSONS_FAIL,
 } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
 import { TabData } from '../../models/TabData';
@@ -15,6 +17,8 @@ export interface LessonsPageState {
   tabs?: TabData[];
   selectedTab: number;
   lessons?: LessonResponse[];
+  isLoading: boolean;
+  errorMessage: string;
 }
 
 export const initialState: LessonsPageState = {
@@ -22,6 +26,8 @@ export const initialState: LessonsPageState = {
   lessons: [],
   tabs: [],
   selectedTab: -1,
+  isLoading: false,
+  errorMessage: '',
 };
 
 export const lessonsPageReducer: Reducer<LessonsPageState | undefined, LessonsPageActions> = (
@@ -45,7 +51,7 @@ export const lessonsPageReducer: Reducer<LessonsPageState | undefined, LessonsPa
         const tabData: TabData = {
           id: group.id,
           text: group.course.name,
-          icon: getCourseIcon(group.course.name as CourseName),
+          icon: getCourseIcon(group.course.id as CourseName),
         };
         return tabData;
       });
@@ -56,10 +62,24 @@ export const lessonsPageReducer: Reducer<LessonsPageState | undefined, LessonsPa
         selectedTab: tabs[0]?.id,
       };
     }
-    case LOAD_LESSONS: {
+    case LOAD_LESSONS_STARTED: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case LOAD_LESSONS_SUCCESS: {
       return {
         ...state,
         lessons: action.payload,
+        isLoading: false,
+      };
+    }
+    case LOAD_LESSONS_FAIL: {
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload,
       };
     }
     default:

@@ -62,10 +62,7 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
     .url(`api/Users/self`)
     .get()
     .json((data) => {
-      const userRoles: UserRole[] = (data.roles as string[]).map((role) => {
-        const userRole: UserRole = userRoleForEnum(role);
-        return userRole;
-      });
+      const userRoles: UserRole[] = (data.roles as string[]).map((role) => userRoleForEnum(role));
       const user = data as UserResponse;
       user.roles = userRoles;
       dispatch(setCurrentUser(user));
@@ -74,6 +71,7 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
       dispatch(loadLessonPageTabs(user.groups));
       dispatch(setCurrentUserRole(user.roles[0]));
     });
+
   // const user = usersMock as UserResponse;
   // dispatch(setCurrentUser(user));
   // dispatch(loadGroups(user.groups));
