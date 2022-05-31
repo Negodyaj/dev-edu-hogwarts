@@ -5,11 +5,14 @@ import { lessons } from './ListView/exampleData';
 import { useForm } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import './EditCoursesPage.scss';
-import { baseWretch } from '../../services/base-wretch.service';
-import { getTopicsByCourseId } from '../../shared/consts';
-import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
+//import { baseWretch } from '../../services/base-wretch.service';
+//import { getTopicsByCourseId } from '../../shared/consts';
+//import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
+import { useDispatch } from 'react-redux';
+import { onCourseTopicsUpdate } from '../../actions/editCourses.thunk';
+//import { AppState } from '../../store/store';
 
-export type UserFormData = {
+export type TopicFormData = {
   id: number;
   position: number;
   topicName: string;
@@ -22,9 +25,9 @@ export const EditCoursesPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserFormData>();
+  } = useForm<TopicFormData>();
 
-  const getData = () => {
+  /*const getData = () => {
     return async () => {
       const array = await baseWretch()
         .url(getTopicsByCourseId(1371))
@@ -36,7 +39,7 @@ export const EditCoursesPage = () => {
       console.log(array);
       //setLessonsData(lessonsData.concat(array));
     };
-  };
+  };*/
 
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
@@ -60,10 +63,12 @@ export const EditCoursesPage = () => {
     console.log(newLessonsArray);
   };
 
-  const onSubmit = (data: UserFormData) => {
+  const dispatch = useDispatch();
+  const onSubmit = (data: TopicFormData) => {
     data.id = lessonsData.length + 1;
     setLessonsData(lessonsData.concat(data));
-    console.log(lessonsData, data);
+    dispatch(onCourseTopicsUpdate(data));
+    console.log(data);
   };
 
   return (
@@ -72,7 +77,6 @@ export const EditCoursesPage = () => {
         <ListView data={lessonsData} groupId={1} edit={true} />
       </DragDropContext>
 
-      <button onClick={getData()}>dofjbpdj</button>
       <div className="form-container">
         <h2>Новая тема</h2>
         <form onSubmit={handleSubmit(onSubmit)}>

@@ -21,3 +21,5 @@ export const updateUserUrl = (id: number) => `${usersUrl}/${id}`;
 export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
 export const updatePassword = 'api/Users/password';
 export const getTopicsByCourseId = (courseId: number) => `api/Courses/${courseId}/topics`;
+export const postTopic = 'api/Topics';
+export const updateCourseProgram = (courseId: number) => `/api/Courses/${courseId}/program`;

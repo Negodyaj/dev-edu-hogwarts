@@ -1,4 +1,6 @@
-export const lessons = [
+import { TopicFormData } from '../EditCoursesPage';
+
+export const lessons: TopicFormData[] = [
   {
     id: 1,
     position: 1,
