@@ -37,7 +37,7 @@ export const ListView = (props: ListViewProps) => {
       {linkType()}
       <ListViewItem
         head={true}
-        lesson={{
+        topic={{
           id: 0,
           topicName: 'Название',
           position: 'Тема',
@@ -58,7 +58,7 @@ export const ListView = (props: ListViewProps) => {
                 {(draggableProvided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                   <ListViewItem
                     index={index}
-                    lesson={item}
+                    topic={item}
                     dragSettings={{
                       innerRef: draggableProvided.innerRef,
                       prop1: { ...draggableProvided.draggableProps },

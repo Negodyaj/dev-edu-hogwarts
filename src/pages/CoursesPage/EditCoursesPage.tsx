@@ -5,11 +5,11 @@ import { lessons } from './ListView/exampleData';
 import { useForm } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import './EditCoursesPage.scss';
-//import { baseWretch } from '../../services/base-wretch.service';
-//import { getTopicsByCourseId } from '../../shared/consts';
-//import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
+import { getTopicsByCourseId } from '../../shared/consts';
+import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
 import { useDispatch } from 'react-redux';
 import { onCourseTopicsUpdate } from '../../actions/editCourses.thunk';
+import { baseWretch } from '../../services/base-wretch.service';
 //import { AppState } from '../../store/store';
 
 export type TopicFormData = {
@@ -20,26 +20,35 @@ export type TopicFormData = {
 };
 
 export const EditCoursesPage = () => {
+  const dispatch = useDispatch();
   const [lessonsData, setLessonsData] = useState(lessons); // Это типа данные, которые нам придут
+
+  async function getData() {
+    const daata = await baseWretch()
+      .url(getTopicsByCourseId(1371))
+      .get()
+      .json((data) => {
+        const topics: TopicFormData[] = data.map((item: CourseTopicsResponse) => {
+          const topic: TopicFormData = {
+            id: item.id,
+            position: item.position,
+            topicName: item.topic.name,
+            hoursCount: item.topic.duration,
+          };
+          return topic;
+        });
+        console.log(topics);
+        return topics;
+      });
+    setLessonsData(lessonsData.concat(daata));
+    return daata;
+  }
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TopicFormData>();
-
-  /*const getData = () => {
-    return async () => {
-      const array = await baseWretch()
-        .url(getTopicsByCourseId(1371))
-        .get()
-        .json((data) => {
-          const topicList = data as CourseTopicsResponse[];
-          topicList.map((i) => console.log(i.topic));
-        });
-      console.log(array);
-      //setLessonsData(lessonsData.concat(array));
-    };
-  };*/
 
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
@@ -63,20 +72,18 @@ export const EditCoursesPage = () => {
     console.log(newLessonsArray);
   };
 
-  const dispatch = useDispatch();
   const onSubmit = (data: TopicFormData) => {
     data.id = lessonsData.length + 1;
     setLessonsData(lessonsData.concat(data));
     dispatch(onCourseTopicsUpdate(data));
-    console.log(data);
   };
-
+  //
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <ListView data={lessonsData} groupId={1} edit={true} />
       </DragDropContext>
-
+      <button onClick={() => getData()}>hlkgtlt</button>
       <div className="form-container">
         <h2>Новая тема</h2>
         <form onSubmit={handleSubmit(onSubmit)}>

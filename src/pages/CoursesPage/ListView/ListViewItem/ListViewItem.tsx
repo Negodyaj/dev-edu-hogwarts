@@ -7,7 +7,7 @@ import {
 import { useState } from 'react';
 
 export type ListViewItemProps = {
-  lesson: ListViewLessons;
+  topic: ListViewLessons;
   index?: number;
   head?: boolean;
   dragSettings?: {
@@ -21,9 +21,9 @@ export type ListViewItemProps = {
 
 export const ListViewItem = (props: ListViewItemProps) => {
   const headItemStyleName = props.head ? 'title-head__item' : '';
-  const [hoursCount, setHoursCount] = useState(props.lesson.hoursCount);
-  const [topicName, setTopicName] = useState(props.lesson.topicName);
-  const [position, setPosition] = useState(props.lesson.position);
+  const [hoursCount, setHoursCount] = useState(props.topic.hoursCount);
+  const [topicName, setTopicName] = useState(props.topic.topicName);
+  const [position, setPosition] = useState(props.topic.position);
 
   return (
     <div
