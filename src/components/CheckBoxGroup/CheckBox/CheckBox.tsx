@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { InvisibleInput } from '../../styled/InvisibleInput';
 import './CheckBox.scss';
 
 export type CheckboxProps = {
@@ -17,7 +18,7 @@ export const CheckboxBtn = (props: CheckboxProps) => {
   const { register, watch } = useFormContext();
   return (
     <label className="custom-checkbox">
-      <input
+      <InvisibleInput
         type="checkbox"
         value={props.data.value}
         checked={
