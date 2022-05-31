@@ -22,7 +22,6 @@ export interface UserResponse extends UserSimpleResponse {
   groups: GroupResponse[];
 }
 
-
 export interface UserSimpleResponseWithRoles extends UserSimpleResponse {
   roles: UserRole[];
 }

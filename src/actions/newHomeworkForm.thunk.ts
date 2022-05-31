@@ -2,7 +2,7 @@ import { Dispatch } from 'react';
 import { HomeworkFormData } from '../models/HomeworkCardData';
 import { StudentHomework } from '../models/responses/HomeworksResponse';
 import { baseWretch } from '../services/base-wretch.service';
-import { studentHomeworkById } from '../shared/consts';
+import { getStudentHomeworkByIdUrl } from '../shared/consts';
 import {
   HomeworkPageAction,
   loadAnswer,
@@ -22,7 +22,7 @@ export const saveEdit = (data: HomeworkFormData, progressId?: number) => {
           id: progressId,
         };
         const studentHomework: StudentHomework = await baseWretch()
-          .url(studentHomeworkById(progressId))
+          .url(getStudentHomeworkByIdUrl(progressId))
           .put(dateToPost)
           .json();
         dispatch(loadStudentHomework(studentHomework));
