@@ -22,6 +22,11 @@ export const studentHomeworksByUserId = (userId: number) => {
 export const getHomeworksByGroupId = (groupId: number) => {
   return `api/Homeworks/by-group/${groupId}`;
 };
+export const updateAttendanceForLesson = (
+  lessonId: number,
+  studentId: number,
+  attendanceType: string
+) => `${lessonsUrl}/${lessonId}/student/${studentId}/attendance/${attendanceType}`;
 export const lessonsByGroupId = (groupId: number) => {
   return `${lessonsUrl}/by-group/${groupId}`;
 };

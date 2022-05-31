@@ -1,5 +1,5 @@
 import './Toggle.scss';
-import { SvgMoon } from '../../SvgIcon/SvgFiles/SvgMoon';
+import { SvgMoon } from '../../SvgIcon/SvgFiles/GroupsIcons/SvgMoon';
 import { SvgSun } from '../../SvgIcon/SvgFiles/SvgSun';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../../store/store';

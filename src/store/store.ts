@@ -20,6 +20,11 @@ import { newHomeworkFormReducer, NewHomeworkFormState } from './reducers/newHome
 import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
 import { groupsPageReducer, GroupsPageState } from './reducers/groups.reducer';
 import { mainPanelReducer, MainPanelState } from './reducers/mainPanel.reducer';
+import {
+  attendanceJournalReducer,
+  AttendanceJournalState,
+} from './reducers/attendanceJournal.reducer';
+import { GeneralProgressState, generalProgressReducer } from './reducers/generalProgress.reducer';
 import { NewGroupFormReducer, NewGroupFormState } from './reducers/NewGroupForm.reducer';
 import { settingsPageReducer, SettingsPageState } from './reducers/settings.reducer';
 import { modalWindowReducer, ModalWindowState } from './reducers/modalWindow.reducer';
@@ -39,6 +44,8 @@ export interface AppState {
   lessonsPageState: LessonsPageState | undefined;
   homeworkPageState: HomeworkPageState;
   mainPanelState: MainPanelState | undefined;
+  attendanceJournalState: AttendanceJournalState;
+  generalProgressState: GeneralProgressState;
   groupsPageState: GroupsPageState;
   newGroupFormState: NewGroupFormState;
   settingsPageState: SettingsPageState | undefined;
@@ -57,6 +64,8 @@ const rootReducer = combineReducers<AppState>({
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
   mainPanelState: mainPanelReducer,
+  attendanceJournalState: attendanceJournalReducer,
+  generalProgressState: generalProgressReducer,
   settingsPageState: settingsPageReducer,
   newGroupFormState: NewGroupFormReducer,
   groupsPageState: groupsPageReducer,
