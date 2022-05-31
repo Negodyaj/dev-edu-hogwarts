@@ -20,6 +20,8 @@ import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEdi
 import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
 import { AppState } from './store/store';
 import { MainPanelState } from './store/reducers/mainPanel.reducer';
+import { AttendanceJournal } from './pages/AttendanceJournal/AttendanceJournal';
+import { GeneralProgressJournal } from './pages/GeneralProgressJournal/GeneralProgressJournal';
 import { LoginPageState } from './store/reducers/login.reducer';
 import { DraftHomeworksPage } from './pages/HomeworksPage/DraftHomeworksPage';
 import { EditHomeworkPage } from './pages/HomeworksPage/EditHomeworkPage';
@@ -85,6 +87,8 @@ function App() {
             <Route path="groups" element={<GroupsListPage />} />
             <Route path="payment-table" element={<PaymentsPage />} />
             <Route path="students-list" element={<StudentsListPage />} />
+            <Route path="journal" element={<AttendanceJournal />} />
+            <Route path="general-progress" element={<GeneralProgressJournal />} />
           </Routes>
           <NotificationsContainer />
         </main>

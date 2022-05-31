@@ -5,13 +5,14 @@ import { InputLink } from '../../../components/InputLink/InputLink';
 import { baseWretch } from '../../../services/base-wretch.service';
 import { getStudentHomeworkByIdUrl, postStudentAnswer } from '../../../shared/consts';
 import { useDispatch, useSelector } from 'react-redux';
-import { editHomework, loadAnswer, loadStudentHomework } from '../../../actions/homework.actions';
+import { editHomework, loadStudentHomework } from '../../../actions/homework.actions';
 import { useEffect } from 'react';
 import { AppState } from '../../../store/store';
 import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { HomeworkFormData } from '../../../models/HomeworkCardData';
 import { editHomeworkStatus } from '../../../actions/homeworks.actions';
+import { saveEdit } from '../../../actions/newHomeworkForm.thunk';
 import { LoginPageState } from '../../../store/reducers/login.reducer';
 import { UserRole } from '../../../shared/enums/UserRole';
 import {
@@ -52,20 +53,7 @@ export const HomeworkCardContent = () => {
   };
 
   const onSaveEdit = (data: HomeworkFormData) => {
-    const dateToPost = {
-      ...data,
-      id: studentHomeworkProgress?.id,
-    };
-    if (studentHomeworkProgress?.id) {
-      baseWretch()
-        .url(getStudentHomeworkByIdUrl(studentHomeworkProgress?.id))
-        .put(dateToPost)
-        .json((res) => {
-          const studentHomework = res as StudentHomework;
-          dispatch(loadStudentHomework(studentHomework));
-          dispatch(loadAnswer(studentHomework.answer));
-        });
-    }
+    dispatch(saveEdit(data, studentHomeworkProgress?.id));
   };
 
   useEffect(() => {
