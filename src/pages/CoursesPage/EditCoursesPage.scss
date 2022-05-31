@@ -1,0 +1,32 @@
+h2{
+  margin-top: 30px;
+}
+
+.inputs{
+  display: flex;
+  width: 833px;
+  margin-top: 41px;
+  justify-content: space-between;
+  >div{
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.button-container{
+  margin-top: 70px;
+  width: 307px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-input{
+  font-size: 18px;
+  &.long{
+    width: 488px;
+  }
+  &.short{
+    width: 102px;
+    text-align: center;
+  }
+}
