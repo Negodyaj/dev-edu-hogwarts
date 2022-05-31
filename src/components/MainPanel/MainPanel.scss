@@ -182,6 +182,15 @@ body > .main-panel {
   .main-panel {
     .avatar-img {
       margin-right: 10px;
+      span {
+        display: inline-block;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+          width:100%;
+          height:100%;
+        }
+      }
     }
     .user-info-wrapper {
       margin-top: 0;
