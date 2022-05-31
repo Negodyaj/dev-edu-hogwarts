@@ -18,7 +18,6 @@ export const UserEraser = () => {
   };
 
   return (
-    // <form className={`modal-window ${modalType}`} onSubmit={handleModalSubmit}>
     <div className={`modal-window ${modalType}`}>
       <div className="icons-container red-colored">
         <SvgIcon icon={Icon.Cross} />

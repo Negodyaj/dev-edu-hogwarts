@@ -146,7 +146,7 @@ export const SettingsPage = () => {
                       <div className="circle-password" />
                       <div className="circle-password" />
                     </div>
-                    <Link to={'#'}>
+                    <Link to={'/change-password'}>
                       <SvgPencil />
                     </Link>
                   </div>
