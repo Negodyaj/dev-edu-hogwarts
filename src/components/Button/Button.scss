@@ -1,53 +1,7 @@
 @import "src/style/colors";
 
-.btn {
-    font-family: inherit;
-    font-weight: 400;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    margin: 0;
-    padding: 15px 30px;
-}
-
 a {
   text-decoration: none;
-} 
-
-.btn-fill {
-    background: $lavender-color;
-    color: $white;
-    border: 0;
-
-    &.unavailable,
-    &:disabled {
-        background: $dark-gray;
-        cursor: auto;
-    }
-
-    &:hover,
-    &:active {
-        background: $lavender-button-hover;
-    }
-}
-
-.btn-white-with-border {
-    background: $white;
-    border: 1px solid $lavender-color;
-    color: $black;
-
-    &.unavailable,
-    &:disabled {
-        border: 1px solid $dark-gray;
-        color: $dark-gray;
-        cursor: auto;
-    }
-
-    &:hover,
-    &:active {
-        background: $lavender-color;
-    }
-
 }
 
 .btn-text {
