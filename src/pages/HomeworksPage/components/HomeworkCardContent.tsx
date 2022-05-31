@@ -12,6 +12,14 @@ import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWit
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { HomeworkFormData } from '../../../models/HomeworkCardData';
 import { editHomeworkStatus } from '../../../actions/homeworks.actions';
+import { LoginPageState } from '../../../store/reducers/login.reducer';
+import { UserRole } from '../../../shared/enums/UserRole';
+import {
+  checkHomeworkLink,
+  homeworkByIdLink,
+  homeworkStudentAnswerEditLink,
+  newHomeworkEditLink,
+} from '../../../components/MainPanel/Navigation/constants';
 
 export const HomeworkCardContent = () => {
   // debugger;
@@ -20,6 +28,7 @@ export const HomeworkCardContent = () => {
   const { homework, studentHomeworkProgress, isEdit } = useSelector(
     (state: AppState) => state.homeworkPageState
   );
+  const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -60,7 +69,7 @@ export const HomeworkCardContent = () => {
   };
 
   useEffect(() => {
-    if (answer && !location.pathname.includes('edit')) navigate(`/homeworks/${id}`);
+    if (answer && !location.pathname.includes('edit')) navigate(homeworkByIdLink(id));
     else if (!answer && !location.pathname.includes('edit') && !location.pathname.includes('new'))
       navigate(`new`);
   }, [answer]);
@@ -84,26 +93,38 @@ export const HomeworkCardContent = () => {
           {link}
         </a>
       ))}
-      <span className="homework-description-title">Ссылка на выполненное задание:</span>
-      {answer && !isEdit ? (
-        <a href={answer} className="homework-github-link" target="_blank">
-          Выполненное задание
-        </a>
-      ) : (
-        <FormProvider {...method}>
-          <form onSubmit={method.handleSubmit(isEdit ? onSaveEdit : onSubmit)}>
-            <InputLink
-              placeholder={'Ссылка на GitHub или архив'}
-              inputName="answer"
-              inputValue={answer}
+      {currentRole === UserRole.Student || location.pathname.includes('check-homework') ? (
+        <>
+          <span className="homework-description-title">Ссылка на выполненное задание:</span>
+          {answer && !isEdit ? (
+            <a href={answer} className="homework-github-link" target="_blank">
+              Выполненное задание
+            </a>
+          ) : (
+            <FormProvider {...method}>
+              <form onSubmit={method.handleSubmit(isEdit ? onSaveEdit : onSubmit)}>
+                <InputLink
+                  placeholder={'Ссылка на GitHub или архив'}
+                  inputName="answer"
+                  inputValue={answer}
+                />
+              </form>
+            </FormProvider>
+          )}
+          {answer && !isEdit && (
+            <LinkWithUnderline
+              text="Редактировать"
+              path={homeworkStudentAnswerEditLink(homework?.id)}
             />
-          </form>
-        </FormProvider>
+          )}
+          <span className="homework-description-title">Результат выполненного задания:</span>
+        </>
+      ) : (
+        currentRole === UserRole.Teacher &&
+        !location.pathname.includes(checkHomeworkLink) && (
+          <LinkWithUnderline text="Редактировать" path={newHomeworkEditLink(homework?.id)} />
+        )
       )}
-      {answer && !isEdit && (
-        <LinkWithUnderline text="Редактировать" path={`homeworks/${homework?.id}/edit`} />
-      )}
-      <span className="homework-description-title">Результат выполненного задания:</span>
     </>
   );
 };

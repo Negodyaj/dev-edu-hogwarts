@@ -5,6 +5,8 @@ import { ModalWindowState } from '../../store/reducers/modalWindow.reducer';
 import { ModalType } from '../../shared/enums/modalType';
 import { UserEraser } from './components/UserEraser/UserEraser';
 import { AvatarCropper } from './components/AvatarCropper/AvatarCropper';
+import { ModalDeleteHomework } from './components/ModalDeleteHomework/ModalDeleteHomework';
+import { ModalDeleteResult } from './components/ModalDeleteHomework/ModalDeleteResult';
 
 export const ModalWindow = () => {
   const { modalType } = useSelector(
@@ -13,7 +15,13 @@ export const ModalWindow = () => {
 
   return (
     <div className="modal-background">
-      {modalType === ModalType.deleteUser ? <UserEraser /> : <AvatarCropper />}
+      {modalType === ModalType.deleteUser && <UserEraser />}
+      {(modalType === ModalType.loadModalPhoto || modalType === ModalType.sendPhoto) && (
+        <AvatarCropper />
+      )}
+      {modalType === ModalType.deleteHomework && <ModalDeleteHomework />}
+      {(modalType === ModalType.deleteHomeworkSuccess ||
+        modalType === ModalType.deleteHomeworkError) && <ModalDeleteResult />}
     </div>
   );
 };
