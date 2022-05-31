@@ -128,7 +128,7 @@ export const SettingsPage = () => {
                     />
                   </div>
                 </div>
-                <div className="settings-photo">
+                <div className="settings-photo-container">
                   <AvatarUploader photo={currentUser?.photo} />
                 </div>
               </div>

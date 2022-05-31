@@ -1,6 +1,6 @@
+@import "src/style/colors";
+
 .avatar-text {
-  position: relative;
-  margin: 149px 197px 186px 99px;
 
   &:hover {
     .avatar-photo {
@@ -9,18 +9,14 @@
 
     .svg-text {
       z-index: 1;
-      background: #8a8a8aa6;
+      background: $modal-background-color;
     }
   }
 }
 
 .avatar-photo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 282px;
-  height: 282px;
-  z-index: 1;
+  width: 100%;
+  height: 100%;
 }
 
 .svg-text {
@@ -32,13 +28,13 @@
   z-index: 0;
   text-align: center;
   border-radius: 50%;
-  background: #8a8a8a;
+  background: $dark-gray;
   svg {
     display: block;
     margin: 106px auto 16px auto;
   }
-  a {
-    color: #ffffff;
+  div {
+    color: white;
     font-size: 18px;
     font-weight: 600;
   }
