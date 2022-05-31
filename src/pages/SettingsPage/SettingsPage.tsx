@@ -76,8 +76,8 @@ export const SettingsPage = () => {
           <h2 className="settings-title">Настройки аккаунта</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex-container">
-              <div>
-                <div className="form-element">
+              <div className="settings-content">
+                <div className="form-element last-name-form-element">
                   Фамилия
                   <input
                     className="form-input"
@@ -134,7 +134,7 @@ export const SettingsPage = () => {
                     <div className="circle-password" />
                     <div className="circle-password" />
                   </div>
-                  <Link to={'#'}>
+                  <Link to={'/change-password'}>
                     <SvgPencil />
                   </Link>
                 </div>
