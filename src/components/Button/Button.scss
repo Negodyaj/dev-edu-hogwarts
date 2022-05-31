@@ -11,6 +11,11 @@ a {
     border: 0;
     padding:15px 20px;
     background: none;
+
+    &:disabled {
+        color: $dark-gray;
+        cursor: auto;
+    }
 }
 
 .ellipse{

@@ -1,6 +1,5 @@
 import { Dispatch } from 'react';
-import { CourseResponse } from '../models/responses/CourseResponse';
-import { UserResponseShort } from '../models/responses/UserResponseShort';
+import { CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
 import { baseWretch } from '../services/base-wretch.service';
 import { coursesUrl, usersUrl } from '../shared/consts';
 import { UserRole } from '../shared/enums/UserRole';
@@ -12,6 +11,7 @@ import {
   loadUsersSuccess,
   NewGroupFormAction,
 } from './NewGroupForm.actions';
+import { UserSimpleResponseWithRoles } from '../models/responses/UserResponse';
 
 export const loadCoursesAndUsers = () => {
   return (dispatch: Dispatch<NewGroupFormAction>) => {
@@ -30,10 +30,10 @@ export const loadCoursesAndUsers = () => {
                 userRoleForEnum(item)
               );
               user.roles = role;
-              return user as UserResponseShort[];
+              return user as UserSimpleResponseWithRoles[];
             });
-            dispatch(loadUsersSuccess(usersList as UserResponseShort[]));
-            dispatch(loadCoursesSuccess(data as CourseResponse[]));
+            dispatch(loadUsersSuccess(usersList as UserSimpleResponseWithRoles[]));
+            dispatch(loadCoursesSuccess(data as CourseSimpleResponse[]));
           })
           .catch((error) => dispatch(loadFail(error.message)));
       });

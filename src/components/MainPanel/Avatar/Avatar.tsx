@@ -28,7 +28,9 @@ export const Avatar = (props: AvatarProps) => {
     <>
       <Link to={currentUser ? `/settings` : `/login`}>
         <div className="avatar-img">
-          <img className="photo" src={`./static${props.data.photo}`} />
+          <span>
+            <img className="photo" src={`./static${props.data.photo}`} />
+          </span>
           <div className="svg-fond">
             <SvgIcon icon={Icon.Picture} />
           </div>
