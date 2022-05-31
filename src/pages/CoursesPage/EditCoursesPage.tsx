@@ -5,15 +5,14 @@ import { lessons } from './ListView/exampleData';
 import { useForm } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import './EditCoursesPage.scss';
-
-//вопросы:
-//как сделать так чтобы при отправке темы в массив поля ресетились
-//после нажатия ресет можно отправить пустой инпут (сделать onError?)
+import { baseWretch } from '../../services/base-wretch.service';
+import { getTopicsByCourseId } from '../../shared/consts';
+import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
 
 export type UserFormData = {
   id: number;
-  lessonNumber: number;
-  lessonName: string;
+  position: number;
+  topicName: string;
   hoursCount: number;
 };
 
@@ -24,6 +23,20 @@ export const EditCoursesPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<UserFormData>();
+
+  const getData = () => {
+    return async () => {
+      const array = await baseWretch()
+        .url(getTopicsByCourseId(1371))
+        .get()
+        .json((data) => {
+          const topicList = data as CourseTopicsResponse[];
+          topicList.map((i) => console.log(i.topic));
+        });
+      console.log(array);
+      //setLessonsData(lessonsData.concat(array));
+    };
+  };
 
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
@@ -39,14 +52,16 @@ export const EditCoursesPage = () => {
     const newLessonsArray = Array.from(lessonsData);
     newLessonsArray.splice(source.index, 1);
     const dragElem = Object.assign(
-      [...lessonsData].filter((item) => item.lessonName === draggableId)[0]
+      [...lessonsData].filter((item) => item.topicName === draggableId)[0]
     );
     newLessonsArray.splice(destination.index, 0, dragElem);
 
     setLessonsData(() => [...newLessonsArray]);
+    console.log(newLessonsArray);
   };
 
   const onSubmit = (data: UserFormData) => {
+    data.id = lessonsData.length + 1;
     setLessonsData(lessonsData.concat(data));
     console.log(lessonsData, data);
   };
@@ -57,6 +72,7 @@ export const EditCoursesPage = () => {
         <ListView data={lessonsData} groupId={1} edit={true} />
       </DragDropContext>
 
+      <button onClick={getData()}>dofjbpdj</button>
       <div className="form-container">
         <h2>Новая тема</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -66,18 +82,18 @@ export const EditCoursesPage = () => {
               <input
                 className="form-input short"
                 placeholder="0"
-                {...register('lessonNumber', { required: true })}
+                {...register('position', { required: true })}
               />
-              {errors.lessonNumber && <span>Введи номер темы</span>}
+              {errors.position && <span>Введи номер темы</span>}
             </div>
             <div>
               <span>Название</span>
               <input
                 className="form-input long"
                 placeholder="Введите текст"
-                {...register('lessonName', { required: true })}
+                {...register('topicName', { required: true })}
               />
-              {errors.lessonName && <span>Введи название темы</span>}
+              {errors.topicName && <span>Введи название темы</span>}
             </div>
             <div>
               <span>Часы</span>
