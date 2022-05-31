@@ -11,7 +11,7 @@ import {
   loadStudentHomework,
 } from './homework.actions';
 
-export const onSaveEdit = (data: HomeworkFormData, progressId?: number) => {
+export const saveEdit = (data: HomeworkFormData, progressId?: number) => {
   return async (dispatch: Dispatch<HomeworkPageAction>) => {
     dispatch(loadHomeworkStarted());
 
