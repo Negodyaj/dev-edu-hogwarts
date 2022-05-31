@@ -9,7 +9,12 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
   return (
     <>
       {props.checkboxArr.map((item) => (
-        <CheckboxBtn data={item} name={props.name} isSingle={props.checkboxArr.length < 2} />
+        <CheckboxBtn
+          data={item}
+          name={props.name}
+          isSingle={props.checkboxArr.length < 2}
+          key={item.value}
+        />
       ))}
     </>
   );

@@ -24,6 +24,11 @@ import { NewGroupFormReducer, NewGroupFormState } from './reducers/NewGroupForm.
 import { settingsPageReducer, SettingsPageState } from './reducers/settings.reducer';
 import { modalWindowReducer, ModalWindowState } from './reducers/modalWindow.reducer';
 import { registrationPageReducer, RegistrationPageState } from './reducers/registration.reducer';
+import { editCoursesPageReducer, EditCoursesPageState } from './reducers/editCourses.reducer';
+import {
+  notificationsContainerReducer,
+  NotificationsContainerState,
+} from './reducers/notificationsContainer.reducer';
 
 // Create an interface for the application state
 export interface AppState {
@@ -39,6 +44,8 @@ export interface AppState {
   settingsPageState: SettingsPageState | undefined;
   modalWindowState: ModalWindowState | undefined;
   registrationPageState: RegistrationPageState | undefined;
+  editCoursesPageState: EditCoursesPageState | undefined;
+  notificationsContainerState: NotificationsContainerState | undefined;
 }
 
 // Create the root reducer
@@ -55,6 +62,8 @@ const rootReducer = combineReducers<AppState>({
   groupsPageState: groupsPageReducer,
   modalWindowState: modalWindowReducer,
   registrationPageState: registrationPageReducer,
+  editCoursesPageState: editCoursesPageReducer,
+  notificationsContainerState: notificationsContainerReducer,
 });
 
 // Create a configure store function of type `AppState`

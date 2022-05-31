@@ -57,7 +57,7 @@ export const SettingsPassword = () => {
                 <p>Cтарый пароль</p>
                 <input
                   type="password"
-                  className={`form-input form-control ${isOk ? 'is-invalid' : ''}`}
+                  className={`form-input form-control ${isOk ? 'invalid-input' : ''}`}
                   {...register('oldPassword', {})}
                 />
                 <div className="invalid-feedback">{errors.oldPassword?.message}</div>
@@ -67,7 +67,9 @@ export const SettingsPassword = () => {
                 <input
                   type="password"
                   {...register('newPassword')}
-                  className={` form-input form-control ${errors.newPassword ? 'is-invalid' : ''}`}
+                  className={` form-input form-control ${
+                    errors.newPassword ? 'invalid-input' : ''
+                  }`}
                 />
                 <div className="invalid-feedback">{errors.newPassword?.message}</div>
               </div>
@@ -77,7 +79,7 @@ export const SettingsPassword = () => {
                   type="password"
                   {...register('newPasswordRepeat')}
                   className={`form-input form-control ${
-                    errors.newPasswordRepeat ? 'is-invalid' : ''
+                    errors.newPasswordRepeat ? 'invalid-input' : ''
                   }`}
                 />
                 <div className="invalid-feedback">{errors.newPasswordRepeat?.message}</div>

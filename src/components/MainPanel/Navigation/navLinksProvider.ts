@@ -167,7 +167,6 @@ export const getNavLinksByRole = (role: UserRole) => {
         lessonsLink,
         newLessonLink,
         homeworksLink,
-        newHomeworkLink,
         checkHomeworkLink,
         generalProgressLink,
         journalLink,
