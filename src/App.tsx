@@ -31,6 +31,7 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const { isModalOpen } = useSelector(
     (state: AppState) => state.modalWindowState as ModalWindowState
@@ -49,7 +50,11 @@ function App() {
 
   return (
     <>
-      <div className={`flex-container ${isModalOpen && 'inactive'}`}>
+      <div
+        className={`flex-container ${isModalOpen && 'inactive'} ${
+          isDark ? 'dark-mode' : 'default-mode'
+        }`}
+      >
         <MainPanel />
         <main className={isCollapsed ? 'closed' : ' '}>
           <Routes>
