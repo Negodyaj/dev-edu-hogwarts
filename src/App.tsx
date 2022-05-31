@@ -23,6 +23,7 @@ import { MainPanelState } from './store/reducers/mainPanel.reducer';
 import { LoginPageState } from './store/reducers/login.reducer';
 import { DraftHomeworksPage } from './pages/HomeworksPage/DraftHomeworksPage';
 import { EditHomeworkPage } from './pages/HomeworksPage/EditHomeworkPage';
+import { NotificationsContainer } from './components/NotificationsContainer/NotificationsContainer';
 import { SettingsPassword } from './pages/SettingsPage/SettingsPassword';
 import { StudentsListPage } from './pages/StudentsListPage/StudentsList';
 import { EditTaskPage } from './pages/HomeworksPage/EditTaskPage';
@@ -34,6 +35,7 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const { isModalOpen } = useSelector(
     (state: AppState) => state.modalWindowState as ModalWindowState
@@ -53,7 +55,11 @@ function App() {
 
   return (
     <>
-      <div className={`flex-container${isModalOpen ? ' inactive' : ''}`}>
+      <div
+        className={`flex-container${isModalOpen ? ' inactive' : ''} ${
+          isDark ? 'dark-mode' : 'default-mode'
+        }`}
+      >
         <MainPanel />
         <main className={isCollapsed ? 'closed' : ' '}>
           <Routes>
@@ -80,6 +86,7 @@ function App() {
             <Route path="payment-table" element={<PaymentsPage />} />
             <Route path="students-list" element={<StudentsListPage />} />
           </Routes>
+          <NotificationsContainer />
         </main>
       </div>
       {isModalOpen && <ModalWindow />}

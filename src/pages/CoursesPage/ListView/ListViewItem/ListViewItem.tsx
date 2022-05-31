@@ -22,8 +22,8 @@ export type ListViewItemProps = {
 export const ListViewItem = (props: ListViewItemProps) => {
   const headItemStyleName = props.head ? 'title-head__item' : '';
   const [hoursCount, setHoursCount] = useState(props.lesson.hoursCount);
-  const [lessonName, setLessonName] = useState(props.lesson.lessonName);
-  const [lessonNumber, setLessonNumber] = useState(props.lesson.lessonNumber);
+  const [topicName, setTopicName] = useState(props.lesson.topicName);
+  const [position, setPosition] = useState(props.lesson.position);
 
   return (
     <div
@@ -42,25 +42,25 @@ export const ListViewItem = (props: ListViewItemProps) => {
           </div>
         )}
         {props.head || !props.dragSettings?.isDragDisabled ? (
-          lessonNumber
+          position
         ) : (
           <input
             className="list-view-input"
             type="text"
-            value={lessonNumber}
-            onChange={(e) => setLessonNumber(e.currentTarget.value)}
+            value={position}
+            onChange={(e) => setPosition(e.currentTarget.value)}
           />
         )}
       </span>
       <span className={`${props.head ? 'lesson-name-head' : 'lesson-name'} ${headItemStyleName}`}>
         {props.head || !props.dragSettings?.isDragDisabled ? (
-          lessonName
+          topicName
         ) : (
           <input
             className="list-view-input"
             type="text"
-            value={lessonName}
-            onChange={(e) => setLessonName(e.currentTarget.value)}
+            value={topicName}
+            onChange={(e) => setTopicName(e.currentTarget.value)}
           />
         )}
       </span>
