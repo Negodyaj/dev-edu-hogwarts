@@ -14,23 +14,23 @@ export const AvatarUploader = (props: AvatarUploaderProps) => {
 
   return props.photo ? (
     <>
-      <span
+      <div
         className="avatar-text"
         onClick={() => {
           dispatch(setWindowType(ModalType.loadModalPhoto));
           dispatch(setWindowState(true));
         }}
       >
-        <img className="avatar-photo" src={`./static${props.photo}`} alt="avatar" />
+        <img className="avatar-photo" src={`./static${props.photo}`} />
         <div className="svg-text">
           <SvgIcon icon={Icon.Picture} />
-          <div>Загрузить новое фото</div>
+          <a href="#">Загрузить новое фото</a>
         </div>
-      </span>
+      </div>
     </>
   ) : (
     <>
-      <span
+      <div
         className="avatar-text"
         onClick={() => {
           dispatch(setWindowType(ModalType.loadModalPhoto));
@@ -39,9 +39,9 @@ export const AvatarUploader = (props: AvatarUploaderProps) => {
       >
         <div className="svg-text">
           <SvgIcon icon={Icon.Picture} />
-          <div>Загрузить новое фото</div>
+          <a href="#">Загрузить новое фото</a>
         </div>
-      </span>
+      </div>
     </>
   );
 };

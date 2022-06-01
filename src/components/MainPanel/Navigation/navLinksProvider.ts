@@ -118,13 +118,13 @@ const buttons: NavLink[] = [
     isSubbutton: false,
   },
   {
-    icon: Icon.Pencil,
+    icon: Icon.Cake,
     path: '/register',
     displayName: 'Регистрация',
     isSubbutton: false,
   },
   {
-    icon: Icon.Settings,
+    icon: Icon.Cake,
     path: '/settings',
     displayName: 'Настройки',
     isSubbutton: false,
@@ -167,6 +167,7 @@ export const getNavLinksByRole = (role: UserRole) => {
         lessonsLink,
         newLessonLink,
         homeworksLink,
+        newHomeworkLink,
         checkHomeworkLink,
         generalProgressLink,
         journalLink,

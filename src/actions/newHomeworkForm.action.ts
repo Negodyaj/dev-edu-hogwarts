@@ -1,22 +1,13 @@
 import { GroupResponse } from '../models/responses/GroupResponse';
-import { Homework, Task } from '../models/responses/HomeworksResponse';
-import { CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
+import { Homework } from '../models/responses/HomeworksResponse';
 
 export const INIT_FORM = 'newHomeworkForm/INIT_FORM' as const;
 export const ADD_LINK = 'newHomeworkForm/ADD_LINK' as const;
 export const REMOVE_LINK = 'newHomeworkForm/REMOVE_LINK' as const;
-export const REMOVE_LINKS = 'newHomeworkForm/REMOVE_LINKS' as const;
 export const LOAD_GROUPS = 'newHomeworkForm/LOAD_GROUPS' as const;
-export const LOAD_COURSES = 'newHomeworkForm/LOAD_COURSES' as const;
 export const SELECT_GROUP = 'newHomeworkForm/SELECT_GROUP' as const;
-export const SELECT_COURSE = 'newHomeworkForm/SELECT_COURSE' as const;
 export const GET_TASKS_COUNT = 'newHomeworkForm/GET_TASKS_COUNT' as const;
-export const GET_TASKS_COUNT_IN_COURSE = 'newHomeworkForm/GET_TASKS_COUNT_IN_COURSE' as const;
-export const POST_HOMEWORK_STARTED = 'newHomeworkForm/POST_HOMEWORK_STARTED' as const;
-export const POST_HOMEWORK_SUCCESS = 'newHomeworkForm/POST_HOMEWORK_SUCCESS' as const;
-export const POST_HOMEWORK_FAIL = 'newHomeworkForm/POST_HOMEWORK_FAIL' as const;
 export const SET_VALUE_INPUT_LINK = 'newHomeworkForm/SET_VALUE_INPUT_LINK' as const;
-export const GET_TASK = 'newHomeworkForm/GET_TASK' as const;
 
 export const initForm = () => ({
   type: INIT_FORM,
@@ -30,37 +21,14 @@ export const loadGroups = (groups: GroupResponse[]) => ({
   })),
 });
 
-export const loadCourses = (courses: CourseSimpleResponse[]) => ({
-  type: LOAD_COURSES,
-  payload: [...courses].map((item) => ({
-    text: item.name,
-    value: item.id,
-  })),
-});
-
 export const selectGroup = (groupId: number) => ({
   type: SELECT_GROUP,
   payload: groupId,
 });
 
-export const selectCourse = (courseId: number) => ({
-  type: SELECT_COURSE,
-  payload: courseId,
-});
-
 export const getTasksCount = (tasksCount: Homework[]) => ({
   type: GET_TASKS_COUNT,
   payload: tasksCount.length + 1,
-});
-
-export const getTasksCountInCourse = (tasksCount: Task[]) => ({
-  type: GET_TASKS_COUNT_IN_COURSE,
-  payload: tasksCount.length + 1,
-});
-
-export const getTask = (task?: Task) => ({
-  type: GET_TASK,
-  payload: task,
 });
 
 export const addLink = (link: string) => ({
@@ -73,26 +41,9 @@ export const removeLink = (link: number) => ({
   payload: link,
 });
 
-export const removeLinks = () => ({
-  type: REMOVE_LINKS,
-});
-
 export const setValueInInput = (text: string) => ({
   type: SET_VALUE_INPUT_LINK,
   payload: text,
-});
-
-export const postHomeworkStarted = () => ({
-  type: POST_HOMEWORK_STARTED,
-});
-
-export const postHomeworkSuccess = () => ({
-  type: POST_HOMEWORK_SUCCESS,
-});
-
-export const postHomeworkFail = (message: string) => ({
-  type: POST_HOMEWORK_FAIL,
-  payload: message,
 });
 
 export type NewHomeworkFormAction =
@@ -101,13 +52,5 @@ export type NewHomeworkFormAction =
   | ReturnType<typeof initForm>
   | ReturnType<typeof setValueInInput>
   | ReturnType<typeof loadGroups>
-  | ReturnType<typeof loadCourses>
   | ReturnType<typeof selectGroup>
-  | ReturnType<typeof selectCourse>
-  | ReturnType<typeof getTasksCount>
-  | ReturnType<typeof getTasksCountInCourse>
-  | ReturnType<typeof postHomeworkFail>
-  | ReturnType<typeof postHomeworkSuccess>
-  | ReturnType<typeof postHomeworkStarted>
-  | ReturnType<typeof removeLinks>
-  | ReturnType<typeof getTask>;
+  | ReturnType<typeof getTasksCount>;

@@ -1,12 +1,10 @@
 import './RadioButton.scss';
 import { useFormContext } from 'react-hook-form';
-import { InvisibleInput } from '../../styled/InvisibleInput';
 
 export type RadioProps = {
   data: RadioData;
   nameOfRadioGroup: string;
   callback?: (value: number) => void;
-  selected?: boolean;
 };
 
 export type RadioData = {
@@ -23,11 +21,10 @@ export const RadioButton = (props: RadioProps) => {
 
   return (
     <label className="radio-button">
-      <InvisibleInput
+      <input
         type="radio"
         value={props.data.value}
         onClick={() => onRadioClick(props.data.value)}
-        defaultChecked={props.selected}
         {...register(`${props.nameOfRadioGroup}`)}
       />
       <span className="radio-text">{props.data.text}</span>

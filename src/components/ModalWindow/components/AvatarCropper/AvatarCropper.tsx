@@ -57,12 +57,10 @@ export const AvatarCropper = () => {
         photo: newAvatar,
       })
       .post();
-
-    dispatch(setWindowState(false));
   };
 
   return (
-    <div className={`modal-window ${ModalType}`}>
+    <form className={`modal-window ${ModalType}`}>
       {modalType === ModalType.loadModalPhoto ? (
         <div className="icons-container">
           <SvgIcon icon={Icon.Pic} />
@@ -109,6 +107,6 @@ export const AvatarCropper = () => {
           Отмена
         </button>
       </div>
-    </div>
+    </form>
   );
 };

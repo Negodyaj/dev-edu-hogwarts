@@ -1,4 +1,3 @@
-import 'moment-timezone';
 import moment, { unitOfTime } from 'moment';
 
 export const isSameDateOrAfter = (
@@ -10,6 +9,6 @@ export const isSameDateOrAfter = (
   return dateToCheck >= dateBefore;
 };
 
-export const convertDate = (date: string | Date) => {
-  return moment.tz(date, 'Europe/Moscow').format('DD.MM.YYYY').toString();
+export const convertDate = (date: string) => {
+  return moment(new Date(date)).format('DD.MM.YYYY').toString();
 };

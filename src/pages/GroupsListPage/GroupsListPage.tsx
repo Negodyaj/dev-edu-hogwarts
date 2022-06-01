@@ -6,12 +6,13 @@ import { Button, ButtonModel } from '../../components/Button/Button';
 import { LinkWithUnderline } from '../../components/LinkWithUnderline/LinkWithUnderline';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { GroupResponse } from '../../models/responses/GroupResponse';
+import { TabData } from '../../models/TabData';
 import { Icon } from '../../shared/enums/Icon';
+import { getGroupIcon } from '../../shared/helpers/iconHelpers';
 import { GroupsPageState } from '../../store/reducers/groups.reducer';
 import { AppState } from '../../store/store';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import './GroupsListPage.scss';
-import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
 
 export const GroupsListPage = () => {
   const { groups, selectedGroup, selectedTab, isLoading } = useSelector(
@@ -20,8 +21,10 @@ export const GroupsListPage = () => {
 
   const [indexForDisplay, setIndexForDisplay] = useState<number>(0);
 
-  const selectGroupToDisplay = (index: number, numberOfDisplayedItems: number) =>
-    groups.slice(index, index + numberOfDisplayedItems);
+  const selectGroupToDisplay = (index: number, numberOfDisplayedItems: number) => {
+    const newGroups: GroupResponse[] = groups.slice(index, index + numberOfDisplayedItems);
+    return newGroups;
+  };
 
   const lengthOfTabsRow = 3;
 
@@ -60,12 +63,14 @@ export const GroupsListPage = () => {
             }}
           />
           <TabContainer
-            tabContainerData={groupsToDisplay?.map((item) => ({
-              id: item.id,
-              text: item.name,
-              icon: CourseIcon[item.course.id],
-            }))}
-            course={true}
+            tabContainerData={groupsToDisplay?.map((item, index) => {
+              const tabItem: TabData = {
+                id: item.id,
+                text: item.name,
+                icon: getGroupIcon(index),
+              };
+              return tabItem;
+            })}
             selectedTab={selectedTab}
             onClick={selectTab}
           />
@@ -82,12 +87,14 @@ export const GroupsListPage = () => {
       ) : (
         <div className="groups-header">
           <TabContainer
-            tabContainerData={groups?.map((item) => ({
-              id: item.id,
-              text: item.name,
-              icon: CourseIcon[item.course.id],
-            }))}
-            course={true}
+            tabContainerData={groups?.map((item, index) => {
+              const tabItem: TabData = {
+                id: item.id,
+                text: item.name,
+                icon: getGroupIcon(index),
+              };
+              return tabItem;
+            })}
             selectedTab={selectedTab}
             onClick={selectTab}
           />

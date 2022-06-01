@@ -18,7 +18,8 @@ export const UserEraser = () => {
   };
 
   return (
-    <div className={`modal-window ${modalType}`}>
+    // <form className={`modal-window ${modalType}`} onSubmit={handleModalSubmit}>
+    <form className={`modal-window ${modalType}`}>
       <div className="icons-container red-colored">
         <SvgIcon icon={Icon.Cross} />
       </div>
@@ -37,6 +38,6 @@ export const UserEraser = () => {
           Отмена
         </button>
       </div>
-    </div>
+    </form>
   );
 };

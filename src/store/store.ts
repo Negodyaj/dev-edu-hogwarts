@@ -20,20 +20,11 @@ import { newHomeworkFormReducer, NewHomeworkFormState } from './reducers/newHome
 import { NotificationsPageState, notificationsPageReducer } from './reducers/notifications.reducer';
 import { groupsPageReducer, GroupsPageState } from './reducers/groups.reducer';
 import { mainPanelReducer, MainPanelState } from './reducers/mainPanel.reducer';
-import {
-  attendanceJournalReducer,
-  AttendanceJournalState,
-} from './reducers/attendanceJournal.reducer';
-import { GeneralProgressState, generalProgressReducer } from './reducers/generalProgress.reducer';
 import { NewGroupFormReducer, NewGroupFormState } from './reducers/NewGroupForm.reducer';
 import { settingsPageReducer, SettingsPageState } from './reducers/settings.reducer';
 import { modalWindowReducer, ModalWindowState } from './reducers/modalWindow.reducer';
 import { registrationPageReducer, RegistrationPageState } from './reducers/registration.reducer';
 import { editCoursesPageReducer, EditCoursesPageState } from './reducers/editCourses.reducer';
-import {
-  notificationsContainerReducer,
-  NotificationsContainerState,
-} from './reducers/notificationsContainer.reducer';
 
 // Create an interface for the application state
 export interface AppState {
@@ -44,15 +35,12 @@ export interface AppState {
   lessonsPageState: LessonsPageState | undefined;
   homeworkPageState: HomeworkPageState;
   mainPanelState: MainPanelState | undefined;
-  attendanceJournalState: AttendanceJournalState;
-  generalProgressState: GeneralProgressState;
   groupsPageState: GroupsPageState;
   newGroupFormState: NewGroupFormState;
   settingsPageState: SettingsPageState | undefined;
   modalWindowState: ModalWindowState | undefined;
   registrationPageState: RegistrationPageState | undefined;
   editCoursesPageState: EditCoursesPageState | undefined;
-  notificationsContainerState: NotificationsContainerState | undefined;
 }
 
 // Create the root reducer
@@ -64,15 +52,12 @@ const rootReducer = combineReducers<AppState>({
   newHomeworkFormState: newHomeworkFormReducer,
   lessonsPageState: lessonsPageReducer,
   mainPanelState: mainPanelReducer,
-  attendanceJournalState: attendanceJournalReducer,
-  generalProgressState: generalProgressReducer,
   settingsPageState: settingsPageReducer,
   newGroupFormState: NewGroupFormReducer,
   groupsPageState: groupsPageReducer,
   modalWindowState: modalWindowReducer,
   registrationPageState: registrationPageReducer,
   editCoursesPageState: editCoursesPageReducer,
-  notificationsContainerState: notificationsContainerReducer,
 });
 
 // Create a configure store function of type `AppState`

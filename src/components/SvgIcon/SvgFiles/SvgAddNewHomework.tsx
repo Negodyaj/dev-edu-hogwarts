@@ -4,16 +4,16 @@ export const SvgAddNewHomework = () => {
       <path
         d="M3 9V20C3 20.5523 3.44772 21 4 21H15"
         stroke="black"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
       <path
         d="M8 17L20 17C20.5523 17 21 16.5523 21 16L21 4C21 3.44772 20.5523 3 20 3L8 3C7.44772 3 7 3.44772 7 4L7 16C7 16.5523 7.44772 17 8 17Z"
         stroke="black"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
       <path
         className="with-color-on-hover"

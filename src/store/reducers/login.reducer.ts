@@ -1,7 +1,5 @@
 import { Reducer } from 'redux';
 import {
-  GET_USER_FAIL,
-  GET_USER_STARTED,
   LoginPageAction,
   SET_CURRENT_USER,
   SET_CURRENT_USER_ROLE,
@@ -12,15 +10,15 @@ import { UserRole } from '../../shared/enums/UserRole';
 export interface LoginPageState {
   currentUser: UserResponse | undefined;
   currentRole: UserRole;
-  inProcess: boolean;
-  errorMessage?: string;
+  email: string;
+  password: string;
 }
 
 const initialState: LoginPageState = {
   currentUser: undefined,
   currentRole: UserRole.DefaultRole,
-  inProcess: false,
-  errorMessage: undefined,
+  email: 'user@example.com',
+  password: 'stringst',
 };
 
 export const loginPageReducer: Reducer<LoginPageState | undefined, LoginPageAction> = (
@@ -33,29 +31,12 @@ export const loginPageReducer: Reducer<LoginPageState | undefined, LoginPageActi
         ...state,
         currentUser: action.payload,
         currentRole: action.payload ? action.payload.roles[0] : UserRole.DefaultRole,
-        inProcess: false,
-        errorMessage: undefined,
       };
     }
     case SET_CURRENT_USER_ROLE: {
       return {
         ...state,
         currentRole: action.payload,
-        errorMessage: undefined,
-      };
-    }
-    case GET_USER_STARTED: {
-      return {
-        ...state,
-        inProcess: true,
-        errorMessage: undefined,
-      };
-    }
-    case GET_USER_FAIL: {
-      return {
-        ...state,
-        inProcess: false,
-        errorMessage: action.payload,
       };
     }
     default:

@@ -10,7 +10,7 @@ import {
 } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
 import { TabData } from '../../models/TabData';
-import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
+import { CourseName, getCourseIcon } from '../../shared/helpers/iconHelpers';
 
 export interface LessonsPageState {
   filteredLessons: LessonResponse[];
@@ -51,7 +51,7 @@ export const lessonsPageReducer: Reducer<LessonsPageState | undefined, LessonsPa
         const tabData: TabData = {
           id: group.id,
           text: group.course.name,
-          icon: CourseIcon[group.course.id],
+          icon: getCourseIcon(group.course.id as CourseName),
         };
         return tabData;
       });

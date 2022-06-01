@@ -8,7 +8,6 @@ export type FilterListProps = {
   cssClass?: string;
   selected?: number;
   callback?: (item: any) => void;
-  arrowHidden?: boolean;
   cssAlign?: Align;
 };
 
@@ -51,7 +50,7 @@ export const FilterList = (props: FilterListProps) => {
       >
         {item?.name}
 
-        {!props.arrowHidden && <SvgArrow direction={isOpen ? 'top' : 'bottom'} />}
+        <SvgArrow direction={isOpen ? 'top' : 'bottom'} />
       </div>
 
       {isOpen && (

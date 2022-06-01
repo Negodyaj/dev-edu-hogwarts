@@ -1,22 +1,24 @@
-export const SvgRainbow = () => {
+import * as React from 'react';
+
+export const SvgBarrel = () => {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M21 17V15C21 10.0294 16.9706 6 12 6C7.02944 6 3 10.0294 3 15V17"
+        d="M6 17L6 7M18 7L18 17"
         stroke="black"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M18 17V15C18 11.6863 15.3137 9 12 9C8.68629 9 6 11.6863 6 15V17"
+        d="M18 17C18 18.6569 15.3137 20 12 20C8.68629 20 6 18.6569 6 17"
         stroke="black"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M15 17V15C15 13.3431 13.6569 12 12 12C10.3431 12 9 13.3431 9 15V17"
+        d="M12 10C15.3137 10 18 8.65685 18 7C18 5.34315 15.3137 4 12 4C8.68629 4 6 5.34315 6 7C6 8.65685 8.68629 10 12 10Z"
         stroke="black"
         strokeWidth="2"
         strokeLinecap="round"

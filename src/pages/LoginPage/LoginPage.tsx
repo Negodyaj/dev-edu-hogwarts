@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser, setToken } from '../../services/auth.service';
+import { baseWretch } from '../../services/base-wretch.service';
+import { loginUrl } from '../../shared/consts';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { useEffect } from 'react';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { authUser } from '../../actions/login.thunk';
 
 export type LoginFormData = {
   email: string;
@@ -15,32 +15,27 @@ export type LoginFormData = {
 };
 
 export const LoginPage = () => {
-  const { errorMessage } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
-  const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .matches(/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/, 'Введен некорректный email')
-      .required('Вы не указали почту'),
-    password: yup.string().required('Введите пароль'),
-  });
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<LoginFormData>({ resolver: yupResolver(validationSchema) });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>();
+
   const onSubmit = (data: LoginFormData) => {
-    dispatch(authUser(data));
-    reset({ password: '' });
+    baseWretch()
+      .url(loginUrl)
+      .post(data)
+      .text((token: string) => {
+        setToken(token);
+        getCurrentUser(dispatch);
+      });
   };
 
-  const { currentUser, inProcess } = useSelector(
-    (state: AppState) => state.loginPageState as LoginPageState
-  );
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
 
   useEffect(() => {
     if (currentUser) {
@@ -61,7 +56,7 @@ export const LoginPage = () => {
             {...register('email', { required: true })}
           />
         </div>
-        {errors.email && <div className="invalid-feedback">{errors.email?.message}</div>}
+        {errors.email && <span>вы не указали почту</span>}
         <div className="form-element">
           Пароль
           <input
@@ -71,27 +66,10 @@ export const LoginPage = () => {
             defaultValue="password"
           />
         </div>
-        {errors.password && <div className="invalid-feedback">{errors.password?.message}</div>}
-        {errorMessage && (
-          <div className="invalid-feedback">
-            {errorMessage === 'Authorization exception' && 'Неправильные логин или пароль'}
-          </div>
-        )}
+        {errors.password && <span>пароль введи, жопошник</span>}
         <div className="buttons-group">
-          <Button
-            text="Войти"
-            model={ButtonModel.Colored}
-            type={ButtonType.submit}
-            width="190"
-            disabled={inProcess}
-          />
-          <Button
-            text="Отмена"
-            model={ButtonModel.Text}
-            type={ButtonType.reset}
-            disabled={inProcess}
-            width="223"
-          />
+          <Button text="Войти" model={ButtonModel.Colored} type={ButtonType.submit} width="190" />
+          <Button text="Отмена" model={ButtonModel.Text} type={ButtonType.reset} width="223" />
         </div>
       </form>
     </div>

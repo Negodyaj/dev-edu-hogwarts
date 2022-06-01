@@ -1,6 +1,8 @@
 export const enum Icon {
   Barrel,
   Computer,
+  Cake,
+  Cookie,
   Calendar,
   Chevron,
   Notifications,
@@ -27,6 +29,4 @@ export const enum Icon {
   GeneralProgress,
   ButtonFly,
   Pic,
-  Fail,
-  Ok,
 }

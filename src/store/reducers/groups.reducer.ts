@@ -9,7 +9,6 @@ import {
 } from '../../actions/groups.actions';
 import { GroupResponseWithUsers } from '../../models/responses/GroupResponseWithUsers';
 import { GroupResponse } from '../../models/responses/GroupResponse';
-import { GroupStatus } from '../../shared/enums/GroupStatus';
 
 export interface GroupsPageState {
   groups: GroupResponse[];
@@ -28,7 +27,7 @@ const initialState: GroupsPageState = {
     id: 0,
     name: '',
     course: { id: 0, name: '', isDeleted: false },
-    groupStatus: GroupStatus.Forming,
+    groupStatus: '',
     startDate: '',
     endDate: '',
     timetable: '',

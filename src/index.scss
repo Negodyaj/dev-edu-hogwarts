@@ -18,11 +18,11 @@ main {
   height: 100vh;
   flex-grow: 1;
   padding-top: 70px;
+  padding-left: 380px;
   overflow-x: hidden;
   transition: padding-left ease-in-out 0.5s, padding-left ease-in-out 0.5s;
 }
-
-.closed {
+.closed{
   padding-left: 114px;
   transition: padding-left ease-in-out 0.5s, padding-left ease-in-out 0.5s;
 }
@@ -97,29 +97,4 @@ main {
 
 .arrow-left {
   transform: rotateY(180deg);
-}
-
-.buttons-after-list {
-  width: 940px;
-  justify-content: center;
-  column-gap: 30px;
-  transition: width ease-in-out 0.4s;
-}
-
-.journals {
-  height: 100%;
-
-  .link-arrow {
-    margin-bottom: 20px;
-  }
-
-  .error-container {
-    width: 940px;
-    align-items: center;
-    margin: 50px 0;
-    font-size: 20px;
-    font-weight: inherit;
-    flex-direction: column;
-    row-gap: 20px;
-  }
 }

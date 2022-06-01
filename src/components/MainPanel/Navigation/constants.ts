@@ -14,10 +14,3 @@ export const newGroupLink = '/new-group';
 export const studentListLink = '/students-list';
 export const paymentTableLink = '/payment-table';
 export const allUsersLink = '/all-users';
-
-export const newHomeworkEditLink = (homeworkId?: number) =>
-  `new-homework/edit-homework/${homeworkId}`;
-export const taskEditLink = (taskId: number) => `new-homework/edit-task/${taskId}`;
-export const homeworkStudentAnswerEditLink = (homeworkId?: number) =>
-  `homeworks/${homeworkId}/edit`;
-export const homeworkByIdLink = (homeworkId?: number | string) => `${homeworksLink}/${homeworkId}`;

@@ -2,10 +2,6 @@ import './Button.scss';
 import { SvgIcon } from '../SvgIcon/SvgIcon';
 import { Icon } from '../../shared/enums/Icon';
 import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
-import { StyledButton } from './styled/StyledButton';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../store/store';
-import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
 
 export type ButtonProps = {
   text?: string;
@@ -35,8 +31,6 @@ export enum ButtonType {
 }
 
 export const Button = (props: ButtonProps) => {
-  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
-
   const buttonClass = (() => {
     switch (props.model) {
       case ButtonModel.White:
@@ -61,16 +55,14 @@ export const Button = (props: ButtonProps) => {
   }
 
   return props.url ? (
-    <a href={props.url} className={`btn ${buttonClass} flex-container`}>
+    <a href={props.url} className={`btn ${buttonClass}`}>
       {props.text}
       {buttonImg}
       {props.direction ? <SvgArrow direction={`${props.direction}`} /> : ''}
     </a>
   ) : (
-    <StyledButton
-      buttonProps={props}
-      isDark={isDark}
-      className={`btn ${buttonClass} flex-container`}
+    <button
+      className={`btn ${buttonClass}`}
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}
@@ -79,6 +71,6 @@ export const Button = (props: ButtonProps) => {
       {props.text}
       {buttonImg}
       {props.direction ? <SvgArrow direction={`${props.direction}`} /> : ''}
-    </StyledButton>
+    </button>
   );
 };

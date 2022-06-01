@@ -1,8 +1,8 @@
 import { GroupResponse } from './GroupResponse';
-import { UserSimpleResponseWithRoles } from './UserResponse';
+import { UserResponseShort } from './UserResponseShort';
 
 export interface GroupResponseWithUsers extends GroupResponse {
-  students: UserSimpleResponseWithRoles[];
-  teachers: UserSimpleResponseWithRoles[];
-  tutors: UserSimpleResponseWithRoles[];
+  students: UserResponseShort[];
+  teachers: UserResponseShort[];
+  tutors: UserResponseShort[];
 }

@@ -5,6 +5,10 @@
   cursor: pointer;
 }
 
+.custom-checkbox input {
+  display: none;
+}
+
 .custom-checkbox-text::before {
   content: '';
   position: absolute;

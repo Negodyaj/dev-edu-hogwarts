@@ -3,7 +3,6 @@ import { Controller, useForm, FormProvider } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { RegistrationPageState } from '../../store/reducers/registration.reducer';
@@ -25,8 +24,6 @@ export type RegisterFormData = {
 };
 
 export const RegistrationPage = () => {
-  const [check, setCheck] = useState(false);
-
   const schema = () =>
     yup.object().shape({
       password: yup
@@ -228,12 +225,12 @@ export const RegistrationPage = () => {
                 data={{
                   value: 0,
                   text: '',
-                  isChecked: check,
+                  isChecked: false,
                 }}
-                onClick={() => setCheck(!check)}
                 name="policy"
                 isSingle={true}
               />
+              {/*пока не получилось поправить чекбокс*/}
               <label htmlFor="policy" id="policy-label">
                 Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями{' '}
                 <a href={'#'} className="link-policy" aria-label="policy">

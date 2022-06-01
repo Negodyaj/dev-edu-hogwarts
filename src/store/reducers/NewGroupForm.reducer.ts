@@ -8,8 +8,8 @@ import {
   LOAD_USERS_SUCCESS,
   NewGroupFormAction,
 } from '../../actions/NewGroupForm.actions';
-import { CourseSimpleResponse } from '../../models/responses/CourseSimpleResponse';
-import { UserSimpleResponseWithRoles } from '../../models/responses/UserResponse';
+import { CourseResponse } from '../../models/responses/CourseResponse';
+import { UserResponseShort } from '../../models/responses/UserResponseShort';
 
 export interface NewGroupFormState {
   id: number;
@@ -22,8 +22,8 @@ export interface NewGroupFormState {
   timetable: string;
   paymentPerMonth: number;
   courseId: number;
-  users: UserSimpleResponseWithRoles[];
-  courses: CourseSimpleResponse[];
+  users: UserResponseShort[];
+  courses: CourseResponse[];
   isLoading: boolean;
   errorMessage: string;
 }

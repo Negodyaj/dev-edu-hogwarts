@@ -7,8 +7,6 @@ export type TabContainerProps = {
   tabContainerData?: TabData[];
   selectedTab: number;
   onClick?: (id: number) => void;
-  course?: boolean;
-  group?: boolean;
 };
 
 export const TabContainer = (props: TabContainerProps) => {
@@ -21,14 +19,7 @@ export const TabContainer = (props: TabContainerProps) => {
     <>
       <div className="tab-container">
         {props.tabContainerData?.map((item) => (
-          <TabItem
-            data={item}
-            key={item.id}
-            activeTab={props.selectedTab}
-            onClick={onTabClick}
-            course={props.course}
-            group={props.group}
-          />
+          <TabItem data={item} key={item.id} activeTab={props.selectedTab} onClick={onTabClick} />
         ))}
       </div>
     </>
