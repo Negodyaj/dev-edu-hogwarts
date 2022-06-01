@@ -5,63 +5,6 @@ import { studentsUrl } from '../../shared/consts';
 import { StudentRow } from './components/StudentsGroupChangingRow';
 import './StudentsListPage.scss';
 
-const studentsData = [
-  {
-    id: 1,
-    userName: 'Антон',
-    userSurname: 'Ефременков',
-    group: 'Группа 1',
-    groupId: 2,
-    email: 'chelovek@example.com',
-    phoneNum: '+7(999)888-77-66',
-  },
-  {
-    id: 2,
-    userName: 'Борис',
-    userSurname: 'Годунов',
-    group: 'Группа 1',
-    groupId: 2,
-    email: 'chelovek@example.com',
-    phoneNum: '+7(999)888-77-66',
-  },
-  {
-    id: 3,
-    userName: 'Михаил',
-    userSurname: 'Гончаров',
-    group: 'Группа 2',
-    groupId: 3,
-    email: 'chelovek@example.com',
-    phoneNum: '+7(999)888-77-66',
-  },
-  {
-    id: 4,
-    userName: 'Булат',
-    userSurname: 'Нуриахметов',
-    group: 'Группа 2',
-    groupId: 3,
-    email: 'chelovek@example.com',
-    phoneNum: '+7(999)888-77-66',
-  },
-  {
-    id: 5,
-    userName: 'Азат',
-    userSurname: 'Юнусов',
-    group: 'Группа 2',
-    groupId: 3,
-    email: 'chelovek@example.com',
-    phoneNum: '+7(999)888-77-66',
-  },
-  {
-    id: 6,
-    userName: 'Камилла',
-    userSurname: 'Ганеева',
-    group: 'Группа 2',
-    groupId: 3,
-    email: 'chelovek@example.com',
-    phoneNum: '+7(999)888-77-66',
-  },
-];
-
 const surnameFilterData: FilterItem[] = [
   { id: 1, name: 'Сортировать по фамилии' },
   { id: 2, name: 'Сортировать обратно' },
@@ -73,42 +16,45 @@ const groupFilterData: FilterItem[] = [
   { id: 3, name: 'Группа 2' },
 ];
 
+export type Student = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  groupIds: number[];
+  phone: string;
+  email: string;
+};
+
 export const StudentsListPage = () => {
-  const [students, setStudents] = useState(studentsData);
+  const [students, setStudents] = useState<Student[]>([]);
   const [filterSurnameValue, setFilterSurnameValue] = useState(1);
   const [filterGroupValue, setFilterGroupValue] = useState(0);
-  const [filtredList, setFiltredList] = useState(studentsData);
-
-  const [lessonsData, setLessonsData] = useState<TopicFormData[]>([]); // Это типа данные, которые нам придут
+  const [filtredList, setFiltredList] = useState<Student[]>([]);
 
   async function getData() {
-    const courseTopics = await baseWretch()
+    const studentsList: Student[] = await baseWretch()
       .url(studentsUrl)
       .get()
       .json((data) => {
-        const people: TopicFormData[] = data.map((item: CourseTopicsResponse) => {
-          const topic: TopicFormData = {
-            id: item.id,
-            position: item.position,
-            topicName: item.topic.name,
-            hoursCount: item.topic.duration,
-          };
-          return topic;
-        });
-        console.log(topics);
-        return topics;
+        const respData: Student[] = data as Student[];
+        return respData;
       });
-    setLessonsData(lessonsData.concat(courseTopics));
-    return courseTopics;
+    setStudents(studentsList);
   }
+  useEffect(() => {
+    getData();
+  }, []);
+  useEffect(() => {
+    setFiltredList(students);
+  }, [students]);
 
   const applySurnameSorting = () => {
     if (filterSurnameValue == 1) {
       const sortedForward = filtredList.sort(function (prev, next) {
-        if (prev.userSurname < next.userSurname) {
+        if (prev.lastName < next.lastName) {
           return -1;
         }
-        if (prev.userSurname > next.userSurname) {
+        if (prev.lastName > next.lastName) {
           return 1;
         } else {
           return 0;
@@ -118,10 +64,10 @@ export const StudentsListPage = () => {
     }
     if (filterSurnameValue == 2) {
       const sortedBackward = filtredList.sort(function (prev, next) {
-        if (prev.userSurname > next.userSurname) {
+        if (prev.lastName > next.lastName) {
           return -1;
         }
-        if (prev.userSurname < next.userSurname) {
+        if (prev.lastName < next.lastName) {
           return 1;
         } else {
           return 0;
@@ -139,7 +85,7 @@ export const StudentsListPage = () => {
 
   const FilterByGroup = () => {
     const filtered = students.filter(
-      (s) => filterGroupValue === 0 || (filterGroupValue > 0 && s.groupId === filterGroupValue)
+      (s) => filterGroupValue === 0 || (filterGroupValue > 0 && s.groupIds[0] === filterGroupValue)
     );
     setFiltredList(filtered);
   };
@@ -150,11 +96,11 @@ export const StudentsListPage = () => {
     setFilterGroupValue(item.id);
   };
 
-  const changeGroup = (studentId: number, groupId: number) => {
+  const changeGroup = (studentId: number, groupIds: number) => {
     const studentIndex = students.findIndex((item) => item.id == studentId);
-    if (students[studentIndex].groupId) {
-      students[studentIndex].groupId = groupId;
-      console.log(students[studentIndex].groupId);
+    if (students[studentIndex].groupIds) {
+      students[studentIndex].groupIds[0] = groupIds;
+      console.log(students[studentIndex].groupIds);
     }
     setStudents([...students]);
   };
@@ -178,7 +124,7 @@ export const StudentsListPage = () => {
         </div>
       </div>
       <div>
-        {filtredList.map((item) => (
+        {students.map((item) => (
           <StudentRow data={item} changeGroupId={changeGroup} />
         ))}
       </div>

@@ -7,12 +7,11 @@ export type StudentProps = {
 
 export type StudentModel = {
   id: number;
-  userName: string;
-  userSurname: string;
-  group: string;
-  groupId: number;
+  firstName: string;
+  lastName: string;
+  groupIds: number[];
+  phone: string | null;
   email: string;
-  phoneNum: string;
 };
 
 const groupSelectData: FilterItem[] = [
@@ -29,14 +28,14 @@ export const StudentRow = (props: StudentProps) => {
     <div className="group-table-row-wrapper">
       <div className="group-table-grid-container group-table-row">
         <span>
-          {studentsGroupRow.userName} {studentsGroupRow.userSurname}
+          {studentsGroupRow.firstName} {studentsGroupRow.lastName}
         </span>
         <span>{studentsGroupRow.email}</span>
-        <span>{studentsGroupRow.phoneNum}</span>
+        <span>{studentsGroupRow.phone}</span>
         <FilterList
           data={groupSelectData}
           callback={onSelectGroup}
-          selected={studentsGroupRow.groupId}
+          selected={studentsGroupRow.groupIds[0]}
         />
       </div>
     </div>
