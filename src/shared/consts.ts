@@ -3,6 +3,7 @@ export const baseUrl = 'https://piter-education.ru:7070';
 export const loginUrl = 'sign-in';
 export const lessonsUrl = 'api/lessons';
 export const usersUrl = 'api/Users';
+export const studentsUrl = `${usersUrl}/students`;
 export const groupUrl = 'api/Groups';
 export const taskUrl = 'api/tasks';
 export const registerUrl = 'register';

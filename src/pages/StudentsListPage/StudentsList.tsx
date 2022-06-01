@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
+import { baseWretch } from '../../services/base-wretch.service';
+import { studentsUrl } from '../../shared/consts';
 import { StudentRow } from './components/StudentsGroupChangingRow';
 import './StudentsListPage.scss';
 
@@ -76,6 +78,29 @@ export const StudentsListPage = () => {
   const [filterSurnameValue, setFilterSurnameValue] = useState(1);
   const [filterGroupValue, setFilterGroupValue] = useState(0);
   const [filtredList, setFiltredList] = useState(studentsData);
+
+  const [lessonsData, setLessonsData] = useState<TopicFormData[]>([]); // Это типа данные, которые нам придут
+
+  async function getData() {
+    const courseTopics = await baseWretch()
+      .url(studentsUrl)
+      .get()
+      .json((data) => {
+        const people: TopicFormData[] = data.map((item: CourseTopicsResponse) => {
+          const topic: TopicFormData = {
+            id: item.id,
+            position: item.position,
+            topicName: item.topic.name,
+            hoursCount: item.topic.duration,
+          };
+          return topic;
+        });
+        console.log(topics);
+        return topics;
+      });
+    setLessonsData(lessonsData.concat(courseTopics));
+    return courseTopics;
+  }
 
   const applySurnameSorting = () => {
     if (filterSurnameValue == 1) {
