@@ -1,15 +1,15 @@
 import { ListView } from './ListView/ListView';
 import { DragDropContext, DragUpdate } from 'react-beautiful-dnd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //import { lessons } from './ListView/exampleData';
 import { useForm } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import './EditCoursesPage.scss';
-import { getTopicsByCourseId } from '../../shared/consts';
-import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { onCourseTopicsUpdate } from '../../actions/editCourses.thunk';
-import { baseWretch } from '../../services/base-wretch.service';
+import { onTopicsLoad } from '../../actions/topics.thunk';
+import { AppState } from '../../store/store';
+import { CoursesPageState } from '../../store/reducers/topics.reducer';
 //import { AppState } from '../../store/store';
 
 export type TopicFormData = {
@@ -21,28 +21,12 @@ export type TopicFormData = {
 
 export const EditCoursesPage = () => {
   const dispatch = useDispatch();
-  const [lessonsData, setLessonsData] = useState<TopicFormData[]>([]); // Это типа данные, которые нам придут
-
-  async function getData() {
-    const courseTopics = await baseWretch()
-      .url(getTopicsByCourseId(1371))
-      .get()
-      .json((data) => {
-        const topics: TopicFormData[] = data.map((item: CourseTopicsResponse) => {
-          const topic: TopicFormData = {
-            id: item.id,
-            position: item.position,
-            topicName: item.topic.name,
-            hoursCount: item.topic.duration,
-          };
-          return topic;
-        });
-        console.log(topics);
-        return topics;
-      });
-    setLessonsData(lessonsData.concat(courseTopics));
-    return courseTopics;
-  }
+  const { topics } = useSelector((state: AppState) => state.coursesPageState as CoursesPageState);
+  useEffect(() => {
+    console.log('loaded');
+    dispatch(onTopicsLoad());
+  });
+  const [lessonsData, setLessonsData] = useState<TopicFormData[]>(topics);
 
   const {
     register,
@@ -83,7 +67,6 @@ export const EditCoursesPage = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         <ListView data={lessonsData} groupId={1} edit={true} />
       </DragDropContext>
-      <button onClick={() => getData()}>hlkgtlt</button>
       <div className="form-container">
         <h2>Новая тема</h2>
         <form onSubmit={handleSubmit(onSubmit)}>

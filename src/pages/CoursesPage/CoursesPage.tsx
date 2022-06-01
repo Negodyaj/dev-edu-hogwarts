@@ -2,7 +2,7 @@ import { ListView } from './ListView/ListView';
 import { DragDropContext } from 'react-beautiful-dnd';
 //import { lessons } from './ListView/exampleData';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { onTopicsLoad } from '../../actions/topics.thunk';
 import { CoursesPageState } from '../../store/reducers/topics.reducer';
 import { AppState } from '../../store/store';

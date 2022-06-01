@@ -10,7 +10,7 @@ const initialState: CoursesPageState = {
   topics: [],
 };
 
-export const coursesPageReducer: Reducer<CoursesPageState, CoursesPageActions> = (
+export const coursesPageReducer: Reducer<CoursesPageState | undefined, CoursesPageActions> = (
   state: CoursesPageState = initialState,
   action
 ) => {
