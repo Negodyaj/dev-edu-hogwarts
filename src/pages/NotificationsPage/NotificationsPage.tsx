@@ -2,11 +2,11 @@ import senderPhoto from './images/avatar.png';
 import { NotificationsCard, NotificationData } from './components/NotificationsCard';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { AppState } from '../../store/store';
 import React, { useEffect } from 'react';
 import { filterNotification, setNotifications } from '../../actions/notifications.actions';
 import { NotificationsPageState } from '../../store/reducers/notifications.reducer';
+
 const getNotifications = (): NotificationData[] => {
   return [
     {
@@ -73,6 +73,7 @@ export const NotificationsPage = () => {
     { id: 1, name: 'Все' },
     { id: 2, name: 'Непрочитанные' },
   ];
+
   return (
     <div className="notifications-page">
       <FilterList data={notificationsFilterData} callback={applyNotificationsFilter} />
