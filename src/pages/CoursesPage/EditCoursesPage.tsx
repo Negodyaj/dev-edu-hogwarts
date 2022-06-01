@@ -1,7 +1,7 @@
 import { ListView } from './ListView/ListView';
 import { DragDropContext, DragUpdate } from 'react-beautiful-dnd';
 import { useState } from 'react';
-import { lessons } from './ListView/exampleData';
+//import { lessons } from './ListView/exampleData';
 import { useForm } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import './EditCoursesPage.scss';
@@ -21,10 +21,10 @@ export type TopicFormData = {
 
 export const EditCoursesPage = () => {
   const dispatch = useDispatch();
-  const [lessonsData, setLessonsData] = useState(lessons); // Это типа данные, которые нам придут
+  const [lessonsData, setLessonsData] = useState<TopicFormData[]>([]); // Это типа данные, которые нам придут
 
   async function getData() {
-    const daata = await baseWretch()
+    const courseTopics = await baseWretch()
       .url(getTopicsByCourseId(1371))
       .get()
       .json((data) => {
@@ -40,8 +40,8 @@ export const EditCoursesPage = () => {
         console.log(topics);
         return topics;
       });
-    setLessonsData(lessonsData.concat(daata));
-    return daata;
+    setLessonsData(lessonsData.concat(courseTopics));
+    return courseTopics;
   }
 
   const {
