@@ -7,14 +7,15 @@ import { AppState } from '../../store/store';
 import { HomeworkCard } from './components/HomeworkCard';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
-// import { loadCourses } from '../../actions/courses.actions';
 import { CourseResponse } from '../../models/responses/CourseResponse';
 import { TaskCard } from './components/TaskCard';
-// import { Task } from '../../models/responses/HomeworksResponse';
-// import { selectTabCoursePage } from '../../actions/courses.actions';
-// import { baseWretch } from '../../services/base-wretch.service';
+import { useNavigate } from 'react-router-dom';
+import { Button, ButtonModel } from '../../components/Button/Button';
+import { newHomeworkLink } from '../../components/MainPanel/Navigation/constants';
+import { Icon } from '../../shared/enums/Icon';
 export const HomeworksPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { tabs, selectedTab, tasks, homeworks } = useSelector(
     (state: AppState) => state.homeworksPageState
   );
@@ -58,6 +59,23 @@ export const HomeworksPage = () => {
           homeworks.map((hwk) => <HomeworkCard data={hwk} key={hwk.id} />)
         ) : (
           <span className="lack-of-homeworks">Домашних заданий еще нет</span>
+        )}
+        {(currentRole === UserRole.Teacher || currentRole === UserRole.Methodist) && (
+          <div className="buttons-group flex-container buttons-after-list">
+            <Button
+              model={ButtonModel.Colored}
+              text="Добавить задание"
+              icon={Icon.Plus}
+              onClick={() => navigate(newHomeworkLink)}
+            />
+            {currentRole !== UserRole.Methodist && (
+              <Button
+                model={ButtonModel.White}
+                text="Сохраненные задания"
+                onClick={() => navigate('drafts')}
+              />
+            )}
+          </div>
         )}
       </div>
     </>
