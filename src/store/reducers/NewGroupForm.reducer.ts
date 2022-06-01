@@ -1,45 +1,47 @@
 import { Reducer } from 'redux';
 import {
   GET_DATA_FROM_FORM,
-  GET_ID_FOR_GROUP,
+  GET_TEACHERS_FOR_GROUP,
+  GET_TUTORS_FOR_GROUP,
+  // GET_ID_FOR_GROUP,
   LOAD_COURSES_SUCCESS,
   LOAD_FAIL,
+  LOAD_GROUP_FOR_CHANGE,
   LOAD_STARTED,
   LOAD_USERS_SUCCESS,
   NewGroupFormAction,
 } from '../../actions/NewGroupForm.actions';
 import { CourseResponse } from '../../models/responses/CourseResponse';
+import { GroupResponseWithUsers } from '../../models/responses/GroupResponseWithUsers';
 import { UserResponseShort } from '../../models/responses/UserResponseShort';
+import { GroupStatus } from '../../shared/enums/GroupStatus';
 
 export interface NewGroupFormState {
-  id: number;
-  name: string;
-  teacherIds: number[];
-  tutorIds: number[];
-  groupStatusId: string;
-  startDate: string;
-  endDate: string;
-  timetable: string;
-  paymentPerMonth: number;
-  paymentsCount: number;
-  courseId: number;
+  group: GroupResponseWithUsers;
+  teacherIdsForGroup: number[];
+  tutorIdsForGroup: number[];
   users: UserResponseShort[];
   courses: CourseResponse[];
   isLoading: boolean;
   errorMessage: string;
 }
 const initialState: NewGroupFormState = {
-  id: 0,
-  name: '',
-  teacherIds: [],
-  tutorIds: [],
-  groupStatusId: '',
-  startDate: '',
-  endDate: '',
-  timetable: '',
-  paymentPerMonth: 0,
-  paymentsCount: 0,
-  courseId: 0,
+  group: {
+    students: [],
+    teachers: [],
+    tutors: [],
+    id: 0,
+    name: '',
+    course: { id: 0, name: '', isDeleted: false },
+    groupStatus: GroupStatus.Forming,
+    startDate: '',
+    endDate: '',
+    timetable: '',
+    paymentPerMonth: 0,
+    paymentsCount: 3,
+  },
+  teacherIdsForGroup: [],
+  tutorIdsForGroup: [],
   users: [],
   courses: [],
   isLoading: false,
@@ -80,22 +82,36 @@ export const NewGroupFormReducer: Reducer<NewGroupFormState, NewGroupFormAction>
     case GET_DATA_FROM_FORM: {
       return {
         ...state,
-        name: action.payload.name,
-        teacherIds: action.payload.teacherIds,
-        tutorIds: action.payload.tutorIds,
-        groupStatusId: action.payload.groupStatusId,
-        startDate: action.payload.startDate,
-        endDate: action.payload.endDate,
-        timetable: action.payload.timetable,
-        paymentPerMonth: action.payload.paymentPerMonth,
-        paymentsCount: action.payload.paymentsCount,
-        courseId: action.payload.courseId,
+        group: action.payload,
       };
     }
-    case GET_ID_FOR_GROUP: {
+    case LOAD_GROUP_FOR_CHANGE: {
+      const teachers: number[] = action.payload.teachers.map((teacher) => {
+        const teacherId = teacher.id;
+        return teacherId;
+      });
+      const tutors: number[] = action.payload.tutors.map((tutor) => {
+        const tutorId = tutor.id;
+        return tutorId;
+      });
       return {
         ...state,
-        id: action.payload,
+        group: action.payload,
+        teacherIdsForGroup: teachers,
+        tutorIdsForGroup: tutors,
+        isLoading: false,
+      };
+    }
+    case GET_TEACHERS_FOR_GROUP: {
+      return {
+        ...state,
+        teacherIdsForGroup: action.payload,
+      };
+    }
+    case GET_TUTORS_FOR_GROUP: {
+      return {
+        ...state,
+        tutorIdsForGroup: action.payload,
       };
     }
     default:

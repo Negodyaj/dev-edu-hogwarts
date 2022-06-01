@@ -27,7 +27,7 @@ const initialState: GroupsPageState = {
     id: 0,
     name: '',
     course: { id: 0, name: '', isDeleted: false },
-    groupStatus: '',
+    groupStatus: 0,
     startDate: '',
     endDate: '',
     timetable: '',

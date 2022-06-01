@@ -18,4 +18,8 @@ export const lessonsByGroupId = (groupId: number) => {
   return `${lessonsUrl}/by-group/${groupId}`;
 };
 export const updateUserUrl = (id: number) => `${usersUrl}/${id}`;
-export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
+export const groupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
+export const addUserInGroup = (groupId: number, userId: number, userRole: string) =>
+  `${groupUrl}/${groupId}/user/${userId}/role/${userRole}`;
+export const deleteUserFromGroup = (groupId: number, userId: number) =>
+  `${groupUrl}/${groupId}/user/${userId}`;
