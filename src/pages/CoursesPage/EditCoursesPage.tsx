@@ -25,7 +25,7 @@ export const EditCoursesPage = () => {
     dispatch(onTopicsLoad());
   }, []);
   const [lessonsData, setLessonsData] = useState<TopicFormData[]>(topics);
-  const [visible, setVisible] = useState('invisible');
+  const [savedVisible, setSavedVisible] = useState('invisible');
 
   const {
     register,
@@ -53,16 +53,20 @@ export const EditCoursesPage = () => {
 
     setLessonsData(() => [...newLessonsArray]);
     console.log(newLessonsArray); //put вот этого массива
-    setVisible('visible');
-    setTimeout(() => setVisible('invisible'), 3000);
+
+    setSavedVisible('visible');
+    setTimeout(() => setSavedVisible('invisible'), 3000);
   };
 
   const onSubmit = (data: TopicFormData) => {
     data.id = lessonsData.length + 1;
-    setLessonsData(lessonsData.concat(data));
+    const newLessonsArray = lessonsData.concat(data);
+    setLessonsData(() => [...newLessonsArray]);
+    console.log(newLessonsArray); //put вот этого массива
     dispatch(onCourseTopicsUpdate(data)); //ещё надо будет передавать курс айди
-    setVisible('visible');
-    setTimeout(() => setVisible('invisible'), 3000);
+
+    setSavedVisible('visible');
+    setTimeout(() => setSavedVisible('invisible'), 3000);
   };
 
   return (
@@ -70,7 +74,7 @@ export const EditCoursesPage = () => {
       <DragDropContext onDragEnd={onDragEnd}>
         <ListView data={lessonsData} groupId={1} edit={true} />
       </DragDropContext>
-      <div className={`saved ${visible}`}>Сохранено</div>
+      <div className={`saved ${savedVisible}`}>Сохранено</div>
       <div className="form-container">
         <h2>Новая тема</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
