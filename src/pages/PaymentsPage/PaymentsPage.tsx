@@ -6,8 +6,8 @@ import './PaymentsPage.scss';
 const paymentsData = [
   {
     id: 1,
-    userName: 'Антон',
-    userSurname: 'Ефременков',
+    firstName: 'Антон',
+    lastName: 'Ефременков',
     group: 'Группа 1',
     groupId: 2,
     firstPaymentStatus: '01.01.2022',
@@ -17,8 +17,8 @@ const paymentsData = [
   },
   {
     id: 2,
-    userName: 'Борис',
-    userSurname: 'Годунов',
+    firstName: 'Борис',
+    lastName: 'Годунов',
     group: 'Группа 1',
     groupId: 2,
     firstPaymentStatus: '05.01.2022',
@@ -28,8 +28,8 @@ const paymentsData = [
   },
   {
     id: 3,
-    userName: 'Михаил',
-    userSurname: 'Гончаров',
+    firstName: 'Михаил',
+    lastName: 'Гончаров',
     group: 'Группа 2',
     groupId: 3,
     firstPaymentStatus: '03.01.2022',
@@ -39,8 +39,8 @@ const paymentsData = [
   },
   {
     id: 4,
-    userName: 'Булат',
-    userSurname: 'Нуриахметов',
+    firstName: 'Булат',
+    lastName: 'Нуриахметов',
     group: 'Группа 2',
     groupId: 3,
     firstPaymentStatus: '03.01.2022',
@@ -50,8 +50,8 @@ const paymentsData = [
   },
   {
     id: 5,
-    userName: 'Азат',
-    userSurname: 'Юнусов',
+    firstName: 'Азат',
+    lastName: 'Юнусов',
     group: 'Группа 2',
     groupId: 3,
     firstPaymentStatus: null,
@@ -61,8 +61,8 @@ const paymentsData = [
   },
   {
     id: 6,
-    userName: 'Камилла',
-    userSurname: 'Ганеева',
+    firstName: 'Камилла',
+    lastName: 'Ганеева',
     group: 'Группа 2',
     groupId: 3,
     firstPaymentStatus: null,
@@ -122,10 +122,10 @@ export const PaymentsPage = () => {
   const applySurnameSorting = () => {
     if (filterSurnameValue == 1) {
       const sortedForward = filtredList.sort(function (prev, next) {
-        if (prev.userSurname < next.userSurname) {
+        if (prev.lastName < next.lastName) {
           return -1;
         }
-        if (prev.userSurname > next.userSurname) {
+        if (prev.lastName > next.lastName) {
           return 1;
         } else {
           return 0;
@@ -135,10 +135,10 @@ export const PaymentsPage = () => {
     }
     if (filterSurnameValue == 2) {
       const sortedBackward = filtredList.sort(function (prev, next) {
-        if (prev.userSurname > next.userSurname) {
+        if (prev.lastName > next.lastName) {
           return -1;
         }
-        if (prev.userSurname < next.userSurname) {
+        if (prev.lastName < next.lastName) {
           return 1;
         } else {
           return 0;
@@ -181,56 +181,84 @@ export const PaymentsPage = () => {
   };
 
   return (
-    <div className="content-container">
-      <table className="payment-table">
-        <thead>
-          <tr>
-            <FilterList data={groupFilterData} callback={applyGroupFilter} />
-          </tr>
-        </thead>
-        <thead>
-          <tr>
-            <th scope="col">ФИО студента</th>
-            <th scope="col">1 оплата</th>
-            <th scope="col">2 оплата</th>
-            <th scope="col">3 оплата</th>
-            <th scope="col">4 оплата</th>
-          </tr>
-        </thead>
-        <thead className="filter-thread">
-          <tr>
-            <th scope="col" className="name-column">
-              <FilterList data={surnameFilterData} callback={applySurnameFilter} />
-            </th>
-            {/* <th scope="col">
+    <>
+      {/* <div className="content-container">
+        <table className="payment-table">
+          <thead>
+            <tr>
               <FilterList data={groupFilterData} callback={applyGroupFilter} />
-            </th> */}
-            <th scope="col">
-              <FilterList data={paymentStatusFilterData} callback={applyFirstPaymentStatusFilter} />
-            </th>
-            <th scope="col">
-              <FilterList
-                data={paymentStatusFilterData}
-                callback={applySecondPaymentStatusFilter}
-              />
-            </th>
-            <th scope="col">
-              <FilterList data={paymentStatusFilterData} callback={applyThirdPaymentStatusFilter} />
-            </th>
-            <th scope="col">
-              <FilterList
-                data={paymentStatusFilterData}
-                callback={applyFourthPaymentStatusFilter}
-              />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th scope="col">ФИО студента</th>
+              <th scope="col">1 оплата</th>
+              <th scope="col">2 оплата</th>
+              <th scope="col">3 оплата</th>
+              <th scope="col">4 оплата</th>
+            </tr>
+          </thead>
+          <thead className="filter-thread">
+            <tr>
+              <th scope="col" className="name-column">
+                <FilterList data={surnameFilterData} callback={applySurnameFilter} />
+              </th>
+              <th scope="col">
+                <FilterList data={groupFilterData} callback={applyGroupFilter} />
+              </th>
+              <th scope="col">
+                <FilterList data={paymentStatusFilterData} callback={applyFirstPaymentStatusFilter} />
+              </th>
+              <th scope="col">
+                <FilterList
+                  data={paymentStatusFilterData}
+                  callback={applySecondPaymentStatusFilter}
+                />
+              </th>
+              <th scope="col">
+                <FilterList data={paymentStatusFilterData} callback={applyThirdPaymentStatusFilter} />
+              </th>
+              <th scope="col">
+                <FilterList
+                  data={paymentStatusFilterData}
+                  callback={applyFourthPaymentStatusFilter}
+                />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtredList.map((item) => (
+              <PaymentRow data={item} />
+            ))}
+          </tbody>
+        </table>
+      </div> */}
+      <div className="content-container">
+        <div className="group-table-wrapper">
+          <FilterList data={groupFilterData} callback={applyGroupFilter} />
+          <div className="groups-table-header payments-page-grid margin-top">
+            <span>ФИО студента</span>
+            <span>1 оплата</span>
+            <span>2 оплата</span>
+            <span>3 оплата</span>
+            <span>4 оплата</span>
+          </div>
+        </div>
+        <div className="group-table-wrapper">
+          <div className="payments-page-grid filters-row">
+            <FilterList data={surnameFilterData} callback={applySurnameFilter} />
+            <FilterList data={paymentStatusFilterData} callback={applyFirstPaymentStatusFilter} />
+            <FilterList data={paymentStatusFilterData} callback={applySecondPaymentStatusFilter} />
+            <FilterList data={paymentStatusFilterData} callback={applyThirdPaymentStatusFilter} />
+            <FilterList data={paymentStatusFilterData} callback={applyFourthPaymentStatusFilter} />
+          </div>
+        </div>
+        <div>
           {filtredList.map((item) => (
             <PaymentRow data={item} />
           ))}
-        </tbody>
-      </table>
-    </div>
+        </div>
+      </div>
+    </>
   );
 };
