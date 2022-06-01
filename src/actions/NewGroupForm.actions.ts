@@ -1,6 +1,7 @@
-import { CourseResponse } from '../models/responses/CourseResponse';
+import { CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
+import { UserSimpleResponseWithRoles } from '../models/responses/UserResponse';
+import { GroupFormData } from '../pages/NewGroupPage/NewGroupPage';
 import { GroupResponseWithUsers } from '../models/responses/GroupResponseWithUsers';
-import { UserResponseShort } from '../models/responses/UserResponseShort';
 export const LOAD_STARTED = 'NewGroupForm/LOAD_STARTED' as const;
 export const LOAD_COURSES_SUCCESS = 'NewGroupForm/LOAD_COURSES_SUCCESS' as const;
 export const LOAD_USERS_SUCCESS = 'NewGroupForm/LOAD_USERS_SUCCESS' as const;
@@ -20,12 +21,12 @@ export const loadFail = (message: string) => ({
   payload: message,
 });
 
-export const loadCoursesSuccess = (courses: CourseResponse[]) => ({
+export const loadCoursesSuccess = (courses: CourseSimpleResponse[]) => ({
   type: LOAD_COURSES_SUCCESS,
   payload: courses,
 });
 
-export const loadUsersSuccess = (users: UserResponseShort[]) => ({
+export const loadUsersSuccess = (users: UserSimpleResponseWithRoles[]) => ({
   type: LOAD_USERS_SUCCESS,
   payload: users,
 });

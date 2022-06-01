@@ -11,9 +11,9 @@ import {
   LOAD_USERS_SUCCESS,
   NewGroupFormAction,
 } from '../../actions/NewGroupForm.actions';
-import { CourseResponse } from '../../models/responses/CourseResponse';
+import { CourseSimpleResponse } from '../../models/responses/CourseSimpleResponse';
+import { UserSimpleResponseWithRoles } from '../../models/responses/UserResponse';
 import { GroupResponseWithUsers } from '../../models/responses/GroupResponseWithUsers';
-import { UserResponseShort } from '../../models/responses/UserResponseShort';
 import { GroupStatus } from '../../shared/enums/GroupStatus';
 
 export interface NewGroupFormState {

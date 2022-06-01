@@ -42,7 +42,7 @@
     gap: 10px;
     line-height: 21px;
 
-    &+.homework-dates {
+    & + .homework-dates {
       margin-left: 43px;
     }
   }
@@ -96,7 +96,26 @@
 
 }
 
+.homework-draft {
+  grid-template-columns: auto;
+
+  .homework-title {
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+}
+
 .lack-of-homeworks {
   font-size: 21px;
   font-weight: 500;
+}
+
+.homeworks-drafts-page {
+  & .link-arrow:not(.homework-card-content .link-arrow) {
+    margin-bottom: 20px;
+  }
+
+  & .task-status {
+    margin: 0;
+  }
 }
