@@ -30,3 +30,12 @@ h2{
     text-align: center;
   }
 }
+
+.saved{
+  &.invisible{
+    display: none;
+  }
+  &.visible{
+    display: contents;
+  }
+}

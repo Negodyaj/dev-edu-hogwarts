@@ -13,7 +13,7 @@ export const CoursesPage = () => {
   useEffect(() => {
     console.log('loaded');
     dispatch(onTopicsLoad());
-  });
+  }, []);
 
   return (
     <DragDropContext onDragEnd={() => {}}>
