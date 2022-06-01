@@ -12,6 +12,7 @@ const surnameFilterData: FilterItem[] = [
 
 const groupFilterData: FilterItem[] = [
   { id: 0, name: 'Показать все' },
+  { id: 1, name: 'Без группы' },
   { id: 2, name: 'Группа 1' },
   { id: 3, name: 'Группа 2' },
 ];
@@ -29,7 +30,7 @@ export const StudentsListPage = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [filterSurnameValue, setFilterSurnameValue] = useState(1);
   const [filterGroupValue, setFilterGroupValue] = useState(0);
-  const [filtredList, setFiltredList] = useState<Student[]>([]);
+  const [filtredList, setFiltredList] = useState<Student[]>(students);
 
   async function getData() {
     const studentsList: Student[] = await baseWretch()
@@ -60,6 +61,7 @@ export const StudentsListPage = () => {
           return 0;
         }
       });
+      setStudents(sortedForward);
       setFiltredList(sortedForward);
     }
     if (filterSurnameValue == 2) {
@@ -73,6 +75,7 @@ export const StudentsListPage = () => {
           return 0;
         }
       });
+      setStudents(sortedBackward);
       setFiltredList(sortedBackward);
     }
   };
@@ -85,7 +88,10 @@ export const StudentsListPage = () => {
 
   const FilterByGroup = () => {
     const filtered = students.filter(
-      (s) => filterGroupValue === 0 || (filterGroupValue > 0 && s.groupIds[0] === filterGroupValue)
+      (s) =>
+        filterGroupValue === 0 ||
+        (filterGroupValue > 1 && s.groupIds[0] === filterGroupValue) ||
+        (s.groupIds.length === 0 && filterGroupValue === 1)
     );
     setFiltredList(filtered);
   };
@@ -124,7 +130,7 @@ export const StudentsListPage = () => {
         </div>
       </div>
       <div>
-        {students.map((item) => (
+        {filtredList.map((item) => (
           <StudentRow data={item} changeGroupId={changeGroup} />
         ))}
       </div>
