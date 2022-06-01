@@ -14,6 +14,24 @@ import { baseWretch } from '../../services/base-wretch.service';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { selectTabCoursePage } from '../../actions/courses.actions';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
+import { useState } from 'react';
+import { lessons } from './ListView/exampleData';
+import { useForm } from 'react-hook-form';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
+import './EditCoursesPage.scss';
+//import { baseWretch } from '../../services/base-wretch.service';
+//import { getTopicsByCourseId } from '../../shared/consts';
+//import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
+import { useDispatch } from 'react-redux';
+import { onCourseTopicsUpdate } from '../../actions/editCourses.thunk';
+//import { AppState } from '../../store/store';
+
+export type TopicFormData = {
+  id: number;
+  position: number;
+  topicName: string;
+  hoursCount: number;
+};
 
 export const EditCoursesPage = () => {
   const { courses, topics, selectedTabCoursePage, courseTabs } = useSelector(
@@ -23,6 +41,11 @@ export const EditCoursesPage = () => {
   //   mode: 'onChange',
   // });
   const dispatch = useDispatch();
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TopicFormData>();
+  const {
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
 
@@ -34,18 +57,15 @@ export const EditCoursesPage = () => {
       return;
     }
 
-    const newTopicsArray = [...topics];
-    newTopicsArray?.splice(source.index, 1);
-    const currentEl = topics[+draggableId];
-    newTopicsArray?.splice(destination.index, 0, currentEl);
-    dispatch(setTopics(newTopicsArray));
-    // const topicsArrayToSend = newTopicsArray.map((el) => {
-    //   return {
-    //     topicId: el.topic.id,
-    //     position: el.position,
-    //   };
-    // });
-    // baseWretch().url(`api/Courses/${selectedTabCoursePage}/program`).put(topicsArrayToSend);
+    const newLessonsArray = Array.from(lessonsData);
+    newLessonsArray.splice(source.index, 1);
+    const dragElem = Object.assign(
+      [...lessonsData].filter((item) => item.topicName === draggableId)[0]
+    );
+    newLessonsArray.splice(destination.index, 0, dragElem);
+
+    setLessonsData(() => [...newLessonsArray]);
+    console.log(newLessonsArray);
   };
   useEffect(() => {
     if (courses && courses?.length > 0) dispatch(loadCoursePageTabs(courses as CourseResponse[]));
@@ -58,6 +78,14 @@ export const EditCoursesPage = () => {
         dispatch(setTopics(tpcs as TopicResponse[]));
       });
   }, [selectedTabCoursePage]);
+
+  const dispatch = useDispatch();
+  const onSubmit = (data: TopicFormData) => {
+    data.id = lessonsData.length + 1;
+    setLessonsData(lessonsData.concat(data));
+    dispatch(onCourseTopicsUpdate(data));
+    console.log(data);
+  };
 
   return (
     <>
@@ -85,43 +113,45 @@ export const EditCoursesPage = () => {
           edit={true}
         />
       </DragDropContext>
-      <div className="new-topic-form">
+      <div className="form-container">
         <h2>Новая тема</h2>
-        {/* <form onSubmit={methods.handleSubmit(onSubmit)}> */}
-        <div className="flex-container">
-          <div className="new-topic">
-            <h3>Тема</h3>
-            <input
-              className="form-input form-input-topic"
-              placeholder={`${topics.length + 1}`}
-            ></input>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="inputs">
+            <div>
+              <span>Тема</span>
+              <input
+                className="form-input short"
+                placeholder="0"
+                {...register('position', { required: true })}
+              />
+              {errors.position && <span>Введи номер темы</span>}
+            </div>
+            <div>
+              <span>Название</span>
+              <input
+                className="form-input long"
+                placeholder="Введите текст"
+                {...register('topicName', { required: true })}
+              />
+              {errors.topicName && <span>Введи название темы</span>}
+            </div>
+            <div>
+              <span>Часы</span>
+              <input
+                className="form-input short"
+                type="number"
+                placeholder="XX"
+                min={1}
+                {...register('hoursCount', { required: true })}
+              />
+              {errors.hoursCount && <span>Введи часы</span>}
+            </div>
           </div>
-          <div className="new-course-name">
-            <h3>Название</h3>
-            <input
-              placeholder="Введите текст"
-              className="form-input form-input-course-name"
-              // {...methods.register('name')}
-            ></input>
+          <div className="button-container">
+            <Button text="Сохранить" model={ButtonModel.Colored} type={ButtonType.submit} />
+            <Button text="Отмена" type={ButtonType.reset} model={ButtonModel.Text} />
           </div>
-          <div className="new-duration">
-            <h3>Часы</h3>
-            <input
-              placeholder="XX"
-              className="form-input form-input-topic"
-              // {...methods.register('duration')}
-            ></input>
-          </div>
-        </div>
-        <Button
-          text={'Сохранить'}
-          type={ButtonType.submit}
-          model={ButtonModel.Colored}
-          width="190"
-        />
-        <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text} />
-        {/* </form> */}
+        </form>
       </div>
-    </>
   );
 };

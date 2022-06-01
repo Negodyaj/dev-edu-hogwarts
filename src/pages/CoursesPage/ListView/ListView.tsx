@@ -18,8 +18,8 @@ export type ListViewProps = {
 
 export type ListViewLessons = {
   id: number;
-  lessonNumber: number | string;
-  lessonName: string;
+  position: number | string;
+  topicName: string;
   hoursCount: number | string;
 };
 
@@ -47,49 +47,47 @@ export const ListView = (props: ListViewProps) => {
   //   });
   // onSubmit был для того, чтоб закинуть все обновленные топики по курсу
   return (
-    <>
-      <div className="content-container flex-column">
-        {linkType()}
-        <ListViewItem
-          head={true}
-          lesson={{
-            id: 0,
-            lessonName: 'Название',
-            lessonNumber: 'Тема',
-            hoursCount: 'Часы',
-          }}
-        />
+    <div className="content-container flex-column">
+      {linkType()}
+      <ListViewItem
+        head={true}
+        lesson={{
+          id: 0,
+          topicName: 'Название',
+          position: 'Тема',
+          hoursCount: 'Часы',
+        }}
+      />
 
-        <Droppable droppableId={`drop-${props.groupId}`}>
-          {(provided: DroppableProvided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {props.data.map((item, index) => (
-                <Draggable
-                  draggableId={index.toString()} // необходимо подумать над тем, как меняются индексы
-                  index={index}
-                  key={item.id}
-                  isDragDisabled={!props.edit}
-                >
-                  {(draggableProvided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                    <ListViewItem
-                      index={index}
-                      lesson={item}
-                      dragSettings={{
-                        innerRef: draggableProvided.innerRef,
-                        prop1: { ...draggableProvided.draggableProps },
-                        prop2: draggableProvided.dragHandleProps,
-                        snapshot: snapshot.isDragging,
-                        isDragDisabled: props.edit,
-                      }}
-                    />
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </div>
-    </>
+      <Droppable droppableId={`drop-${props.groupId}`}>
+        {(provided: DroppableProvided) => (
+          <div {...provided.droppableProps} ref={provided.innerRef}>
+            {props.data.map((item, index) => (
+              <Draggable
+                draggableId={item.topicName}
+                index={index}
+                key={item.id}
+                isDragDisabled={!props.edit}
+              >
+                {(draggableProvided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
+                  <ListViewItem
+                    index={index}
+                    lesson={item}
+                    dragSettings={{
+                      innerRef: draggableProvided.innerRef,
+                      prop1: { ...draggableProvided.draggableProps },
+                      prop2: draggableProvided.dragHandleProps,
+                      snapshot: snapshot.isDragging,
+                      isDragDisabled: props.edit,
+                    }}
+                  />
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </div>
   );
 };

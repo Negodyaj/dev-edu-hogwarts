@@ -7,12 +7,15 @@ import {
   LOAD_HOMEWORKS_STARTED,
   LOAD_HOMEWORKS_SUCCESS,
   LOAD_HOMEWORKS_FAIL,
+  LOAD_DRAFT_HOMEWORKS_SUCCESS,
   LOAD_TASKS_STARTED,
   LOAD_TASKS_SUCCESS,
   LOAD_TASKS_FAILED,
   LOAD_BYCOURSE,
 } from '../../actions/homeworks.actions';
 import { TabData } from '../../models/TabData';
+import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
+import { Homework, Task } from '../../models/responses/HomeworksResponse';
 import { Icon } from '../../shared/enums/Icon';
 import { Homework, Task } from '../../models/responses/HomeworksResponse';
 import { CourseResponse } from '../../models/responses/CourseResponse';
@@ -25,6 +28,7 @@ export interface HomeWorkPageState {
   isLoading: boolean;
   errorMessage: string;
   courses: CourseResponse[];
+  draftHomeworks?: Task[];
 }
 
 const initialState: HomeWorkPageState = {
@@ -35,6 +39,7 @@ const initialState: HomeWorkPageState = {
   tasks: [],
   isLoading: false,
   errorMessage: '',
+  draftHomeworks: undefined,
 };
 
 export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageAction> = (
@@ -53,7 +58,7 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageActio
         const tabData: TabData = {
           id: group.id,
           text: group.course.name,
-          icon: Icon.Cookie,
+          icon: CourseIcon[group.course.id],
         };
         return tabData;
       });
@@ -92,6 +97,15 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageActio
         ...state,
         homeworks: action.payload,
         isLoading: false,
+        errorMessage: '',
+      };
+    }
+    case LOAD_DRAFT_HOMEWORKS_SUCCESS: {
+      return {
+        ...state,
+        draftHomeworks: action.payload,
+        isLoading: false,
+        errorMessage: '',
       };
     }
     case LOAD_HOMEWORKS_FAIL: {

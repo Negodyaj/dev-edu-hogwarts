@@ -10,8 +10,13 @@
     align-self: flex-end;
   }
 
-  &.link-arrow {
+  & .link-arrow {
     place-self: baseline;
+    color: $link-color;
+
+    & path {
+      fill: $link-color;
+    }
   }
 }
 
@@ -67,21 +72,6 @@
     }
   }
 
-  .list-view-input {
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    border: 0;
-    padding: 0;
-    height: fit-content;
-    width: 100%;
-    margin: 0;
-
-    &:focus {
-      outline: 0;
-    }
-  }
-
   .nums {
     text-align: center;
     place-self: center;
@@ -115,47 +105,17 @@
   }
 }
 
-.new-topic-form {
-  max-width: 940px;
-  margin-top: 50px;
-  padding: 0px 0px 0px 45px;
-  h2 {
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 29px;
-    margin-bottom: 41px;
+.list-view-input {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  border: 0;
+  padding: 0;
+  height: fit-content;
+  width: 100%;
+  margin: 0;
+
+  &:focus {
+    outline: 0;
   }
-  h3 {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    margin-bottom: 15px;
-  }
-  .flex-container {
-    margin-bottom: 70px;
-  }
-  .btn-text {
-    margin-left: 30px;
-  }
-}
-.form-input-topic {
-  width: 102px;
-  text-align: center;
-}
-.form-input-course-name {
-  width: 488px;
-}
-.new-topic {
-  margin-right: 81px;
-  h3 {
-    text-align: center;
-  }
-}
-.new-duration {
-  h3 {
-    text-align: center;
-  }
-}
-.new-course-name {
-  margin-right: 60px;
 }

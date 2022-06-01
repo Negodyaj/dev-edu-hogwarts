@@ -4,9 +4,9 @@ import { Homework, StudentHomework, Task } from '../models/responses/HomeworksRe
 export const LOAD_TABS = 'homeworks/LOAD_TABS' as const;
 export const LOAD_BYCOURSE = 'homeworks/LOAD_BYCOURSE' as const;
 export const SELECT_TAB = 'homeworks/SELECT_TAB' as const;
-export const LOAD_HOMEWORKS = 'homeworks/LOAD_HOMEWORKS' as const;
 export const LOAD_HOMEWORKS_STARTED = 'homeworks/LOAD_HOMEWORKS_STARTED' as const;
 export const LOAD_HOMEWORKS_SUCCESS = 'homeworks/LOAD_HOMEWORKS_SUCCESS' as const;
+export const LOAD_DRAFT_HOMEWORKS_SUCCESS = 'homeworks/LOAD_DRAFT_HOMEWORKS_SUCCESS' as const;
 export const LOAD_HOMEWORKS_FAIL = 'homeworks/LOAD_HOMEWORKS_FAIL' as const;
 export const LOAD_TASKS_STARTED = 'tasks/LOAD_TASKS_STARTED' as const;
 export const LOAD_TASKS_SUCCESS = 'tasks/LOAD_TASKS_SUCCESS' as const;
@@ -34,6 +34,11 @@ export const loadHomeworksStarted = () => ({
 export const loadHomeworksSuccess = (homeworks: Homework[]) => ({
   type: LOAD_HOMEWORKS_SUCCESS,
   payload: homeworks,
+});
+
+export const loadDraftHomeworksSuccess = (drafts: Task[]) => ({
+  type: LOAD_DRAFT_HOMEWORKS_SUCCESS,
+  payload: drafts,
 });
 
 export const loadHomeworksFail = (message: string) => ({
@@ -70,3 +75,4 @@ export type HomeworksPageAction =
   | ReturnType<typeof loadTasksSuccess>
   | ReturnType<typeof loadTasksFailed>
   | ReturnType<typeof loadHomeworkPageTabsCourses>;
+  | ReturnType<typeof loadDraftHomeworksSuccess>;

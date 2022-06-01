@@ -11,6 +11,7 @@ export interface Homework {
 
 export interface Task {
   id: number;
+  groupId?: number;
   name: string;
   description: string;
   links: string;
