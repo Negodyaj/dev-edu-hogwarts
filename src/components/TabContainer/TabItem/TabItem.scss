@@ -1,3 +1,5 @@
+@import "src/style/colors";
+
 .tab-item {
   box-shadow: 4px 7px 15px 0px #00000014;
   width: 150px;
@@ -12,11 +14,11 @@
   cursor: pointer;
   font-size: 16px;
   line-height: 19px;
-  background-color: white;
+  background-color: $white;
 
   &.active-tab {
-    background-color: #A786DF;
-    color: white;
+    background-color: $lavender-color;
+    color: $white;
     position: relative;
     &::after {
       content: '';
@@ -27,14 +29,14 @@
       height: 0;
       border-left: 6px solid transparent;
       border-right: 6px solid transparent;
-      border-top: 12px solid #A786DF;
+      border-top: 12px solid $lavender-color;
       box-shadow: 4px 7px 15px 0px #00000014;
     }
     path {
-      stroke: white;
+      stroke: $white;
     }
     .with-color-on-hover {
-      fill: white;
+      fill: $white;
     }
   }
 }
