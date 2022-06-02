@@ -10,36 +10,24 @@ import {
   LOAD_STARTED,
   LOAD_USERS_SUCCESS,
   NewGroupFormAction,
+  RESET_NEW_GROUP_PAGE,
 } from '../../actions/NewGroupForm.actions';
 import { CourseSimpleResponse } from '../../models/responses/CourseSimpleResponse';
 import { UserSimpleResponseWithRoles } from '../../models/responses/UserResponse';
 import { GroupResponseWithUsers } from '../../models/responses/GroupResponseWithUsers';
-import { GroupStatus } from '../../shared/enums/GroupStatus';
+//import { GroupStatus } from '../../shared/enums/GroupStatus';
 
 export interface NewGroupFormState {
-  group: GroupResponseWithUsers;
+  group: GroupResponseWithUsers | undefined;
   teacherIdsForGroup: number[];
   tutorIdsForGroup: number[];
-  users: UserResponseShort[];
-  courses: CourseResponse[];
+  users: UserSimpleResponseWithRoles[];
+  courses: CourseSimpleResponse[];
   isLoading: boolean;
   errorMessage: string;
 }
 const initialState: NewGroupFormState = {
-  group: {
-    students: [],
-    teachers: [],
-    tutors: [],
-    id: 0,
-    name: '',
-    course: { id: 0, name: '', isDeleted: false },
-    groupStatus: GroupStatus.Forming,
-    startDate: '',
-    endDate: '',
-    timetable: '',
-    paymentPerMonth: 0,
-    paymentsCount: 3,
-  },
+  group: undefined,
   teacherIdsForGroup: [],
   tutorIdsForGroup: [],
   users: [],
@@ -86,19 +74,19 @@ export const NewGroupFormReducer: Reducer<NewGroupFormState, NewGroupFormAction>
       };
     }
     case LOAD_GROUP_FOR_CHANGE: {
-      const teachers: number[] = action.payload.teachers.map((teacher) => {
-        const teacherId = teacher.id;
-        return teacherId;
-      });
-      const tutors: number[] = action.payload.tutors.map((tutor) => {
-        const tutorId = tutor.id;
-        return tutorId;
-      });
+      // const teachers: number[] = action.payload.teachers.map((teacher) => {
+      //   const teacherId = teacher.id;
+      //   return teacherId;
+      // });
+      // const tutors: number[] = action.payload.tutors.map((tutor) => {
+      //   const tutorId = tutor.id;
+      //   return tutorId;
+      // });
       return {
         ...state,
         group: action.payload,
-        teacherIdsForGroup: teachers,
-        tutorIdsForGroup: tutors,
+        // teacherIdsForGroup: teachers,
+        // tutorIdsForGroup: tutors,
         isLoading: false,
       };
     }
@@ -112,6 +100,16 @@ export const NewGroupFormReducer: Reducer<NewGroupFormState, NewGroupFormAction>
       return {
         ...state,
         tutorIdsForGroup: action.payload,
+      };
+    }
+    case RESET_NEW_GROUP_PAGE: {
+      return {
+        ...state,
+        group: undefined,
+        teacherIdsForGroup: [],
+        tutorIdsForGroup: [],
+        isLoading: false,
+        errorMessage: '',
       };
     }
     default:

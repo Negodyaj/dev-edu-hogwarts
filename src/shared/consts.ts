@@ -40,6 +40,6 @@ export const updateCourseProgram = (courseId: number) => `/api/Courses/${courseI
 export const getAllAnswersEachStudentsByTaskIdUrl = (id: number) =>
   `api/student-homeworks/task/${id}/answers`;
 export const addUserInGroup = (groupId: number, userId: number, userRole: string) =>
-export const deleteUserFromGroup = (groupId: number, userId: number) =>
   `${groupUrl}/${groupId}/user/${userId}/role/${userRole}`;
+export const deleteUserFromGroup = (groupId: number, userId: number) =>
   `${groupUrl}/${groupId}/user/${userId}`;

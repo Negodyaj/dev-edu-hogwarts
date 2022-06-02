@@ -9,7 +9,7 @@ import {
 } from '../../actions/groups.actions';
 import { GroupResponseWithUsers } from '../../models/responses/GroupResponseWithUsers';
 import { GroupResponse } from '../../models/responses/GroupResponse';
-import { GroupStatus } from '../../shared/enums/GroupStatus';
+//import { GroupStatus } from '../../shared/enums/GroupStatus';
 
 export interface GroupsPageState {
   groups: GroupResponse[];

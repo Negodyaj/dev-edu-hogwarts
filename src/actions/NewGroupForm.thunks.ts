@@ -1,7 +1,6 @@
 import { Dispatch } from 'react';
 import { CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
 import { GroupResponseWithUsers } from '../models/responses/GroupResponseWithUsers';
-import { UserResponseShort } from '../models/responses/UserResponseShort';
 import { baseWretch } from '../services/base-wretch.service';
 import { coursesUrl, groupByIdUrl, usersUrl } from '../shared/consts';
 import { UserRole } from '../shared/enums/UserRole';

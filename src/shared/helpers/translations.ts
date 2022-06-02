@@ -36,3 +36,18 @@ export const getGroupStatusLocalName = (status: GroupStatus) => {
       return '';
   }
 };
+
+export const getGroupStatusLocalNameReverse = (status: string) => {
+  switch (status) {
+    case 'Формируется':
+      return 'Forming';
+    case 'Готова к обучению':
+      return 'ReadyToStudy';
+    case 'В процессе обучения':
+      return 'InProgress';
+    case 'Обучение завершено':
+      return 'Completed';
+    default:
+      return '';
+  }
+};
