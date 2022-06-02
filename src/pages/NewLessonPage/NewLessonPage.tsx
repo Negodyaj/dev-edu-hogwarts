@@ -1,9 +1,28 @@
-import { FormProvider } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
+import { UserRole } from '../../shared/enums/UserRole';
+import { LoginPageState } from '../../store/reducers/login.reducer';
+import { AppState } from '../../store/store';
+
+export type NewLessonFormData = {
+  groupId: number;
+  startDate: string | Date;
+  name: string;
+  videoLink: string;
+  additionals: string;
+};
 
 export const NewLessonPage = () => {
+  const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+
+  const method = useForm<NewLessonFormData>({
+    context: {
+      
+    }
+  })
   return (
     <FormProvider {...method}>
       <form className="form-container" onSubmit={() => {}}>
