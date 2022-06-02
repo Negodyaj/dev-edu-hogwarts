@@ -1,10 +1,5 @@
-//*{
-//  font-family: 'Raleway', sans-serif;
-//  font-size: 18px;
-//  line-height: 23px;
-//  box-sizing: border-box;
-//
-//}
+@import "src/style/colors";
+
 .font-400{
   font-weight: 400;
 }
@@ -20,10 +15,10 @@
   border-radius: 15px;
   position: relative;
   width: 940px;  
-  background-color: white ;
-  box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.08);
+  background-color: $white ;
+  box-shadow: 4px 7px 15px $box-shadow-datepicker-color;
   & > *:not(:first-child) {
-    border-top: 1px solid #DBDBDB;
+    border-top: 1px solid $medium-gray;
   }
 }
 .grid{
@@ -69,22 +64,22 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;   
-      border: 1px solid #DBDBDB;
+      border: 1px solid $medium-gray;
       line-height: 0;
       text-align: center;
-      background-color: white;
+      background-color: $white;
       position: absolute;
       right: 45px;
       cursor: pointer;
       transition: all 0.1s ease-in-out;
 
       & path {
-        fill: #A786DF;
+        fill: $lavender-color;
       }
       &:hover{
-        background-color: #A786DF;
+        background-color: $lavender-color;
         path {
-          fill: white;
+          fill: $white;
         }
       }
 
@@ -96,7 +91,7 @@
     width: 775px;
     padding-top: 30px;
     padding-bottom: 30px;
-    border-top: 1px solid #DBDBDB;
+    border-top: 1px solid $medium-gray;
     .video-container{      
       .video-txt{
         grid-column: 1;
