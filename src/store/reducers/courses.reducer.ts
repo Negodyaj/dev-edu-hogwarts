@@ -7,10 +7,10 @@ import {
   SELECT_TAB,
   SET_TOPICS,
 } from '../../actions/courses.actions';
+import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
 import { CourseResponse } from '../../models/responses/CourseResponse';
 import { TopicResponse } from '../../models/responses/TopicResponse';
 import { TabData } from '../../models/TabData';
-import { Icon } from '../../shared/enums/Icon';
 
 export interface CoursesPageState {
   courseTabs?: TabData[];
@@ -37,7 +37,7 @@ export const coursesPageReducer: Reducer<CoursesPageState, CoursesPageAction> = 
         const tabData: TabData = {
           id: course.id,
           text: course.name,
-          icon: Icon.Cookie,
+          icon: CourseIcon[course.id],
         };
         return tabData;
       });

@@ -17,19 +17,22 @@ export type CheckboxData = {
 
 export const CheckboxBtn = (props: CheckboxProps) => {
   const { register, watch } = useFormContext();
+  console.log(watch(props.name));
   return (
     <label className="custom-checkbox">
       <InvisibleInput
         type="checkbox"
         value={props.data.value}
         checked={
-          (props.isSingle ? props.data.isChecked : watch(props.name) == props.data.value) ||
-          (!props.isSingle && watch(props.name)?.find((x: number) => x === props.data.value))
+          props.isSingle
+            ? props.data.isChecked
+            : watch(props.name) == props.data.value ||
+              (!props.isSingle && watch(props.name)?.find((x: number) => x === props.data.value))
         }
         {...register(props.name, {
           required: true,
         })}
-        onChange={props.onClick}
+        //onChange={props.onClick}
       />
       <span className="custom-checkbox-text">{props.data.text}</span>
     </label>

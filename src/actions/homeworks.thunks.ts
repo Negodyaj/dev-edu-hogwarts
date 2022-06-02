@@ -5,20 +5,15 @@ import {
   addNewHomeworkWithTaskByTeacherUrl,
   addNewTaskByMethodistUrl,
   addNewTaskByTeacherUrl,
-  courseById,
+  //courseById,
   coursesUrl,
   draftsByGroupId,
   getHomeworksByGroupId,
   getStudentAnswerByTaskId,
+  getTasksByCourseId,
   homeworkById,
   taskById,
-} from '../shared/consts';
-import {
-  getHomeworkById,
-  getHomeworksByGroupId,
-  getStudentAnswerByTaskId,
-  getTaskById,
-  getTasksByCourseId,
+  getTaskByIdUrl,
 } from '../shared/consts';
 import {
   HomeworksPageAction,
@@ -43,14 +38,14 @@ import { AddHomeworkFormData } from '../pages/NewHomework/NewHomework';
 import {
   getTask,
   getTasksCount,
-  getTasksCountInCourse,
+  //getTasksCountInCourse,
   loadCourses,
   NewHomeworkFormAction,
   postHomeworkFail,
   postHomeworkStarted,
   postHomeworkSuccess,
 } from './newHomeworkForm.action';
-import { CourseResponse, CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
+import { /*CourseResponse,*/ CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
 import {
   deleteFail,
   deleteStart,
@@ -61,25 +56,12 @@ import {
 import { ModalType } from '../shared/enums/modalType';
 
 export const loadHomeworks = (groupId: number) => {
+  debugger;
   return async (dispatch: Dispatch<HomeworksPageAction>) => {
     dispatch(loadHomeworksStarted());
 
     const data = await baseWretch().url(getHomeworksByGroupId(groupId)).get().json<Homework[]>();
     dispatch(loadHomeworksSuccess(data));
-  };
-};
-
-export const loadTasksByCourse = (courseId: number) => {
-  return async (dispatch: Dispatch<HomeworksPageAction>) => {
-    dispatch(loadTasksStarted());
-    const data = await baseWretch().url(getTasksByCourseId(courseId)).get().json<Task[]>();
-    const data2 = data.map((el, idx) => {
-      return {
-        ...el,
-        number: idx + 1,
-      };
-    });
-    dispatch(loadTasksSuccess(data2));
   };
 };
 
@@ -98,18 +80,6 @@ export const loadHomework = (homeworkId: number) => {
       dispatch(loadStudentHomework(studentHomework));
     } catch (error: any) {
       dispatch(loadHomeworkFail(error.message));
-    }
-  };
-};
-
-export const loadTask = (taskId: number) => {
-  return async (dispatch: Dispatch<HomeworkPageAction>) => {
-    dispatch(loadTaskStarted());
-    try {
-      const task = await baseWretch().url(getTaskById(taskId)).get().json<Task>();
-      dispatch(loadTaskSuccess(task));
-    } catch (error: any) {
-      dispatch(loadTaskFailed(error.message));
     }
   };
 };
@@ -158,7 +128,7 @@ export const createNewTaskByMethodist = (homeworkData: AddHomeworkFormData, link
         .post({
           name: homeworkData.name,
           description: homeworkData.description,
-          courseId: homeworkData.groupId,
+          courseId: homeworkData.courseIds,
           links: links.join(' [link] '),
           isRequired: true,
         });
@@ -186,7 +156,7 @@ export const getTaskById = (taskId: number) => {
   return async (dispatch: Dispatch<any>) => {
     dispatch(postHomeworkStarted());
     try {
-      const task = await baseWretch().url(taskById(taskId)).get().json<Task>();
+      const task = await baseWretch().url(getTaskByIdUrl(taskId)).get().json<Task>();
       dispatch(getTask(task));
       dispatch(postHomeworkSuccess());
     } catch (e: any) {
@@ -217,16 +187,16 @@ export const tasksCountInGroup = (groupId: number) => {
   };
 };
 
-export const tasksCountInCourse = (courseId: number) => {
-  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
-    try {
-      const course = await baseWretch().url(courseById(courseId)).get().json<CourseResponse>();
-      dispatch(getTasksCountInCourse(course.tasks));
-    } catch (e: any) {
-      dispatch(postHomeworkFail(e.message));
-    }
-  };
-};
+// export const tasksCountInCourse = (courseId: number[]) => {
+//   return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+//     try {
+//       const course = await baseWretch().url(courseById(courseId)).get().json<CourseResponse>();
+//       dispatch(getTasksCountInCourse(course.tasks));
+//     } catch (e: any) {
+//       dispatch(postHomeworkFail(e.message));
+//     }
+//   };
+// };
 
 export const updateTask = (taskId: number, data: AddHomeworkFormData) => {
   return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
@@ -293,6 +263,32 @@ export const deleteTask = (taskId: number | string) => {
     } catch (e: any) {
       dispatch(deleteFail(e.message));
       dispatch(setWindowType(ModalType.deleteHomeworkError));
+    }
+  };
+};
+
+export const loadTasksByCourse = (courseId: number) => {
+  return async (dispatch: Dispatch<HomeworksPageAction>) => {
+    dispatch(loadTasksStarted());
+    const tasks = await baseWretch().url(getTasksByCourseId(courseId)).get().json<Task[]>();
+    const tasksWithNumbers = tasks.map((el, idx) => {
+      return {
+        ...el,
+        number: idx + 1,
+      };
+    });
+    dispatch(loadTasksSuccess(tasksWithNumbers));
+  };
+};
+
+export const loadTask = (taskId: number) => {
+  return async (dispatch: Dispatch<HomeworkPageAction>) => {
+    dispatch(loadTaskStarted());
+    try {
+      const task = await baseWretch().url(getTaskByIdUrl(taskId)).get().json<Task>();
+      dispatch(loadTaskSuccess(task));
+    } catch (error: any) {
+      dispatch(loadTaskFailed(error.message));
     }
   };
 };

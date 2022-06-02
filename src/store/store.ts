@@ -12,7 +12,7 @@ Redux Thunk middleware allows you to write action creators that return a functio
 import thunk from 'redux-thunk';
 import { lessonsPageReducer, LessonsPageState } from './reducers/lessons.reducer';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
-import { homeworksPageReducer, HomeWorkPageState } from './reducers/homeworks.reducer';
+import { homeworksPageReducer, HomeworksPageState } from './reducers/homeworks.reducer';
 
 // Import reducers and state type
 import { homeworkPageReducer, HomeworkPageState } from './reducers/homework.reducer';
@@ -38,7 +38,7 @@ import {
 
 // Create an interface for the application state
 export interface AppState {
-  homeworksPageState: HomeWorkPageState;
+  homeworksPageState: HomeworksPageState;
   newHomeworkFormState: NewHomeworkFormState;
   notificationsPageState: NotificationsPageState | undefined;
   loginPageState: LoginPageState | undefined;

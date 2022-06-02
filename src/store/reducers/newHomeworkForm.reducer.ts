@@ -3,8 +3,8 @@ import {
   ADD_LINK,
   GET_TASK,
   GET_TASKS_COUNT,
-  LOAD_COURSES,
   GET_TASKS_COUNT_IN_COURSE,
+  LOAD_COURSES,
   LOAD_GROUPS,
   NewHomeworkFormAction,
   POST_HOMEWORK_FAIL,
@@ -16,7 +16,6 @@ import {
   SELECT_GROUP,
   SET_VALUE_INPUT_LINK,
 } from '../../actions/newHomeworkForm.action';
-import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 import { RadioData } from '../../components/RadioGroup/RadioButton/RadioButton';
 import { Task } from '../../models/responses/HomeworksResponse';
 
@@ -24,9 +23,8 @@ export interface NewHomeworkFormState {
   links: string[];
   inputLinkValue: string;
   group: RadioData[];
-  checkboxCoursesData: CheckboxData[];
   selectGroupId: number;
-  selectCourseId: number;
+  selectCourseIds: number[];
   selectedTaskCount: number;
   errorMessage?: string;
   inProcess: boolean;
@@ -38,9 +36,8 @@ const initialState: NewHomeworkFormState = {
   links: [],
   inputLinkValue: '',
   group: [],
-  checkboxCoursesData: [],
   selectGroupId: -1,
-  selectCourseId: -1,
+  selectCourseIds: [],
   selectedTaskCount: 0,
   errorMessage: undefined,
   inProcess: false,
@@ -57,11 +54,6 @@ export const newHomeworkFormReducer: Reducer<NewHomeworkFormState, NewHomeworkFo
       return {
         ...state,
         group: [...action.payload],
-      };
-    case LOAD_COURSES:
-      return {
-        ...state,
-        checkboxCoursesData: action.payload,
       };
     case LOAD_COURSES:
       return {

@@ -59,8 +59,8 @@ export const CoursesPage = () => {
             data={topics.map((el) => {
               const q: ListViewLessons = {
                 id: el.topic.id,
-                lessonNumber: el.position,
-                lessonName: el.topic.name,
+                position: el.position,
+                topicName: el.topic.name,
                 hoursCount: el.topic.duration,
               };
               return q;

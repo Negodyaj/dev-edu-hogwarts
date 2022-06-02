@@ -9,12 +9,8 @@ export const addNewTaskUrl = 'api/tasks/teacher';
 export const updateTaskUrl = (taskId: number) => `api/Tasks/${taskId}`;
 export const addNewTaskUrlByMethodist = 'api/tasks/methodist';
 export const getHomeworkById = (id: number) => `api/homeworks/${id}`;
-export const getTaskById = (id: number) => `api/Tasks/${id}`;
-export const postStudentAnswer = (homeworkId: number) => `api/student-homeworks/${homeworkId}`;
+export const getTaskByIdUrl = (id: number) => `api/Tasks/${id}`;
 export const studentHomeworkById = (id: number) => `api/student-homeworks/${id}`;
-export const studentHomeworksByUserId = (userId: number) =>
-  `api/student-homeworks/by-user/${userId}`;
-export const getHomeworksByGroupId = (groupId: number) => `api/Homeworks/by-group/${groupId}`;
 export const getTasksByCourseId = (courseId: number) => `api/Tasks/by-course/${courseId}`;
 export const getStudentAnswerByTaskId = (taskId: number) => `api/Tasks/${taskId}/answer`;
 export const registerUrl = 'register';
@@ -42,7 +38,6 @@ export const updateAttendanceForLesson = (
 export const lessonsByGroupId = (groupId: number) => {
   return `${lessonsUrl}/by-group/${groupId}`;
 };
-export const getStudentAnswerByTaskId = (taskId: number) => `${taskUrl}/${taskId}/answer`;
 export const updateUserUrl = (id: number) => `${usersUrl}/${id}`;
 export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
 export const updatePassword = 'api/Users/password';

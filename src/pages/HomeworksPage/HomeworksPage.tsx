@@ -5,14 +5,8 @@ import { loadHomeworks, loadTasksByCourse } from '../../actions/homeworks.thunks
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { AppState } from '../../store/store';
 import { HomeworkCard } from './components/HomeworkCard';
-import { LoginPageState } from '../../store/reducers/login.reducer';
-import { UserRole } from '../../shared/enums/UserRole';
 import { CourseResponse } from '../../models/responses/CourseResponse';
 import { TaskCard } from './components/TaskCard';
-import { useNavigate } from 'react-router-dom';
-import { Button, ButtonModel } from '../../components/Button/Button';
-import { newHomeworkLink } from '../../components/MainPanel/Navigation/constants';
-import { Icon } from '../../shared/enums/Icon';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
 import { Button, ButtonModel } from '../../components/Button/Button';
@@ -46,12 +40,7 @@ export const HomeworksPage = () => {
     if (selectedTab > 0 && currentRole == UserRole.Methodist) {
       dispatch(loadTasksByCourse(selectedTab));
     }
-  }, [selectedTab]);
-  useEffect(() => {
-    if (selectedTab > 0 && currentRole == UserRole.Methodist) {
-      dispatch(loadTasksByCourse(selectedTab));
-    }
-  }, [task]);
+  }, [selectedTab, task]);
   return (
     <>
       <div>

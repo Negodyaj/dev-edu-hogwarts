@@ -5,7 +5,6 @@ import {
   DraggableProvidedDragHandleProps,
 } from 'react-beautiful-dnd';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 // import { baseWretch } from '../../../../services/base-wretch.service';
 
 export type ListViewItemProps = {

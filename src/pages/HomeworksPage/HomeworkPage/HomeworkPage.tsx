@@ -5,16 +5,12 @@ import { clearHomework } from '../../../actions/homework.actions';
 import { HomeworkCard } from '../components/HomeworkCard';
 import { HomeworkCardContent } from '../components/HomeworkCardContent';
 import { AppState } from '../../../store/store';
-import { loadHomework } from '../../../actions/homeworks.thunks';
-import { BackButton } from '../../../components/BackButton/BackButton';
 import { loadHomework, loadTask } from '../../../actions/homeworks.thunks';
 import { Loader } from './Loader';
 import { BackButton } from '../../../components/BackButton/BackButton';
 import { HomeworksResults } from '../components/HomeworksResults/HomeworksResults';
 import { LoginPageState } from '../../../store/reducers/login.reducer';
 import { UserRole } from '../../../shared/enums/UserRole';
-import { UserRole } from '../../../shared/enums/UserRole';
-import { LoginPageState } from '../../../store/reducers/login.reducer';
 import { TaskCardContent } from '../components/TaskCardContent';
 import { TaskCard } from '../components/TaskCard';
 

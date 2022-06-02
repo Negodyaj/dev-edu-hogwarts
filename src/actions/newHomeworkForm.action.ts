@@ -116,6 +116,6 @@ export type NewHomeworkFormAction =
   | ReturnType<typeof postHomeworkSuccess>
   | ReturnType<typeof postHomeworkStarted>
   | ReturnType<typeof removeLinks>
-  | ReturnType<typeof getTask>;
+  | ReturnType<typeof getTask>
   | ReturnType<typeof getTasksCount>
   | ReturnType<typeof setCourses>;

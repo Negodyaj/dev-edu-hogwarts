@@ -13,7 +13,7 @@ export const TaskCard = (props: TaskProps) => {
         props.children ? 'one-card-content' : ''
       }`}
     >
-      <span className="task-number">Задание {props.data?.number}</span>
+      <span className="task-number">Задание</span>
       <div className="homework-card-description">
         <span className="homework-title">{props.data?.name ?? task?.name}</span>
         {props.children ? (

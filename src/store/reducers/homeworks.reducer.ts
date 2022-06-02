@@ -16,11 +16,9 @@ import {
 import { TabData } from '../../models/TabData';
 import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
 import { Homework, Task } from '../../models/responses/HomeworksResponse';
-import { Icon } from '../../shared/enums/Icon';
-import { Homework, Task } from '../../models/responses/HomeworksResponse';
 import { CourseResponse } from '../../models/responses/CourseResponse';
 
-export interface HomeWorkPageState {
+export interface HomeworksPageState {
   tabs?: TabData[];
   selectedTab: number;
   homeworks?: Homework[];
@@ -31,7 +29,7 @@ export interface HomeWorkPageState {
   draftHomeworks?: Task[];
 }
 
-const initialState: HomeWorkPageState = {
+const initialState: HomeworksPageState = {
   tabs: [],
   selectedTab: -1,
   homeworks: [],
@@ -42,7 +40,7 @@ const initialState: HomeWorkPageState = {
   draftHomeworks: undefined,
 };
 
-export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageAction> = (
+export const homeworksPageReducer: Reducer<HomeworksPageState, HomeworksPageAction> = (
   state = initialState,
   action
 ) => {
@@ -74,7 +72,7 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageActio
         const tabData: TabData = {
           id: course.id,
           text: course.name,
-          icon: Icon.Cookie,
+          icon: CourseIcon[course.id],
         };
         return tabData;
       });

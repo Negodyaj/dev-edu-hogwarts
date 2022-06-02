@@ -13,16 +13,12 @@ import { TopicResponse } from '../../models/responses/TopicResponse';
 import { baseWretch } from '../../services/base-wretch.service';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { selectTabCoursePage } from '../../actions/courses.actions';
-import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
-import { useState } from 'react';
-import { lessons } from './ListView/exampleData';
 import { useForm } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import './EditCoursesPage.scss';
 //import { baseWretch } from '../../services/base-wretch.service';
 //import { getTopicsByCourseId } from '../../shared/consts';
 //import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
-import { useDispatch } from 'react-redux';
 import { onCourseTopicsUpdate } from '../../actions/editCourses.thunk';
 //import { AppState } from '../../store/store';
 
@@ -34,18 +30,15 @@ export type TopicFormData = {
 };
 
 export const EditCoursesPage = () => {
+  const dispatch = useDispatch();
   const { courses, topics, selectedTabCoursePage, courseTabs } = useSelector(
     (state: AppState) => state.coursesPageState
   );
-  // const methods = useForm<TopicFormData>({
-  //   mode: 'onChange',
-  // });
-  const dispatch = useDispatch();
+  const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TopicFormData>();
-  const {
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
 
@@ -57,14 +50,14 @@ export const EditCoursesPage = () => {
       return;
     }
 
-    const newLessonsArray = Array.from(lessonsData);
+    const newLessonsArray = Array.from(topics);
     newLessonsArray.splice(source.index, 1);
     const dragElem = Object.assign(
-      [...lessonsData].filter((item) => item.topicName === draggableId)[0]
+      [...topics].filter((item) => item.topic.name === draggableId)[0]
     );
     newLessonsArray.splice(destination.index, 0, dragElem);
 
-    setLessonsData(() => [...newLessonsArray]);
+    // setLessonsData(() => [...newLessonsArray]);
     console.log(newLessonsArray);
   };
   useEffect(() => {
@@ -79,10 +72,9 @@ export const EditCoursesPage = () => {
       });
   }, [selectedTabCoursePage]);
 
-  const dispatch = useDispatch();
   const onSubmit = (data: TopicFormData) => {
-    data.id = lessonsData.length + 1;
-    setLessonsData(lessonsData.concat(data));
+    data.id = topics.length + 1;
+    // setLessonsData(lessonsData.concat(data));
     dispatch(onCourseTopicsUpdate(data));
     console.log(data);
   };
@@ -101,8 +93,8 @@ export const EditCoursesPage = () => {
               ? topics.map((el) => {
                   const q: ListViewLessons = {
                     id: el.topic.id,
-                    lessonNumber: el.position,
-                    lessonName: el.topic.name,
+                    position: el.position,
+                    topicName: el.topic.name,
                     hoursCount: el.topic.duration,
                   };
                   return q;
@@ -153,5 +145,6 @@ export const EditCoursesPage = () => {
           </div>
         </form>
       </div>
+    </>
   );
 };

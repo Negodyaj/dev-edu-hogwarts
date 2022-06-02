@@ -74,5 +74,5 @@ export type HomeworksPageAction =
   | ReturnType<typeof loadTasksStarted>
   | ReturnType<typeof loadTasksSuccess>
   | ReturnType<typeof loadTasksFailed>
-  | ReturnType<typeof loadHomeworkPageTabsCourses>;
+  | ReturnType<typeof loadHomeworkPageTabsCourses>
   | ReturnType<typeof loadDraftHomeworksSuccess>;
