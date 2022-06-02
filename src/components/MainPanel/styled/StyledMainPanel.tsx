@@ -9,6 +9,9 @@ export const StyledMainPanel = styled.aside`
     const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
     return css`
       background-color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
+      button {
+        color: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
+      }
       path {
         stroke: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
       }
