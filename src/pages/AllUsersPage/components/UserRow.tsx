@@ -1,6 +1,5 @@
 export type UserRowProps = {
   data: UserRowModel;
-  //onDelete: (id: number) => void,
 };
 
 export type UserRowModel = {
@@ -19,10 +18,13 @@ export const UserRow = (props: UserRowProps) => {
         {user.name} {user.lastName}
       </div>
       <div className="user-role">
-        {user.role.map((i) => (<span>{i}, </span>))}
+        {user.role.map((i) => (
+          <span>{i}, </span>
+        ))}
       </div>
       <div className="user-buttons">
-        <button>v</button><button>x</button>
+        <button>v</button>
+        <button>x</button>
       </div>
     </div>
   );

@@ -48,13 +48,13 @@ const users = [
   },
 ];
 const roleFilterData: FilterItem[] = [
-  {id: 0, name: 'Все'},
-  {id: 1, name: 'Методист'},
-  {id: 2, name: 'Преподаватель'},
-  {id: 3, name: 'Студент'},
-  {id: 4, name: 'Тьютор'},
-  {id: 5, name: 'Менеджер'},
-]
+  { id: 0, name: 'Все' },
+  { id: 1, name: 'Методист' },
+  { id: 2, name: 'Преподаватель' },
+  { id: 3, name: 'Студент' },
+  { id: 4, name: 'Тьютор' },
+  { id: 5, name: 'Менеджер' },
+];
 
 export const AllUsersPage = () => {
   const [listState] = useState(users);
@@ -63,20 +63,17 @@ export const AllUsersPage = () => {
 
   const applyFilters = () => {
     const filtered = listState.filter(
-      (item) => (filterRoleId === 0 || (filterRoleId > 0 && item.roleIds.includes(filterRoleId)))
-      )
+      (item) => filterRoleId === 0 || (filterRoleId > 0 && item.roleIds.includes(filterRoleId))
+    );
     setFilteredList(filtered);
     console.log(filtered);
   };
 
-  useEffect(
-    () => applyFilters(),
-    [filterRoleId]
-  );
+  useEffect(() => applyFilters(), [filterRoleId]);
 
   const applyRoleFilter = (item: FilterItem) => {
     setFilterRoleId(item.id);
-  }
+  };
 
   return (
     <>
@@ -84,14 +81,18 @@ export const AllUsersPage = () => {
         <div className="head-row">
           <div className="user-name">ФИО Пользователя</div>
           <div className="user-role">Роль</div>
-          <div >Поиск</div>
+          <div>
+            <input type="search" placeholder="Поиск" />
+          </div>
         </div>
-        <div className="role-filter-row">Выберите роль <FilterList data={roleFilterData} callback={applyRoleFilter} /></div>
-          
+        <div className="role-filter-row">
+          Выберите роль <FilterList data={roleFilterData} callback={applyRoleFilter} />
+        </div>
+
         <div>
           {filtredList.map((item) => (
-            <UserRow data={item} />)
-          )}
+            <UserRow data={item} />
+          ))}
         </div>
       </div>
     </>
