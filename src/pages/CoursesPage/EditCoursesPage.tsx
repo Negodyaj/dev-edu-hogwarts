@@ -59,7 +59,6 @@ export const EditCoursesPage = () => {
   };
 
   const onSubmit = (data: TopicFormData) => {
-    data.id = lessonsData.length + 1;
     const newLessonsArray = lessonsData.concat(data);
     setLessonsData(() => [...newLessonsArray]);
     console.log(newLessonsArray); //put вот этого массива

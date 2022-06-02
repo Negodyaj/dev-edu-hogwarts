@@ -10,6 +10,7 @@ export type ListViewItemProps = {
   topic: ListViewLessons;
   index?: number;
   head?: boolean;
+  //position?: number | string;
   dragSettings?: {
     innerRef: DraggableProvided['innerRef'] | null;
     prop1: DraggableProvidedDraggableProps | null;
@@ -48,7 +49,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
             className="list-view-input"
             type="text"
             value={position}
-            onChange={(e) => setPosition(e.currentTarget.value)}
+            onChange={(e) => setPosition(parseInt(e.currentTarget.value))}
           />
         )}
       </span>

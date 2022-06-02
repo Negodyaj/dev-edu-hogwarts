@@ -59,6 +59,7 @@ export const ListView = (props: ListViewProps) => {
                   <ListViewItem
                     index={index}
                     topic={item}
+                    //position={index + 1}
                     dragSettings={{
                       innerRef: draggableProvided.innerRef,
                       prop1: { ...draggableProvided.draggableProps },

@@ -1,6 +1,5 @@
 import { ListView } from './ListView/ListView';
 import { DragDropContext } from 'react-beautiful-dnd';
-//import { lessons } from './ListView/exampleData';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { onTopicsLoad } from '../../actions/topics.thunk';

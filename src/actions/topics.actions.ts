@@ -12,7 +12,7 @@ export const loadTopicsStarted = () => ({
 export const loadTopicsSuccess = (data: TopicFormData[]) => ({
   type: LOAD_TOPICS_SUCCESS,
   payload: data,
-}); //update all program
+});
 
 export const loadTopicsFailed = (message: string) => ({
   type: LOAD_TOPICS_FAILED,
