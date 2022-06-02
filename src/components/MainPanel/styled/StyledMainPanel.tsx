@@ -9,14 +9,21 @@ export const StyledMainPanel = styled.aside`
     const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
     return css`
       background-color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
+      .logo,
+      .logo-name {
+        path {
+          fill: ${isDark ? darkTheme.gradientColor : defaultTheme.gradientColor};
+        }
+      }
+      .nav-link,
       button {
         color: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
-      }
-      path {
-        stroke: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
-      }
-      .with-color-on-hover {
-        fill: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
+        path {
+          stroke: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
+        }
+        .with-color-on-hover {
+          fill: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
+        }
       }
       a {
         color: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
