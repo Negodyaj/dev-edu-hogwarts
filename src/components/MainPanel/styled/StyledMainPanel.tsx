@@ -25,6 +25,14 @@ export const StyledMainPanel = styled.aside`
           fill: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
         }
       }
+      .subbutton:not(.collapsed-mode),
+      .subbutton:not(.collapsed-mode).active,
+      .subbutton:not(.collapsed-mode):hover {
+        path {
+          stroke: transparent;
+          fill: transparent;
+        }
+      }
       a {
         color: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
       }
