@@ -10,7 +10,7 @@ export type ListViewItemProps = {
   topic: ListViewLessons;
   index?: number;
   head?: boolean;
-  //position?: number | string;
+  position?: number | string;
   dragSettings?: {
     innerRef: DraggableProvided['innerRef'] | null;
     prop1: DraggableProvidedDraggableProps | null;
@@ -24,7 +24,6 @@ export const ListViewItem = (props: ListViewItemProps) => {
   const headItemStyleName = props.head ? 'title-head__item' : '';
   const [hoursCount, setHoursCount] = useState(props.topic.hoursCount);
   const [topicName, setTopicName] = useState(props.topic.topicName);
-  const [position, setPosition] = useState(props.topic.position);
 
   return (
     <div
@@ -42,16 +41,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
             <span />
           </div>
         )}
-        {props.head || !props.dragSettings?.isDragDisabled ? (
-          position
-        ) : (
-          <input
-            className="list-view-input"
-            type="text"
-            value={position}
-            onChange={(e) => setPosition(parseInt(e.currentTarget.value))}
-          />
-        )}
+        <span>{props.position}</span>
       </span>
       <span className={`${props.head ? 'lesson-name-head' : 'lesson-name'} ${headItemStyleName}`}>
         {props.head || !props.dragSettings?.isDragDisabled ? (

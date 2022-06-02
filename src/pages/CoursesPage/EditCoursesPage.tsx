@@ -44,15 +44,17 @@ export const EditCoursesPage = () => {
       return;
     }
 
-    const newLessonsArray = Array.from(lessonsData);
+    const newLessonsArray = [...lessonsData];
     newLessonsArray.splice(source.index, 1);
     const dragElem = Object.assign(
       [...lessonsData].filter((item) => item.topicName === draggableId)[0]
     );
     newLessonsArray.splice(destination.index, 0, dragElem);
-
-    setLessonsData(() => [...newLessonsArray]);
-    console.log(newLessonsArray); //put вот этого массива
+    const orderedLessonsArray = newLessonsArray.map((t, index) => {
+      return { ...t, position: index + 1 };
+    });
+    setLessonsData(orderedLessonsArray);
+    console.log(orderedLessonsArray); //put вот этого массива
 
     setSavedVisible('visible');
     setTimeout(() => setSavedVisible('invisible'), 3000);
