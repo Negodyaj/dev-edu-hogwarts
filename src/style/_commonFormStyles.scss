@@ -24,7 +24,12 @@
     outline: 1px solid $lavender-color;
   }
 }
-
+.readonly-input {
+  cursor: auto;
+  &:focus {
+    outline: none;
+  }
+}
 .homework-form .form-input {
   width: 870px;
 }
