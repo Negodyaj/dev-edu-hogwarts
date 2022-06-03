@@ -13,6 +13,7 @@ import { LoginPageState } from '../../store/reducers/login.reducer';
 import defaultAvatar from '../../components/images/defaultavatar.png';
 import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
 import { collapseMainPanel } from '../../actions/mainPanel.actions';
+import { StyledMainPanel } from './styled/StyledMainPanel';
 const avData = {
   photo: '',
   firstName: '',
@@ -35,7 +36,7 @@ export const MainPanel = () => {
   }
 
   return (
-    <aside className={`main-panel transition-styles ${isCollapsed ? 'collapsed' : ''}`}>
+    <StyledMainPanel className={`main-panel transition-styles ${isCollapsed ? 'collapsed' : ''}`}>
       <CollapseButton onClick={() => dispatch(collapseMainPanel(!isCollapsed))} />
       <div className="main-panel-container ">
         <div className={`top-part transition-styles ${!currentUser ? 'top-part-login' : ''}`}>
@@ -62,6 +63,6 @@ export const MainPanel = () => {
           <Toggle />
         </div>
       </div>
-    </aside>
+    </StyledMainPanel>
   );
 };
