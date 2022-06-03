@@ -11,12 +11,17 @@
     font-size: 18px;
     font-weight: 500;
   }
-
 }
 
 .choose-course {
   display: grid;
   grid-template-columns: 71px auto;
+
+  .drop-down-filter svg {
+    border: 1px solid $medium-gray;
+    border-radius: 5px;
+    background-color: $white;
+  }
 }
 
 .choose-count {

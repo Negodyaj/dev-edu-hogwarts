@@ -228,21 +228,11 @@ export const NewGroupPage = () => {
     <>
       {isLoading && <Loader />}
       <div className="new-group-page">
-        <h2>{id ? `Редактирование группы ${group?.name}` : 'Новая группа'}</h2>
+        <h2>{id ? `Редактирование группы "${group?.name}"` : 'Новая группа'}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-element">
-              Название
-              <input
-                defaultValue={group?.name}
-                className="form-input"
-                placeholder="Введите название"
-                {...register('name', { required: true })}
-              />
-              {errors.name && <span>Вы не указали название</span>}
-            </div>
-            {id ? (
-              <div className="form-element choose-course">
+            <div className="form-grid-container">
+              <div className="form-element with-dropdown choose-course">
                 Курс:
                 <FilterList
                   data={courses.map((course) => {
@@ -252,27 +242,51 @@ export const NewGroupPage = () => {
                     };
                     return newCourse;
                   })}
+                  placeholder="Выберите курс"
                   selected={group?.course.id}
                   callback={(item) => setValue('courseId', item.id)}
                 />
                 {errors.courseId && <span>Вы не выбрали курс</span>}
               </div>
-            ) : (
-              <div className="form-element choose-course">
-                Курс:
-                <FilterList
-                  data={courses.map((course) => {
-                    const newCourse: FilterItem = {
-                      id: course.id,
-                      name: course.name,
-                    };
-                    return newCourse;
-                  })}
-                  callback={(item) => setValue('courseId', item.id)}
+              {id && (
+                <div className="form-element with-dropdown choose-status">
+                  Статус группы:
+                  <FilterList
+                    data={GroupStatusForFilterList.map((status) => {
+                      const newStatus = {
+                        id: status.id,
+                        name: getGroupStatusLocalName(status.id),
+                      };
+                      return newStatus;
+                    })}
+                    callback={(item) => setValue('groupStatusId', item.id)}
+                    selected={group?.groupStatus}
+                  />
+                </div>
+              )}
+            </div>
+            <div className="form-grid-container">
+              <div className="form-element">
+                Название
+                <input
+                  defaultValue={group?.name}
+                  className="form-input"
+                  placeholder="Введите название"
+                  {...register('name', { required: true })}
                 />
-                {errors.courseId && <span>Вы не выбрали курс</span>}
+                {errors.name && <span>Вы не указали название</span>}
               </div>
-            )}
+              <div className="form-element">
+                Расписание занятий
+                <input
+                  className="form-input"
+                  defaultValue={group?.timetable}
+                  placeholder="Введите текст"
+                  {...register('timetable', { required: true })}
+                />
+                {errors.timetable && <span>Вы не составили расписание</span>}
+              </div>
+            </div>
             <div className="form-element form-grid-container">
               <div>
                 Дата начала занятий
@@ -295,43 +309,28 @@ export const NewGroupPage = () => {
                 />
               </div>
             </div>
-            <div className="form-element">
-              Расписание занятий
-              <input
-                className="form-input"
-                defaultValue={group?.timetable}
-                placeholder="Введите текст"
-                {...register('timetable', { required: true })}
-              />
-              {errors.timetable && <span>Вы не составили расписание</span>}
-            </div>
-            <div className="form-element">
-              Оплата за месяц
-              <input
-                className="form-input"
-                defaultValue={group?.paymentPerMonth}
-                placeholder="Введите сумму"
-                {...register('paymentPerMonth', { required: true, pattern: /^[ 0-9]+$/ })}
-              />
-              {errors.paymentPerMonth?.type === 'required' && <span>Вы не ввели сумму</span>}
-              {errors.paymentPerMonth?.type === 'pattern' && (
-                <span>Проверьте корректность данных</span>
-              )}
-            </div>
-            <div className="form-element choose-count">
-              Число платежей:
-              {id ? (
+            <div className="form-element form-grid-container">
+              <div className="form-element with-dropdown choose-count">
+                Число платежей:
                 <FilterList
                   data={paymentsCount}
                   callback={(item) => setValue('paymentsCount', item.value)}
                   selected={group?.paymentsCount}
                 />
-              ) : (
-                <FilterList
-                  data={paymentsCount}
-                  callback={(item) => setValue('paymentsCount', item.value)}
+              </div>
+              <div>
+                Оплата за месяц
+                <input
+                  className="form-input"
+                  defaultValue={group?.paymentPerMonth}
+                  placeholder="Введите сумму"
+                  {...register('paymentPerMonth', { required: true, pattern: /^[ 0-9]+$/ })}
                 />
-              )}
+                {errors.paymentPerMonth?.type === 'required' && <span>Вы не ввели сумму</span>}
+                {errors.paymentPerMonth?.type === 'pattern' && (
+                  <span>Проверьте корректность данных</span>
+                )}
+              </div>
             </div>
             <div className="teachers-list">
               <h3>Преподаватель:</h3>
@@ -355,26 +354,6 @@ export const NewGroupPage = () => {
               </div>
               {errors.tutorIds && <span>Вы не выбрали тьютора</span>}
             </div>
-            {id ? (
-              <div className="form-element choose-status">
-                Статус группы:
-                <FilterList
-                  data={GroupStatusForFilterList.map((status) => {
-                    const newStatus = {
-                      id: status.id,
-                      name: getGroupStatusLocalName(status.id),
-                    };
-                    return newStatus;
-                  })}
-                  callback={(item) => setValue('groupStatusId', item.id)}
-                  selected={group?.groupStatus}
-                />
-              </div>
-            ) : (
-              <div className="default-value">
-                <input {...register('groupStatusId')} />
-              </div>
-            )}
             <div className="buttons-group">
               <Button
                 model={ButtonModel.Colored}
