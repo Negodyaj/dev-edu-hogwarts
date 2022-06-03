@@ -3,7 +3,6 @@ import {
   GET_DATA_FROM_FORM,
   GET_TEACHERS_FOR_GROUP,
   GET_TUTORS_FOR_GROUP,
-  // GET_ID_FOR_GROUP,
   LOAD_COURSES_SUCCESS,
   LOAD_FAIL,
   LOAD_GROUP_FOR_CHANGE,
@@ -15,7 +14,6 @@ import {
 import { CourseSimpleResponse } from '../../models/responses/CourseSimpleResponse';
 import { UserSimpleResponseWithRoles } from '../../models/responses/UserResponse';
 import { GroupResponseWithUsers } from '../../models/responses/GroupResponseWithUsers';
-//import { GroupStatus } from '../../shared/enums/GroupStatus';
 
 export interface NewGroupFormState {
   group: GroupResponseWithUsers | undefined;
@@ -74,19 +72,9 @@ export const NewGroupFormReducer: Reducer<NewGroupFormState, NewGroupFormAction>
       };
     }
     case LOAD_GROUP_FOR_CHANGE: {
-      // const teachers: number[] = action.payload.teachers.map((teacher) => {
-      //   const teacherId = teacher.id;
-      //   return teacherId;
-      // });
-      // const tutors: number[] = action.payload.tutors.map((tutor) => {
-      //   const tutorId = tutor.id;
-      //   return tutorId;
-      // });
       return {
         ...state,
         group: action.payload,
-        // teacherIdsForGroup: teachers,
-        // tutorIdsForGroup: tutors,
         isLoading: false,
       };
     }

@@ -1,6 +1,5 @@
 import { CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
 import { UserSimpleResponseWithRoles } from '../models/responses/UserResponse';
-//import { GroupFormData } from '../pages/NewGroupPage/NewGroupPage';
 import { GroupResponseWithUsers } from '../models/responses/GroupResponseWithUsers';
 export const LOAD_STARTED = 'NewGroupForm/LOAD_STARTED' as const;
 export const LOAD_COURSES_SUCCESS = 'NewGroupForm/LOAD_COURSES_SUCCESS' as const;

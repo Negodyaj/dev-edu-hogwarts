@@ -104,7 +104,6 @@ export const NewGroupPage = () => {
   const tutorsForCheckbox: CheckboxData[] = users
     .filter((u) => u.roles.includes(UserRole.Tutor))
     .map((tutor) => {
-      // const check: boolean = tutorIdsForGroup.includes(tutor.id);
       const newTutor: CheckboxData = {
         value: tutor.id,
         text: `${tutor.firstName + ' ' + tutor.lastName}`,
