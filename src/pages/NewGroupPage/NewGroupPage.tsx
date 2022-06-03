@@ -13,7 +13,6 @@ import { loadCoursesAndUsers, loadGroup } from '../../actions/NewGroupForm.thunk
 import { AppState } from '../../store/store';
 import { NewGroupFormState } from '../../store/reducers/NewGroupForm.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
-//import { getDataFromFormPage, getIdForGroup } from '../../actions/NewGroupForm.actions';
 import {
   getIdForGroup,
   getTeachersForGroup,
@@ -23,7 +22,6 @@ import {
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import { useParams } from 'react-router-dom';
 import Datepicker from '../../components/Datepicker/Datepicker';
-//import { groupStatusEnumReverse } from '../../shared/helpers/groupStatusForEnum';
 import { GroupResponse } from '../../models/responses/GroupResponse';
 import { convertDate } from '../../shared/helpers/dateHelpers';
 import { GroupStatus } from '../../shared/enums/GroupStatus';
@@ -77,7 +75,6 @@ export const NewGroupPage = () => {
       tutorIds: tutorIdsForGroup,
       courseId: group?.course.id,
       groupStatusId: group?.groupStatus,
-      // groupStatusId: group ? groupStatusEnumReverse(group.groupStatus) : '',
       startDate: group?.startDate,
       endDate: group?.endDate,
       timetable: group?.timetable,
@@ -119,7 +116,6 @@ export const NewGroupPage = () => {
   const teachersForCheckbox: CheckboxData[] = users
     .filter((u) => u.roles.includes(UserRole.Teacher))
     .map((teacher) => {
-      // const check: boolean = teacherIdsForGroup.includes(teacher.id);
       const newTeacher: CheckboxData = {
         value: teacher.id,
         text: `${teacher.firstName + ' ' + teacher.lastName}`,
@@ -172,7 +168,6 @@ export const NewGroupPage = () => {
       baseWretch().url(addUserInGroup(idLastGroups, tutor, role)).post();
     });
     dispatch(getIdForGroup(idLastGroups));
-    // dispatch(getDataFromFormPage(data));
   }
 
   const deleteGroup = (groupId: number) => {
@@ -181,7 +176,6 @@ export const NewGroupPage = () => {
 
   const onSubmit = (data: GroupFormData) => {
     if (typeof data.teacherIds === 'string') data.teacherIds = [+data.teacherIds];
-    //data.groupStatusId = getGroupStatusLocalNameReverse(data.groupStatusId);
     data.startDate = convertDate(data.startDate);
     data.endDate = convertDate(data.endDate);
     dispatch(getTeachersForGroup(data.teacherIds));
