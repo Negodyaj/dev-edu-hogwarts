@@ -82,7 +82,7 @@ export const NewGroupPage = () => {
       endDate: group?.endDate,
       timetable: group?.timetable,
       paymentPerMonth: group?.paymentPerMonth,
-      paymentsCount: group?.paymentsCount,
+      paymentsCount: group?.paymentsCount ?? 3,
     },
   });
 
@@ -321,6 +321,7 @@ export const NewGroupPage = () => {
               <div>
                 Оплата за месяц
                 <input
+                  type="number"
                   className="form-input"
                   defaultValue={group?.paymentPerMonth}
                   placeholder="Введите сумму"
