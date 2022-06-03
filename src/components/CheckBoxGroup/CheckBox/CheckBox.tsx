@@ -7,6 +7,7 @@ export type CheckboxProps = {
   name: string;
   isSingle: boolean;
   onClick?: () => void;
+  defaultValue?: number[];
 };
 
 export type CheckboxData = {
@@ -17,6 +18,7 @@ export type CheckboxData = {
 
 export const CheckboxBtn = (props: CheckboxProps) => {
   const { register, watch } = useFormContext();
+
   return (
     <label className="custom-checkbox">
       <InvisibleInput

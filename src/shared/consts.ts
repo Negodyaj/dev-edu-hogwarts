@@ -32,10 +32,14 @@ export const lessonsByGroupId = (groupId: number) => {
 };
 export const getStudentAnswerByTaskId = (taskId: number) => `${taskUrl}/${taskId}/answer`;
 export const updateUserUrl = (id: number) => `${usersUrl}/${id}`;
-export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
+export const groupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
 export const updatePassword = 'api/Users/password';
 export const getTopicsByCourseId = (courseId: number) => `api/Courses/${courseId}/topics`;
 export const postTopic = 'api/Topics';
 export const updateCourseProgram = (courseId: number) => `/api/Courses/${courseId}/program`;
 export const getAllAnswersEachStudentsByTaskIdUrl = (id: number) =>
   `api/student-homeworks/task/${id}/answers`;
+export const addUserInGroup = (groupId: number, userId: number, userRole: string) =>
+  `${groupUrl}/${groupId}/user/${userId}/role/${userRole}`;
+export const deleteUserFromGroup = (groupId: number, userId: number) =>
+  `${groupUrl}/${groupId}/user/${userId}`;
