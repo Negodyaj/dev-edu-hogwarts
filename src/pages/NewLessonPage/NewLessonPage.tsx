@@ -1,8 +1,10 @@
 import moment from 'moment';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import Datepicker from '../../components/Datepicker/Datepicker';
+import { LinkWithUnderline } from '../../components/LinkWithUnderline/LinkWithUnderline';
 import { RadioData } from '../../components/RadioGroup/RadioButton/RadioButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 
@@ -17,18 +19,14 @@ export type NewLessonFormData = {
 
 const radioMock: RadioData[] = [
   {
-    value: 1,
     text: 'group1',
+    value: 1,
   },
   {
-    value: 2,
     text: 'group2',
+    value: 2,
   },
 ];
-
-const onSubmit = () => {
-  alert('SUBMIT!');
-};
 
 export const NewLessonPage = () => {
   const {
@@ -36,6 +34,7 @@ export const NewLessonPage = () => {
     formState: { errors },
     handleSubmit,
     control,
+    reset,
   } = useForm<NewLessonFormData>({
     defaultValues: {
       date: `${moment().format('DD.MM.YYYY')}`,
@@ -46,17 +45,21 @@ export const NewLessonPage = () => {
     },
   });
   const navigate = useNavigate();
+  const onSubmit = () => {
+    alert('SUBMIT!');
+    reset();
+  };
 
   return (
     <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex-between">
         <h2 className="homework-form_title">Новое занятие</h2>
-        <Link to={''}>Список сохраненных занятий</Link>
+        <LinkWithUnderline path="aaa" text="Список сохраненных занятий"></LinkWithUnderline>
       </div>
       <div className="form-element flex-container">
         Номер группы:
         <div className="radio-group-container flex-container">
-          <RadioGroup radioData={radioMock} name="groupId" selected={undefined} />
+          {/* <RadioGroup radioData={grpups} name="groupId" /> */}
         </div>
       </div>
       <span className="invalid-feedback">{errors?.groupId?.message}</span>
