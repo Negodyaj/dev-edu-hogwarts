@@ -1,20 +1,19 @@
 import { Reducer } from 'react';
 import {
-  LOAD_GROUPS_FAIL,
-  LOAD_GROUPS_STARTED,
-  LOAD_GROUPS_SUCSSES,
   NewLessonPageAction,
+  UPLOAD_LESSONS_FAIL,
+  UPLOAD_LESSONS_STARTED,
+  UPLOAD_LESSONS_SUCSSES,
 } from '../../actions/newLessonPage.action';
-import { RadioData } from '../../components/RadioGroup/RadioButton/RadioButton';
 
 export interface NewLessonPageState {
-  groups?: RadioData[];
   message?: string;
+  isLoading: boolean;
 }
 
 const initialState: NewLessonPageState = {
-  groups: [],
   message: undefined,
+  isLoading: false,
 };
 
 export const NewLessonPageReducer: Reducer<NewLessonPageState | undefined, NewLessonPageAction> = (
@@ -22,27 +21,21 @@ export const NewLessonPageReducer: Reducer<NewLessonPageState | undefined, NewLe
   action
 ) => {
   switch (action.type) {
-    case LOAD_GROUPS_STARTED:
+    case UPLOAD_LESSONS_STARTED:
       return {
         ...state,
+        isLoading: true,
       };
-    case LOAD_GROUPS_SUCSSES: {
-      const groups: RadioData[] = action.payload.map((group) => {
-        const radioData: RadioData = {
-          value: group.id,
-          text: group.course.name,
-        };
-        return radioData;
-      });
+    case UPLOAD_LESSONS_SUCSSES:
       return {
         ...state,
-        groups: groups,
+        isLoading: false,
       };
-    }
-    case LOAD_GROUPS_FAIL:
+    case UPLOAD_LESSONS_FAIL:
       return {
         ...state,
-        message: action.payload,
+        isLoading: false,
+        errorMessage: action.payload,
       };
     default:
       return state;

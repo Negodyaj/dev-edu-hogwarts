@@ -1,25 +1,23 @@
 import { Dispatch } from 'react';
-import { GroupResponse } from '../models/responses/GroupResponse';
+import { NewLessonFormData } from '../pages/NewLessonPage/NewLessonPage';
 import { baseWretch } from '../services/base-wretch.service';
-import { groupUrl } from '../shared/consts';
+import { lessonsUrl } from '../shared/consts';
 import {
-  loadGroupsFail,
-  loadGroupsStarted,
-  loadGroupsSucsses,
   NewLessonPageAction,
+  uploadLessonFail,
+  uploadLessonStarted,
+  uploadLessonSuccess,
 } from './newLessonPage.action';
 
-export const loadGroups = () => {
-  return (dispatch: Dispatch<NewLessonPageAction>) => {
-    dispatch(loadGroupsStarted());
+export const uploadLesson = (newLessonsData: NewLessonFormData) => {
+  return async (dispatch: Dispatch<NewLessonPageAction>) => {
+    dispatch(uploadLessonStarted());
 
-    baseWretch()
-      .url(groupUrl)
-      .get()
-      .json((data) => {
-        const groupsList = data as GroupResponse[];
-        dispatch(loadGroupsSucsses(groupsList));
-      })
-      .catch((error) => dispatch(loadGroupsFail(error.message)));
+    try {
+      await baseWretch().url(lessonsUrl).post(newLessonsData).json();
+      dispatch(uploadLessonSuccess());
+    } catch (e: any) {
+      dispatch(uploadLessonFail(e.message));
+    }
   };
 };

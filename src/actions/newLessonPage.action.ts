@@ -1,24 +1,21 @@
-import { GroupResponse } from '../models/responses/GroupResponse';
+export const UPLOAD_LESSONS_STARTED = 'newLeson/UPLOAD_LESSONS_STARTED' as const;
+export const UPLOAD_LESSONS_SUCSSES = 'newLeson/UPLOAD_LESSONS_SUCSSES' as const;
+export const UPLOAD_LESSONS_FAIL = 'newLeson/UPLOAD_LESSONS_FAIL' as const;
 
-export const LOAD_GROUPS_STARTED = 'newLeson/LOAD_GROUPS_STARTED' as const;
-export const LOAD_GROUPS_SUCSSES = 'newLeson/LOAD_GROUPS_SUCSSES' as const;
-export const LOAD_GROUPS_FAIL = 'newLeson/LOAD_GROUPS_FAIL' as const;
-
-export const loadGroupsStarted = () => ({
-  type: LOAD_GROUPS_STARTED,
+export const uploadLessonStarted = () => ({
+  type: UPLOAD_LESSONS_STARTED,
 });
 
-export const loadGroupsSucsses = (groups: GroupResponse[]) => ({
-  type: LOAD_GROUPS_SUCSSES,
-  payload: groups,
+export const uploadLessonSuccess = () => ({
+  type: UPLOAD_LESSONS_SUCSSES,
 });
 
-export const loadGroupsFail = (message: string) => ({
-  type: LOAD_GROUPS_FAIL,
+export const uploadLessonFail = (message: string) => ({
+  type: UPLOAD_LESSONS_FAIL,
   payload: message,
 });
 
 export type NewLessonPageAction =
-  | ReturnType<typeof loadGroupsStarted>
-  | ReturnType<typeof loadGroupsSucsses>
-  | ReturnType<typeof loadGroupsFail>;
+  | ReturnType<typeof uploadLessonStarted>
+  | ReturnType<typeof uploadLessonSuccess>
+  | ReturnType<typeof uploadLessonFail>;
