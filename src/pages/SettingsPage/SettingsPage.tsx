@@ -16,9 +16,12 @@ import { SettingsPageState } from '../../store/reducers/settings.reducer';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { Input } from '../../components/styled/Input';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
 
 export const SettingsPage = () => {
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const dispatch = useDispatch();
   const onSubmit = (data: UserResponse) => {
     if (currentUser) {
@@ -79,30 +82,32 @@ export const SettingsPage = () => {
               <div className="settings-content">
                 <div className="form-element last-name-form-element">
                   Фамилия
-                  <input
-                    className="form-input"
+                  <Input
+                    register={register}
+                    name={'lastName'}
                     defaultValue={currentUser?.lastName}
-                    type="text"
-                    {...register('lastName', {})}
-                  />
+                    type={'text'}
+                  ></Input>
                   <div className="invalid-feedback">{errors.lastName?.message}</div>
                 </div>
                 <div className="form-element">
                   Имя
-                  <input
-                    className="form-input"
+                  <Input
+                    register={register}
+                    name={'firstName'}
                     defaultValue={currentUser?.firstName}
-                    {...register('firstName')}
-                  />
+                    type={'text'}
+                  ></Input>
                   <div className="invalid-feedback">{errors.firstName?.message}</div>
                 </div>
                 <div className="form-element">
                   Отчество
-                  <input
-                    className="form-input"
+                  <Input
+                    register={register}
+                    name={'patronymic'}
                     defaultValue={currentUser?.patronymic}
-                    {...register('patronymic')}
-                  />
+                    type={'text'}
+                  ></Input>
                   <div className="invalid-feedback">{errors.patronymic?.message}</div>
                 </div>
                 <div className="form-element">
@@ -123,7 +128,7 @@ export const SettingsPage = () => {
             <div className="form-grid-container">
               <div className="form-element password">
                 Пароль
-                <div className="form-input">
+                <div className={`form-input ${isDark ? 'dark-theme-background' : ''}`}>
                   <div>
                     <div className="circle-password" />
                     <div className="circle-password" />
@@ -141,31 +146,33 @@ export const SettingsPage = () => {
               </div>
               <div className="form-element">
                 Email
-                <input
-                  className="form-input"
+                <Input
+                  register={register}
+                  name={'email'}
                   defaultValue={currentUser?.email}
-                  {...register('email')}
-                />
+                  type={'text'}
+                ></Input>
                 <div className="invalid-feedback">{errors.email?.message}</div>
               </div>
 
               <div className="form-element">
                 Ссылка на GitHub
-                <input
-                  className="form-input"
+                <Input
+                  register={register}
+                  name={'gitHubAccount'}
                   defaultValue={currentUser?.gitHubAccount}
-                  {...register('gitHubAccount')}
-                />
+                  type={'text'}
+                ></Input>
                 <div className="invalid-feedback">{errors.gitHubAccount?.message}</div>
               </div>
               <div className="form-element">
                 Телефон
-                <input
-                  className="form-input"
-                  type="tel"
+                <Input
+                  register={register}
+                  name={'phoneNumber'}
                   defaultValue={currentUser?.phoneNumber}
-                  {...register('phoneNumber')}
-                />
+                  type={'tel'}
+                ></Input>
                 <div className="invalid-feedback">{errors.phoneNumber?.message}</div>
               </div>
             </div>

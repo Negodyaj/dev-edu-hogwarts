@@ -10,6 +10,7 @@ import './EditCoursesPage.scss';
 //import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
 import { useDispatch } from 'react-redux';
 import { onCourseTopicsUpdate } from '../../actions/editCourses.thunk';
+import { Input } from '../../components/styled/Input';
 //import { AppState } from '../../store/store';
 
 export type TopicFormData = {
@@ -83,30 +84,39 @@ export const EditCoursesPage = () => {
           <div className="inputs">
             <div>
               <span>Тема</span>
-              <input
-                className="form-input short"
+              <Input
+                textAlign="center"
+                type="text"
+                width="102px"
                 placeholder="0"
-                {...register('position', { required: true })}
+                register={register}
+                name="position"
+                rules={{ required: true }}
               />
               {errors.position && <span>Введи номер темы</span>}
             </div>
             <div>
               <span>Название</span>
-              <input
-                className="form-input long"
+              <Input
+                type="text"
+                width="488px"
                 placeholder="Введите текст"
-                {...register('topicName', { required: true })}
+                register={register}
+                name="topicName"
+                rules={{ required: true }}
               />
               {errors.topicName && <span>Введи название темы</span>}
             </div>
             <div>
               <span>Часы</span>
-              <input
-                className="form-input short"
+              <Input
+                textAlign="center"
+                width="102px"
                 type="number"
                 placeholder="XX"
-                min={1}
-                {...register('hoursCount', { required: true })}
+                register={register}
+                name="hoursCount"
+                rules={{ required: true }}
               />
               {errors.hoursCount && <span>Введи часы</span>}
             </div>

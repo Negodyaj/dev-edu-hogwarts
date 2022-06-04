@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { authUser } from '../../actions/login.thunk';
+import { Input } from '../../components/styled/Input';
 
 export type LoginFormData = {
   email: string;
@@ -55,21 +56,23 @@ export const LoginPage = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-element">
           E-mail
-          <input
-            className="form-input"
-            placeholder="example@mail.ru"
-            {...register('email', { required: true })}
-          />
+          <Input
+            name={'email'}
+            placeholder={'Mail@example.ru'}
+            type={'text'}
+            register={register}
+            required={true}
+          ></Input>
         </div>
         {errors.email && <div className="invalid-feedback">{errors.email?.message}</div>}
         <div className="form-element">
           Пароль
-          <input
-            className="form-input custom-password"
+          <Input
+            name={'password'}
+            defaultValue={'password'}
             type={'password'}
-            {...register('password', { required: true })}
-            defaultValue="password"
-          />
+            register={register}
+          ></Input>
         </div>
         {errors.password && <div className="invalid-feedback">{errors.password?.message}</div>}
         {errorMessage && (

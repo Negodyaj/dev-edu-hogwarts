@@ -16,6 +16,7 @@ import { UserRole } from '../../shared/enums/UserRole';
 import { getDataFromFormPage } from '../../actions/NewGroupForm.actions';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import { useParams } from 'react-router-dom';
+import { Input } from '../../components/styled/Input';
 
 export type GroupFormData = {
   name: string;
@@ -106,12 +107,14 @@ export const NewGroupPage = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-element">
               Название
-              <input
-                className="form-input"
+              <Input
                 placeholder="Введите название"
-                {...register('name', { required: true })}
-              />
-              {errors.name && <span>Вы не указали название</span>}
+                name={'name'}
+                register={register}
+                type="text"
+                rules={{ required: true }}
+              ></Input>
+              {errors.name ? <span className="invalid-feedback">Вы не указали название</span> : ''}
             </div>
             <div className="form-element">
               Курс
@@ -142,11 +145,11 @@ export const NewGroupPage = () => {
               {errors.tutorIds && <span>Вы не выбрали тьютора</span>}
             </div>
             <div className="default-value">
-              <input {...register('groupStatusId')} />
-              <input {...register('startDate')} />
-              <input {...register('endDate')} />
-              <input {...register('timetable')} />
-              <input {...register('paymentPerMonth')} />
+              <Input type="text" register={register} name="groupStatusId"></Input>
+              <Input type="text" register={register} name="startDate"></Input>
+              <Input type="text" register={register} name="endDate"></Input>
+              <Input type="text" register={register} name="timetable"></Input>
+              <Input type="text" register={register} name="paymentPerMonth"></Input>
             </div>
             <div className="buttons-group">
               <Button

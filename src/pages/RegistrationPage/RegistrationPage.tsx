@@ -10,6 +10,7 @@ import { RegistrationPageState } from '../../store/reducers/registration.reducer
 import { onRegistration } from '../../actions/registration.thunk';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Input } from '../../components/styled/Input';
 
 export type RegisterFormData = {
   firstName: string;
@@ -68,17 +69,13 @@ export const RegistrationPage = () => {
                 Фамилия
                 <span className="asterisk">*</span>
               </label>
-              <input
-                type="text"
-                className="form-input"
+              <Input
+                rules={{ required: true, maxLength: 20, pattern: /^[a-zа-яё]+$/i }}
+                register={method.register}
                 placeholder="Ефременков"
-                id="lastName"
-                {...method.register('lastName', {
-                  required: true,
-                  maxLength: 20,
-                  pattern: /^[a-zа-яё]+$/i,
-                })}
-              />
+                type="text"
+                name="lastName"
+              ></Input>
               {method.formState.errors?.lastName?.type === 'required' && (
                 <p className="asterisk">Обязательно для заполнения</p>
               )}
@@ -94,17 +91,13 @@ export const RegistrationPage = () => {
                 <label htmlFor="firstName">
                   Имя<span className="asterisk">*</span>
                 </label>
-                <input
-                  type="text"
-                  className="form-input"
+                <Input
+                  rules={{ required: true, maxLength: 20, pattern: /^[a-zа-яё]+$/i }}
+                  register={method.register}
                   placeholder="Антон"
-                  id="firstName"
-                  {...method.register('firstName', {
-                    required: true,
-                    maxLength: 20,
-                    pattern: /^[a-zа-яё]+$/i,
-                  })}
-                />
+                  type="text"
+                  name="firstName"
+                ></Input>
                 {method.formState.errors?.firstName?.type === 'required' && (
                   <p className="asterisk">Обязательно для заполнения</p>
                 )}
@@ -117,7 +110,7 @@ export const RegistrationPage = () => {
               </div>
               <div className="form-element">
                 <label htmlFor="patronymic">Отчество</label>
-                <input
+                {/* <input
                   type="text"
                   className="form-input"
                   placeholder="Сергеевич"
@@ -126,7 +119,14 @@ export const RegistrationPage = () => {
                     maxLength: 20,
                     pattern: /^[a-zа-яё]+$/i,
                   })}
-                />
+                /> */}
+                <Input
+                  rules={{ required: true, maxLength: 20, pattern: /^[a-zа-яё]+$/i }}
+                  register={method.register}
+                  placeholder="Сергеевич"
+                  type="text"
+                  name="patronymic"
+                ></Input>
                 {method.formState.errors?.lastName?.type === 'required' && (
                   <p className="asterisk">Обязательно для заполнения</p>
                 )}
@@ -155,22 +155,24 @@ export const RegistrationPage = () => {
                 <label htmlFor="password">
                   Пароль<span className="asterisk">*</span>
                 </label>
-                <input
+                <Input register={method.register} name={'password'} type="password" />
+                {/* <input
                   type="password"
                   className="custom-password form-input"
                   {...method.register('password', {})}
-                />
+                /> */}
                 <p className="attention">{errors.password?.message}</p>
               </div>
               <div className="form-element">
                 <label htmlFor="repeat-password">
                   Повторить пароль<span className="asterisk">*</span>
                 </label>
-                <input
+                <Input register={method.register} name={'confirmPassword'} type="password" />
+                {/* <input
                   type="password"
                   className="custom-password form-input"
                   {...method.register('confirmPassword', {})}
-                />
+                /> */}
                 <p className="attention">{errors.confirmPassword?.message}</p>
               </div>
             </div>
@@ -179,7 +181,18 @@ export const RegistrationPage = () => {
                 <label htmlFor="email">
                   E-mail<span className="asterisk">*</span>
                 </label>
-                <input
+                <Input
+                  rules={{
+                    required: true,
+                    pattern:
+                      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+                  }}
+                  register={method.register}
+                  placeholder=""
+                  type="email"
+                  name="email"
+                ></Input>
+                {/* <input
                   type="email"
                   id="email"
                   className="form-input"
@@ -189,14 +202,24 @@ export const RegistrationPage = () => {
                     pattern:
                       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
                   })}
-                />
+                /> */}
                 {method.formState.errors?.email?.type === 'required' && (
                   <p className="attention">Обязательно для заполнения</p>
                 )}
               </div>
               <div className="form-element">
                 <label htmlFor="phoneNumber">Телефон</label>
-                <input
+                <Input
+                  rules={{
+                    required: true,
+                    pattern: /^[0-9]+$/i,
+                  }}
+                  register={method.register}
+                  placeholder="+7(999)888-77-66"
+                  type="tel"
+                  name="phoneNumber"
+                ></Input>
+                {/* <input
                   type="tel"
                   className="form-input"
                   placeholder="+7(999)888-77-66"
@@ -204,7 +227,7 @@ export const RegistrationPage = () => {
                     required: true,
                     pattern: /^[0-9]+$/i,
                   })}
-                />
+                /> */}
                 {method.formState.errors?.phoneNumber?.type === 'pattern' && (
                   <p className="attention">Введите корректный номер</p>
                 )}

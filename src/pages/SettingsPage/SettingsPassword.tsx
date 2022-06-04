@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import '../SettingsPage/SettingsPage.scss';
@@ -10,6 +10,7 @@ import { AppState } from '../../store/store';
 import { SettingsPageState } from '../../store/reducers/settings.reducer';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
+import { Input } from '../../components/styled/Input';
 
 export type FormPasswordData = {
   oldPassword: string;
@@ -18,7 +19,7 @@ export type FormPasswordData = {
 };
 
 export const SettingsPassword = () => {
-  const [isOk] = useState<boolean>(false);
+  // const [isOk] = useState<boolean>(false);
   const dispatch = useDispatch();
   const onSubmit = (data: FormPasswordData) => {
     dispatch(updateUserPassword(data));
@@ -55,33 +56,17 @@ export const SettingsPassword = () => {
             <div className="form-grid-container">
               <div className="form-element">
                 <p>Cтарый пароль</p>
-                <input
-                  type="password"
-                  className={`form-input form-control ${isOk ? 'invalid-input' : ''}`}
-                  {...register('oldPassword', {})}
-                />
+                <Input type="password" register={register} name="oldPassword" />
                 <div className="invalid-feedback">{errors.oldPassword?.message}</div>
               </div>
               <div className="form-element">
                 <p>Новый пароль</p>
-                <input
-                  type="password"
-                  {...register('newPassword')}
-                  className={` form-input form-control ${
-                    errors.newPassword ? 'invalid-input' : ''
-                  }`}
-                />
+                <Input type="password" register={register} name="newPassword" />
                 <div className="invalid-feedback">{errors.newPassword?.message}</div>
               </div>
               <div className="form-element">
                 <p>Повторите новый пароль</p>
-                <input
-                  type="password"
-                  {...register('newPasswordRepeat')}
-                  className={`form-input form-control ${
-                    errors.newPasswordRepeat ? 'invalid-input' : ''
-                  }`}
-                />
+                <Input type="password" register={register} name="newPasswordRepeat" />
                 <div className="invalid-feedback">{errors.newPasswordRepeat?.message}</div>
               </div>
             </div>

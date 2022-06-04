@@ -44,6 +44,7 @@ import {
   setWindowType,
 } from '../../actions/modalWindow.actions';
 import { ModalType } from '../../shared/enums/modalType';
+import { Input } from '../../components/styled/Input';
 
 export type AddHomeworkFormData = {
   startDate: string | Date;
@@ -229,12 +230,18 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
 
         <div className="form-element">
           Название задания
-          <input
+          <Input
+            name="name"
+            type="text"
+            register={method.register}
+            placeholder="Введите название"
+          ></Input>
+          {/* <input
             className={`form-input${method.formState.errors.name ? ' invalid-input' : ''}`}
             type="text"
             placeholder="Введите название"
             {...method.register('name', { required: true })}
-          />
+          /> */}
         </div>
         <div className="invalid-feedback">{method.formState.errors.name?.message}</div>
 
