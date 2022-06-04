@@ -47,7 +47,7 @@ import {
   setWindowType,
 } from './modalWindow.actions';
 import { ModalType } from '../shared/enums/modalType';
-import { addNotification } from './notificationsContainer.actions';
+import { addNotification, NotificationsContainerActions } from './notificationsContainer.actions';
 import { NotificationType } from '../shared/enums/NotificationType';
 
 export const loadHomeworks = (groupId: number) => {
@@ -79,7 +79,7 @@ export const loadHomework = (homeworkId: number) => {
 };
 
 export const createNewHomework = (homeworkData: AddHomeworkFormData) => {
-  return async (dispatch: Dispatch<any>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction | NotificationsContainerActions>) => {
     dispatch(postHomeworkStarted());
 
     try {
@@ -94,7 +94,7 @@ export const createNewHomework = (homeworkData: AddHomeworkFormData) => {
 };
 
 export const createNewTaskByTeacher = (homeworkData: AddHomeworkFormData, links: string[]) => {
-  return async (dispatch: Dispatch<any>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction | NotificationsContainerActions>) => {
     dispatch(postHomeworkStarted());
 
     try {
@@ -151,7 +151,7 @@ export const loadDraftsByGroupId = (groupId: number) => {
 };
 
 export const getTaskById = (taskId: number) => {
-  return async (dispatch: Dispatch<any>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
     dispatch(postHomeworkStarted());
     try {
       const task = await baseWretch().url(taskById(taskId)).get().json<Task>();
@@ -197,7 +197,7 @@ export const tasksCountInCourse = (courseId: number) => {
 };
 
 export const updateTask = (taskId: number, data: AddHomeworkFormData) => {
-  return async (dispatch: Dispatch<any>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction | NotificationsContainerActions>) => {
     dispatch(postHomeworkStarted());
     if (taskId < 0) {
       dispatch(postHomeworkFail('Что-то пошло не так'));
@@ -221,7 +221,7 @@ export const updateTask = (taskId: number, data: AddHomeworkFormData) => {
 };
 
 export const updateHomework = (homeworkId: number, data: AddHomeworkFormData) => {
-  return async (dispatch: Dispatch<any>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction | NotificationsContainerActions>) => {
     dispatch(postHomeworkStarted());
     if (homeworkId < 0) {
       dispatch(postHomeworkFail('Что-то пошло не так'));
