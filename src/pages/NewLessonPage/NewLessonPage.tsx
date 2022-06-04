@@ -1,79 +1,124 @@
-import { FormProvider, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import moment from 'moment';
+import { Controller, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import Datepicker from '../../components/Datepicker/Datepicker';
+import { RadioData } from '../../components/RadioGroup/RadioButton/RadioButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
-import { UserRole } from '../../shared/enums/UserRole';
-import { LoginPageState } from '../../store/reducers/login.reducer';
-import { AppState } from '../../store/store';
 
 export type NewLessonFormData = {
-  groupId: number;
-  startDate: string | Date;
+  date: string | Date;
+  additionalMaterials: string;
+  groupId?: number;
   name: string;
-  videoLink: string;
-  additionals: string;
+  linkToRecord: string;
+  // isPublished: boolean;
+};
+
+const radioMock: RadioData[] = [
+  {
+    value: 1,
+    text: 'group1',
+  },
+  {
+    value: 2,
+    text: 'group2',
+  },
+];
+
+const onSubmit = () => {
+  alert('SUBMIT!');
 };
 
 export const NewLessonPage = () => {
-  const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    control,
+  } = useForm<NewLessonFormData>({
+    defaultValues: {
+      date: `${moment().format('DD.MM.YYYY')}`,
+      additionalMaterials: '',
+      groupId: undefined,
+      name: '',
+      linkToRecord: '',
+    },
+  });
+  const navigate = useNavigate();
 
-  const method = useForm<NewLessonFormData>({
-    context: {
-      
-    }
-  })
   return (
-    <FormProvider {...method}>
-      <form className="form-container" onSubmit={() => {}}>
-        <div className="flex-between">
-          <h2 className="">Новое занятие</h2>
-          <Link to={''}>Список сохраненных занятий</Link>
+    <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex-between">
+        <h2 className="homework-form_title">Новое занятие</h2>
+        <Link to={''}>Список сохраненных занятий</Link>
+      </div>
+      <div className="form-element flex-container">
+        Номер группы:
+        <div className="radio-group-container flex-container">
+          <RadioGroup radioData={radioMock} name="groupId" selected={undefined} />
         </div>
-        <div className="form-element flex-container">
-          Номер группы:
-          <div className="radio-group-container flex-container">
-            <RadioGroup
-              radioData={currentRole === UserRole.Methodist ? course : group}
-              name="groupId"
-              callback={getId}
-              selected={currentRole === UserRole.Teacher ? selectedGroup : undefined}
-            />
-          </div>
-        </div>
-        <span className="invalid-feedback">{method.formState.errors.groupId?.message}</span>
-        <div>
-          Дата проведения занятия
-          <Datepicker field={field} />
-          <div className="invalid-feedback">{method.formState.errors.startDate?.message}</div>
-        </div>
-        <div className="form-element">
-          Название занятия
-          <input
-            className={`form-input${method.formState.errors.name ? ' invalid-input' : ''}`}
-            type="text"
-            placeholder="Введите название"
-            {...method.register('name', { required: true })}
-          />
-        </div>
-        <div className="form-element">
-          Ссылка на видео
-          <input
-            className={`form-input${method.formState.errors.name ? ' invalid-input' : ''}`}
-            type="text"
-            placeholder="Ссылка на видео"
-            {...method.register('name', { required: true })}
-          />
-        </div>
-        <div className="form-element">
-          Дополнительные материалы
-          <textarea
-            className={`form-input${method.formState.errors.description ? ' invalid-input' : ''}`}
-            placeholder="Введите текст"
-            {...method.register('description', { required: true })}
-          />
-        </div>
-      </form>
-    </FormProvider>
+      </div>
+      <span className="invalid-feedback">{errors?.groupId?.message}</span>
+      <div>
+        Дата проведения занятия
+        <Controller
+          name="date"
+          control={control}
+          defaultValue={`${moment().format('DD.MM.YYYY')}`}
+          rules={{ required: false }}
+          render={({ field }) => <Datepicker field={field} />}
+        />
+      </div>
+      <div className="form-element">
+        Название занятия
+        <input
+          className={`form-input${errors.name ? ' invalid-input' : ''}`}
+          type="text"
+          placeholder="Введите название"
+          {...register('name', { required: true })}
+        />
+      </div>
+      <div className="invalid-feedback">{errors.date?.message}</div>
+      <div className="form-element">
+        Ссылка на видео
+        <input
+          className={`form-input${errors.linkToRecord ? ' invalid-input' : ''}`}
+          type="text"
+          placeholder="Ссылка на видео"
+          {...register('linkToRecord', { required: true })}
+        />
+      </div>
+      <div className="form-element">
+        Дополнительные материалы
+        <textarea
+          className={`form-input${errors.additionalMaterials ? ' invalid-input' : ''}`}
+          placeholder="Введите текст"
+          {...register('additionalMaterials', { required: true })}
+        />
+      </div>
+      <div className="buttons-group">
+        <Button
+          text="Опубликовать"
+          model={ButtonModel.Colored}
+          type={ButtonType.submit}
+          disabled={true}
+          onClick={() => {}}
+        />
+        <Button
+          text={'Сохранить'}
+          model={ButtonModel.White}
+          type={ButtonType.submit}
+          disabled={true}
+          onClick={() => {}}
+        />
+        <Button
+          text="Отмена"
+          type={ButtonType.reset}
+          model={ButtonModel.Text}
+          onClick={() => navigate(-1)}
+        />
+      </div>
+    </form>
   );
 };
