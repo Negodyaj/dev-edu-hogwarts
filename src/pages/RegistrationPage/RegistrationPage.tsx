@@ -10,6 +10,7 @@ import { RegistrationPageState } from '../../store/reducers/registration.reducer
 import { onRegistration } from '../../actions/registration.thunk';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { loginUrl } from '../../shared/consts';
 
 export type RegisterFormData = {
   firstName: string;
@@ -221,7 +222,13 @@ export const RegistrationPage = () => {
                 type={ButtonType.submit}
                 width="238"
               />
-              <Button text="Отмена" model={ButtonModel.Text} type={ButtonType.reset} width="190" />
+              <Button
+                text="Отмена"
+                url={loginUrl}
+                model={ButtonModel.Text}
+                type={ButtonType.reset}
+                width="190"
+              />
             </div>
             <div className="flex-container">
               <CheckboxBtn
