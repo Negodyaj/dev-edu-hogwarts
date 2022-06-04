@@ -43,9 +43,7 @@ export const RegistrationPage = () => {
         .min(new Date('01.01.1900'), 'Введите корректную дату')
         .max(new Date('01.01.2021'), 'Введите корректную дату')
         .required('Введите корректную дату'),
-      phoneNumber: yup
-        .string()
-        .notRequired(),
+      phoneNumber: yup.string().notRequired().matches(/^\d+$/, 'The field should have digits only'),
     });
 
   const method = useForm<RegisterFormData>({ resolver: yupResolver(schema()) });
