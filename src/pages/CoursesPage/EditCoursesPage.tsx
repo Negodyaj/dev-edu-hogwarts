@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import './EditCoursesPage.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { onCourseTopicsUpdate } from '../../actions/editCourses.thunk';
+import { onCourseTopicsUpdate, onCourseTopicsUpdateAll } from '../../actions/editCourses.thunk';
 import { onTopicsLoad } from '../../actions/topics.thunk';
 import { AppState } from '../../store/store';
 import { CoursesPageState } from '../../store/reducers/topics.reducer';
@@ -55,6 +55,7 @@ export const EditCoursesPage = () => {
     });
     setLessonsData(orderedLessonsArray);
     console.log(orderedLessonsArray); //put вот этого массива
+    dispatch(onCourseTopicsUpdateAll(orderedLessonsArray));
 
     setSavedVisible('visible');
     setTimeout(() => setSavedVisible('invisible'), 3000);
@@ -62,8 +63,8 @@ export const EditCoursesPage = () => {
 
   const onSubmit = (data: TopicFormData) => {
     const newLessonsArray = lessonsData.concat(data);
-    setLessonsData(() => [...newLessonsArray]);
-    console.log(newLessonsArray); //put вот этого массива
+    setLessonsData(newLessonsArray);
+    console.log(newLessonsArray);
     dispatch(onCourseTopicsUpdate(data)); //ещё надо будет передавать курс айди
 
     setSavedVisible('visible');

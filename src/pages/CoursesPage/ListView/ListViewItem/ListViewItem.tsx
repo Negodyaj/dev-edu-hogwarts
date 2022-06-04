@@ -10,7 +10,7 @@ export type ListViewItemProps = {
   topic: ListViewLessons;
   index?: number;
   head?: boolean;
-  position?: number | string;
+  position?: number;
   dragSettings?: {
     innerRef: DraggableProvided['innerRef'] | null;
     prop1: DraggableProvidedDraggableProps | null;
@@ -33,7 +33,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
       ref={props.dragSettings?.innerRef}
       {...props.dragSettings?.prop1}
     >
-      <span className={`${!props.head ? 'nums flex-container' : ''} ${headItemStyleName}`}>
+      <div className={`${!props.head ? 'nums flex-container position' : ''} ${headItemStyleName}`}>
         {props.dragSettings?.isDragDisabled && !props.head && (
           <div className="draggable-pointer" {...props.dragSettings?.prop2}>
             <span />
@@ -42,7 +42,7 @@ export const ListViewItem = (props: ListViewItemProps) => {
           </div>
         )}
         <span>{props.position}</span>
-      </span>
+      </div>
       <span className={`${props.head ? 'lesson-name-head' : 'lesson-name'} ${headItemStyleName}`}>
         {props.head || !props.dragSettings?.isDragDisabled ? (
           topicName

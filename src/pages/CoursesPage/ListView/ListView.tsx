@@ -18,7 +18,7 @@ export type ListViewProps = {
 
 export type ListViewLessons = {
   id: number;
-  position: number | string;
+  position: number;
   topicName: string;
   hoursCount: number | string;
 };
@@ -35,15 +35,11 @@ export const ListView = (props: ListViewProps) => {
   return (
     <div className="content-container flex-column">
       {linkType()}
-      <ListViewItem
-        head={true}
-        topic={{
-          id: 0,
-          topicName: 'Название',
-          position: 'Тема',
-          hoursCount: 'Часы',
-        }}
-      />
+      <div className="title-head__item title-head">
+        <span>Тема</span>
+        <span>Название</span>
+        <span>Часы</span>
+      </div>
 
       <Droppable droppableId={`drop-${props.groupId}`}>
         {(provided: DroppableProvided) => (

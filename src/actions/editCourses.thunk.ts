@@ -1,22 +1,34 @@
 import { Dispatch } from 'react';
 import { TopicFormData } from '../pages/CoursesPage/EditCoursesPage';
 import { baseWretch } from '../services/base-wretch.service';
-import { postTopic } from '../shared/consts';
-import { addTopic, EditCoursesPageActions } from './editCourses.actions';
-
-//TODO
-//следить за стейтом массива топиков на странице (useSelect)
-//как-то изменять на странице позишны всех топиков при перетаскивании одного на новое место
-//put всего этого по нужному CourseID ну или на ид 1371 пока что
+import { postTopic, updateCourseProgram } from '../shared/consts';
+import { addTopic, EditCoursesPageActions, updateCourseTopicsSuccess } from './editCourses.actions';
 
 export const onCourseTopicsUpdate = (data: TopicFormData) => {
   return async (dispatch: Dispatch<EditCoursesPageActions>) => {
     baseWretch()
-      .url(postTopic)
+      .url(postTopic(1371))
       .post({
         name: data.topicName,
         duration: data.hoursCount,
+        position: data.position,
       })
-      .res((res) => (res.ok ? dispatch(addTopic(data)) : console.log('error')));
+      .res((res) => (res.ok ? dispatch(addTopic(data)) : console.log('error'))); //add notif
+  };
+};
+
+export const onCourseTopicsUpdateAll = (data: TopicFormData[]) => {
+  return async (dispatch: Dispatch<EditCoursesPageActions>) => {
+    baseWretch()
+      .url(updateCourseProgram(1371))
+      .put(
+        data.map((topic) => {
+          return {
+            position: topic.position,
+            topicId: topic.id,
+          };
+        })
+      )
+      .res((res) => (res.ok ? dispatch(updateCourseTopicsSuccess(data)) : console.log('error'))); //add notif
   };
 };

@@ -9,7 +9,7 @@ export const updateCourseTopicsStarted = () => ({
   type: UPDATE_TOPICS_STARTED,
 });
 
-export const updateCourseTopicsSuccess = (data: TopicFormData) => ({
+export const updateCourseTopicsSuccess = (data: TopicFormData[]) => ({
   type: UPDATE_TOPICS_SUCCESS,
   payload: data,
 }); //update all program

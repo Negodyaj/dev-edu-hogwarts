@@ -26,6 +26,10 @@
   border-top: 1px solid $medium-gray;
   text-align: center;
   line-height: 79px;
+  display: grid;
+  grid-template-columns: 102px 1fr 136px;
+  font-weight: 400;
+  font-size: 18px;
 
   &.lesson-name-head {
     padding-left: 81px;
@@ -89,6 +93,14 @@
 
     .list-view-input {
       text-align: center;
+    }
+  }
+
+  .position{
+    width: 100%;
+    align-items: center;
+    span{
+      margin-left: 47px;
     }
   }
 
