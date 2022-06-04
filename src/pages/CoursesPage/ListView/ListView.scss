@@ -6,12 +6,17 @@
     margin-top: -20px;
     margin-bottom: 20px;
   }
-    .link-with-text-decoration {
-      align-self: flex-end;
-    }
+  .link-with-text-decoration {
+    align-self: flex-end;
+  }
 
-  &.link-arrow {
+  & .link-arrow {
     place-self: baseline;
+    color: $link-color;
+
+    & path {
+      fill: $link-color;
+    }
   }
 }
 
@@ -49,13 +54,13 @@
 
   &.dragging {
     position: relative;
-    
+
     & .list-view-input {
       background: $light-gray;
     }
-    
+
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: -29px;
       right: 0;
@@ -63,22 +68,7 @@
       height: 100%;
       background: $light-gray;
       box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.15);
-      border-radius: 15px;      
-    }
-  }
-
-  .list-view-input {
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    border: 0;
-    padding: 0;
-    height: fit-content;
-    width: 100%;
-    margin: 0;
-
-    &:focus {
-      outline: 0;
+      border-radius: 15px;
     }
   }
 
@@ -112,5 +102,20 @@
       height: 2px;
       margin: 3px 0 0 0;
     }
+  }
+}
+
+.list-view-input {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  border: 0;
+  padding: 0;
+  height: fit-content;
+  width: 100%;
+  margin: 0;
+
+  &:focus {
+    outline: 0;
   }
 }

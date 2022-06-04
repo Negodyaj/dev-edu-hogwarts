@@ -4,11 +4,14 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../../../store/store';
 import { HomeworkProps, HomeworkStatus } from '../../../models/HomeworkCardData';
 import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
+import { LoginPageState } from '../../../store/reducers/login.reducer';
+import { UserRole } from '../../../shared/enums/UserRole';
 
 export const HomeworkCard = (props: HomeworkProps) => {
   const { homework, studentHomeworkProgress } = useSelector(
     (state: AppState) => state.homeworkPageState
   );
+  const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const homeworkId = props.data?.id ?? homework?.id;
 
   return (
@@ -34,13 +37,15 @@ export const HomeworkCard = (props: HomeworkProps) => {
           <LinkArrow text="к заданию" to={`homeworks/${homeworkId}`} />
         )}
       </div>
-      <span className="task-status">
-        {
-          HomeworkStatus[
-            props.data?.status ?? studentHomeworkProgress?.status ?? StudentHomeworkStatus.Undone
-          ]
-        }
-      </span>
+      {currentRole === UserRole.Student && props.children && (
+        <span className="task-status">
+          {
+            HomeworkStatus[
+              props.data?.status ?? studentHomeworkProgress?.status ?? StudentHomeworkStatus.Undone
+            ]
+          }
+        </span>
+      )}
     </div>
   );
 };

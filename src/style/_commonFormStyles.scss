@@ -42,6 +42,17 @@
   &:first-child {
     margin-top: 50px;
   }
+
+  &.with-dropdown { 
+    align-items: center;
+    margin-bottom: 10px;
+
+    .drop-down-filter svg {
+      border: 1px solid $medium-gray;
+      border-radius: 5px;
+      background-color: $white;
+    }
+  }
 }
 
 h2 {
@@ -71,4 +82,14 @@ h2 {
   letter-spacing: 5px;
   padding-bottom: 0;
   padding-top: 0;
+}
+
+.invalid-input {
+  outline: 1px solid rgba(255, 41, 0, 0.78);
+}
+
+.invalid-feedback {
+  margin-top: 10px;
+  color: #F45B69;
+  font-size: 15px;
 }

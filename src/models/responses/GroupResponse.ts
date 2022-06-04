@@ -1,12 +1,14 @@
-import { CourseResponse } from './CourseResponse';
+import { CourseSimpleResponse } from './CourseSimpleResponse';
+import { GroupStatus } from '../../shared/enums/GroupStatus';
 
 export interface GroupResponse {
   id: number;
   name: string;
-  course: CourseResponse;
-  groupStatus: string;
+  course: CourseSimpleResponse;
+  groupStatus: GroupStatus;
   startDate: string;
   endDate: string;
   timetable: string;
   paymentPerMonth: number;
+  paymentsCount: number;
 }

@@ -8,7 +8,9 @@ export type FilterListProps = {
   cssClass?: string;
   selected?: number;
   callback?: (item: any) => void;
+  arrowHidden?: boolean;
   cssAlign?: Align;
+  placeholder?: string;
 };
 
 export enum Align {
@@ -41,16 +43,23 @@ export const FilterList = (props: FilterListProps) => {
   };
 
   return (
-    <div className="drop-down-filter__wrapper" ref={clickOutside}>
+    <div className="drop-down-filter__wrapper flex-container" ref={clickOutside}>
       <div
-        className={`drop-down-filter ${props.cssClass ?? ''} ${props.cssAlign ?? ''}`}
+        className={`drop-down-filter flex-container ${props.cssClass ?? ''} ${
+          props.cssAlign ?? ''
+        }`}
         onKeyPress={() => toggle()}
         onClick={() => toggle()}
         data-lesson-id={item?.id}
       >
-        {item?.name}
-
-        <SvgArrow direction={isOpen ? 'top' : 'bottom'} />
+        {item?.name ? (
+          <span>{item?.name}</span>
+        ) : props.placeholder ? (
+          <span className="placeholder">{props.placeholder}</span>
+        ) : (
+          ''
+        )}
+        {!props.arrowHidden && <SvgArrow direction={isOpen ? 'top' : 'bottom'} />}
       </div>
 
       {isOpen && (

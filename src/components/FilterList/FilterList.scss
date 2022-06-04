@@ -4,16 +4,10 @@ $translate-arrow: transform 0.25s ease;
 $zero-style: 0;
 $font-size: 18px;
 
-@mixin flex-end {
-  display: flex;
-}
-
 .drop-down-filter__wrapper {
-  @include flex-end;
   font-size: $font-size;
   width: fit-content;
   position: relative;
-
 
   & button {
     padding: $zero-style;
@@ -24,12 +18,12 @@ $font-size: 18px;
 }
 
 .drop-down-filter {
-  @include flex-end;
   min-width: 148px;
   width: 100%;
   font-weight: 600;
   cursor: pointer;
   justify-content: flex-end;
+  align-items: center;
 
   &.center {
     justify-content: center;
@@ -84,6 +78,10 @@ $font-size: 18px;
   }
 }
 
+.placeholder {
+  font-weight: 400;
+}
+
 .drop-down-filter__list-wrapper {
   top: 28px;
   right: 6px;
@@ -95,7 +93,7 @@ $font-size: 18px;
   min-width: 140px;
   box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
-  z-index: 2;
+  z-index: 6;
 
   &.center {
     text-align: center;
