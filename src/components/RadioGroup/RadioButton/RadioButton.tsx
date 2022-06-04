@@ -1,5 +1,6 @@
 import './RadioButton.scss';
 import { useFormContext } from 'react-hook-form';
+import { InvisibleInput } from '../../styled/InvisibleInput';
 
 export type RadioProps = {
   data: RadioData;
@@ -22,7 +23,7 @@ export const RadioButton = (props: RadioProps) => {
 
   return (
     <label className="radio-button">
-      <input
+      <InvisibleInput
         type="radio"
         value={props.data.value}
         onClick={() => onRadioClick(props.data.value)}

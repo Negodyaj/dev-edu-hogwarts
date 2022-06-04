@@ -10,7 +10,7 @@ import {
   LOAD_DRAFT_HOMEWORKS_SUCCESS,
 } from '../../actions/homeworks.actions';
 import { TabData } from '../../models/TabData';
-import { Icon } from '../../shared/enums/Icon';
+import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
 import { Homework, Task } from '../../models/responses/HomeworksResponse';
 
 export interface HomeWorkPageState {
@@ -47,7 +47,7 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageActio
         const tabData: TabData = {
           id: group.id,
           text: group.course.name,
-          icon: Icon.Cookie,
+          icon: CourseIcon[group.course.id],
         };
         return tabData;
       });

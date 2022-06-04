@@ -29,7 +29,12 @@ export const HomeworksPage = () => {
   return (
     <>
       <div>
-        <TabContainer tabContainerData={tabs} selectedTab={selectedTab} onClick={selectTab} />
+        <TabContainer
+          tabContainerData={tabs}
+          selectedTab={selectedTab}
+          onClick={selectTab}
+          course={true}
+        />
         {homeworks && homeworks.length > 0 ? (
           homeworks.map((hw) => <HomeworkCard data={hw} key={hw.id} />)
         ) : (

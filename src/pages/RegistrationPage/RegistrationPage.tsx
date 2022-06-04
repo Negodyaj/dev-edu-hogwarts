@@ -3,12 +3,14 @@ import { Controller, useForm, FormProvider } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { CheckboxBtn } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { RegistrationPageState } from '../../store/reducers/registration.reducer';
 import { onRegistration } from '../../actions/registration.thunk';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { loginUrl } from '../../shared/consts';
 
 export type RegisterFormData = {
   firstName: string;
@@ -24,6 +26,8 @@ export type RegisterFormData = {
 };
 
 export const RegistrationPage = () => {
+  const [check, setCheck] = useState(false);
+
   const schema = () =>
     yup.object().shape({
       password: yup
@@ -218,19 +222,25 @@ export const RegistrationPage = () => {
                 type={ButtonType.submit}
                 width="238"
               />
-              <Button text="Отмена" model={ButtonModel.Text} type={ButtonType.reset} width="190" />
+              <Button
+                text="Отмена"
+                url={loginUrl}
+                model={ButtonModel.Text}
+                type={ButtonType.reset}
+                width="190"
+              />
             </div>
             <div className="flex-container">
               <CheckboxBtn
                 data={{
                   value: 0,
                   text: '',
-                  isChecked: false,
+                  isChecked: check,
                 }}
+                onClick={() => setCheck(!check)}
                 name="policy"
                 isSingle={true}
               />
-              {/*пока не получилось поправить чекбокс*/}
               <label htmlFor="policy" id="policy-label">
                 Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями{' '}
                 <a href={'#'} className="link-policy" aria-label="policy">

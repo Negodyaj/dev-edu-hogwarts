@@ -18,8 +18,8 @@ export type ListViewProps = {
 
 export type ListViewLessons = {
   id: number;
-  lessonNumber: number | string;
-  lessonName: string;
+  position: number | string;
+  topicName: string;
   hoursCount: number | string;
 };
 
@@ -39,8 +39,8 @@ export const ListView = (props: ListViewProps) => {
         head={true}
         lesson={{
           id: 0,
-          lessonName: 'Название',
-          lessonNumber: 'Тема',
+          topicName: 'Название',
+          position: 'Тема',
           hoursCount: 'Часы',
         }}
       />
@@ -50,7 +50,7 @@ export const ListView = (props: ListViewProps) => {
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {props.data.map((item, index) => (
               <Draggable
-                draggableId={item.lessonName}
+                draggableId={item.topicName}
                 index={index}
                 key={item.id}
                 isDragDisabled={!props.edit}

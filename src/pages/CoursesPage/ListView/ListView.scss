@@ -6,12 +6,17 @@
     margin-top: -20px;
     margin-bottom: 20px;
   }
-    .link-with-text-decoration {
-      align-self: flex-end;
-    }
+  .link-with-text-decoration {
+    align-self: flex-end;
+  }
 
-  &.link-arrow {
+  & .link-arrow {
     place-self: baseline;
+    color: $link-color;
+
+    & path {
+      fill: $link-color;
+    }
   }
 }
 
@@ -55,7 +60,7 @@
     }
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       left: -29px;
       right: 0;

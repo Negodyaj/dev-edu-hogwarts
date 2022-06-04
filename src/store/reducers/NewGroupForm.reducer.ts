@@ -1,43 +1,33 @@
 import { Reducer } from 'redux';
 import {
   GET_DATA_FROM_FORM,
-  GET_ID_FOR_GROUP,
+  GET_TEACHERS_FOR_GROUP,
+  GET_TUTORS_FOR_GROUP,
   LOAD_COURSES_SUCCESS,
   LOAD_FAIL,
+  LOAD_GROUP_FOR_CHANGE,
   LOAD_STARTED,
   LOAD_USERS_SUCCESS,
   NewGroupFormAction,
+  RESET_NEW_GROUP_PAGE,
 } from '../../actions/NewGroupForm.actions';
 import { CourseSimpleResponse } from '../../models/responses/CourseSimpleResponse';
 import { UserSimpleResponseWithRoles } from '../../models/responses/UserResponse';
+import { GroupResponseWithUsers } from '../../models/responses/GroupResponseWithUsers';
 
 export interface NewGroupFormState {
-  id: number;
-  name: string;
-  teacherIds: number[];
-  tutorIds: number[];
-  groupStatusId: string;
-  startDate: string;
-  endDate: string;
-  timetable: string;
-  paymentPerMonth: number;
-  courseId: number;
+  group: GroupResponseWithUsers | undefined;
+  teacherIdsForGroup: number[];
+  tutorIdsForGroup: number[];
   users: UserSimpleResponseWithRoles[];
   courses: CourseSimpleResponse[];
   isLoading: boolean;
   errorMessage: string;
 }
 const initialState: NewGroupFormState = {
-  id: 0,
-  name: '',
-  teacherIds: [],
-  tutorIds: [],
-  groupStatusId: '',
-  startDate: '',
-  endDate: '',
-  timetable: '',
-  paymentPerMonth: 0,
-  courseId: 0,
+  group: undefined,
+  teacherIdsForGroup: [],
+  tutorIdsForGroup: [],
   users: [],
   courses: [],
   isLoading: false,
@@ -78,21 +68,36 @@ export const NewGroupFormReducer: Reducer<NewGroupFormState, NewGroupFormAction>
     case GET_DATA_FROM_FORM: {
       return {
         ...state,
-        name: action.payload.name,
-        teacherIds: action.payload.teacherIds,
-        tutorIds: action.payload.tutorIds,
-        groupStatusId: action.payload.groupStatusId,
-        startDate: action.payload.startDate,
-        endDate: action.payload.endDate,
-        timetable: action.payload.timetable,
-        paymentPerMonth: action.payload.paymentPerMonth,
-        courseId: action.payload.courseId,
+        group: action.payload,
       };
     }
-    case GET_ID_FOR_GROUP: {
+    case LOAD_GROUP_FOR_CHANGE: {
       return {
         ...state,
-        id: action.payload,
+        group: action.payload,
+        isLoading: false,
+      };
+    }
+    case GET_TEACHERS_FOR_GROUP: {
+      return {
+        ...state,
+        teacherIdsForGroup: action.payload,
+      };
+    }
+    case GET_TUTORS_FOR_GROUP: {
+      return {
+        ...state,
+        tutorIdsForGroup: action.payload,
+      };
+    }
+    case RESET_NEW_GROUP_PAGE: {
+      return {
+        ...state,
+        group: undefined,
+        teacherIdsForGroup: [],
+        tutorIdsForGroup: [],
+        isLoading: false,
+        errorMessage: '',
       };
     }
     default:

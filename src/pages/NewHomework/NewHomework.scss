@@ -107,3 +107,21 @@
     }
   }
 }
+
+.form-input_link__button {
+  place-self: baseline;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: $lavender-color;
+  border-radius: 50%;
+  margin-left: 20px;
+  width: 45px;
+  height: 45px;
+
+  &:hover {
+    background-color: $lavender-button-hover;
+  }
+
+}

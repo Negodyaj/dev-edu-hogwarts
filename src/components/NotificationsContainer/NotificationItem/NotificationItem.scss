@@ -1,0 +1,24 @@
+@import "src/style/colors";
+
+.notification-window{
+  width: 452px;
+  height: 138px;
+  border: 1px solid $lavender-color;
+  border-radius: 15px;
+  padding: 30px 50px;
+  background-color: $white;
+  text-align: center;
+  &:hover{
+    cursor: pointer;
+  }
+  
+  &.invisible{
+    display: none;
+  }
+}
+.notification-text{
+  margin: 0;
+  padding-top: 10px;
+}
+
+
