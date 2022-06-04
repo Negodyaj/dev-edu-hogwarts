@@ -4,6 +4,7 @@ export type CheckboxGroupProps = {
   checkboxArr: CheckboxData[];
   name: string;
   defaultValue?: number[];
+  required?: boolean;
 };
 
 export const CheckboxGroup = (props: CheckboxGroupProps) => {

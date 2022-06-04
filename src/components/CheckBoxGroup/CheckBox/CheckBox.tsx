@@ -8,6 +8,7 @@ export type CheckboxProps = {
   isSingle: boolean;
   onClick?: () => void;
   defaultValue?: number[];
+  required?: boolean;
 };
 
 export type CheckboxData = {
@@ -21,18 +22,31 @@ export const CheckboxBtn = (props: CheckboxProps) => {
 
   return (
     <label className="custom-checkbox">
-      <InvisibleInput
-        type="checkbox"
-        value={props.data.value}
-        checked={
-          (props.isSingle ? props.data.isChecked : watch(props.name) == props.data.value) ||
-          (!props.isSingle && watch(props.name)?.find((x: number) => x === props.data.value))
-        }
-        {...register(props.name, {
-          required: true,
-        })}
-        onChange={props.onClick}
-      />
+      {props.required ? (
+        <InvisibleInput
+          type="checkbox"
+          value={props.data.value}
+          checked={
+            (props.isSingle ? props.data.isChecked : watch(props.name) == props.data.value) ||
+            (!props.isSingle && watch(props.name)?.find((x: number) => x === props.data.value))
+          }
+          {...register(props.name)}
+          onChange={props.onClick}
+        />
+      ) : (
+        <InvisibleInput
+          type="checkbox"
+          value={props.data.value}
+          checked={
+            (props.isSingle ? props.data.isChecked : watch(props.name) == props.data.value) ||
+            (!props.isSingle && watch(props.name)?.find((x: number) => x === props.data.value))
+          }
+          {...register(props.name, {
+            required: true,
+          })}
+          onChange={props.onClick}
+        />
+      )}
       <span className="custom-checkbox-text">{props.data.text}</span>
     </label>
   );

@@ -5,7 +5,13 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { baseWretch } from '../../services/base-wretch.service';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
-import { addUserInGroup, deleteUserFromGroup, groupByIdUrl, groupUrl } from '../../shared/consts';
+import {
+  addUserInGroup,
+  changeGroupStatus,
+  deleteUserFromGroup,
+  groupByIdUrl,
+  groupUrl,
+} from '../../shared/consts';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 import { useDispatch, useSelector } from 'react-redux';
@@ -173,44 +179,107 @@ export const NewGroupPage = () => {
     baseWretch().url(groupByIdUrl(groupId)).delete();
   };
 
+  async function updateGroup(idGroup: number, data: GroupFormData) {
+    const updateGroupData = await baseWretch().url(groupByIdUrl(idGroup)).put(data);
+    console.log(updateGroupData);
+    const role = 'Teacher';
+    if (group?.teachers.length !== 0 && teacherIdsForGroup !== data.teacherIds) {
+      await group?.teachers.map((teacher) => {
+        baseWretch()
+          .url(deleteUserFromGroup(idGroup, +teacher.id))
+          .delete();
+      });
+      dispatch(getTeachersForGroup(data.teacherIds));
+      await teacherIdsForGroup.map((teacher) => {
+        baseWretch().url(addUserInGroup(idGroup, teacher, role)).post();
+      });
+    }
+    if (!group?.teachers.length) {
+      dispatch(getTeachersForGroup(data.teacherIds));
+      await teacherIdsForGroup.map((teacher) => {
+        baseWretch().url(addUserInGroup(idGroup, teacher, role)).post();
+      });
+    }
+    const roleForTutor = 'Tutor';
+    if (group?.tutors.length !== 0 && tutorIdsForGroup !== data.tutorIds) {
+      await group?.tutors.map((tutor) => {
+        baseWretch()
+          .url(deleteUserFromGroup(idGroup, +tutor.id))
+          .delete();
+      });
+      dispatch(getTutorsForGroup(data.tutorIds));
+      await tutorIdsForGroup.map((tutor) => {
+        baseWretch().url(addUserInGroup(idGroup, tutor, roleForTutor)).post();
+      });
+    }
+    if (!group?.tutors.length) {
+      dispatch(getTutorsForGroup(data.tutorIds));
+      await tutorIdsForGroup.map((tutor) => {
+        baseWretch().url(addUserInGroup(idGroup, tutor, role)).post();
+      });
+    }
+  }
+
+  const updateGroupStatus = (groupId: number, statusId: number) => {
+    if (group?.groupStatus !== statusId) {
+      const status: string = groupStatusEnumReverse(statusId);
+      baseWretch().url(changeGroupStatus(groupId, status)).patch();
+    }
+  };
+
   const onSubmit = (data: GroupFormData) => {
     if (typeof data.teacherIds === 'string') data.teacherIds = [+data.teacherIds];
     data.startDate = convertDate(data.startDate);
     data.endDate = convertDate(data.endDate);
-    dispatch(getTeachersForGroup(data.teacherIds));
-    dispatch(getTutorsForGroup(data.tutorIds));
     if (id) {
-      baseWretch()
-        .url(groupByIdUrl(+id))
-        .put(data);
-      const role = 'Teacher';
-      if (group?.teachers.length !== 0 && teacherIdsForGroup !== data.teacherIds) {
-        group?.teachers.map((teacher) => {
-          baseWretch()
-            .url(deleteUserFromGroup(+id, +teacher.id))
-            .delete();
-        });
-        dispatch(getTeachersForGroup(data.teacherIds));
-        teacherIdsForGroup.map((teacher) => {
-          baseWretch()
-            .url(addUserInGroup(+id, teacher, role))
-            .post();
-        });
-      }
-      const roleForTutor = 'Tutor';
-      if (group?.tutors.length !== 0 && tutorIdsForGroup !== data.tutorIds) {
-        group?.tutors.map((tutor) => {
-          baseWretch()
-            .url(deleteUserFromGroup(+id, +tutor.id))
-            .delete();
-        });
-        dispatch(getTutorsForGroup(data.tutorIds));
-        tutorIdsForGroup.map((tutor) => {
-          baseWretch()
-            .url(addUserInGroup(+id, tutor, roleForTutor))
-            .post();
-        });
-      }
+      updateGroup(+id, data);
+      // baseWretch()
+      //   .url(groupByIdUrl(+id))
+      //   .put(data);
+      // const role = 'Teacher';
+      // if (group?.teachers.length !== 0 && teacherIdsForGroup !== data.teacherIds) {
+      //   group?.teachers.map((teacher) => {
+      //     baseWretch()
+      //       .url(deleteUserFromGroup(+id, +teacher.id))
+      //       .delete();
+      //   });
+      //   dispatch(getTeachersForGroup(data.teacherIds));
+      //   teacherIdsForGroup.map((teacher) => {
+      //     baseWretch()
+      //       .url(addUserInGroup(+id, teacher, role))
+      //       .post();
+      //   });
+      // }
+      // if (!group?.teachers.length && teacherIdsForGroup !== data.teacherIds) {
+      //   dispatch(getTeachersForGroup(data.teacherIds));
+      //   teacherIdsForGroup.map((teacher) => {
+      //     baseWretch()
+      //       .url(addUserInGroup(+id, teacher, role))
+      //       .post();
+      //   });
+      // }
+      // const roleForTutor = 'Tutor';
+      // if (group?.tutors.length !== 0 && tutorIdsForGroup !== data.tutorIds) {
+      //   group?.tutors.map((tutor) => {
+      //     baseWretch()
+      //       .url(deleteUserFromGroup(+id, +tutor.id))
+      //       .delete();
+      //   });
+      //   dispatch(getTutorsForGroup(data.tutorIds));
+      //   tutorIdsForGroup.map((tutor) => {
+      //     baseWretch()
+      //       .url(addUserInGroup(+id, tutor, roleForTutor))
+      //       .post();
+      //   });
+      // }
+      // if (!group?.tutors.length && tutorIdsForGroup !== data.tutorIds) {
+      //   dispatch(getTutorsForGroup(data.tutorIds));
+      //   tutorIdsForGroup.map((tutor) => {
+      //     baseWretch()
+      //       .url(addUserInGroup(+id, tutor, role))
+      //       .post();
+      //   });
+      // }
     } else {
       getDataAndGetIdOfNewGroup(data);
       reset();
@@ -227,18 +296,32 @@ export const NewGroupPage = () => {
             <div className="form-grid-container">
               <div className="form-element with-dropdown choose-course">
                 Курс:
-                <FilterList
-                  data={courses.map((course) => {
-                    const newCourse: FilterItem = {
-                      id: course.id,
-                      name: course.name,
-                    };
-                    return newCourse;
-                  })}
-                  placeholder="Выберите курс"
-                  selected={group?.course.id}
-                  callback={(item) => setValue('courseId', item.id)}
-                />
+                {id ? (
+                  <FilterList
+                    data={courses.map((course) => {
+                      const newCourse: FilterItem = {
+                        id: course.id,
+                        name: course.name,
+                      };
+                      return newCourse;
+                    })}
+                    selected={group?.course.id}
+                    callback={(item) => setValue('courseId', item.id)}
+                  />
+                ) : (
+                  <FilterList
+                    data={courses.map((course) => {
+                      const newCourse: FilterItem = {
+                        id: course.id,
+                        name: course.name,
+                      };
+                      return newCourse;
+                    })}
+                    placeholder="Выберите курс"
+                    selected={group?.course.id}
+                    callback={(item) => setValue('courseId', item.id)}
+                  />
+                )}
                 {errors.courseId && <span>Вы не выбрали курс</span>}
               </div>
               {id && (
@@ -252,7 +335,7 @@ export const NewGroupPage = () => {
                       };
                       return newStatus;
                     })}
-                    callback={(item) => setValue('groupStatusId', item.id)}
+                    callback={(item) => updateGroupStatus(+id, item.id)}
                     selected={group?.groupStatus}
                   />
                 </div>
@@ -330,23 +413,23 @@ export const NewGroupPage = () => {
               <h3>Преподаватель:</h3>
               <div className="list">
                 <CheckboxGroup
+                  required={true}
                   checkboxArr={teachersForCheckbox}
                   defaultValue={teacherIdsForGroup}
                   name="teacherIds"
                 />
               </div>
-              {errors.teacherIds && <span>Вы не выбрали преподавателя</span>}
             </div>
             <div className="tutors-list">
               <h3>Тьютор:</h3>
               <div className="list">
                 <CheckboxGroup
+                  required={true}
                   checkboxArr={tutorsForCheckbox}
                   defaultValue={tutorIdsForGroup}
                   name="tutorIds"
                 />
               </div>
-              {errors.tutorIds && <span>Вы не выбрали тьютора</span>}
             </div>
             <div className="buttons-group">
               <Button

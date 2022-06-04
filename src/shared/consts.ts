@@ -43,3 +43,5 @@ export const addUserInGroup = (groupId: number, userId: number, userRole: string
   `${groupUrl}/${groupId}/user/${userId}/role/${userRole}`;
 export const deleteUserFromGroup = (groupId: number, userId: number) =>
   `${groupUrl}/${groupId}/user/${userId}`;
+export const changeGroupStatus = (groupId: number, status: string) =>
+  `${groupUrl}/${groupId}/status/${status}`;
