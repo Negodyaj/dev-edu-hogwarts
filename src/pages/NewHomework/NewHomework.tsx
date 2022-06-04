@@ -184,7 +184,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
         <h2 className="homework-form_title">Новое задание</h2>
 
         <div className="form-element flex-container">
-          Номер группы:
+          Выберите группу:
           <div className="radio-group-container flex-container">
             <RadioGroup
               radioData={currentRole === UserRole.Methodist ? course : group}
@@ -198,9 +198,11 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
 
         <div className="form-element">
           Номер задания:
-          <span className="homework-form_task">
-            {selectedTaskCount === 0 ? '1' : selectedTaskCount}
-          </span>
+          <input
+            type="number"
+            className="homework-form_task list-view-input"
+            value={selectedTaskCount === 0 ? '1' : selectedTaskCount}
+          />
         </div>
 
         {currentRole === UserRole.Teacher && (
@@ -264,7 +266,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
               onPaste={(event) => {
                 const value = event.clipboardData.getData('Text');
                 dispatch(setValueInInput(value));
-                addLinkInForm(value);
+                event.preventDefault();
               }}
               placeholder="Вставьте ссылку"
             />

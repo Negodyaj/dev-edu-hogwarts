@@ -21,8 +21,9 @@ export const validationSchema = yup.object().shape({
       then: yup.string().test('check-date-edit', 'Выбрана некорректная дата', (date, value) => {
         debugger;
         const dayOf = moment(value.options.context?.start, 'DD.MM.YYYY').subtract(1, 'days');
-        const dayEnd = moment(value.options.context?.end, 'DD.MM.YYYY');
-        return moment(date).isBetween(dayOf, dayEnd);
+        return (
+          moment(date).isSameOrAfter(dayOf, 'day') && moment(date).isSameOrAfter(dayOf, 'month')
+        );
       }),
     }),
   endDate: yup
