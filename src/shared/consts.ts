@@ -27,8 +27,11 @@ export const updateAttendanceForLesson = (
   studentId: number,
   attendanceType: string
 ) => `${lessonsUrl}/${lessonId}/student/${studentId}/attendance/${attendanceType}`;
-export const lessonsByGroupId = (groupId: number) => {
+export const getUrlLessonsByGroupId = (groupId: number) => {
   return `${lessonsUrl}/by-group/${groupId}`;
+};
+export const getUrlUnpublishedLessonsByGroupId = (groupId: number) => {
+  return `${lessonsUrl}/unpublished/by-group/${groupId}`;
 };
 export const getStudentAnswerByTaskId = (taskId: number) => `${taskUrl}/${taskId}/answer`;
 export const updateUserUrl = (id: number) => `${usersUrl}/${id}`;

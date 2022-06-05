@@ -12,7 +12,7 @@ export type LessonProps = {
 };
 
 export type LessonModel = {
-  id: number;
+  serialNumber: number;
   name: string;
   date: string;
   theme: string;
@@ -22,10 +22,10 @@ export type LessonModel = {
 
 export const Lesson = (props: LessonProps) => {
   const lesson = props.data;
-  const isExpanded = props.activeLessonId === lesson.id;
+  const isExpanded = props.activeLessonId === lesson.serialNumber;
 
   const toggleAccordionItem = () => {
-    props.onClick(lesson.id);
+    props.onClick(lesson.serialNumber);
   };
 
   return (

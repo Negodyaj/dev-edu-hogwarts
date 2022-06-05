@@ -8,7 +8,7 @@ import { Period } from '../../shared/enums/Period';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LessonsPageState } from '../../store/reducers/lessons.reducer';
-import { loadLessons } from '../../actions/lessons.thunks';
+import { loadLessons, loadLessonsDraft } from '../../actions/lessons.thunks';
 import { filterLessons, selectTab } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
 
@@ -21,14 +21,21 @@ const lessonsFilterData: FilterItem[] = [
 export const LessonsPage = () => {
   const dispatch = useDispatch();
   const [activeLesson, setActiveLesson] = useState(0);
+  const [isSavedLessonsPage, setIsSavedLessonsPage] = useState(false); //to redux storage
 
   const { lessons, filteredLessons, tabs, selectedTab } = useSelector(
     (state: AppState) => state.lessonsPageState as LessonsPageState
   );
 
   useEffect(() => {
-    if (selectedTab > 0) {
-      dispatch(loadLessons(selectedTab));
+    if (!isSavedLessonsPage) {
+      if (selectedTab > 0) {
+        dispatch(loadLessons(selectedTab));
+      }
+    } else {
+      if (selectedTab > 0) {
+        dispatch(loadLessonsDraft(selectedTab));
+      }
     }
   }, [selectedTab]);
 
@@ -51,9 +58,9 @@ export const LessonsPage = () => {
     dispatch(filterLessons(lessonsToDisplay as LessonResponse[]));
   };
 
-  const newLessons = filteredLessons?.map((item) => {
+  const lessonsToDisplay = filteredLessons?.map((item) => {
     const lessonModel: LessonModel = {
-      id: item.id,
+      serialNumber: item.id,
       name: 'Имя', //заменить методом (пока сортировка по дате) (взять данные, которых нет, с бэка)!
       date: item.date,
       theme: 'Тема', //заменить (взять данные, которых нет, с бэка)!
@@ -72,13 +79,18 @@ export const LessonsPage = () => {
         onClick={selectTab}
         course={true}
       />
+      {/* {homeworks && homeworks.length > 0 ? (
+          homeworks.map((hw) => <HomeworkCard data={hw} key={hw.id} />)
+        ) : (
+          <span className="lack-of-homeworks">Домашних заданий еще нет</span>
+        )} */}
       <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />
       <div className="lessons-container">
-        {newLessons?.map((lesson) => (
+        {lessonsToDisplay?.map((lesson) => (
           <Lesson
             data={lesson}
-            id={lesson.id}
-            key={lesson.id}
+            id={lesson.serialNumber}
+            key={lesson.serialNumber}
             activeLessonId={activeLesson}
             onClick={onElementClick}
           />

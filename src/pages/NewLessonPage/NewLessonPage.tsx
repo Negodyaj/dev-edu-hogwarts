@@ -104,7 +104,6 @@ export const NewLessonPage = () => {
             className={`form-input${errors.linkToRecord ? ' invalid-input' : ''}`}
             type="text"
             placeholder="Ссылка на видео"
-            {...register('linkToRecord', { required: true })}
           />
         </div>
         <div className="form-element">
