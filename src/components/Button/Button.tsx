@@ -70,11 +70,11 @@ export const Button = (props: ButtonProps) => {
     <StyledButton
       buttonProps={props}
       isDark={isDark}
-      className={`btn ${buttonClass} flex-container`}
+      className={`btn ${buttonClass}`}
+      // className={`btn ${buttonClass} flex-container`}
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}
-      style={{ width: `${props.width}px` }}
     >
       {props.text}
       {buttonImg}
