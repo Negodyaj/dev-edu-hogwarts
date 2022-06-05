@@ -98,7 +98,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
   const { links, inputLinkValue, group, selectGroupId, errorMessage, inProcess } = useSelector(
     (state: AppState) => state.newHomeworkFormState
   );
-  const { prevPageURL } = useSelector(
+  const { prevPageURL, task } = useSelector(
     (state: AppState) => state.homeworkPageState as HomeworkPageState
   );
   const { homeworks, tasks } = useSelector(
@@ -156,7 +156,9 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
         dispatch(loadHomeworkSuccess(createHomeworkFromData(initialHomework, formData)));
       }
     }
-
+    if (currentRole === UserRole.Methodist) {
+      if (task) dispatch(updateTask(task.id, data));
+    }
     dispatch(updateTask(initialHomework?.task.id ?? initialTask?.id ?? -1, formData));
   };
 
@@ -203,7 +205,11 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
     <FormProvider {...method}>
       <form
         className="form-container homework-form"
-        onSubmit={method.handleSubmit(isEdit ? editExistHandleSubmit : createNewHandleSubmit)}
+        onSubmit={method.handleSubmit(
+          isEdit || prevPageURL.includes('/homeworks')
+            ? editExistHandleSubmit
+            : createNewHandleSubmit
+        )}
       >
         <input
           type={'hidden'}
@@ -215,7 +221,9 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
         </h2>
 
         <div className="form-element flex-container">
-          Номер группы:
+          <div className="title-number-groups">
+            {currentRole === UserRole.Methodist ? 'Номер курса:' : 'Номер группы'}
+          </div>
           <div className="radio-group-container flex-container">
             {currentRole === UserRole.Teacher ? (
               <RadioGroup

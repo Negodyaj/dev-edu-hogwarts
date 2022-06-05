@@ -22,11 +22,13 @@ export const TaskCardContent = () => {
         </p>
       ))}
       {task?.links && <span className="homework-description-title">Полезные ссылки</span>}
-      {task?.links.split(' [link] ').map((link, index) => (
-        <a href={link} className="homework-useful-link" target="_blank" key={index}>
-          {link}
-        </a>
-      ))}
+      {task?.links
+        ? task?.links.split(' [link] ').map((link, index) => (
+            <a href={link} className="homework-useful-link" target="_blank" key={index}>
+              {link}
+            </a>
+          ))
+        : ''}
       {task && (
         <Link to={`..${newHomeworkLink}`} className="link-with-text-decoration" onClick={setPrev}>
           Редактировать
