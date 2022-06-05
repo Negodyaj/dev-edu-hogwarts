@@ -26,6 +26,8 @@
 }
 .readonly-input {
   cursor: auto;
+  background-color: $medium-gray;
+  color:$dark-gray;
   &:focus {
     outline: none;
   }
