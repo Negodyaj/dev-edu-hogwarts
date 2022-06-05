@@ -4,17 +4,11 @@ $translate-arrow: transform 0.25s ease;
 $zero-style: 0;
 $font-size: 18px;
 
-@mixin flex-end {
-  display: flex;
-}
-
 .drop-down-filter__wrapper {
-  @include flex-end;
   font-size: $font-size;
   width: fit-content;
   position: relative;
   display: inline-block;
-
 
   & button {
     padding: $zero-style;
@@ -25,12 +19,12 @@ $font-size: 18px;
 }
 
 .drop-down-filter {
-  @include flex-end;
   min-width: 148px;
   width: 100%;
   font-weight: 600;
   cursor: pointer;
   justify-content: flex-end;
+  align-items: center;
 
   &.center {
     justify-content: center;
@@ -83,6 +77,10 @@ $font-size: 18px;
       fill: $lavender-color;
     }
   }
+}
+
+.placeholder {
+  font-weight: 400;
 }
 
 .drop-down-filter__list-wrapper {

@@ -10,6 +10,7 @@ import { AppState } from '../../store/store';
 import { SettingsPageState } from '../../store/reducers/settings.reducer';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
+import { settingsLink } from '../../components/MainPanel/Navigation/constants';
 
 export type FormPasswordData = {
   oldPassword: string;
@@ -92,7 +93,12 @@ export const SettingsPassword = () => {
                 model={ButtonModel.Colored}
                 width="190"
               />
-              <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text} />
+              <Button
+                text={'Отмена'}
+                url={settingsLink}
+                type={ButtonType.reset}
+                model={ButtonModel.Text}
+              />
             </div>
           </form>
         </div>

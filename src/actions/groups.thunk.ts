@@ -2,7 +2,7 @@ import { Dispatch } from 'react';
 import { GroupResponse } from '../models/responses/GroupResponse';
 import { GroupResponseWithUsers } from '../models/responses/GroupResponseWithUsers';
 import { baseWretch } from '../services/base-wretch.service';
-import { GroupByIdUrl, groupUrl } from '../shared/consts';
+import { groupByIdUrl, groupUrl } from '../shared/consts';
 import {
   GroupsPageAction,
   loadGroupsFail,
@@ -23,7 +23,7 @@ export const loadGroups = () => {
         const groupsList = data as GroupResponse[];
         const id: number = groupsList[0].id;
         baseWretch()
-          .url(GroupByIdUrl(id))
+          .url(groupByIdUrl(id))
           .get()
           .json((dataGroup) => {
             dispatch(selectGroup(dataGroup as GroupResponseWithUsers));
@@ -40,7 +40,7 @@ export const loadGroupById = (groupId: number) => {
     dispatch(loadGroupsStarted());
 
     baseWretch()
-      .url(GroupByIdUrl(groupId))
+      .url(groupByIdUrl(groupId))
       .get()
       .json((GroupInfo) => {
         dispatch(selectGroup(GroupInfo as GroupResponseWithUsers));
