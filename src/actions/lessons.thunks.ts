@@ -19,8 +19,8 @@ export const loadLessons = (groupId: number) => {
         .get()
         .json();
       dispatch(loadLessonsSuccess(lessonsResponse));
-    } catch (e: any) {
-      dispatch(loadLessonsFail(e.message));
+    } catch (error: any) {
+      dispatch(loadLessonsFail(error.message));
     }
   };
 };
@@ -35,8 +35,8 @@ export const loadLessonsDraft = (groupId: number) => {
         .get()
         .json();
       dispatch(loadLessonsSuccess(lessonsResponse));
-    } catch (e: any) {
-      dispatch(loadLessonsFail(e.message));
+    } catch (error: any) {
+      dispatch(loadLessonsFail(error.message));
     }
   };
 };

@@ -10,7 +10,7 @@ export interface UserSimpleResponse {
 }
 
 export interface UserInfoShortOutputModel extends UserSimpleResponse {
-  phoneNumber: string;
+  phoneNumber?: string;
 }
 
 export interface UserResponse extends UserInfoShortOutputModel {

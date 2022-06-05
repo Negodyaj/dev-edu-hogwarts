@@ -78,7 +78,7 @@ export const LessonsPage = () => {
         onClick={selectTab}
         course={true}
       />
-      {/* {homeworks && homeworks.length > 0 ? (
+      {/* {lessonsToDisplay && lessonsToDisplay.length > 0 ? (
           homeworks.map((hw) => <HomeworkCard data={hw} key={hw.id} />)
         ) : (
           <span className="lack-of-homeworks">Домашних заданий еще нет</span>

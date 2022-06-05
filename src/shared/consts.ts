@@ -28,7 +28,7 @@ export const updateAttendanceForLesson = (
   attendanceType: string
 ) => `${lessonsUrl}/${lessonId}/student/${studentId}/attendance/${attendanceType}`;
 export const getUrlLessonsByGroupId = (groupId: number) => {
-  return `${lessonsUrl}/by-group/${groupId}`;
+  return `${lessonsUrl}/by-groupId/${groupId}`;
 };
 export const getUrlUnpublishedLessonsByGroupId = (groupId: number) => {
   return `${lessonsUrl}/unpublished/by-group/${groupId}`;

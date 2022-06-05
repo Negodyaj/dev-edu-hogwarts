@@ -8,7 +8,7 @@ export interface LessonResponse {
   linkToRecord: string;
   number: number;
   teacher: UserInfoShortOutputModel;
-  topics: TopicsResponse[];
+  topics?: TopicsResponse[];
   isDeleted: false;
 }
 
