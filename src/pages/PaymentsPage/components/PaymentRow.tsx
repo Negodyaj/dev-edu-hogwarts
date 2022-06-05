@@ -16,15 +16,6 @@ export type PaymentRowModel = {
 export const PaymentRow = (props: PaymentRowProps) => {
   const paymentRow = props.data;
   return (
-    // <tr>
-    //   <td>
-    //     {paymentRow.userName} {paymentRow.userSurname}
-    //   </td>
-    //   <td>{paymentRow.firstPaymentStatus}</td>
-    //   <td>{paymentRow.secondPaymentStatus}</td>
-    //   <td>{paymentRow.thirdPaymentStatus}</td>
-    //   <td>{paymentRow.fourthPaymentStatus}</td>
-    // </tr>
     <div className="group-table-row-wrapper">
       <div className="payments-page-grid group-table-row">
         <span>

@@ -9,8 +9,8 @@ export type StudentModel = {
   id: number;
   firstName: string;
   lastName: string;
-  groupIds: number[];
-  phone: string | null;
+  groupId: number | undefined;
+  phoneNumber: string | null;
   email: string;
 };
 
@@ -31,11 +31,11 @@ export const StudentRow = (props: StudentProps) => {
           {studentsGroupRow.firstName} {studentsGroupRow.lastName}
         </span>
         <span>{studentsGroupRow.email}</span>
-        <span>{studentsGroupRow.phone}</span>
+        <span>{studentsGroupRow.phoneNumber}</span>
         <FilterList
           data={groupSelectData}
           callback={onSelectGroup}
-          selected={studentsGroupRow.groupIds[0]}
+          selected={studentsGroupRow.groupId}
         />
       </div>
     </div>

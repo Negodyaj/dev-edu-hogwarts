@@ -22,23 +22,34 @@ export type Student = {
   firstName: string;
   lastName: string;
   groupIds: number[];
-  phone: string;
+  phoneNumber: string;
+  email: string;
+};
+
+export type StudentToShow = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  groupId: number | undefined;
+  phoneNumber: string;
   email: string;
 };
 
 export const StudentsListPage = () => {
-  const [students, setStudents] = useState<Student[]>([]);
+  const [students, setStudents] = useState<StudentToShow[]>([]);
   const [filterSurnameValue, setFilterSurnameValue] = useState(1);
   const [filterGroupValue, setFilterGroupValue] = useState(0);
-  const [filtredList, setFiltredList] = useState<Student[]>(students);
+  const [filtredList, setFiltredList] = useState<StudentToShow[]>(students);
 
   async function getData() {
-    const studentsList: Student[] = await baseWretch()
+    const studentsList: StudentToShow[] = await baseWretch()
       .url(studentsUrl)
       .get()
       .json((data) => {
         const respData: Student[] = data as Student[];
-        return respData;
+        return respData.map<StudentToShow>((s) => {
+          return { ...s, groupId: s.groupIds?.length ? s.groupIds[0] : undefined };
+        });
       });
     setStudents(studentsList);
   }
@@ -90,8 +101,8 @@ export const StudentsListPage = () => {
     const filtered = students.filter(
       (s) =>
         filterGroupValue === 0 ||
-        (filterGroupValue > 1 && s.groupIds[0] === filterGroupValue) ||
-        (s.groupIds.length === 0 && filterGroupValue === 1)
+        (filterGroupValue > 1 && s.groupId === filterGroupValue) ||
+        (!s.groupId && filterGroupValue === 1)
     );
     setFiltredList(filtered);
   };
@@ -102,11 +113,11 @@ export const StudentsListPage = () => {
     setFilterGroupValue(item.id);
   };
 
-  const changeGroup = (studentId: number, groupIds: number) => {
+  const changeGroup = (studentId: number, groupId: number) => {
     const studentIndex = students.findIndex((item) => item.id == studentId);
-    if (students[studentIndex].groupIds) {
-      students[studentIndex].groupIds[0] = groupIds;
-      console.log(students[studentIndex].groupIds);
+    if (students[studentIndex].groupId) {
+      students[studentIndex].groupId = groupId;
+      console.log(students[studentIndex].groupId);
     }
     setStudents([...students]);
   };
