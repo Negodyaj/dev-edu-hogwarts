@@ -1,19 +1,36 @@
 @import "src/style/colors"; 
 
-.editing-page {
-  margin-left: 65px;
-  margin-bottom: 20px;
+.new-group-page {
+  padding: 20px 0 0 45px;
 
-  h1 {
-    padding: 90px 0 35px 0;
-    font-size: 22px;
+  .btn-text {
+    margin-left: 58px;
   }
 
-  h2 {
+  h3 {
     font-size: 18px;
     font-weight: 500;
-    padding: 15px 0;
   }
+}
+
+.choose-course {
+  display: grid;
+  grid-template-columns: 71px auto;
+
+  .drop-down-filter svg {
+    border: 1px solid $medium-gray;
+    border-radius: 5px;
+    background-color: $white;
+  }
+}
+
+.choose-count {
+  display: grid;
+  grid-template-columns: 150px auto;
+}
+.choose-status {
+  display: grid;
+  grid-template-columns: 150px auto;
 }
 
 .default-value {
@@ -39,20 +56,7 @@ label {
   grid-template-columns: 305px 305px;
 }
 
-.textarea {
-  resize: none;
-  width: 400px;
-  min-height: 56px;
-  background: $white;
-  border: 1px solid $medium-gray;
-  box-sizing: border-box;
-  border-radius: 5px;
-  outline: none;
-  -moz-appearance: none;
-  font-family: "Raleway";
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 27px;
-  padding: 15px 20px;
-  cursor: text;
+button:last-child {
+  margin-left: auto;
+  margin-right: 45px;
 }

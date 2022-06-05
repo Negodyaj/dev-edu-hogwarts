@@ -3,12 +3,7 @@ import { SvgNotifications } from './SvgFiles/SvgNotifications';
 import { SvgLessons } from './SvgFiles/SvgLessons';
 import { SvgHomeWorks } from './SvgFiles/SvgHomeworks';
 import { SvgSettings } from './SvgFiles/SvgSettings';
-import { SvgBarrel } from './SvgFiles/SvgBarrel';
-import { SvgCake } from './SvgFiles/SvgCake';
-import { SvgCalendar } from './SvgFiles/SvgCalendar';
-import { SvgChevron } from './SvgFiles/SvgChevron';
-import { SvgComputer } from './SvgFiles/SvgComputer';
-import { SvgCookie } from './SvgFiles/SvgCookie';
+import { SvgCalendar } from './SvgFiles/CoursesIcons/SvgCalendar';
 import { SvgArrow } from './SvgFiles/SvgArrow';
 import { SvgPencil } from './SvgFiles/SvgPencil';
 import { SvgExit } from './SvgFiles/SvgExit';
@@ -27,6 +22,9 @@ import { SvgAddNewHomework } from './SvgFiles/SvgAddNewHomework';
 import { SvgCheckHomeworks } from './SvgFiles/SvgCheckHomeworks';
 import { SvgGeneralProgress } from './SvgFiles/SvgGeneralProgress';
 import { SvgButtonFly } from './SvgFiles/SvgButtonFly';
+import { SvgPic } from './SvgFiles/SvgPic';
+import { SvgFail } from './SvgFiles/NotificationSvg/SvgFail';
+import { SvgOk } from './SvgFiles/NotificationSvg/SvgOk';
 
 export type SvgIconProps = {
   icon: Icon;
@@ -34,18 +32,8 @@ export type SvgIconProps = {
 
 export const SvgIcon = (props: SvgIconProps) => {
   switch (props.icon) {
-    case Icon.Barrel:
-      return <SvgBarrel />;
-    case Icon.Cake:
-      return <SvgCake />;
     case Icon.Calendar:
       return <SvgCalendar />;
-    case Icon.Chevron:
-      return <SvgChevron />;
-    case Icon.Computer:
-      return <SvgComputer />;
-    case Icon.Cookie:
-      return <SvgCookie />;
     case Icon.Notifications:
       return <SvgNotifications />;
     case Icon.Lessons:
@@ -90,6 +78,12 @@ export const SvgIcon = (props: SvgIconProps) => {
       return <SvgGeneralProgress />;
     case Icon.ButtonFly:
       return <SvgButtonFly />;
+    case Icon.Pic:
+      return <SvgPic />;
+    case Icon.Fail:
+      return <SvgFail />;
+    case Icon.Ok:
+      return <SvgOk />;
     default:
       return <></>;
   }

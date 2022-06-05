@@ -1,9 +1,22 @@
 .settings-container {
   padding-left: 45px;
-
+  .settings-content {
+    margin-right: 98px;
+  }
+  .last-name-form-element {
+     margin-top: 0;
+}
+.settings-title{
+  margin-bottom: 50px;
+}
   .avatar-text {
-    top: 0;
-    position: initial;
+    display: inline-block;
+    width: 282px;
+    height: 282px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
   }
 
   .btn-text {
@@ -17,11 +30,9 @@
     line-height: 21px;
   }
 
-  .settings-photo {
-    position: relative;
+  .settings-photo-container {
     margin-left: 99px;
     margin-top: 50px;
-    cursor: pointer;
   }
 
   .circle-password {
@@ -40,7 +51,7 @@
     font-weight: 600;
     font-size: 22px;
     line-height: 29px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     margin-top: 50px;
   }
 
@@ -53,9 +64,6 @@
   }
   .ok {
     display: none;
-  }
-  .is-invalid {
-    background-color: red;
   }
 
   .password {

@@ -1,3 +1,5 @@
+@import "src/style/colors";
+
 .nav-link {
   text-decoration: none;
   font-weight: 600;
@@ -24,13 +26,13 @@
 .nav-link:hover {
   background-color: #a786df;
   border-radius: 5px;
-  color: white;
+  color: $white;
 
   path {
-    stroke: white;
+    stroke: $white;
   }
   .with-color-on-hover {
-    fill: white;
+    fill: $white;
   }
 }
 

@@ -6,8 +6,17 @@ import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
 export type FilterListProps = {
   data: FilterItem[];
   cssClass?: string;
+  selected?: number;
   callback?: (item: any) => void;
+  arrowHidden?: boolean;
+  cssAlign?: Align;
+  placeholder?: string;
 };
+
+export enum Align {
+  Center = 'center',
+  Left = 'left',
+}
 
 export type FilterItem = {
   id: number;
@@ -16,8 +25,9 @@ export type FilterItem = {
 
 export const FilterList = (props: FilterListProps) => {
   const filterData = props.data;
+  const selectedItem = props.selected ? filterData.find((x) => x.id === props.selected) : undefined;
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [item, setItem] = useState<FilterItem>(filterData[0]);
+  const [item, setItem] = useState<FilterItem>(selectedItem ?? filterData[0]);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -33,20 +43,27 @@ export const FilterList = (props: FilterListProps) => {
   };
 
   return (
-    <div className="drop-down-filter__wrapper" ref={clickOutside}>
+    <div className="drop-down-filter__wrapper flex-container" ref={clickOutside}>
       <div
-        className={`drop-down-filter ${props.cssClass ?? ''}`}
+        className={`drop-down-filter flex-container ${props.cssClass ?? ''} ${
+          props.cssAlign ?? ''
+        }`}
         onKeyPress={() => toggle()}
         onClick={() => toggle()}
         data-lesson-id={item?.id}
       >
-        {item?.name}
-
-        <SvgArrow direction="bottom" />
+        {item?.name ? (
+          <span>{item?.name}</span>
+        ) : props.placeholder ? (
+          <span className="placeholder">{props.placeholder}</span>
+        ) : (
+          ''
+        )}
+        {!props.arrowHidden && <SvgArrow direction={isOpen ? 'top' : 'bottom'} />}
       </div>
 
       {isOpen && (
-        <div className="drop-down-filter__list-wrapper">
+        <div className={`drop-down-filter__list-wrapper ${props.cssAlign ?? 'right'}`}>
           <ul className={`drop-down-filter__list ${filterData.length > 4 ? 'overflow' : ''}`}>
             {filterData.map((elem) => (
               <li

@@ -1,31 +1,44 @@
 import './NewGroupPage.scss';
 import '../../components/InputTextarea/InputTextarea.scss';
-import { useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useEffect } from 'react';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { baseWretch } from '../../services/base-wretch.service';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
-import { coursesUrl, groupUrl, usersUrl } from '../../shared/consts';
-import { FilterList } from '../../components/FilterList/FilterList';
+import { addUserInGroup, deleteUserFromGroup, groupByIdUrl, groupUrl } from '../../shared/consts';
+import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadCoursesAndUsers, loadGroup } from '../../actions/NewGroupForm.thunks';
+import { AppState } from '../../store/store';
+import { NewGroupFormState } from '../../store/reducers/NewGroupForm.reducer';
+import { UserRole } from '../../shared/enums/UserRole';
+import {
+  getIdForGroup,
+  getTeachersForGroup,
+  getTutorsForGroup,
+  resetNewGroupPage,
+} from '../../actions/NewGroupForm.actions';
+import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
+import { useParams } from 'react-router-dom';
+import Datepicker from '../../components/Datepicker/Datepicker';
+import { GroupResponse } from '../../models/responses/GroupResponse';
+import { convertDate } from '../../shared/helpers/dateHelpers';
+import { GroupStatus } from '../../shared/enums/GroupStatus';
+import { getGroupStatusLocalName } from '../../shared/helpers/translations';
+import { groupStatusEnumReverse } from '../../shared/helpers/groupStatusForEnum';
 
 export type GroupFormData = {
   name: string;
   teacherIds: number[];
   tutorIds: number[];
-  groupStatusId: string;
+  groupStatusId: number;
   startDate: string;
   endDate: string;
   timetable: string;
   paymentPerMonth: number;
   courseId: number;
-};
-
-export type User = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  roles: string[];
+  paymentsCount: number;
 };
 
 export type Course = {
@@ -33,16 +46,40 @@ export type Course = {
   name: string;
 };
 
+export const paymentsCount = [
+  {
+    id: 1,
+    name: '3',
+    value: 3,
+  },
+  {
+    id: 2,
+    name: '4',
+    value: 4,
+  },
+];
 export const NewGroupPage = () => {
+  const { id } = useParams();
+
+  const dispatch = useDispatch();
+  const { group, users, courses, isLoading, teacherIdsForGroup, tutorIdsForGroup } = useSelector(
+    (state: AppState) => state.newGroupFormState as NewGroupFormState
+  );
+  // добавить useEffect, который по id задиспетчит thunk, который получит данные о группе и запишет их в стейт этой страницы
+
   const methods = useForm<GroupFormData>({
+    // инициализировать или этими значениями, или взятыми из стейта (в случае редактирования группы)
     defaultValues: {
-      teacherIds: [],
-      tutorIds: [],
-      // courseId: -1,
-      startDate: '21.03.2000',
-      endDate: '01.01.2010',
-      timetable: 'string',
-      paymentPerMonth: 0,
+      name: group?.name,
+      teacherIds: teacherIdsForGroup,
+      tutorIds: tutorIdsForGroup,
+      courseId: group?.course.id,
+      groupStatusId: group?.groupStatus,
+      startDate: group?.startDate,
+      endDate: group?.endDate,
+      timetable: group?.timetable,
+      paymentPerMonth: group?.paymentPerMonth,
+      paymentsCount: group?.paymentsCount ?? 3,
     },
   });
 
@@ -50,29 +87,22 @@ export const NewGroupPage = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = methods;
 
-  const [users, setUsers] = useState<User[]>([]);
-  const [courses, setCourses] = useState<Course[]>([]);
-
   useEffect(() => {
-    baseWretch()
-      .url(coursesUrl)
-      .get()
-      .json((data) => {
-        baseWretch()
-          .url(usersUrl)
-          .get()
-          .json((usersList) => {
-            setUsers(usersList as User[]);
-            setCourses(data as Course[]);
-          });
-      });
-  }, []);
+    if (id) {
+      dispatch(loadGroup(+id));
+    } else {
+      reset();
+      dispatch(resetNewGroupPage());
+    }
+    dispatch(loadCoursesAndUsers());
+  }, [id]);
 
-  const tutors: CheckboxData[] = users
-    .filter((u) => u.roles.includes('Tutor'))
+  const tutorsForCheckbox: CheckboxData[] = users
+    .filter((u) => u.roles.includes(UserRole.Tutor))
     .map((tutor) => {
       const newTutor: CheckboxData = {
         value: tutor.id,
@@ -82,8 +112,8 @@ export const NewGroupPage = () => {
       return newTutor;
     });
 
-  const teachers: CheckboxData[] = users
-    .filter((u) => u.roles.includes('Teacher'))
+  const teachersForCheckbox: CheckboxData[] = users
+    .filter((u) => u.roles.includes(UserRole.Teacher))
     .map((teacher) => {
       const newTeacher: CheckboxData = {
         value: teacher.id,
@@ -93,56 +123,251 @@ export const NewGroupPage = () => {
       return newTeacher;
     });
 
+  const GroupStatusForFilterList = [
+    {
+      id: GroupStatus.Forming,
+      name: getGroupStatusLocalName(GroupStatus.Forming),
+      value: groupStatusEnumReverse(GroupStatus.Forming),
+    },
+    {
+      id: GroupStatus.ReadyToStudy,
+      name: getGroupStatusLocalName(GroupStatus.ReadyToStudy),
+      value: groupStatusEnumReverse(GroupStatus.ReadyToStudy),
+    },
+    {
+      id: GroupStatus.InProgress,
+      name: getGroupStatusLocalName(GroupStatus.InProgress),
+      value: groupStatusEnumReverse(GroupStatus.InProgress),
+    },
+    {
+      id: GroupStatus.Completed,
+      name: getGroupStatusLocalName(GroupStatus.Completed),
+      value: groupStatusEnumReverse(GroupStatus.Completed),
+    },
+  ];
+
+  async function getDataAndGetIdOfNewGroup(data: GroupFormData) {
+    if (typeof data.teacherIds === 'string') data.teacherIds = [+data.teacherIds];
+    const createdGroup = await baseWretch().url(groupUrl).post(data);
+    console.log(createdGroup);
+    const idLastGroups: number = await baseWretch()
+      .url(groupUrl)
+      .get()
+      .json((dataGroups) => {
+        const idLast: number = (dataGroups as GroupResponse[])[dataGroups.length - 1].id;
+        return idLast;
+      });
+    console.log(idLastGroups);
+    let role = 'Teacher';
+    await data.teacherIds.map((teacher) => {
+      baseWretch().url(addUserInGroup(idLastGroups, teacher, role)).post();
+    });
+    role = 'Tutor';
+    await data.tutorIds.map((tutor) => {
+      baseWretch().url(addUserInGroup(idLastGroups, tutor, role)).post();
+    });
+    dispatch(getIdForGroup(idLastGroups));
+  }
+
+  const deleteGroup = (groupId: number) => {
+    baseWretch().url(groupByIdUrl(groupId)).delete();
+  };
+
   const onSubmit = (data: GroupFormData) => {
     if (typeof data.teacherIds === 'string') data.teacherIds = [+data.teacherIds];
-    baseWretch().url(groupUrl).post(data);
-    console.log(data);
+    data.startDate = convertDate(data.startDate);
+    data.endDate = convertDate(data.endDate);
+    dispatch(getTeachersForGroup(data.teacherIds));
+    dispatch(getTutorsForGroup(data.tutorIds));
+    if (id) {
+      baseWretch()
+        .url(groupByIdUrl(+id))
+        .put(data);
+      const role = 'Teacher';
+      if (group?.teachers.length !== 0 && teacherIdsForGroup !== data.teacherIds) {
+        group?.teachers.map((teacher) => {
+          baseWretch()
+            .url(deleteUserFromGroup(+id, +teacher.id))
+            .delete();
+        });
+        dispatch(getTeachersForGroup(data.teacherIds));
+        teacherIdsForGroup.map((teacher) => {
+          baseWretch()
+            .url(addUserInGroup(+id, teacher, role))
+            .post();
+        });
+      }
+      const roleForTutor = 'Tutor';
+      if (group?.tutors.length !== 0 && tutorIdsForGroup !== data.tutorIds) {
+        group?.tutors.map((tutor) => {
+          baseWretch()
+            .url(deleteUserFromGroup(+id, +tutor.id))
+            .delete();
+        });
+        dispatch(getTutorsForGroup(data.tutorIds));
+        tutorIdsForGroup.map((tutor) => {
+          baseWretch()
+            .url(addUserInGroup(+id, tutor, roleForTutor))
+            .post();
+        });
+      }
+    } else {
+      getDataAndGetIdOfNewGroup(data);
+      reset();
+    }
   };
 
   return (
     <>
-      <div className="editing-page">
-        <h1>Новая группа</h1>
+      {isLoading && <Loader />}
+      <div className="new-group-page">
+        <h2>{id ? `Редактирование группы "${group?.name}"` : 'Новая группа'}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h2>Название</h2>
-            <input
-              className="textarea"
-              placeholder="Введите название"
-              {...register('name', { required: true })}
-            />
-            {errors.name && <span>Вы не указали название</span>}
-            <h2>Курс</h2>
-            <FilterList data={courses} callback={(item) => setValue('courseId', item.id)} />
-            {errors.courseId && <span>Вы не выбрали курс</span>}
+            <div className="form-grid-container">
+              <div className="form-element with-dropdown choose-course">
+                Курс:
+                <FilterList
+                  data={courses.map((course) => {
+                    const newCourse: FilterItem = {
+                      id: course.id,
+                      name: course.name,
+                    };
+                    return newCourse;
+                  })}
+                  placeholder="Выберите курс"
+                  selected={group?.course.id}
+                  callback={(item) => setValue('courseId', item.id)}
+                />
+                {errors.courseId && <span>Вы не выбрали курс</span>}
+              </div>
+              {id && (
+                <div className="form-element with-dropdown choose-status">
+                  Статус группы:
+                  <FilterList
+                    data={GroupStatusForFilterList.map((status) => {
+                      const newStatus = {
+                        id: status.id,
+                        name: getGroupStatusLocalName(status.id),
+                      };
+                      return newStatus;
+                    })}
+                    callback={(item) => setValue('groupStatusId', item.id)}
+                    selected={group?.groupStatus}
+                  />
+                </div>
+              )}
+            </div>
+            <div className="form-grid-container">
+              <div className="form-element">
+                Название
+                <input
+                  defaultValue={group?.name}
+                  className="form-input"
+                  placeholder="Введите название"
+                  {...register('name', { required: true })}
+                />
+                {errors.name && <span>Вы не указали название</span>}
+              </div>
+              <div className="form-element">
+                Расписание занятий
+                <input
+                  className="form-input"
+                  defaultValue={group?.timetable}
+                  placeholder="Введите текст"
+                  {...register('timetable', { required: true })}
+                />
+                {errors.timetable && <span>Вы не составили расписание</span>}
+              </div>
+            </div>
+            <div className="form-element form-grid-container">
+              <div>
+                Дата начала занятий
+                <Controller
+                  name="startDate"
+                  defaultValue={group?.startDate}
+                  control={methods.control}
+                  rules={{ required: true }}
+                  render={({ field }) => <Datepicker field={field} />}
+                />
+              </div>
+              <div>
+                Дата окончания занятий
+                <Controller
+                  name="endDate"
+                  defaultValue={group?.endDate}
+                  control={methods.control}
+                  rules={{ required: true }}
+                  render={({ field }) => <Datepicker field={field} />}
+                />
+              </div>
+            </div>
+            <div className="form-element form-grid-container">
+              <div className="form-element with-dropdown choose-count">
+                Число платежей:
+                <FilterList
+                  data={paymentsCount}
+                  callback={(item) => setValue('paymentsCount', item.value)}
+                  selected={group?.paymentsCount}
+                />
+              </div>
+              <div>
+                Оплата за месяц
+                <input
+                  type="number"
+                  className="form-input"
+                  defaultValue={group?.paymentPerMonth}
+                  placeholder="Введите сумму"
+                  {...register('paymentPerMonth', { required: true, pattern: /^[ 0-9]+$/ })}
+                />
+                {errors.paymentPerMonth?.type === 'required' && <span>Вы не ввели сумму</span>}
+                {errors.paymentPerMonth?.type === 'pattern' && (
+                  <span>Проверьте корректность данных</span>
+                )}
+              </div>
+            </div>
             <div className="teachers-list">
-              <h2>Преподаватель:</h2>
+              <h3>Преподаватель:</h3>
               <div className="list">
-                <CheckboxGroup checkboxArr={teachers} name="teacherIds" />
+                <CheckboxGroup
+                  checkboxArr={teachersForCheckbox}
+                  defaultValue={teacherIdsForGroup}
+                  name="teacherIds"
+                />
               </div>
               {errors.teacherIds && <span>Вы не выбрали преподавателя</span>}
             </div>
             <div className="tutors-list">
-              <h2>Тьютор:</h2>
+              <h3>Тьютор:</h3>
               <div className="list">
-                <CheckboxGroup checkboxArr={tutors} name="tutorIds" />
+                <CheckboxGroup
+                  checkboxArr={tutorsForCheckbox}
+                  defaultValue={tutorIdsForGroup}
+                  name="tutorIds"
+                />
               </div>
               {errors.tutorIds && <span>Вы не выбрали тьютора</span>}
             </div>
-            <div className="default-value">
-              <input {...register('groupStatusId')} />
-              <input {...register('startDate')} />
-              <input {...register('endDate')} />
-              <input {...register('timetable')} />
-              <input {...register('paymentPerMonth')} />
+            <div className="buttons-group">
+              <Button
+                model={ButtonModel.Colored}
+                text="Сохранить"
+                type={ButtonType.submit}
+                width="190"
+              />
+              <Button model={ButtonModel.Text} text="Отмена" type={ButtonType.reset} />
+              {id ? (
+                <Button
+                  model={ButtonModel.Colored}
+                  text="Удалить группу"
+                  type={ButtonType.button}
+                  width="220"
+                  onClick={() => deleteGroup(+id)}
+                />
+              ) : (
+                <></>
+              )}
             </div>
-            <Button
-              model={ButtonModel.Colored}
-              text="Сохранить"
-              type={ButtonType.submit}
-              width="190px"
-            />
-            <Button model={ButtonModel.Text} text="Отмена" type={ButtonType.reset} />
           </form>
         </FormProvider>
       </div>

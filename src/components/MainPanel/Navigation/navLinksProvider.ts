@@ -1,6 +1,23 @@
 import { Icon } from '../../../shared/enums/Icon';
 import { UserRole } from '../../../shared/enums/UserRole';
-import { homeworksLink } from './constants';
+import {
+  allUsersLink,
+  checkHomeworkLink,
+  coursesLink,
+  editCoursesLink,
+  generalProgressLink,
+  groupsLink,
+  homeworksLink,
+  journalLink,
+  lessonsLink,
+  newGroupLink,
+  newHomeworkLink,
+  newLessonLink,
+  notificationsLink,
+  paymentTableLink,
+  settingsLink,
+  studentListLink,
+} from './constants';
 
 export type NavLink = {
   displayName: string;
@@ -101,13 +118,13 @@ const buttons: NavLink[] = [
     isSubbutton: false,
   },
   {
-    icon: Icon.Cake,
+    icon: Icon.Pencil,
     path: '/register',
     displayName: 'Регистрация',
     isSubbutton: false,
   },
   {
-    icon: Icon.Cake,
+    icon: Icon.Settings,
     path: '/settings',
     displayName: 'Настройки',
     isSubbutton: false,
@@ -123,70 +140,68 @@ export const getNavLinksByRole = (role: UserRole) => {
       break;
     case UserRole.Methodist:
       linksByRole = [
-        '/',
-        '/courses',
-        '/edit-courses',
+        notificationsLink,
+        coursesLink,
+        editCoursesLink,
         homeworksLink,
-        '/new-homework',
-        '/journal',
-        '/settings',
+        newHomeworkLink,
+        settingsLink,
       ];
       break;
     case UserRole.Teacher:
       linksByRole = [
-        '/',
-        '/lessons',
-        '/new-lesson',
+        notificationsLink,
+        lessonsLink,
+        newLessonLink,
         homeworksLink,
-        '/new-homework',
-        '/check-homework',
-        '/general-progress',
-        '/journal',
-        '/settings',
+        newHomeworkLink,
+        checkHomeworkLink,
+        generalProgressLink,
+        journalLink,
+        settingsLink,
       ];
       break;
     case UserRole.Tutor:
       linksByRole = [
-        '/',
-        '/lessons',
-        '/new-lesson',
+        notificationsLink,
+        lessonsLink,
+        newLessonLink,
         homeworksLink,
-        '/new-homework',
-        '/check-homework',
-        '/general-progress',
-        '/journal',
-        '/settings',
+        checkHomeworkLink,
+        generalProgressLink,
+        journalLink,
+        settingsLink,
       ];
       break;
     case UserRole.Manager:
       linksByRole = [
-        '/',
-        '/groups',
-        '/new-group',
-        '/students-list',
-        '/payment-table',
-        '/all-users',
-        '/settings',
+        notificationsLink,
+        groupsLink,
+        newGroupLink,
+        studentListLink,
+        paymentTableLink,
+        allUsersLink,
+        settingsLink,
       ];
       break;
     //из макета не ясно, какие ссылки должны быть у админа
     case UserRole.Admin:
       linksByRole = [
-        '/',
-        '/groups',
-        '/new-group',
-        '/students-list',
-        '/payment-table',
-        '/all-users',
-        '/settings',
-        '/lessons',
-        '/new-lesson',
+        notificationsLink,
+        groupsLink,
+        newGroupLink,
+        studentListLink,
+        paymentTableLink,
+        allUsersLink,
+        settingsLink,
+        lessonsLink,
+        newLessonLink,
         homeworksLink,
-        '/new-homework',
-        '/check-homework',
-        '/general-progress',
-        '/journal',
-        '/settings',
+        newHomeworkLink,
+        checkHomeworkLink,
+        generalProgressLink,
+        journalLink,
+        settingsLink,
       ];
       break;
     default:
