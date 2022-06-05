@@ -76,6 +76,7 @@ export const ellipseStyleWithColor = (isDark: boolean, colorModel: ButtonModel) 
       padding: 12px;
       margin: 20px 50px;
       width: 45px;
+      min-width: 45px;
       height: 45px;
       line-height: 12px;
       background-color: ${lavenderColor};
@@ -91,6 +92,7 @@ export const ellipseStyleWithColor = (isDark: boolean, colorModel: ButtonModel) 
       &:hover,
       &:active {
         background: ${lavenderButtonHover};
+        color: ${defaultTheme.whiteColor};
       }
     `;
   }
@@ -101,22 +103,37 @@ export const ellipseStyleWithColor = (isDark: boolean, colorModel: ButtonModel) 
       padding: 12px;
       margin: 20px 50px;
       width: 45px;
+      min-width: 45px;
       height: 45px;
       line-height: 12px;
-      background: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
-      border: 1px solid ${lavenderColor};
-      color: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
-
-      &.unavailable,
-      &:disabled {
-        border: 1px solid ${darkGrayColor};
-        color: ${darkGrayColor};
-        cursor: auto;
+      border: 1px solid ${isDark ? darkTheme.mediumGrayColor : defaultTheme.mediumGrayColor};
+      svg {
+        path {
+          fill: ${lavenderColor};
+        }
       }
-
+      color: ${lavenderColor};
+      /* color: ${isDark ? darkTheme.darkLavender : defaultTheme.darkLavender}; */
       &:hover,
       &:active {
         background-color: ${lavenderColor};
+        color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
+        svg {
+          path {
+            fill: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
+          }
+        }
+      }
+      &.unavailable,
+      &:disabled {
+        border: 1px solid ${isDark ? darkTheme.mediumGrayColor : defaultTheme.mediumGrayColor};
+        color: ${darkGrayColor};
+        cursor: none;
+        svg {
+          path {
+            fill: ${darkGrayColor};
+          }
+        }
       }
     `;
   }

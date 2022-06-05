@@ -1,4 +1,3 @@
-import './Button.scss';
 import { SvgIcon } from '../SvgIcon/SvgIcon';
 import { Icon } from '../../shared/enums/Icon';
 import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
@@ -6,6 +5,7 @@ import { StyledButton } from './styled/StyledButton';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
+import { StyledButtonWithLink } from './styled/StyledButtonWithLink';
 
 export type ButtonProps = {
   text?: string;
@@ -61,11 +61,16 @@ export const Button = (props: ButtonProps) => {
   }
 
   return props.url ? (
-    <a href={props.url} className={`btn ${buttonClass} flex-container`}>
+    <StyledButtonWithLink
+      buttonProps={props}
+      isDark={isDark}
+      href={props.url}
+      className={`btn ${buttonClass} flex-container`}
+    >
       {props.text}
       {buttonImg}
       {props.direction ? <SvgArrow direction={`${props.direction}`} /> : ''}
-    </a>
+    </StyledButtonWithLink>
   ) : (
     <StyledButton
       buttonProps={props}
