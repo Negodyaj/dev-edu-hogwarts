@@ -57,13 +57,16 @@ export const LessonsPage = () => {
     dispatch(filterLessons(lessonsToDisplay as LessonResponse[]));
   };
 
+  useEffect(() => {
+    applyLessonsFilter(lessonsFilterData[0]);
+  }, [lessons]);
+
   const lessonsToDisplay = filteredLessons?.map((item) => {
     const lessonModel: LessonModel = {
-      serialNumber: item.id,
-      name: 'Имя', //заменить методом (пока сортировка по дате) (взять данные, которых нет, с бэка)!
+      serialNumber: item.number,
+      name: `Занятие ${item.number}`,
       date: item.date,
-      theme: 'Тема', //заменить (взять данные, которых нет, с бэка)!
-      //theme: item.name,
+      theme: item.name,
       videoLink: item.linkToRecord,
       additionalInfo: item.additionalMaterials,
     };
@@ -78,23 +81,24 @@ export const LessonsPage = () => {
         onClick={selectTab}
         course={true}
       />
-      {/* {lessonsToDisplay && lessonsToDisplay.length > 0 ? (
-          homeworks.map((hw) => <HomeworkCard data={hw} key={hw.id} />)
-        ) : (
-          <span className="lack-of-homeworks">Домашних заданий еще нет</span>
-        )} */}
-      <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />
-      <div className="lessons-container">
-        {lessonsToDisplay?.map((lesson) => (
-          <Lesson
-            data={lesson}
-            id={lesson.serialNumber}
-            key={lesson.serialNumber}
-            activeLessonId={activeLesson}
-            onClick={onElementClick}
-          />
-        ))}
-      </div>
+      {lessonsToDisplay && lessonsToDisplay.length > 0 ? (
+        <>
+          <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />
+          <div className="lessons-container">
+            {lessonsToDisplay?.map((lesson) => (
+              <Lesson
+                data={lesson}
+                id={lesson.serialNumber}
+                key={lesson.serialNumber}
+                activeLessonId={activeLesson}
+                onClick={onElementClick}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <span className="lack-of-homeworks">Занятий еще нет</span>
+      )}
     </>
   );
 };
