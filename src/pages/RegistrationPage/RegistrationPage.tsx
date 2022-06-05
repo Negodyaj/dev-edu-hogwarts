@@ -64,7 +64,7 @@ export const RegistrationPage = () => {
       phoneNumber: yup
         .string()
         .notRequired()
-        .matches(/^[0-9]+$/, 'Введите номер в формате 8-ххх-ххх-хх-хх'),
+        .matches(/^[0-9-]+$/, 'Введите номер в формате 8-ххх-ххх-хх-хх'),
     });
 
   const method = useForm<RegisterFormData>({ resolver: yupResolver(schema()) });
