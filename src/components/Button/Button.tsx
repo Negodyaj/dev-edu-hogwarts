@@ -76,7 +76,6 @@ export const Button = (props: ButtonProps) => {
       buttonProps={props}
       isDark={isDark}
       className={`btn ${buttonClass}`}
-      // className={`btn ${buttonClass} flex-container`}
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}

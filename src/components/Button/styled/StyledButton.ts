@@ -113,7 +113,6 @@ export const ellipseStyleWithColor = (isDark: boolean, colorModel: ButtonModel) 
         }
       }
       color: ${lavenderColor};
-      /* color: ${isDark ? darkTheme.darkLavender : defaultTheme.darkLavender}; */
       &:hover,
       &:active {
         background-color: ${lavenderColor};
