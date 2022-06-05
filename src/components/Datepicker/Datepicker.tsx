@@ -3,14 +3,15 @@ import Datetime from 'react-datetime';
 import './Datepicker.scss';
 import 'moment/locale/ru';
 import { SvgLessons } from '../SvgIcon/SvgFiles/SvgLessons';
+import { DatePicker } from './sryled/StyledDatepicker';
 
-type DPprops = {
+export type DPprops = {
   field?: any;
 };
 
 const Datepicker = (props: DPprops) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  // const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   return (
     <Datetime
       locale="ru"
@@ -19,7 +20,12 @@ const Datepicker = (props: DPprops) => {
       // eslint-disable-next-line @typescript-eslint/ban-types
       renderInput={(propsInput: string, openCalendar: Function) => {
         return (
-          <div
+          // <div
+          //   className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}
+          //   onFocus={() => setIsOpen(true)}
+          //   onBlur={() => setIsOpen(false)}
+          // >
+          <DatePicker
             className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}
             onFocus={() => setIsOpen(true)}
             onBlur={() => setIsOpen(false)}
@@ -42,7 +48,7 @@ const Datepicker = (props: DPprops) => {
             >
               <SvgLessons />
             </button>
-          </div>
+          </DatePicker>
         );
       }}
       dateFormat="DD.MM.YYYY"

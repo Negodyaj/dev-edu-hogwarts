@@ -11,6 +11,9 @@
     font-size: 18px;
     font-weight: 500;
   }
+  button:last-child {
+    margin-left: auto;
+  }
 }
 
 .choose-course {
@@ -56,7 +59,3 @@ label {
   grid-template-columns: 305px 305px;
 }
 
-button:last-child {
-  margin-left: auto;
-  margin-right: 45px;
-}
