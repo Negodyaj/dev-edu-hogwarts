@@ -21,7 +21,6 @@ const lessonsFilterData: FilterItem[] = [
 export const LessonsPage = () => {
   const dispatch = useDispatch();
   const [activeLesson, setActiveLesson] = useState(0);
-  const [isSavedLessonsPage, setIsSavedLessonsPage] = useState(false); //to redux storage
 
   const { lessons, filteredLessons, tabs, selectedTab, isEditing } = useSelector(
     (state: AppState) => state.lessonsPageState as LessonsPageState
