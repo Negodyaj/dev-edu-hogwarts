@@ -23,12 +23,12 @@ export const LessonsPage = () => {
   const [activeLesson, setActiveLesson] = useState(0);
   const [isSavedLessonsPage, setIsSavedLessonsPage] = useState(false); //to redux storage
 
-  const { lessons, filteredLessons, tabs, selectedTab } = useSelector(
+  const { lessons, filteredLessons, tabs, selectedTab, isEditing } = useSelector(
     (state: AppState) => state.lessonsPageState as LessonsPageState
   );
 
   useEffect(() => {
-    if (!isSavedLessonsPage) {
+    if (!isEditing) {
       if (selectedTab > 0) {
         dispatch(loadLessons(selectedTab));
       }
