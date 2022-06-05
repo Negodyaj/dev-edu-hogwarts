@@ -225,7 +225,9 @@ export const RegistrationPage = () => {
                 <a href={'#'} className="link-policy" aria-label="policy">
                   политики конфиденциальности
                 </a>
-                <p className={`attention ${invisible}`}>Нажми меня</p>
+                <p className={`attention ${invisible}`}>
+                  Необходимо принять условия политики конфиденциальности
+                </p>
               </label>
             </div>
           </form>
