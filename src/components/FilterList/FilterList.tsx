@@ -7,6 +7,9 @@ import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
 import { useSelector } from 'react-redux';
 import { DropDownWrapper } from './styled/DropDownWrapper';
 import { DropDownList } from './styled/DropDownList';
+import { DropDownContainer } from './styled/DropDownContainer';
+import { DropDownRoll } from './styled/DropDownRoll';
+import { DropDownElement } from './styled/DropDownElement';
 
 export type FilterListProps = {
   data: FilterItem[];
@@ -50,11 +53,6 @@ export const FilterList = (props: FilterListProps) => {
 
   return (
     <DropDownWrapper ref={clickOutside} isDark={isDark}>
-      {/* // <div className="drop-down-filter__wrapper flex-container" ref={clickOutside}> */}
-      {/* <div
-        className={`drop-down-filter flex-container ${props.cssClass ?? ''} ${
-          props.cssAlign ?? ''
-        }`} */}
       <DropDownList
         dropDownProps={props}
         isDark={isDark}
@@ -73,19 +71,20 @@ export const FilterList = (props: FilterListProps) => {
       </DropDownList>
 
       {isOpen && (
-        <div className={`drop-down-filter__list-wrapper ${props.cssAlign ?? 'right'}`}>
-          <ul className={`drop-down-filter__list ${filterData.length > 4 ? 'overflow' : ''}`}>
+        <DropDownContainer dropDownProps={props} isDark={isDark}>
+          <DropDownRoll isDark={isDark} dropDownProps={props}>
             {filterData.map((elem) => (
-              <li
+              <DropDownElement
+                isDark={isDark}
                 key={elem.id}
-                className={`drop-down-filter__element ${elem.id === item?.id ? 'selected' : ''}`}
+                className={`${elem.id === item?.id ? 'filter-element_selected' : ''}`}
                 onClick={() => onElementClick(elem)}
               >
                 {elem.name}
-              </li>
+              </DropDownElement>
             ))}
-          </ul>
-        </div>
+          </DropDownRoll>
+        </DropDownContainer>
       )}
     </DropDownWrapper>
   );
