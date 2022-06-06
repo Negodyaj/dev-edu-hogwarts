@@ -54,6 +54,8 @@ import {
   setWindowType,
 } from './modalWindow.actions';
 import { ModalType } from '../shared/enums/modalType';
+import { addNotification, NotificationsContainerActions } from './notificationsContainer.actions';
+import { NotificationType } from '../shared/enums/NotificationType';
 
 export const loadHomeworks = (groupId: number) => {
   debugger;
@@ -85,20 +87,22 @@ export const loadHomework = (homeworkId: number) => {
 };
 
 export const createNewHomework = (homeworkData: AddHomeworkFormData) => {
-  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction | NotificationsContainerActions>) => {
     dispatch(postHomeworkStarted());
 
     try {
       await baseWretch().url(addNewHomeworkWithTaskByTeacherUrl).post(homeworkData);
       dispatch(postHomeworkSuccess());
+      dispatch(addNotification({ type: NotificationType.Good, text: 'Задание успешно создано' }));
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
+      dispatch(addNotification({ type: NotificationType.Bad, text: 'Произошла ошибка' }));
     }
   };
 };
 
 export const createNewTaskByTeacher = (homeworkData: AddHomeworkFormData, links: string[]) => {
-  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction | NotificationsContainerActions>) => {
     dispatch(postHomeworkStarted());
 
     try {
@@ -112,8 +116,10 @@ export const createNewTaskByTeacher = (homeworkData: AddHomeworkFormData, links:
           isRequired: true,
         });
       dispatch(postHomeworkSuccess());
+      dispatch(addNotification({ type: NotificationType.Good, text: 'Задание успешно создано' }));
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
+      dispatch(addNotification({ type: NotificationType.Bad, text: 'Произошла ошибка' }));
     }
   };
 };
@@ -153,7 +159,7 @@ export const loadDraftsByGroupId = (groupId: number) => {
 };
 
 export const getTaskById = (taskId: number) => {
-  return async (dispatch: Dispatch<any>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
     dispatch(postHomeworkStarted());
     try {
       const task = await baseWretch().url(getTaskByIdUrl(taskId)).get().json<Task>();
@@ -199,7 +205,7 @@ export const tasksCountInGroup = (groupId: number) => {
 // };
 
 export const updateTask = (taskId: number, data: AddHomeworkFormData) => {
-  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction | NotificationsContainerActions>) => {
     dispatch(postHomeworkStarted());
     if (taskId < 0) {
       dispatch(postHomeworkFail('Что-то пошло не так'));
@@ -214,14 +220,16 @@ export const updateTask = (taskId: number, data: AddHomeworkFormData) => {
       await baseWretch().url(taskById(taskId)).put(task);
       dispatch(getTask({ ...task, id: taskId, isDeleted: false }));
       dispatch(postHomeworkSuccess());
+      dispatch(addNotification({ type: NotificationType.Good, text: 'Изменения сохранены' }));
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
+      dispatch(addNotification({ type: NotificationType.Bad, text: 'Произошла ошибка' }));
     }
   };
 };
 
 export const updateHomework = (homeworkId: number, data: AddHomeworkFormData) => {
-  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction | NotificationsContainerActions>) => {
     dispatch(postHomeworkStarted());
     if (homeworkId < 0) {
       dispatch(postHomeworkFail('Что-то пошло не так'));
@@ -234,6 +242,7 @@ export const updateHomework = (homeworkId: number, data: AddHomeworkFormData) =>
       dispatch(postHomeworkSuccess());
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
+      dispatch(addNotification({ type: NotificationType.Bad, text: 'Произошла ошибка' }));
     }
   };
 };

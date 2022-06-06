@@ -71,12 +71,14 @@ export const newHomeworkFormReducer: Reducer<NewHomeworkFormState, NewHomeworkFo
         ...state,
         selectGroupId: action.payload,
         selectCourseId: -1,
+        errorMessage: undefined,
       };
     case SELECT_COURSE:
       return {
         ...state,
         selectCourseId: action.payload,
         selectGroupId: -1,
+        errorMessage: undefined,
       };
     case GET_TASKS_COUNT:
       return {

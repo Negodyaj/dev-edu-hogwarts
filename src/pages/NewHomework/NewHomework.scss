@@ -63,6 +63,16 @@
     max-width: 690px;
   }
 
+  .list-view-input {
+    width: auto;
+    background: transparent;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+
   .form-input_link__container {
     display: flex;
     justify-content: flex-start;

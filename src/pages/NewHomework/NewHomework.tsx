@@ -305,7 +305,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
               onPaste={(event) => {
                 const value = event.clipboardData.getData('Text');
                 dispatch(setValueInInput(value));
-                addLinkInForm(value);
+                event.preventDefault();
               }}
               placeholder="Вставьте ссылку"
             />
