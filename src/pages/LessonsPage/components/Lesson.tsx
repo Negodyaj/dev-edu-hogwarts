@@ -2,9 +2,6 @@ import styles from '../../LessonsPage/components/Lesson.scss';
 import classNames from 'classnames';
 import { SvgArrow } from '../../../components/SvgIcon/SvgFiles/SvgArrow';
 import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
-import { NewLessonFormData } from '../../NewLessonPage/NewLessonPage';
-import { useDispatch } from 'react-redux';
-import { getDataToEdit } from '../../../actions/newLessonPage.action';
 
 const cx = classNames.bind(styles);
 
@@ -27,7 +24,6 @@ export type LessonModel = {
 };
 
 export const Lesson = (props: LessonProps) => {
-  const dispatch = useDispatch();
   const lesson = props.data;
   const isExpanded = props.activeLessonId === lesson.serialNumber;
 
@@ -35,24 +31,10 @@ export const Lesson = (props: LessonProps) => {
     props.onClick(lesson.serialNumber);
   };
 
-  const getLessonsData = () => {
-    const lessonsData: NewLessonFormData = {
-      id: lesson.id,
-      date: lesson.date,
-      additionalMaterials: lesson.additionalInfo,
-      isPublished: false,
-      linkToRecord: lesson.videoLink,
-      name: lesson.theme,
-      groupId: undefined, //selectedTab
-    };
-    dispatch(getDataToEdit(lessonsData));
-    console.log(lessonsData);
-  };
-
   return (
     <div className="lesson-container">
       {props.isEditing && (
-        <div className="link-wrapper" onClick={getLessonsData}>
+        <div className="link-wrapper">
           <LinkWithUnderline path={`new-lesson/unpublished/${lesson.id}`} text="Редактировать" />
         </div>
       )}

@@ -39,6 +39,7 @@ export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
 export const updatePassword = 'api/Users/password';
 export const getTopicsByCourseId = (courseId: number) => `api/Courses/${courseId}/topics`;
 export const postTopic = 'api/Topics';
-export const updateCourseProgram = (courseId: number) => `/api/Courses/${courseId}/program`;
+export const updateCourseProgram = (courseId: number) => `api/Courses/${courseId}/program`;
 export const getAllAnswersEachStudentsByTaskIdUrl = (id: number) =>
   `api/student-homeworks/task/${id}/answers`;
+export const getUrlLessonsFullInfo = (id: number) => `api/Lessons/${id}/full-info`;
