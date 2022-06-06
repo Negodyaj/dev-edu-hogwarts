@@ -37,6 +37,7 @@ export const Lesson = (props: LessonProps) => {
 
   const getLessonsData = () => {
     const lessonsData: NewLessonFormData = {
+      id: lesson.id,
       date: lesson.date,
       additionalMaterials: lesson.additionalInfo,
       isPublished: false,

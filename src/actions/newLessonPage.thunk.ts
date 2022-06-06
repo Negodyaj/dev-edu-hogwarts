@@ -21,3 +21,16 @@ export const uploadLesson = (newLessonsData: NewLessonFormData) => {
     }
   };
 };
+
+export const updateLesson = (newLessonsData: NewLessonFormData) => {
+  return async (dispatch: Dispatch<NewLessonPageAction>) => {
+    dispatch(uploadLessonStarted());
+
+    try {
+      await baseWretch().url(`lessonsUrl/${newLessonsData.id}`).put(newLessonsData).json();
+      dispatch(uploadLessonSuccess());
+    } catch (e: any) {
+      dispatch(uploadLessonFail(e.message));
+    }
+  };
+};

@@ -3,18 +3,20 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { resetDataToCreate } from '../../actions/newLessonPage.action';
-import { uploadLesson } from '../../actions/newLessonPage.thunk';
+import { updateLesson, uploadLesson } from '../../actions/newLessonPage.thunk';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { LinkWithUnderline } from '../../components/LinkWithUnderline/LinkWithUnderline';
 import { RadioData } from '../../components/RadioGroup/RadioButton/RadioButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
+import { LessonsPageState } from '../../store/reducers/lessons.reducer';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { NewLessonPageState } from '../../store/reducers/newLessonPage.reducer';
 import { AppState } from '../../store/store';
 import './NewLessonPage.scss';
 
 export type NewLessonFormData = {
+  id?: number;
   date: string | Date;
   additionalMaterials: string;
   groupId?: number;
@@ -28,6 +30,11 @@ export const NewLessonPage = () => {
   const { lessonsData } = useSelector(
     (state: AppState) => state.lessonsPageState as NewLessonPageState
   );
+
+  const { isEditing } = useSelector(
+    (state: AppState) => state.lessonsPageState as LessonsPageState
+  );
+
   const methods = useForm<NewLessonFormData>({
     defaultValues: lessonsData,
   });
@@ -44,14 +51,16 @@ export const NewLessonPage = () => {
   const navigate = useNavigate();
   const onPublishHandler = (data: NewLessonFormData) => {
     data.isPublished = true;
-    dispatch(uploadLesson(data));
+    if (!isEditing) dispatch(uploadLesson(data));
+    else dispatch(updateLesson(data));
     alert(`published ${data.groupId}!!`); //to delete
     dispatch(resetDataToCreate());
     reset();
   };
   const onSaveHandler = (data: NewLessonFormData) => {
     data.isPublished = false;
-    dispatch(uploadLesson(data));
+    if (!isEditing) dispatch(uploadLesson(data));
+    else dispatch(updateLesson(data));
     alert(`saved to group ${data.groupId}!`); //to delete
     dispatch(resetDataToCreate());
     reset();
