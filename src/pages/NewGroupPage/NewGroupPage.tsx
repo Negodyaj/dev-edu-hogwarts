@@ -357,13 +357,15 @@ export const NewGroupPage = () => {
               />
               <Button model={ButtonModel.Text} text="Отмена" type={ButtonType.reset} />
               {id ? (
-                <Button
-                  model={ButtonModel.Colored}
-                  text="Удалить группу"
-                  type={ButtonType.button}
-                  width="220"
-                  onClick={() => deleteGroup(+id)}
-                />
+                <div className="delete-btn">
+                  <Button
+                    model={ButtonModel.Colored}
+                    text="Удалить группу"
+                    type={ButtonType.button}
+                    width="220"
+                    onClick={() => deleteGroup(+id)}
+                  />
+                </div>
               ) : (
                 <></>
               )}
