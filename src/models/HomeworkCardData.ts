@@ -1,10 +1,13 @@
-import { Homework } from './responses/HomeworksResponse';
+import { Homework, Task } from './responses/HomeworksResponse';
 
 export type HomeworkProps = {
   data?: Homework;
   children?: JSX.Element;
 };
-
+export type TaskProps = {
+  data?: Task;
+  children?: JSX.Element;
+};
 export type HomeworkFormData = {
   answer: string;
 };

@@ -1,14 +1,24 @@
-import { ListView } from './ListView/ListView';
+import { ListView, ListViewLessons } from './ListView/ListView';
 import { DragDropContext, DragUpdate } from 'react-beautiful-dnd';
-import { useState } from 'react';
-import { lessons } from './ListView/exampleData';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import {
+  loadCoursePageTabs,
+  // loadCurrentCourse,
+  setTopics,
+} from '../../actions/courses.actions';
+import { useEffect } from 'react';
+import { CourseResponse } from '../../models/responses/CourseResponse';
+import { TopicResponse } from '../../models/responses/TopicResponse';
+import { baseWretch } from '../../services/base-wretch.service';
+import { TabContainer } from '../../components/TabContainer/TabContainer';
+import { selectTabCoursePage } from '../../actions/courses.actions';
 import { useForm } from 'react-hook-form';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import './EditCoursesPage.scss';
 //import { baseWretch } from '../../services/base-wretch.service';
 //import { getTopicsByCourseId } from '../../shared/consts';
 //import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
-import { useDispatch } from 'react-redux';
 import { onCourseTopicsUpdate } from '../../actions/editCourses.thunk';
 //import { AppState } from '../../store/store';
 
@@ -20,27 +30,15 @@ export type TopicFormData = {
 };
 
 export const EditCoursesPage = () => {
-  const [lessonsData, setLessonsData] = useState(lessons); // Это типа данные, которые нам придут
+  const dispatch = useDispatch();
+  const { courses, topics, selectedTabCoursePage, courseTabs } = useSelector(
+    (state: AppState) => state.coursesPageState
+  );
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TopicFormData>();
-
-  /*const getData = () => {
-    return async () => {
-      const array = await baseWretch()
-        .url(getTopicsByCourseId(1371))
-        .get()
-        .json((data) => {
-          const topicList = data as CourseTopicsResponse[];
-          topicList.map((i) => console.log(i.topic));
-        });
-      console.log(array);
-      //setLessonsData(lessonsData.concat(array));
-    };
-  };*/
-
   const onDragEnd = (result: DragUpdate) => {
     const { destination, source, draggableId } = result;
 
@@ -52,31 +50,61 @@ export const EditCoursesPage = () => {
       return;
     }
 
-    const newLessonsArray = Array.from(lessonsData);
+    const newLessonsArray = Array.from(topics);
     newLessonsArray.splice(source.index, 1);
     const dragElem = Object.assign(
-      [...lessonsData].filter((item) => item.topicName === draggableId)[0]
+      [...topics].filter((item) => item.topic.name === draggableId)[0]
     );
     newLessonsArray.splice(destination.index, 0, dragElem);
 
-    setLessonsData(() => [...newLessonsArray]);
+    // setLessonsData(() => [...newLessonsArray]);
     console.log(newLessonsArray);
   };
+  useEffect(() => {
+    if (courses && courses?.length > 0) dispatch(loadCoursePageTabs(courses as CourseResponse[]));
+  }, [courses]);
+  useEffect(() => {
+    baseWretch()
+      .url(`api/Courses/${selectedTabCoursePage}/topics`)
+      .get()
+      .json((tpcs) => {
+        dispatch(setTopics(tpcs as TopicResponse[]));
+      });
+  }, [selectedTabCoursePage]);
 
-  const dispatch = useDispatch();
   const onSubmit = (data: TopicFormData) => {
-    data.id = lessonsData.length + 1;
-    setLessonsData(lessonsData.concat(data));
+    data.id = topics.length + 1;
+    // setLessonsData(lessonsData.concat(data));
     dispatch(onCourseTopicsUpdate(data));
     console.log(data);
   };
 
   return (
     <>
+      <TabContainer
+        tabContainerData={courseTabs}
+        selectedTab={selectedTabCoursePage}
+        onClick={selectTabCoursePage}
+      />
       <DragDropContext onDragEnd={onDragEnd}>
-        <ListView data={lessonsData} groupId={1} edit={true} />
+        <ListView
+          data={
+            topics
+              ? topics.map((el) => {
+                  const q: ListViewLessons = {
+                    id: el.topic.id,
+                    position: el.position,
+                    topicName: el.topic.name,
+                    hoursCount: el.topic.duration,
+                  };
+                  return q;
+                })
+              : []
+          }
+          groupId={1}
+          edit={true}
+        />
       </DragDropContext>
-
       <div className="form-container">
         <h2>Новая тема</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
