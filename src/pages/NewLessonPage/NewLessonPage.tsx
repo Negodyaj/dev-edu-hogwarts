@@ -28,29 +28,9 @@ export const NewLessonPage = () => {
   const { lessonsData } = useSelector(
     (state: AppState) => state.lessonsPageState as NewLessonPageState
   );
-  const methods = useForm<NewLessonFormData>(
-    lessonsData
-      ? {
-          defaultValues: {
-            date: lessonsData.date,
-            additionalMaterials: lessonsData.additionalMaterials,
-            groupId: lessonsData.groupId,
-            name: lessonsData.name,
-            linkToRecord: lessonsData.linkToRecord,
-            isPublished: false,
-          },
-        }
-      : {
-          defaultValues: {
-            date: `${moment().format('DD.MM.YYYY')}`,
-            additionalMaterials: '',
-            groupId: -1,
-            name: '',
-            linkToRecord: '',
-            isPublished: false,
-          },
-        }
-  );
+  const methods = useForm<NewLessonFormData>({
+    defaultValues: lessonsData,
+  });
 
   const {
     register,

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Reducer } from 'react';
 import {
   GET_DATA_TO_EDIT,
@@ -15,10 +16,19 @@ export interface NewLessonPageState {
   lessonsData?: NewLessonFormData;
 }
 
+const initialLessonsData: NewLessonFormData = {
+  date: `${moment().format('DD.MM.YYYY')}`,
+  additionalMaterials: '',
+  groupId: -1,
+  name: '',
+  linkToRecord: '',
+  isPublished: false,
+};
+
 const initialState: NewLessonPageState = {
   message: undefined,
   isLoading: false,
-  lessonsData: undefined,
+  lessonsData: initialLessonsData,
 };
 
 export const NewLessonPageReducer: Reducer<NewLessonPageState | undefined, NewLessonPageAction> = (
@@ -50,7 +60,7 @@ export const NewLessonPageReducer: Reducer<NewLessonPageState | undefined, NewLe
     case RESET_DATA_TO_CREATE:
       return {
         ...state,
-        lessonsData: undefined,
+        lessonsData: initialLessonsData,
       };
     default:
       return state;

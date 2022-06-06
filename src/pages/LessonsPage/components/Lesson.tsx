@@ -4,6 +4,7 @@ import { SvgArrow } from '../../../components/SvgIcon/SvgFiles/SvgArrow';
 import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
 import { NewLessonFormData } from '../../NewLessonPage/NewLessonPage';
 import { useDispatch } from 'react-redux';
+import { getDataToEdit } from '../../../actions/newLessonPage.action';
 
 const cx = classNames.bind(styles);
 
@@ -41,9 +42,10 @@ export const Lesson = (props: LessonProps) => {
       isPublished: false,
       linkToRecord: lesson.videoLink,
       name: lesson.theme,
-      groupId: undefined,
+      groupId: undefined, //selectedTab
     };
-    dispatch(lessonsData);
+    dispatch(getDataToEdit(lessonsData));
+    console.log(lessonsData);
   };
 
   return (
