@@ -8,39 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { onUsersLoad } from '../../actions/allUsers.thunk';
 
-/*const users: UserRowModel[] = [
-  {
-    name: 'Алла',
-    lastName: 'Пугачёва',
-    role: ['Студент'],
-  },
-  {
-    name: 'Филипп',
-    lastName: 'Киркоров',
-    role: ['Студент'],
-  },
-  {
-    name: 'Сергей',
-    lastName: 'Зверев',
-    role: ['Студент'],
-  },
-  {
-    name: 'Андрей',
-    lastName: 'Малахов',
-    role: ['Студент', 'Тьютор'],
-  },
-  {
-    name: 'Морген',
-    lastName: 'Штерн',
-    role: ['Менеджер'],
-  },
-  {
-    name: 'Валерий',
-    lastName: 'Меладзе',
-    role: ['Преподаватель', 'Методист'],
-  },
-];*/
-
 export interface UsersResponse {
   id: number;
   firstName: string;
@@ -51,17 +18,8 @@ export interface UsersResponse {
   roles: UserRole[];
 }
 
-/*export enum Roles {
-  Admin = 'Администратор',
-  Manager = 'Менеджер',
-  Methodist = 'Методист',
-  Teacher = 'Учитель',
-  Tutor = 'Тьютор',
-  Student = 'Студент',
-}*/
-
-const roleFilterData = [
-  { id: 0, name: 'Все' },
+const roleFilterData: FilterItem[] = [
+  { id: 7, name: 'Все' },
   { id: 1, name: 'Администратор' },
   { id: 2, name: 'Менеджер' },
   { id: 3, name: 'Методист' },
@@ -81,19 +39,22 @@ export const AllUsersPage = () => {
   }, []);
 
   const [listState] = useState<UserRowModel[]>(userList);
-  const [filterRoleId, setFilterRoleId] = useState(0);
-  const [filtredList, setFilteredList] = useState(userList);
+  const [filterRoleId, setFilterRoleId] = useState<UserRole>(UserRole.DefaultRole);
+  const [filtredList, setFilteredList] = useState<UserRowModel[]>(userList);
 
-  const applyFilters = () => {
+  const FilterByRole = () => {
     const filtered = listState.filter(
-      (item) => filterRoleId === 0 || (filterRoleId > 0 && item.role.includes(filterRoleId))
+      (item) =>
+        filterRoleId === UserRole.DefaultRole ||
+        (filterRoleId === UserRole.Admin && item.role.includes(filterRoleId))
     );
+    filtered.map((i) => console.log(i.role));
     setFilteredList(filtered);
     console.log(filtered);
     console.log(filterRoleId);
   };
 
-  useEffect(() => applyFilters(), [filterRoleId]);
+  useEffect(() => FilterByRole(), [filterRoleId]);
 
   const applyRoleFilter = (item: FilterItem) => {
     setFilterRoleId(item.id);

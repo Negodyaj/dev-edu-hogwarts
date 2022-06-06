@@ -1,7 +1,7 @@
 //import { Roles } from '../AllUsersPage';
 
 import { UserRole } from '../../../shared/enums/UserRole';
-//import { getUserRoleLocalName } from '../../../shared/helpers/translations';
+import { getUserRoleLocalName } from '../../../shared/helpers/translations';
 
 export type UserRowProps = {
   data: UserRowModel;
@@ -15,6 +15,7 @@ export type UserRowModel = {
 
 export const UserRow = (props: UserRowProps) => {
   const user = props.data;
+  console.log(getUserRoleLocalName(user.role[0])); //doesn't work, returns nothing
   return (
     <div className="user-row">
       <div className="user-name">
