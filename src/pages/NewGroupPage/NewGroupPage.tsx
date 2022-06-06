@@ -13,6 +13,7 @@ import { loadCoursesAndUsers, loadGroup } from '../../actions/NewGroupForm.thunk
 import { AppState } from '../../store/store';
 import { NewGroupFormState } from '../../store/reducers/NewGroupForm.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
+import { useNavigate } from 'react-router-dom';
 import {
   getIdForGroup,
   getTeachersForGroup,
@@ -60,7 +61,7 @@ export const paymentsCount = [
 ];
 export const NewGroupPage = () => {
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { group, users, courses, isLoading, teacherIdsForGroup, tutorIdsForGroup } = useSelector(
     (state: AppState) => state.newGroupFormState as NewGroupFormState
@@ -355,7 +356,12 @@ export const NewGroupPage = () => {
                 type={ButtonType.submit}
                 width="190"
               />
-              <Button model={ButtonModel.Text} text="Отмена" type={ButtonType.reset} />
+              <Button
+                model={ButtonModel.Text}
+                text="Отмена"
+                type={ButtonType.reset}
+                onClick={() => navigate(-1)}
+              />
               {id ? (
                 <div className="delete-btn">
                   <Button
