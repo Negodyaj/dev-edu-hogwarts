@@ -8,7 +8,7 @@ import {
 import { GroupResponse } from '../../models/responses/GroupResponse';
 
 export interface StudentsListPageState {
-  groups: GroupResponse[];
+  groups?: GroupResponse[];
   isLoading: boolean;
   errorMessage: string;
 }
@@ -20,7 +20,7 @@ const initialState: StudentsListPageState = {
 };
 
 export const studentsListPageReducer: Reducer<StudentsListPageState, StudentsListPageAction> = (
-  state: StudentsListPageState = initialState,
+  state = initialState,
   action
 ) => {
   switch (action.type) {
@@ -46,5 +46,7 @@ export const studentsListPageReducer: Reducer<StudentsListPageState, StudentsLis
         errorMessage: action.payload,
       };
     }
+    default:
+      return state;
   }
 };

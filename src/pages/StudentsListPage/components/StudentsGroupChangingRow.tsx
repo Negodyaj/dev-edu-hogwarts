@@ -1,9 +1,9 @@
 import { FilterItem, FilterList } from '../../../components/FilterList/FilterList';
-import { StudentToShow } from '../StudentsList';
-
+import { Group, StudentToShow } from '../StudentsList';
 
 export type StudentProps = {
   data: StudentToShow;
+  groups?: Group[];
   changeGroupId: (studentId: number, groupId: number) => void;
 };
 
@@ -21,7 +21,7 @@ export const StudentRow = (props: StudentProps) => {
         <span>{studentsGroupRow.email}</span>
         <span>{studentsGroupRow.phoneNumber}</span>
         <FilterList
-          data={props.data?.groups}
+          data={props.groups || []}
           callback={onSelectGroup}
           selected={studentsGroupRow.group?.id}
         />

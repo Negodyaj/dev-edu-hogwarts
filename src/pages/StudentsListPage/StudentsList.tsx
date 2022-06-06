@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadGroups } from '../../actions/studentsList.thunk';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { baseWretch } from '../../services/base-wretch.service';
 import { studentsUrl } from '../../shared/consts';
-import { groupsUrl } from '../../shared/consts';
+// import { groupUrl } from '../../shared/consts';
+import { StudentsListPageState } from '../../store/reducers/studentsList.reducer';
+import { AppState } from '../../store/store';
 import { StudentRow } from './components/StudentsGroupChangingRow';
+// import { loadGroupsStarted, loadGroupsSuccess, loadGroupsFail } from '../../actions/groups.actions';
 import './StudentsListPage.scss';
 
 const surnameFilterData: FilterItem[] = [
   { id: 1, name: 'Сортировать по фамилии' },
   { id: 2, name: 'Сортировать обратно' },
-];
-
-const groupFilterData: FilterItem[] = [
-  { id: 0, name: 'Показать все' },
-  { id: 1, name: 'Без группы' },
-  { id: 2, name: 'Группа 1' },
-  { id: 3, name: 'Группа 2' },
 ];
 
 export type Group = {
@@ -43,11 +41,18 @@ export type StudentToShow = {
 };
 
 export const StudentsListPage = () => {
+  const dispatch = useDispatch();
   const [students, setStudents] = useState<StudentToShow[]>([]);
   const [filterSurnameValue, setFilterSurnameValue] = useState(1);
   const [filterGroupValue, setFilterGroupValue] = useState(0);
   const [filtredList, setFiltredList] = useState<StudentToShow[]>(students);
-  const [groups, setGroups] = useState<Group[]>();
+
+  const { groups } = useSelector(
+    (state: AppState) => state.studentsListPageState as StudentsListPageState
+  );
+  useEffect(() => {
+    dispatch(loadGroups());
+  }, []);
 
   async function getData() {
     const studentsList: StudentToShow[] = await baseWretch()
@@ -65,23 +70,11 @@ export const StudentsListPage = () => {
       });
     setStudents(studentsList);
   }
-  async function getGroups() {
-    const groupsList: Group[] = await baseWretch()
-      .url(groupsUrl)
-      .get()
-      .json((data) => {
-        const respData: Group[] = data as Group[];
-        return respData;
-      });
-    setGroups(groupsList);
-  }
 
   useEffect(() => {
     getData();
   }, []);
-  useEffect(() => {
-    getGroups();
-  }, []);
+
   useEffect(() => {
     setFiltredList(students);
   }, [students]);
@@ -124,7 +117,7 @@ export const StudentsListPage = () => {
   };
 
   const FilterByGroup = () => {
-    const filtered = students.filter(
+    const filtered = filtredList.filter(
       (s) =>
         filterGroupValue === 0 ||
         (filterGroupValue > 1 && s.groups[0].id === filterGroupValue) ||
@@ -161,16 +154,15 @@ export const StudentsListPage = () => {
         <div className="group-table-flex-container filters-row">
           <FilterList data={surnameFilterData} callback={applySurnameFilter} />
           <div className="group-column">
-            <FilterList data={groupFilterData} callback={applyGroupFilter} />
+            <FilterList data={groups || []} callback={applyGroupFilter} />
           </div>
         </div>
       </div>
       <div>
         {filtredList.map((item) => (
-          <StudentRow data={item} changeGroupId={changeGroup} />
+          <StudentRow data={item} groups={groups} changeGroupId={changeGroup} />
         ))}
       </div>
     </div>
   );
 };
-
