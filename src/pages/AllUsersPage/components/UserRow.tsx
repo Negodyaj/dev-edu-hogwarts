@@ -1,3 +1,8 @@
+//import { Roles } from '../AllUsersPage';
+
+import { UserRole } from '../../../shared/enums/UserRole';
+//import { getUserRoleLocalName } from '../../../shared/helpers/translations';
+
 export type UserRowProps = {
   data: UserRowModel;
 };
@@ -5,9 +10,7 @@ export type UserRowProps = {
 export type UserRowModel = {
   name: string;
   lastName: string;
-  role: string[];
-  roleIds: number[];
-  isDeleted: boolean;
+  role: UserRole[];
 };
 
 export const UserRow = (props: UserRowProps) => {

@@ -90,13 +90,13 @@ function App() {
             <Route path="students-list" element={<StudentsListPage />} />
             <Route path="journal" element={<AttendanceJournal />} />
             <Route path="general-progress" element={<GeneralProgressJournal />} />
+            <Route path="all-users" element={<AllUsersPage />} />
           </Routes>
           <NotificationsContainer />
         </main>
       </div>
       {isModalOpen && <ModalWindow />}
     </>
-          <Route path="all-users" element={<AllUsersPage />} />
   );
 }
 

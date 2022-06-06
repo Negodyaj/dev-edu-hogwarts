@@ -1,72 +1,96 @@
 import { useEffect, useState } from 'react';
 import './AllUsersPage.scss';
-import { UserRow } from './components/UserRow';
+import { UserRow, UserRowModel } from './components/UserRow';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
+import { UserRole } from '../../shared/enums/UserRole';
+import { AllUsersPageState } from '../../store/reducers/allUsers.reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { onUsersLoad } from '../../actions/allUsers.thunk';
 
-const users = [
+/*const users: UserRowModel[] = [
   {
     name: 'Алла',
     lastName: 'Пугачёва',
     role: ['Студент'],
-    roleIds: [3],
-    isDeleted: false,
   },
   {
     name: 'Филипп',
     lastName: 'Киркоров',
     role: ['Студент'],
-    roleIds: [3],
-    isDeleted: false,
   },
   {
     name: 'Сергей',
     lastName: 'Зверев',
     role: ['Студент'],
-    roleIds: [3],
-    isDeleted: false,
   },
   {
     name: 'Андрей',
     lastName: 'Малахов',
     role: ['Студент', 'Тьютор'],
-    roleIds: [3, 4],
-    isDeleted: false,
   },
   {
     name: 'Морген',
     lastName: 'Штерн',
     role: ['Менеджер'],
-    roleIds: [5],
-    isDeleted: false,
   },
   {
     name: 'Валерий',
     lastName: 'Меладзе',
     role: ['Преподаватель', 'Методист'],
-    roleIds: [2, 1],
-    isDeleted: false,
   },
-];
-const roleFilterData: FilterItem[] = [
+];*/
+
+export interface UsersResponse {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  photo: string;
+  phoneNumber: string;
+  roles: UserRole[];
+}
+
+/*export enum Roles {
+  Admin = 'Администратор',
+  Manager = 'Менеджер',
+  Methodist = 'Методист',
+  Teacher = 'Учитель',
+  Tutor = 'Тьютор',
+  Student = 'Студент',
+}*/
+
+const roleFilterData = [
   { id: 0, name: 'Все' },
-  { id: 1, name: 'Методист' },
-  { id: 2, name: 'Преподаватель' },
-  { id: 3, name: 'Студент' },
-  { id: 4, name: 'Тьютор' },
-  { id: 5, name: 'Менеджер' },
+  { id: 1, name: 'Администратор' },
+  { id: 2, name: 'Менеджер' },
+  { id: 3, name: 'Методист' },
+  { id: 4, name: 'Студент' },
+  { id: 5, name: 'Учитель' },
+  { id: 6, name: 'Тьютор' },
 ];
 
 export const AllUsersPage = () => {
-  const [listState] = useState(users);
+  const { userList } = useSelector(
+    (state: AppState) => state.allUsersPageState as AllUsersPageState
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(onUsersLoad());
+    console.log(userList.values);
+  }, []);
+
+  const [listState] = useState<UserRowModel[]>(userList);
   const [filterRoleId, setFilterRoleId] = useState(0);
-  const [filtredList, setFilteredList] = useState(users);
+  const [filtredList, setFilteredList] = useState(userList);
 
   const applyFilters = () => {
     const filtered = listState.filter(
-      (item) => filterRoleId === 0 || (filterRoleId > 0 && item.roleIds.includes(filterRoleId))
+      (item) => filterRoleId === 0 || (filterRoleId > 0 && item.role.includes(filterRoleId))
     );
     setFilteredList(filtered);
     console.log(filtered);
+    console.log(filterRoleId);
   };
 
   useEffect(() => applyFilters(), [filterRoleId]);
