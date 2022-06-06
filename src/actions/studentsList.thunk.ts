@@ -1,10 +1,11 @@
 import { Dispatch } from 'react';
 import { GroupResponse } from '../models/responses/GroupResponse';
 import { baseWretch } from '../services/base-wretch.service';
-import { groupUrl } from '../shared/consts';
+import { groupUrl, studentsUrl } from '../shared/consts';
 import {
   loadGroupsStarted,
   loadGroupsSuccess,
+  loadStudentsStarted,
   StudentsListPageAction,
 } from './studentsList.actions';
 

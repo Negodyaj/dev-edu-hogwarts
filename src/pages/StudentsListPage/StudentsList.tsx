@@ -4,16 +4,14 @@ import { loadGroups } from '../../actions/studentsList.thunk';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { baseWretch } from '../../services/base-wretch.service';
 import { studentsUrl } from '../../shared/consts';
-// import { groupUrl } from '../../shared/consts';
 import { StudentsListPageState } from '../../store/reducers/studentsList.reducer';
 import { AppState } from '../../store/store';
 import { StudentRow } from './components/StudentsGroupChangingRow';
-// import { loadGroupsStarted, loadGroupsSuccess, loadGroupsFail } from '../../actions/groups.actions';
 import './StudentsListPage.scss';
 
 const surnameFilterData: FilterItem[] = [
-  { id: 1, name: 'Сортировать по фамилии' },
-  { id: 2, name: 'Сортировать обратно' },
+  { id: 2, name: 'A-z' },
+  { id: 1, name: 'Z-a' },
 ];
 
 export type Group = {
@@ -91,7 +89,7 @@ export const StudentsListPage = () => {
           return 0;
         }
       });
-      setStudents(sortedForward);
+      // setStudents(sortedForward);
       setFiltredList(sortedForward);
     }
     if (filterSurnameValue == 2) {

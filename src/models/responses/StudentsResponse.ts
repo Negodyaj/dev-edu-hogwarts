@@ -1,7 +1,13 @@
-export interface StudentsResponse {
+export type Group = {
+  id: number;
+  name: string;
+};
+
+export interface StudentResponse {
   id: number;
   firstName: string;
   lastName: string;
-  groupId: number;
+  groups: Group[];
+  phoneNumber: string;
   email: string;
 }
