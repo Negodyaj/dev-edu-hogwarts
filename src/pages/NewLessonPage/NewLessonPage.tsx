@@ -2,6 +2,7 @@ import moment from 'moment';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { resetDataToCreate } from '../../actions/newLessonPage.action';
 import { uploadLesson } from '../../actions/newLessonPage.thunk';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import Datepicker from '../../components/Datepicker/Datepicker';
@@ -9,6 +10,7 @@ import { LinkWithUnderline } from '../../components/LinkWithUnderline/LinkWithUn
 import { RadioData } from '../../components/RadioGroup/RadioButton/RadioButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import { LoginPageState } from '../../store/reducers/login.reducer';
+import { NewLessonPageState } from '../../store/reducers/newLessonPage.reducer';
 import { AppState } from '../../store/store';
 import './NewLessonPage.scss';
 
@@ -23,16 +25,32 @@ export type NewLessonFormData = {
 
 export const NewLessonPage = () => {
   const dispatch = useDispatch();
-  const methods = useForm<NewLessonFormData>({
-    defaultValues: {
-      date: `${moment().format('DD.MM.YYYY')}`,
-      additionalMaterials: '',
-      groupId: -1,
-      name: '',
-      linkToRecord: '',
-      isPublished: false,
-    },
-  });
+  const { lessonsData } = useSelector(
+    (state: AppState) => state.lessonsPageState as NewLessonPageState
+  );
+  const methods = useForm<NewLessonFormData>(
+    lessonsData
+      ? {
+          defaultValues: {
+            date: lessonsData.date,
+            additionalMaterials: lessonsData.additionalMaterials,
+            groupId: lessonsData.groupId,
+            name: lessonsData.name,
+            linkToRecord: lessonsData.linkToRecord,
+            isPublished: false,
+          },
+        }
+      : {
+          defaultValues: {
+            date: `${moment().format('DD.MM.YYYY')}`,
+            additionalMaterials: '',
+            groupId: -1,
+            name: '',
+            linkToRecord: '',
+            isPublished: false,
+          },
+        }
+  );
 
   const {
     register,
@@ -48,12 +66,14 @@ export const NewLessonPage = () => {
     data.isPublished = true;
     dispatch(uploadLesson(data));
     alert(`published ${data.groupId}!!`); //to delete
+    dispatch(resetDataToCreate());
     reset();
   };
   const onSaveHandler = (data: NewLessonFormData) => {
     data.isPublished = false;
     dispatch(uploadLesson(data));
     alert(`saved to group ${data.groupId}!`); //to delete
+    dispatch(resetDataToCreate());
     reset();
   };
 
@@ -62,7 +82,10 @@ export const NewLessonPage = () => {
       <form className="form-container homework-form">
         <div className="flex-between base-line">
           <h2 className="homework-form_title">Новое занятие</h2>
-          <LinkWithUnderline path="To-Change" text="Список сохраненных занятий"></LinkWithUnderline>
+          <LinkWithUnderline
+            path="new-lesson/unpublished"
+            text="Список сохраненных занятий"
+          ></LinkWithUnderline>
         </div>
         <div className="form-element flex-container">
           Номер группы:
@@ -104,6 +127,7 @@ export const NewLessonPage = () => {
             className={`form-input${errors.linkToRecord ? ' invalid-input' : ''}`}
             type="text"
             placeholder="Ссылка на видео"
+            {...register('linkToRecord', { required: false })}
           />
         </div>
         <div className="form-element">

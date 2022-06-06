@@ -27,23 +27,56 @@
   grid-template-rows: 1fr;
 }
 
-.lesson-container{
-  
+.lesson-container {
   padding-top: 50px;
   margin-left: 45px;
   margin-right: 120px;
+  position: relative;
   
   &.active{
-    svg {
-      
-    }
     button{
       transform: rotateZ(180deg);
     }
   }
+
+  .link-wrapper {
+    position: absolute;
+    right: -75px;
+    top: 20px;
+    a {
+      font-size: 14px;
+    }
+
+  }
+
+  .circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;   
+    border: 1px solid $medium-gray;
+    line-height: 0;
+    text-align: center;
+    background-color: $white;
+    position: absolute;
+    right: -75px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+
+    & path {
+      fill: $lavender-color;
+    }
+    &:hover{
+      background-color: $lavender-color;
+      path {
+        fill: $white;
+      }
+    }
+  }
+}
+
   .header-container {
     padding-bottom: 30px;
-       
+    line-height: 21px;
     display: flex;    
     .lesson-main-info{
       display: flex;
@@ -60,34 +93,8 @@
     .lesson-theme{
       width: 470px;
     }
-    .circle {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;   
-      border: 1px solid $medium-gray;
-      line-height: 0;
-      text-align: center;
-      background-color: $white;
-      position: absolute;
-      right: 45px;
-      cursor: pointer;
-      transition: all 0.1s ease-in-out;
-
-      & path {
-        fill: $lavender-color;
-      }
-      &:hover{
-        background-color: $lavender-color;
-        path {
-          fill: $white;
-        }
-      }
-
-    }
-  }
   
   .accordion-content-container{
-    
     width: 775px;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -100,8 +107,6 @@
         grid-column: 2;
         margin-left: 59px;
         text-decoration: none;
-        
-        
       }
     }
     .additional-container{      

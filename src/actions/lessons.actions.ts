@@ -40,9 +40,9 @@ export const loadLessonsFail = (message: string) => ({
   payload: message,
 });
 
-export const setIsEdit = (isEditing: boolean) => ({
+export const setIsEdit = (value: boolean) => ({
   type: SET_IS_EDIT,
-  payload: isEditing,
+  payload: value,
 });
 
 export type LessonsPageActions =

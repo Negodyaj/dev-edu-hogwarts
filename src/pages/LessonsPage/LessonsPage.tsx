@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LessonsPageState } from '../../store/reducers/lessons.reducer';
 import { loadLessons, loadLessonsDraft } from '../../actions/lessons.thunks';
-import { filterLessons, selectTab } from '../../actions/lessons.actions';
+import { filterLessons, selectTab, setIsEdit } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
 
 const lessonsFilterData: FilterItem[] = [
@@ -21,22 +21,21 @@ const lessonsFilterData: FilterItem[] = [
 export const LessonsPage = () => {
   const dispatch = useDispatch();
   const [activeLesson, setActiveLesson] = useState(0);
-
   const { lessons, filteredLessons, tabs, selectedTab, isEditing } = useSelector(
     (state: AppState) => state.lessonsPageState as LessonsPageState
   );
 
   useEffect(() => {
-    if (!isEditing) {
-      if (selectedTab > 0) {
-        dispatch(loadLessons(selectedTab));
-      }
-    } else {
-      if (selectedTab > 0) {
-        dispatch(loadLessonsDraft(selectedTab));
-      }
+    if (location.pathname.includes('unpublished')) dispatch(setIsEdit(true));
+    else dispatch(setIsEdit(false));
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (selectedTab > 0) {
+      if (!isEditing) dispatch(loadLessons(selectedTab));
+      else dispatch(loadLessonsDraft(selectedTab));
     }
-  }, [selectedTab]);
+  }, [selectedTab, isEditing]);
 
   const onElementClick = (id: number) => {
     setActiveLesson(id === activeLesson ? 0 : id);
@@ -59,10 +58,11 @@ export const LessonsPage = () => {
 
   useEffect(() => {
     applyLessonsFilter(lessonsFilterData[0]);
-  }, [lessons]);
+  }, [lessons, location.pathname]);
 
   const lessonsToDisplay = filteredLessons?.map((item) => {
     const lessonModel: LessonModel = {
+      id: item.id,
       serialNumber: item.number,
       name: `Занятие ${item.number}`,
       date: item.date,
@@ -83,15 +83,16 @@ export const LessonsPage = () => {
       />
       {lessonsToDisplay && lessonsToDisplay.length > 0 ? (
         <>
-          <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />
+          {!isEditing && <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />}
           <div className="lessons-container">
             {lessonsToDisplay?.map((lesson) => (
               <Lesson
+                key={lesson.id}
                 data={lesson}
-                id={lesson.serialNumber}
-                key={lesson.serialNumber}
+                id={lesson.id}
                 activeLessonId={activeLesson}
                 onClick={onElementClick}
+                isEditing={isEditing}
               />
             ))}
           </div>

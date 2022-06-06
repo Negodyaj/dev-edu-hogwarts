@@ -31,7 +31,7 @@ export const getUrlLessonsByGroupId = (groupId: number) => {
   return `${lessonsUrl}/by-groupId/${groupId}`;
 };
 export const getUrlUnpublishedLessonsByGroupId = (groupId: number) => {
-  return `${lessonsUrl}/unpublished/by-group/${groupId}`;
+  return `${lessonsUrl}/unpublished/by-groupId/${groupId}`;
 };
 export const getStudentAnswerByTaskId = (taskId: number) => `${taskUrl}/${taskId}/answer`;
 export const updateUserUrl = (id: number) => `${usersUrl}/${id}`;
