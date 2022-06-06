@@ -27,9 +27,26 @@ export type RegisterFormData = {
 
 export const RegistrationPage = () => {
   const [check, setCheck] = useState(false);
+  const [invisible, toggleInvisible] = useState('invisible');
 
   const schema = () =>
     yup.object().shape({
+      lastName: yup
+        .string()
+        .required('Обязательно для заполнения')
+        .matches(/^[aA-zZаА-яЯ\s]+$/, 'Недопустимые символы')
+        .max(20, 'Превышена допустимая длина 20 символов'),
+      firstName: yup
+        .string()
+        .required('Обязательно для заполнения')
+        .matches(/^[aA-zZаА-яЯ\s]+$/, 'Недопустимые символы')
+        .max(20, 'Превышена допустимая длина 20 символов'),
+      patronymic: yup
+        .string()
+        .matches(/^[aA-zZаА-яЯ\s]+$/, { message: 'Недопустимые символы', excludeEmptyString: true })
+        .min(0)
+        .max(20, 'Превышена допустимая длина 20 символов'),
+      email: yup.string().required('Обязательно для заполнения').email('Недопустимые символы'),
       password: yup
         .string()
         .required('Обязательно для заполнения')
@@ -42,7 +59,12 @@ export const RegistrationPage = () => {
       birthDate: yup
         .date()
         .min(new Date('01.01.1900'), 'Введите корректную дату')
-        .max(new Date('01.01.2021'), 'Введите корректную дату'),
+        .max(new Date('01.01.2021'), 'Введите корректную дату')
+        .required('Введите корректную дату'),
+      phoneNumber: yup
+        .string()
+        .notRequired()
+        .matches(/^[0-9-]+$/, 'Введите номер в формате 8-ххх-ххх-хх-хх'),
     });
 
   const method = useForm<RegisterFormData>({ resolver: yupResolver(schema()) });
@@ -74,21 +96,9 @@ export const RegistrationPage = () => {
                 className="form-input"
                 placeholder="Ефременков"
                 id="lastName"
-                {...method.register('lastName', {
-                  required: true,
-                  maxLength: 20,
-                  pattern: /^[a-zа-яё]+$/i,
-                })}
+                {...method.register('lastName')}
               />
-              {method.formState.errors?.lastName?.type === 'required' && (
-                <p className="asterisk">Обязательно для заполнения</p>
-              )}
-              {method.formState.errors?.lastName?.type === 'maxLength' && (
-                <p className="asterisk">Превышена допустимая длина 20 символов</p>
-              )}
-              {method.formState.errors?.lastName?.type === 'pattern' && (
-                <p className="asterisk">Недопустимые символы</p>
-              )}
+              <p className="attention">{errors.lastName?.message}</p>
             </div>
             <div className="form-grid-container">
               <div className="form-element">
@@ -100,21 +110,9 @@ export const RegistrationPage = () => {
                   className="form-input"
                   placeholder="Антон"
                   id="firstName"
-                  {...method.register('firstName', {
-                    required: true,
-                    maxLength: 20,
-                    pattern: /^[a-zа-яё]+$/i,
-                  })}
+                  {...method.register('firstName')}
                 />
-                {method.formState.errors?.firstName?.type === 'required' && (
-                  <p className="asterisk">Обязательно для заполнения</p>
-                )}
-                {method.formState.errors?.firstName?.type === 'maxLength' && (
-                  <p className="asterisk">Превышена допустимая длина 20 символов</p>
-                )}
-                {method.formState.errors?.firstName?.type === 'pattern' && (
-                  <p className="asterisk">Недопустимые символы</p>
-                )}
+                <p className="attention">{errors.firstName?.message}</p>
               </div>
               <div className="form-element">
                 <label htmlFor="patronymic">Отчество</label>
@@ -122,21 +120,9 @@ export const RegistrationPage = () => {
                   type="text"
                   className="form-input"
                   placeholder="Сергеевич"
-                  {...method.register('patronymic', {
-                    required: true,
-                    maxLength: 20,
-                    pattern: /^[a-zа-яё]+$/i,
-                  })}
+                  {...method.register('patronymic')}
                 />
-                {method.formState.errors?.lastName?.type === 'required' && (
-                  <p className="asterisk">Обязательно для заполнения</p>
-                )}
-                {method.formState.errors?.lastName?.type === 'maxLength' && (
-                  <p className="asterisk">Превышена допустимая длина 20 символов</p>
-                )}
-                {method.formState.errors?.lastName?.type === 'pattern' && (
-                  <p className="asterisk">Недопустимые символы</p>
-                )}
+                <p className="attention">{errors.patronymic?.message}</p>
               </div>
             </div>
             <div className="form-grid-container">
@@ -159,7 +145,7 @@ export const RegistrationPage = () => {
                 <input
                   type="password"
                   className="custom-password form-input"
-                  {...method.register('password', {})}
+                  {...method.register('password')}
                 />
                 <p className="attention">{errors.password?.message}</p>
               </div>
@@ -170,7 +156,7 @@ export const RegistrationPage = () => {
                 <input
                   type="password"
                   className="custom-password form-input"
-                  {...method.register('confirmPassword', {})}
+                  {...method.register('confirmPassword')}
                 />
                 <p className="attention">{errors.confirmPassword?.message}</p>
               </div>
@@ -185,30 +171,19 @@ export const RegistrationPage = () => {
                   id="email"
                   className="form-input"
                   placeholder="example@example.com"
-                  {...method.register('email', {
-                    required: true,
-                    pattern:
-                      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-                  })}
+                  {...method.register('email')}
                 />
-                {method.formState.errors?.email?.type === 'required' && (
-                  <p className="attention">Обязательно для заполнения</p>
-                )}
+                <p className="attention">{errors.email?.message}</p>
               </div>
               <div className="form-element">
                 <label htmlFor="phoneNumber">Телефон</label>
                 <input
                   type="tel"
                   className="form-input"
-                  placeholder="+7(999)888-77-66"
-                  {...method.register('phoneNumber', {
-                    required: true,
-                    pattern: /^[0-9]+$/i,
-                  })}
+                  placeholder="8(999)888-77-66"
+                  {...method.register('phoneNumber')}
                 />
-                {method.formState.errors?.phoneNumber?.type === 'pattern' && (
-                  <p className="attention">Введите корректный номер</p>
-                )}
+                <p className="attention">{errors.phoneNumber?.message}</p>
               </div>
             </div>
             <p className="warning-validation">
@@ -219,8 +194,9 @@ export const RegistrationPage = () => {
               <Button
                 text="Зарегистрироваться"
                 model={ButtonModel.Colored}
-                type={ButtonType.submit}
+                type={check ? ButtonType.submit : ButtonType.button}
                 width="238"
+                onClick={() => (check ? toggleInvisible('invisible') : toggleInvisible(''))}
               />
               <Button
                 text="Отмена"
@@ -237,7 +213,10 @@ export const RegistrationPage = () => {
                   text: '',
                   isChecked: check,
                 }}
-                onClick={() => setCheck(!check)}
+                onClick={() => {
+                  setCheck(!check);
+                  toggleInvisible('invisible');
+                }}
                 name="policy"
                 isSingle={true}
               />
@@ -245,8 +224,10 @@ export const RegistrationPage = () => {
                 Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями{' '}
                 <a href={'#'} className="link-policy" aria-label="policy">
                   политики конфиденциальности
-                  {}
                 </a>
+                <p className={`attention ${invisible}`}>
+                  Необходимо принять условия политики конфиденциальности
+                </p>
               </label>
             </div>
           </form>
