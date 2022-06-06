@@ -201,7 +201,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
           <input
             type="number"
             className="homework-form_task list-view-input"
-            value={selectedTaskCount === 0 ? '1' : selectedTaskCount}
+            value={initialHomework?.number ?? selectedTaskCount === 0 ? '1' : selectedTaskCount}
           />
         </div>
 
