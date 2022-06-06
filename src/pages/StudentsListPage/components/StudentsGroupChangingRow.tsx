@@ -1,23 +1,11 @@
 import { FilterItem, FilterList } from '../../../components/FilterList/FilterList';
+import { StudentToShow } from '../StudentsList';
+
 
 export type StudentProps = {
-  data: StudentModel;
+  data: StudentToShow;
   changeGroupId: (studentId: number, groupId: number) => void;
 };
-
-export type StudentModel = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  groupId: number | undefined;
-  phoneNumber: string | null;
-  email: string;
-};
-
-const groupSelectData: FilterItem[] = [
-  { id: 2, name: 'Группа 1' },
-  { id: 3, name: 'Группа 2' },
-];
 
 export const StudentRow = (props: StudentProps) => {
   const onSelectGroup = (item: FilterItem) => {
@@ -33,9 +21,9 @@ export const StudentRow = (props: StudentProps) => {
         <span>{studentsGroupRow.email}</span>
         <span>{studentsGroupRow.phoneNumber}</span>
         <FilterList
-          data={groupSelectData}
+          data={props.data?.groups}
           callback={onSelectGroup}
-          selected={studentsGroupRow.groupId}
+          selected={studentsGroupRow.group?.id}
         />
       </div>
     </div>
