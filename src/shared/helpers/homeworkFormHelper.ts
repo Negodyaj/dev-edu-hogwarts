@@ -1,16 +1,16 @@
-import {
-  getTasksCount,
-  removeLinks,
-  selectGroup,
-  setValueInInput,
-} from '../../actions/newHomeworkForm.action';
+// import {
+//   getTasksCount,
+//   removeLinks,
+//   selectGroup,
+//   setValueInInput,
+// } from '../../actions/newHomeworkForm.action';
 import { Dispatch } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { AddHomeworkFormData } from '../../pages/NewHomework/NewHomework';
 import {
   createNewTaskByMethodist,
   createNewTaskByTeacher,
-  tasksCountInGroup,
+  //tasksCountInGroup,
 } from '../../actions/homeworks.thunks';
 import { Homework } from '../../models/responses/HomeworksResponse';
 import { UserRole } from '../enums/UserRole';
@@ -19,7 +19,7 @@ import moment from 'moment';
 
 export const resetForm = (
   links: string[],
-  dispatch: Dispatch<any>,
+  _dispatch: Dispatch<any>,
   method: UseFormReturn<AddHomeworkFormData, any>
 ) => {
   links.length = 0;
@@ -28,12 +28,14 @@ export const resetForm = (
     description: '',
     startDate: new Date(),
     endDate: new Date(),
+    courseIds: [],
+    links: '',
   });
-  dispatch(removeLinks());
-  dispatch(setValueInInput(''));
-  dispatch(getTasksCount([]));
-  dispatch(tasksCountInGroup(0));
-  dispatch(selectGroup(-1));
+  // dispatch(removeLinks());
+  // dispatch(setValueInInput(''));
+  // dispatch(getTasksCount([]));
+  //dispatch(tasksCountInGroup(0));
+  //dispatch(selectGroup(-1));
 };
 
 export const createHomeworkFromData = (homework: Homework, data: AddHomeworkFormData) => {

@@ -23,6 +23,12 @@ export type ListViewLessons = {
   hoursCount: number | string;
 };
 
+export type TopicFormData = {
+  id: number;
+  name: string;
+  duration: number;
+};
+
 export const ListView = (props: ListViewProps) => {
   const linkType = () => {
     if (props.edit) {
@@ -31,7 +37,15 @@ export const ListView = (props: ListViewProps) => {
       return <LinkWithUnderline text="Редактировать" path="edit-courses" />;
     }
   };
+  // const onSubmit = (data: TopicFormData) =>
+  // baseWretch()
+  //   .url(`api/Courses/${currentCourse?.id}/program`)
+  //   .put({
+  //     id: data.id,
+  //     name: data.name
 
+  //   });
+  // onSubmit был для того, чтоб закинуть все обновленные топики по курсу
   return (
     <div className="content-container flex-column">
       {linkType()}

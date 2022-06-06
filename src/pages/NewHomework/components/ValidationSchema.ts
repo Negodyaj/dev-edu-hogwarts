@@ -42,10 +42,11 @@ export const validationSchema = yup.object().shape({
     .when(['$edit', '$start', '$end'], {
       is: (edit: boolean, start?: string, end?: string) => edit && start && end,
       then: yup.string().test('check-date-edit', 'Выбрана некорректная дата', (date, value) => {
-        debugger;
         const dayOf = moment(value.options.context?.start, 'DD.MM.YYYY');
         return moment(date).isAfter(dayOf);
       }),
     }),
-  groupId: yup.mixed().required('Не выбрана ни одна группа'),
+  groupId: yup
+    .number()
+    .when('mode', { is: 'teacher', then: yup.number().required('Не выбрана ни одна группа') }),
 });

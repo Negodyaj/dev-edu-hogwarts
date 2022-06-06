@@ -5,7 +5,9 @@
   font-size: 18px;
   max-width: fit-content;
   margin: 0;
-
+.title-number-groups{
+  margin-right: 10px;
+}
   & .homework-form_title {
     font-size: 22px;
     font-weight: 600;
@@ -25,7 +27,11 @@
       column-gap: 70px;
     }
   }
-
+  .courses-list {
+    .custom-checkbox:nth-child(1) {
+      margin-left: 37px;
+  }
+  }
   .btn ~ .btn {
     margin-left: 30px;
   }
