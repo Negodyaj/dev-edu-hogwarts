@@ -22,6 +22,17 @@
 
     & .btn-text {
       padding: 0;
+      font-weight: 600;
+      line-height: 21px;
+      color: $lavender-color;
+      border: 0;
+      padding: 15px 20px;
+      background: none;
+  
+      &:disabled {
+        color: $dark-gray;
+        cursor: auto;
+      }
     }
 
     & .form-input_link__button {

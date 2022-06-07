@@ -146,12 +146,12 @@ export const SettingsPage = () => {
               </div>
               <div className="form-element">
                 Email
-                <Input
-                  register={register}
-                  name={'email'}
+                <input
+                  className="form-input readonly-input"
                   defaultValue={currentUser?.email}
-                  type={'text'}
-                ></Input>
+                  {...register('email')}
+                  readOnly={true}
+                />
                 <div className="invalid-feedback">{errors.email?.message}</div>
               </div>
 

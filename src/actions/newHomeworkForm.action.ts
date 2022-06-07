@@ -1,3 +1,4 @@
+import { CheckboxData } from '../components/CheckBoxGroup/CheckBox/CheckBox';
 import { GroupResponse } from '../models/responses/GroupResponse';
 import { Homework, Task } from '../models/responses/HomeworksResponse';
 import { CourseSimpleResponse } from '../models/responses/CourseSimpleResponse';
@@ -28,6 +29,11 @@ export const loadGroups = (groups: GroupResponse[]) => ({
     text: item.name,
     value: item.id,
   })),
+});
+
+export const setCourses = (courses: CheckboxData[]) => ({
+  type: LOAD_COURSES,
+  payload: courses,
 });
 
 export const loadCourses = (courses: CourseSimpleResponse[]) => ({
@@ -110,4 +116,6 @@ export type NewHomeworkFormAction =
   | ReturnType<typeof postHomeworkSuccess>
   | ReturnType<typeof postHomeworkStarted>
   | ReturnType<typeof removeLinks>
-  | ReturnType<typeof getTask>;
+  | ReturnType<typeof getTask>
+  | ReturnType<typeof getTasksCount>
+  | ReturnType<typeof setCourses>;

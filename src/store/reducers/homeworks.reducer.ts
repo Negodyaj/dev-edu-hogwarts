@@ -8,30 +8,39 @@ import {
   LOAD_HOMEWORKS_SUCCESS,
   LOAD_HOMEWORKS_FAIL,
   LOAD_DRAFT_HOMEWORKS_SUCCESS,
+  LOAD_TASKS_STARTED,
+  LOAD_TASKS_SUCCESS,
+  LOAD_TASKS_FAILED,
+  LOAD_BYCOURSE,
 } from '../../actions/homeworks.actions';
 import { TabData } from '../../models/TabData';
 import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
 import { Homework, Task } from '../../models/responses/HomeworksResponse';
+import { CourseResponse } from '../../models/responses/CourseResponse';
 
-export interface HomeWorkPageState {
+export interface HomeworksPageState {
   tabs?: TabData[];
   selectedTab: number;
   homeworks?: Homework[];
+  tasks?: Task[];
   isLoading: boolean;
   errorMessage: string;
+  courses: CourseResponse[];
   draftHomeworks?: Task[];
 }
 
-const initialState: HomeWorkPageState = {
+const initialState: HomeworksPageState = {
   tabs: [],
   selectedTab: -1,
   homeworks: [],
+  courses: [],
+  tasks: [],
   isLoading: false,
   errorMessage: '',
   draftHomeworks: undefined,
 };
 
-export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageAction> = (
+export const homeworksPageReducer: Reducer<HomeworksPageState, HomeworksPageAction> = (
   state = initialState,
   action
 ) => {
@@ -48,6 +57,22 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageActio
           id: group.id,
           text: group.course.name,
           icon: CourseIcon[group.course.id],
+        };
+        return tabData;
+      });
+      return {
+        ...state,
+        tabs: tabs,
+        selectedTab: tabs[0]?.id,
+        homeworks: [],
+      };
+    }
+    case LOAD_BYCOURSE: {
+      const tabs: TabData[] = action.payload.map((course) => {
+        const tabData: TabData = {
+          id: course.id,
+          text: course.name,
+          icon: CourseIcon[course.id],
         };
         return tabData;
       });
@@ -82,6 +107,27 @@ export const homeworksPageReducer: Reducer<HomeWorkPageState, HomeworksPageActio
       };
     }
     case LOAD_HOMEWORKS_FAIL: {
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload,
+      };
+    }
+    case LOAD_TASKS_STARTED: {
+      return {
+        ...state,
+        isLoading: true,
+        errorMessage: '',
+      };
+    }
+    case LOAD_TASKS_SUCCESS: {
+      return {
+        ...state,
+        tasks: [...action.payload],
+        isLoading: false,
+      };
+    }
+    case LOAD_TASKS_FAILED: {
       return {
         ...state,
         isLoading: false,

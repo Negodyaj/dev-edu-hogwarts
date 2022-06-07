@@ -14,7 +14,7 @@ import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getCurrentUser } from './services/auth.service';
+import { getCourses, getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
 import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
@@ -51,6 +51,7 @@ function App() {
     } else {
       navigate('/');
     }
+    getCourses(dispatch);
   }, []);
 
   const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
