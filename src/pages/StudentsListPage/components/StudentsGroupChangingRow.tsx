@@ -5,6 +5,7 @@ export type StudentProps = {
   data: StudentToShow;
   groups?: Group[];
   changeGroupId: (studentId: number, groupId: number) => void;
+  selectedGroup: Group;
 };
 
 export const StudentRow = (props: StudentProps) => {
@@ -23,7 +24,7 @@ export const StudentRow = (props: StudentProps) => {
         <FilterList
           data={props.groups || []}
           callback={onSelectGroup}
-          selected={studentsGroupRow.group?.id}
+          selected={props.selectedGroup.id}
         />
       </div>
     </div>
