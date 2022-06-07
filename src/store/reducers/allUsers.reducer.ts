@@ -1,5 +1,5 @@
 import { Reducer } from 'react';
-import { AllUsersPageActions, LOAD_ROLES } from '../../actions/allUsers.actions';
+import { ADD_ROLE, AllUsersPageActions, LOAD_USERS } from '../../actions/allUsers.actions';
 import { UserRowModel } from '../../pages/AllUsersPage/components/UserRow';
 
 export interface AllUsersPageState {
@@ -15,7 +15,12 @@ export const allUsersPageReducer: Reducer<AllUsersPageState | undefined, AllUser
   action
 ) => {
   switch (action.type) {
-    case LOAD_ROLES:
+    case LOAD_USERS:
+      return {
+        state,
+        userList: action.payload,
+      };
+    case ADD_ROLE:
       return {
         state,
         userList: action.payload,

@@ -1,15 +1,16 @@
 import { UserRowModel } from '../pages/AllUsersPage/components/UserRow';
 
-export const UPDATE_ROLES = 'UPDATE_ROLES' as const;
-export const LOAD_ROLES = 'LOAD_ROLES' as const;
+export const ADD_ROLE = 'ADD_ROLE' as const;
+export const LOAD_USERS = 'LOAD_USERS' as const;
 
-export const updateUserRoles = () => ({
-  type: UPDATE_ROLES,
+export const addRole = (role: any) => ({
+  type: ADD_ROLE,
+  payload: role,
 });
 
 export const loadUsers = (users: UserRowModel[]) => ({
-  type: LOAD_ROLES,
+  type: LOAD_USERS,
   payload: users,
 });
 
-export type AllUsersPageActions = ReturnType<typeof updateUserRoles> | ReturnType<typeof loadUsers>;
+export type AllUsersPageActions = ReturnType<typeof addRole> | ReturnType<typeof loadUsers>;

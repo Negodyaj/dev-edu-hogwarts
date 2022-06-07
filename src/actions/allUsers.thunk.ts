@@ -15,6 +15,7 @@ export const onUsersLoad = () => {
             name: item.firstName,
             lastName: item.lastName,
             roles: item.roles,
+            userId: item.id,
           };
           return user;
         });
@@ -22,4 +23,8 @@ export const onUsersLoad = () => {
         return userList;
       });
   };
+};
+
+export const addRole = (userId: number, role: string) => {
+  baseWretch().url(`api/Users/${userId}/role/${role}`).post(role);
 };
