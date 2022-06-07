@@ -2,6 +2,14 @@ import { useState } from 'react';
 import './FilterList.scss';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
+import { AppState } from '../../store/store';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
+import { useSelector } from 'react-redux';
+import { DropDownWrapper } from './styled/DropDownWrapper';
+import { DropDownList } from './styled/DropDownList';
+import { DropDownContainer } from './styled/DropDownContainer';
+import { DropDownRoll } from './styled/DropDownRoll';
+import { DropDownElement } from './styled/DropDownElement';
 
 export type FilterListProps = {
   data: FilterItem[];
@@ -24,6 +32,7 @@ export type FilterItem = {
 };
 
 export const FilterList = (props: FilterListProps) => {
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const filterData = props.data;
   const selectedItem = props.selected ? filterData.find((x) => x.id === props.selected) : undefined;
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -43,11 +52,10 @@ export const FilterList = (props: FilterListProps) => {
   };
 
   return (
-    <div className="drop-down-filter__wrapper flex-container" ref={clickOutside}>
-      <div
-        className={`drop-down-filter flex-container ${props.cssClass ?? ''} ${
-          props.cssAlign ?? ''
-        }`}
+    <DropDownWrapper ref={clickOutside} isDark={isDark}>
+      <DropDownList
+        dropDownProps={props}
+        isDark={isDark}
         onKeyPress={() => toggle()}
         onClick={() => toggle()}
         data-lesson-id={item?.id}
@@ -60,23 +68,24 @@ export const FilterList = (props: FilterListProps) => {
           ''
         )}
         {!props.arrowHidden && <SvgArrow direction={isOpen ? 'top' : 'bottom'} />}
-      </div>
+      </DropDownList>
 
       {isOpen && (
-        <div className={`drop-down-filter__list-wrapper ${props.cssAlign ?? 'right'}`}>
-          <ul className={`drop-down-filter__list ${filterData.length > 4 ? 'overflow' : ''}`}>
+        <DropDownContainer dropDownProps={props} isDark={isDark}>
+          <DropDownRoll isDark={isDark} dropDownProps={props}>
             {filterData.map((elem) => (
-              <li
+              <DropDownElement
+                isDark={isDark}
                 key={elem.id}
-                className={`drop-down-filter__element ${elem.id === item?.id ? 'selected' : ''}`}
+                className={`${elem.id === item?.id ? 'filter-element_selected' : ''}`}
                 onClick={() => onElementClick(elem)}
               >
                 {elem.name}
-              </li>
+              </DropDownElement>
             ))}
-          </ul>
-        </div>
+          </DropDownRoll>
+        </DropDownContainer>
       )}
-    </div>
+    </DropDownWrapper>
   );
 };
