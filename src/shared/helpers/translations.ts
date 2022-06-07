@@ -22,6 +22,12 @@ export const getUserRoleLocalName = (role: UserRole) => {
   }
 };
 
+export const getUserRoleLocalNameForString = (roleString: any) => {
+  const typedString: keyof typeof UserRole = roleString;
+  const roleEnum = UserRole[typedString];
+  return getUserRoleLocalName(roleEnum);
+};
+
 export const getGroupStatusLocalName = (status: GroupStatus) => {
   switch (status) {
     case GroupStatus.Forming:

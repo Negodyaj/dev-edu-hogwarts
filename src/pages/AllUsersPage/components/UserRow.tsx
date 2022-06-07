@@ -1,7 +1,9 @@
 //import { Roles } from '../AllUsersPage';
 
-import { UserRole } from '../../../shared/enums/UserRole';
-import { getUserRoleLocalName } from '../../../shared/helpers/translations';
+import { getUserRoleLocalNameForString } from '../../../shared/helpers/translations';
+
+//import { UserRole } from '../../../shared/enums/UserRole';
+//import { getUserRoleLocalName } from '../../../shared/helpers/translations';
 
 export type UserRowProps = {
   data: UserRowModel;
@@ -10,25 +12,33 @@ export type UserRowProps = {
 export type UserRowModel = {
   name: string;
   lastName: string;
-  role: UserRole[];
+  roles: string[];
 };
 
 export const UserRow = (props: UserRowProps) => {
   const user = props.data;
-  console.log(getUserRoleLocalName(user.role[0])); //doesn't work, returns nothing
+
+  function AddRole() {
+    console.log();
+  }
+
+  function DeleteUser() {
+    console.log();
+  }
+
   return (
     <div className="user-row">
       <div className="user-name">
         {user.name} {user.lastName}
       </div>
       <div className="user-role">
-        {user.role.map((i) => (
-          <span>{i}, </span>
+        {user.roles.map((i) => (
+          <span>{getUserRoleLocalNameForString(i)}, </span>
         ))}
       </div>
       <div className="user-buttons">
-        <button>v</button>
-        <button>x</button>
+        <button onClick={() => AddRole()}>v</button>
+        <button onClick={() => DeleteUser()}>x</button>
       </div>
     </div>
   );

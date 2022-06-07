@@ -14,7 +14,7 @@ export const onUsersLoad = () => {
           const user: UserRowModel = {
             name: item.firstName,
             lastName: item.lastName,
-            role: item.roles,
+            roles: item.roles,
           };
           return user;
         });

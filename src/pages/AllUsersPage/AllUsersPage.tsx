@@ -15,7 +15,7 @@ export interface UsersResponse {
   email: string;
   photo: string;
   phoneNumber: string;
-  roles: UserRole[];
+  roles: string[];
 }
 
 const roleFilterData: FilterItem[] = [
@@ -35,29 +35,27 @@ export const AllUsersPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(onUsersLoad());
-    console.log(userList.values);
   }, []);
 
   const [listState] = useState<UserRowModel[]>(userList);
   const [filterRoleId, setFilterRoleId] = useState<UserRole>(UserRole.DefaultRole);
   const [filtredList, setFilteredList] = useState<UserRowModel[]>(userList);
+  const [searchBarState, setSearchBarState] = useState('');
 
-  const FilterByRole = () => {
+  const filterByRole = () => {
     const filtered = listState.filter(
       (item) =>
         filterRoleId === UserRole.DefaultRole ||
-        (filterRoleId === UserRole.Admin && item.role.includes(filterRoleId))
+        item.roles.find((t) => t === UserRole[filterRoleId].toString())
     );
-    filtered.map((i) => console.log(i.role));
-    setFilteredList(filtered);
     console.log(filtered);
-    console.log(filterRoleId);
+    setFilteredList(filtered);
   };
 
-  useEffect(() => FilterByRole(), [filterRoleId]);
+  useEffect(() => filterByRole(), [filterRoleId]);
 
   const applyRoleFilter = (item: FilterItem) => {
-    setFilterRoleId(item.id);
+    setFilterRoleId(item.id as UserRole);
   };
 
   return (
@@ -67,7 +65,13 @@ export const AllUsersPage = () => {
           <div className="user-name">ФИО Пользователя</div>
           <div className="user-role">Роль</div>
           <div>
-            <input type="search" placeholder="Поиск" />
+            <input
+              type="search"
+              placeholder="Поиск"
+              onChange={(event) => {
+                setSearchBarState(event.target.value);
+              }}
+            />
           </div>
         </div>
         <div className="role-filter-row">
@@ -75,9 +79,20 @@ export const AllUsersPage = () => {
         </div>
 
         <div>
-          {filtredList.map((item) => (
-            <UserRow data={item} />
-          ))}
+          {filtredList
+            .filter((i) => {
+              if (searchBarState === '') {
+                return i;
+              } else if (
+                i.name.toLowerCase().includes(searchBarState.toLowerCase()) ||
+                i.lastName.toLowerCase().includes(searchBarState.toLowerCase())
+              ) {
+                return i;
+              }
+            })
+            .map((item) => (
+              <UserRow data={item} />
+            ))}
         </div>
       </div>
     </>
