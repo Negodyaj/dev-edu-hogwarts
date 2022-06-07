@@ -116,15 +116,18 @@ export const StudentsListPage = () => {
   const applySurnameFilter = (item: FilterItem) => {
     applySurnameSorting(item.id);
   };
-  const applyGroupFilter = (item: FilterItem) => {
-    const filterValue = item.id;
-    const filtered = students.filter(
-      (s) =>
-        filterValue === 0 ||
-        (filterValue > 0 && s.groups[0].id === filterValue) ||
-        (!s.group && filterValue === -1)
+  const setFiltered = (arr: StudentToShow[], neededId: number) => {
+    const filtered = arr.filter(
+      (s: { groups: { id: number }[]; group: any }) =>
+        neededId === 0 ||
+        (neededId > 0 && s.groups[0].id === neededId) ||
+        (!s.group && neededId === -1)
     );
     setFilteredList(filtered);
+  };
+  const applyGroupFilter = (item: FilterItem) => {
+    const filterValue = item.id;
+    setFiltered(students, filterValue);
   };
 
   const changeGroup = (studentId: number, groupId: number) => {
@@ -138,12 +141,8 @@ export const StudentsListPage = () => {
       student.groups = [{ id: groupId, name: group.name }];
     }
     student.group = { id: groupId, name: group.name };
-    const filtered = studentsCopy.filter(
-      (s) =>
-        groupId === 0 || (groupId > 0 && s.groups[0].id === groupId) || (!s.group && groupId === -1)
-    );
-    setFilteredList(filtered);
     setStudents(studentsCopy);
+    setFiltered(studentsCopy, groupId);
   };
 
   return (
