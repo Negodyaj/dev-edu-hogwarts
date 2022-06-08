@@ -5,7 +5,9 @@
   font-size: 18px;
   max-width: fit-content;
   margin: 0;
-
+.title-number-groups{
+  margin-right: 10px;
+}
   & .homework-form_title {
     font-size: 22px;
     font-weight: 600;
@@ -25,7 +27,11 @@
       column-gap: 70px;
     }
   }
-
+  .courses-list {
+    .custom-checkbox:nth-child(1) {
+      margin-left: 37px;
+  }
+  }
   .btn ~ .btn {
     margin-left: 30px;
   }
@@ -55,6 +61,16 @@
 
   .radio-group-container {
     max-width: 690px;
+  }
+
+  .list-view-input {
+    width: auto;
+    background: transparent;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
   }
 
   .form-input_link__container {

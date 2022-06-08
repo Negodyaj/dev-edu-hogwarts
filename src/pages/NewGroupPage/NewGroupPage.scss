@@ -3,25 +3,24 @@
 .new-group-page {
   padding: 20px 0 0 45px;
 
-  .btn-text {
-    margin-left: 58px;
-  }
-
   h3 {
     font-size: 18px;
     font-weight: 500;
+  }
+
+  .delete-btn {
+    margin-left: auto;
+    margin-right: 45px;
+  }
+
+  .btn-text {
+    margin-left: 30px;
   }
 }
 
 .choose-course {
   display: grid;
-  grid-template-columns: 71px auto;
-
-  .drop-down-filter svg {
-    border: 1px solid $medium-gray;
-    border-radius: 5px;
-    background-color: $white;
-  }
+  grid-template-columns: 71px auto;  
 }
 
 .choose-count {
@@ -31,6 +30,11 @@
 .choose-status {
   display: grid;
   grid-template-columns: 150px auto;
+}
+
+.with-dropdown svg {
+  border: 1px solid $medium-gray;
+  border-radius: 5px;
 }
 
 .default-value {
@@ -56,7 +60,3 @@ label {
   grid-template-columns: 305px 305px;
 }
 
-button:last-child {
-  margin-left: auto;
-  margin-right: 45px;
-}

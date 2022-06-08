@@ -24,7 +24,7 @@ export interface NewHomeworkFormState {
   inputLinkValue: string;
   group: RadioData[];
   selectGroupId: number;
-  selectCourseId: number;
+  selectCourseIds: number[];
   selectedTaskCount: number;
   errorMessage?: string;
   inProcess: boolean;
@@ -37,7 +37,7 @@ const initialState: NewHomeworkFormState = {
   inputLinkValue: '',
   group: [],
   selectGroupId: -1,
-  selectCourseId: -1,
+  selectCourseIds: [],
   selectedTaskCount: 0,
   errorMessage: undefined,
   inProcess: false,
@@ -71,12 +71,14 @@ export const newHomeworkFormReducer: Reducer<NewHomeworkFormState, NewHomeworkFo
         ...state,
         selectGroupId: action.payload,
         selectCourseId: -1,
+        errorMessage: undefined,
       };
     case SELECT_COURSE:
       return {
         ...state,
         selectCourseId: action.payload,
         selectGroupId: -1,
+        errorMessage: undefined,
       };
     case GET_TASKS_COUNT:
       return {
