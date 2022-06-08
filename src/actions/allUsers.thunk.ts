@@ -2,7 +2,7 @@ import { Dispatch } from 'react';
 import { UsersResponse } from '../pages/AllUsersPage/AllUsersPage';
 import { UserRowModel } from '../pages/AllUsersPage/components/UserRow';
 import { baseWretch } from '../services/base-wretch.service';
-import { AllUsersPageActions, loadUsers } from './allUsers.actions';
+import { addRole, AllUsersPageActions, deleteRole, loadUsers } from './allUsers.actions';
 
 export const onUsersLoad = () => {
   return (dispatch: Dispatch<AllUsersPageActions>) => {
@@ -25,6 +25,16 @@ export const onUsersLoad = () => {
   };
 };
 
-export const addRole = (userId: number, role: string) => {
-  baseWretch().url(`api/Users/${userId}/role/${role}`).post(role);
+export const onAddRole = (userId: number, role: number) => {
+  return (dispatch: Dispatch<AllUsersPageActions>) => {
+    baseWretch().url(`api/Users/${userId}/role/${role}`).post();
+    dispatch(addRole(role));
+  };
+};
+
+export const onDeleteRole = (userId: number, role: number) => {
+  return (dispatch: Dispatch<AllUsersPageActions>) => {
+    baseWretch().url(`api/Users/${userId}/role/${role}`).delete();
+    dispatch(deleteRole(role));
+  };
 };

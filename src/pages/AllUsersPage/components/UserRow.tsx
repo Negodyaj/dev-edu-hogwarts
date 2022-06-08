@@ -1,8 +1,10 @@
-import { CheckboxGroup } from '../../../components/CheckBoxGroup/CheckBoxGroup';
-import { CheckboxData } from '../../../components/CheckBoxGroup/CheckBox/CheckBox';
+import { useDispatch } from 'react-redux';
+import { toggleRole as toggleRole } from '../../../actions/allUsers.actions';
+import { onAddRole } from '../../../actions/allUsers.thunk';
 import { FilterItem, FilterList } from '../../../components/FilterList/FilterList';
 import { getUserRoleLocalNameForString } from '../../../shared/helpers/translations';
-import { FormProvider, useForm } from 'react-hook-form';
+//import { AllUsersPageState } from '../../../store/reducers/allUsers.reducer';
+//import { AppState } from '../../../store/store';
 
 export type UserRowProps = {
   data: UserRowModel;
@@ -16,40 +18,30 @@ export type UserRowModel = {
 };
 
 const rolesData: FilterItem[] = [
-  { id: 1, name: 'Администратор' },
-  { id: 2, name: 'Менеджер' },
-  { id: 3, name: 'Методист' },
-  { id: 4, name: 'Студент' },
-  { id: 5, name: 'Учитель' },
-  { id: 6, name: 'Тьютор' },
+  { id: 1, name: 'Администратор', checkbox: true },
+  { id: 2, name: 'Менеджер', checkbox: true },
+  { id: 3, name: 'Методист', checkbox: true },
+  { id: 4, name: 'Студент', checkbox: true },
+  { id: 5, name: 'Учитель', checkbox: true },
+  { id: 6, name: 'Тьютор', checkbox: true },
 ];
 
-const rolesArrayForCheckbox: CheckboxData[] = rolesData.map((role) => {
-  const newRole: CheckboxData = {
-    value: role.id,
-    text: role.name,
-    isChecked: false,
-  };
-  return newRole;
-});
-
 export const UserRow = (props: UserRowProps) => {
+  //const { selectedUserId } = useSelector(
+  //  (state: AppState) => state.allUsersPageState as AllUsersPageState
+  //);
   const user = props.data;
 
-  const methods = useForm();
+  const dispatch = useDispatch();
 
-  const { handleSubmit } = methods;
-
-  function AddRole(role: string, id: number) {
+  function ChangeRole(id: number, role: number) {
+    dispatch(toggleRole(id));
+    dispatch(onAddRole(id, role));
     console.log('added role ', role, id);
   }
 
   function DeleteUser() {
     console.log();
-  }
-
-  function onSubmit() {
-    console.log('submit');
   }
 
   return (
@@ -63,17 +55,12 @@ export const UserRow = (props: UserRowProps) => {
         ))}
       </div>
       <div className="user-buttons form-element with-dropdown">
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FilterList
-              data={rolesData}
-              placeholder={''}
-              callback={(item) => AddRole(item.name, user.userId)}
-            />
-            <CheckboxGroup checkboxArr={rolesArrayForCheckbox} name="roles" />
-            <button onClick={() => DeleteUser()}>x</button>
-          </form>
-        </FormProvider>
+        <FilterList
+          data={rolesData}
+          placeholder={''}
+          callback={(item) => ChangeRole(user.userId, item.id)}
+        />
+        <button onClick={() => DeleteUser()}>x</button>
       </div>
     </div>
   );

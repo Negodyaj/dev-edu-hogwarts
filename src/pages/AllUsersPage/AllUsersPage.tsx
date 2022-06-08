@@ -32,10 +32,11 @@ export const AllUsersPage = () => {
   const { userList } = useSelector(
     (state: AppState) => state.allUsersPageState as AllUsersPageState
   );
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(onUsersLoad());
-  }, []);
+  }, [userList]);
 
   const [listState] = useState<UserRowModel[]>(userList);
   const [filterRoleId, setFilterRoleId] = useState<UserRole>(UserRole.DefaultRole);

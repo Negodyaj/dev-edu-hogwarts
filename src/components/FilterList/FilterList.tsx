@@ -2,6 +2,9 @@ import { useState } from 'react';
 import './FilterList.scss';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
+//import { useSelector } from 'react-redux';
+//import { AllUsersPageState } from '../../store/reducers/allUsers.reducer';
+//import { AppState } from '../../store/store';
 
 export type FilterListProps = {
   data: FilterItem[];
@@ -21,9 +24,14 @@ export enum Align {
 export type FilterItem = {
   id: number;
   name: string;
+  checkbox?: boolean;
 };
 
 export const FilterList = (props: FilterListProps) => {
+  //const { selectedUserId } = useSelector(
+  //  (state: AppState) => state.allUsersPageState as AllUsersPageState
+  //);
+
   const filterData = props.data;
   const selectedItem = props.selected ? filterData.find((x) => x.id === props.selected) : undefined;
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -40,6 +48,9 @@ export const FilterList = (props: FilterListProps) => {
   const onElementClick = (elem: FilterItem) => {
     setItem(elem);
     props.callback?.(elem);
+    //if (elem.checkbox) {
+    //console.log(selectedUserId);
+    //}
   };
 
   return (
@@ -53,7 +64,7 @@ export const FilterList = (props: FilterListProps) => {
         data-lesson-id={item?.id}
       >
         {item?.name ? (
-          <span>{item?.name}</span>
+          <span>{item?.checkbox ? '' : item?.name}</span>
         ) : props.placeholder ? (
           <span className="placeholder">{props.placeholder}</span>
         ) : (
@@ -72,6 +83,7 @@ export const FilterList = (props: FilterListProps) => {
                 onClick={() => onElementClick(elem)}
               >
                 {elem.name}
+                {elem.checkbox ? <input type="checkbox" /> : <></>}
               </li>
             ))}
           </ul>

@@ -42,3 +42,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+.form-element{
+  margin-top: 0;
+  .drop-down-filter{
+    min-width: fit-content;
+  }
+}
