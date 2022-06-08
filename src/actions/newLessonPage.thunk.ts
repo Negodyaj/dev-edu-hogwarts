@@ -27,7 +27,7 @@ export const updateLesson = (newLessonsData: NewLessonFormData) => {
     dispatch(uploadLessonStarted());
 
     try {
-      await baseWretch().url(`lessonsUrl/${newLessonsData.id}`).put(newLessonsData).json();
+      await baseWretch().url(`${lessonsUrl}/${newLessonsData.id}`).put(newLessonsData).json();
       dispatch(uploadLessonSuccess());
     } catch (e: any) {
       dispatch(uploadLessonFail(e.message));

@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { useEffect } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,11 +31,12 @@ export type NewLessonFormData = {
 
 export const NewLessonPage = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
+
   const { lessonsData } = useSelector(
     (state: AppState) => state.newLessonPageState as NewLessonPageState
   );
-
-  const { isEditing } = useSelector(
+  const { isEditing, selectedTab } = useSelector(
     (state: AppState) => state.lessonsPageState as LessonsPageState
   );
 
@@ -47,64 +47,69 @@ export const NewLessonPage = () => {
   const {
     register,
     formState: { errors },
-    getValues,
     control,
     reset,
-  } = useForm<NewLessonFormData>({});
+    handleSubmit,
+  } = methods;
 
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const navigate = useNavigate();
 
-  const onPublishHandler = (data: NewLessonFormData) => {
-    data.isPublished = true;
-    if (!isEditing) dispatch(uploadLesson(data));
-    else dispatch(updateLesson(data));
-    alert(`published ${data.groupId}!!`); //to delete
-    dispatch(resetDataToCreate());
-    reset();
+  const initFields = async () => {
+    if (id) {
+      const fullLessonsData: LessonFullInfoResponse = await baseWretch()
+        .url(getUrlLessonsFullInfo(+id))
+        .get()
+        .json();
+
+      const lessonsFormData: NewLessonFormData = {
+        id: fullLessonsData.id,
+        date: fullLessonsData.date,
+        additionalMaterials: fullLessonsData.additionalMaterials,
+        isPublished: false,
+        linkToRecord: fullLessonsData.linkToRecord,
+        name: fullLessonsData.name,
+        groupId: selectedTab,
+      };
+
+      dispatch(getDataToEdit(lessonsFormData));
+      dispatch(setIsEdit(true));
+    }
   };
-
-  const onSaveHandler = (data: NewLessonFormData) => {
-    data.isPublished = false;
-    if (!isEditing) dispatch(uploadLesson(data));
-    else dispatch(updateLesson(data));
-    alert(`saved to group ${data.groupId}!`); //to delete
-    dispatch(resetDataToCreate());
-    reset();
-  };
-
-  const initFields = async (id: number) => {
-    const fullLessonsData: LessonFullInfoResponse = await baseWretch()
-      .url(getUrlLessonsFullInfo(+id))
-      .get()
-      .json();
-
-    const lessonsFormData: NewLessonFormData = {
-      id: fullLessonsData.id,
-      date: fullLessonsData.date,
-      additionalMaterials: fullLessonsData.additionalMaterials,
-      isPublished: false,
-      linkToRecord: fullLessonsData.linkToRecord,
-      name: fullLessonsData.name,
-      groupId: undefined,
-    };
-
-    dispatch(getDataToEdit(lessonsFormData));
-    dispatch(setIsEdit(true));
-  };
-  const { id } = useParams();
 
   useEffect(() => {
-    if (id) initFields(+id);
+    if (id) initFields();
     else {
       dispatch(resetDataToCreate());
       dispatch(setIsEdit(false));
     }
   }, [location.pathname]);
 
+  const onPublishHandler = handleSubmit((data: NewLessonFormData) => {
+    data.isPublished = true;
+    if (!isEditing) dispatch(uploadLesson(data));
+    else {
+      data.id = +id!;
+      dispatch(updateLesson(data));
+    }
+    dispatch(resetDataToCreate());
+    reset();
+  });
+
+  const onSaveHandler = handleSubmit((data: NewLessonFormData) => {
+    data.isPublished = false;
+    if (!isEditing) dispatch(uploadLesson(data));
+    else {
+      data.id = +id!;
+      dispatch(updateLesson(data));
+    }
+    dispatch(resetDataToCreate());
+    reset();
+  });
+
   return (
     <FormProvider {...methods}>
-      <div className="form-container homework-form">
+      <form className="form-container homework-form">
         <div className="flex-between base-line">
           <h2 className="homework-form_title">
             {!isEditing ? `${'Новое занятие'}` : `${'Редактирование'}`}
@@ -116,24 +121,27 @@ export const NewLessonPage = () => {
         </div>
         <div className="form-element flex-container">
           Номер группы:
-          <div className="radio-group-container flex-container">
-            {currentUser?.groups && (
-              <RadioGroup
-                radioData={currentUser.groups?.map((group) => {
-                  return { text: group.name, value: group.id } as RadioData;
-                })}
-                name="groupId"
-              />
-            )}
-          </div>
+          {isEditing ? (
+            ` ${selectedTab}`
+          ) : (
+            <div className="radio-group-container flex-container">
+              {currentUser?.groups && (
+                <RadioGroup
+                  radioData={currentUser.groups?.map((group) => {
+                    return { text: group.name, value: group.id } as RadioData;
+                  })}
+                  name="groupId"
+                />
+              )}
+            </div>
+          )}
         </div>
         <span className="invalid-feedback">{errors?.groupId?.message}</span>
-        <div>
+        <div className="form-element">
           Дата проведения занятия
           <Controller
             name="date"
             control={control}
-            defaultValue={`${moment().format('DD.MM.YYYY')}`}
             rules={{ required: false }}
             render={({ field }) => <Datepicker field={field} />}
           />
@@ -144,7 +152,6 @@ export const NewLessonPage = () => {
             className={`form-input${errors.name ? ' invalid-input' : ''}`}
             type="text"
             placeholder="Введите название"
-            defaultValue={`${lessonsData?.name}`}
             {...register('name', { required: true })}
           />
         </div>
@@ -155,7 +162,6 @@ export const NewLessonPage = () => {
             className={`form-input${errors.linkToRecord ? ' invalid-input' : ''}`}
             type="text"
             placeholder="Ссылка на видео"
-            defaultValue={`${lessonsData?.linkToRecord}`}
             {...register('linkToRecord', { required: false })}
           />
         </div>
@@ -164,7 +170,6 @@ export const NewLessonPage = () => {
           <textarea
             className={`form-input${errors.additionalMaterials ? ' invalid-input' : ''}`}
             placeholder="Введите текст"
-            defaultValue={`${lessonsData?.additionalMaterials}`}
             {...register('additionalMaterials', { required: true })}
           />
         </div>
@@ -174,18 +179,14 @@ export const NewLessonPage = () => {
             model={ButtonModel.Colored}
             type={ButtonType.submit}
             disabled={false}
-            onClick={() => {
-              onPublishHandler(getValues());
-            }}
+            onClick={onPublishHandler}
           />
           <Button
             text={'Сохранить'}
             model={ButtonModel.White}
             type={ButtonType.submit}
             disabled={false}
-            onClick={() => {
-              onSaveHandler(getValues());
-            }}
+            onClick={onSaveHandler}
           />
           <Button
             text="Отмена"
@@ -194,7 +195,7 @@ export const NewLessonPage = () => {
             onClick={() => navigate(-1)}
           />
         </div>
-      </div>
+      </form>
     </FormProvider>
   );
 };
