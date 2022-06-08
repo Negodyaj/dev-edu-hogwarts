@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadGroups } from '../../actions/studentsList.thunk';
+import { loadGroups, loadStudents } from '../../actions/studentsList.thunk';
 import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
-import { baseWretch } from '../../services/base-wretch.service';
-import { studentsUrl } from '../../shared/consts';
 import { StudentsListPageState } from '../../store/reducers/studentsList.reducer';
 import { AppState } from '../../store/store';
 import { StudentRow } from './components/StudentsGroupChangingRow';
@@ -14,7 +12,7 @@ const surnameFilterData: FilterItem[] = [
   { id: 2, name: 'Z-a' },
 ];
 
-const emptyGroupObject: Group = {
+export const emptyGroupObject: Group = {
   id: -1,
   name: 'Без группы',
 };
@@ -45,10 +43,10 @@ export type StudentToShow = {
 
 export const StudentsListPage = () => {
   const dispatch = useDispatch();
-  const [students, setStudents] = useState<StudentToShow[]>([]);
-  const [filteredList, setFilteredList] = useState<StudentToShow[]>(students);
+  const [studentsToShow, setStudentsToShow] = useState<StudentToShow[]>([]);
+  const [filteredList, setFilteredList] = useState<StudentToShow[]>(studentsToShow);
 
-  const { groups } = useSelector(
+  const { groups, students } = useSelector(
     (state: AppState) => state.studentsListPageState as StudentsListPageState
   );
 
@@ -57,23 +55,18 @@ export const StudentsListPage = () => {
 
   useEffect(() => {
     dispatch(loadGroups());
+    dispatch(loadStudents());
   }, []);
 
-  async function getData() {
-    const studentsList: StudentToShow[] = await baseWretch()
-      .url(studentsUrl)
-      .get()
-      .json((data) => {
-        const respData: Student[] = data as Student[];
-        return respData.map<StudentToShow>((s) => {
-          return {
-            ...s,
-            group: s.groups?.length ? s.groups[0] : undefined,
-            groups: s.groups?.length ? s.groups : [emptyGroupObject],
-          };
-        });
-      });
-    setStudents(studentsList);
+  function getData() {
+    const studentsList = students.map<StudentToShow>((s) => {
+      return {
+        ...s,
+        group: s.groups?.length ? s.groups[0] : undefined,
+        groups: s.groups?.length ? s.groups : [emptyGroupObject],
+      };
+    });
+    setStudentsToShow(studentsList);
     setFilteredList(studentsList);
   }
 
@@ -82,7 +75,7 @@ export const StudentsListPage = () => {
   }, []);
 
   const applySurnameSorting = (filterSurnameValue: number) => {
-    const studentsCopy = [...students];
+    const studentsCopy = [...studentsToShow];
     if (filterSurnameValue == 1) {
       const sortedForward = studentsCopy.sort(function (prev, next) {
         if (prev.lastName < next.lastName) {
@@ -127,11 +120,11 @@ export const StudentsListPage = () => {
   };
   const applyGroupFilter = (item: FilterItem) => {
     const filterValue = item.id;
-    setFiltered(students, filterValue);
+    setFiltered(studentsToShow, filterValue);
   };
 
   const changeGroup = (studentId: number, groupId: number) => {
-    const studentsCopy = [...students];
+    const studentsCopy = [...studentsToShow];
     const student = studentsCopy.find((item) => item.id == studentId);
     const group = groupsToSelect.find((x) => x.id === groupId);
     if (!student || !group) return;
@@ -141,7 +134,7 @@ export const StudentsListPage = () => {
       student.groups = [{ id: groupId, name: group.name }];
     }
     student.group = { id: groupId, name: group.name };
-    setStudents(studentsCopy);
+    setStudentsToShow(studentsCopy);
     setFiltered(studentsCopy, groupId);
   };
 
