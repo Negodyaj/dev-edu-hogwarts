@@ -13,9 +13,8 @@ import {
 import { LoaderAction, DecrementLoader, IncrementLoader } from './loader.action';
 
 export const loadGroups = () => {
-  // return (dispatchLoader: Dispatch<LoaderAction>) => {
-  return (dispatchLoader: Dispatch<LoaderAction>, dispatch: Dispatch<GroupsPageAction>) => {
-    dispatchLoader(IncrementLoader());
+  return (dispatch: Dispatch<LoaderAction | GroupsPageAction>) => {
+    dispatch(IncrementLoader());
     baseWretch()
       .url(groupUrl)
       .get()
@@ -30,12 +29,12 @@ export const loadGroups = () => {
             dispatch(loadGroupsSuccess(groupsList));
             dispatch(selectTab(id));
             // setTimeout(() => dispatchLoader(DecrementLoader()), 3000);
-            dispatchLoader(DecrementLoader());
+            dispatch(DecrementLoader());
           });
       })
       .catch((error) => {
         dispatch(loadGroupsFail(error.message));
-        dispatchLoader(DecrementLoader());
+        dispatch(DecrementLoader());
       });
     // dispatchLoader(DecrementLoader());
     // // setTimeout(() => dispatchLoader(DecrementLoader()), 3000);
@@ -43,18 +42,18 @@ export const loadGroups = () => {
 };
 
 export const loadGroupById = (groupId: number) => {
-  return (dispatch: Dispatch<GroupsPageAction>, dispatchLoader: Dispatch<LoaderAction>) => {
-    dispatchLoader(IncrementLoader());
+  return (dispatch: Dispatch<GroupsPageAction | LoaderAction>) => {
+    dispatch(IncrementLoader());
     baseWretch()
       .url(groupByIdUrl(groupId))
       .get()
       .json((GroupInfo) => {
         dispatch(selectGroup(GroupInfo as GroupResponseWithUsers));
-        dispatchLoader(DecrementLoader());
+        dispatch(DecrementLoader());
       })
       .catch((error) => {
         dispatch(loadGroupsFail(error.message));
-        dispatchLoader(DecrementLoader());
+        dispatch(DecrementLoader());
       });
   };
 };
