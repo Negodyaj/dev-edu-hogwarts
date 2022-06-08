@@ -1,24 +1,28 @@
 
+body {
+  background: #efefef;
+}
+
 .preloader {
 	position: absolute;
-	margin-left: -55px;
-	margin-top: -100px;
-	height: 110px;
-	width: 110px;
+	margin-left: -110px;
+	margin-top: -200px;
+	height: 220px;
+	width: 220px;
 	left: 50%;
 	top: 50%;
   opacity: 1;
-}
 
-svg {
-  width: 110px;
-  height: 110px;
-}
+  svg {
+    width: 220px;
+    height: 220px;
+  }
 
-path {
-  stroke: #F3F3F3;
-  stroke-width: 0.25;
-  fill: #241E20;
+  path {
+    stroke: #9ea1a4;
+    stroke-width: 0.25;
+    fill: #241E20;
+  }
 }
 
 #cloud {
@@ -31,17 +35,17 @@ path {
 }
 
 #sun {
-  margin-left: -10px;
-  margin-top: 6px;
+  margin-left: -20px;
+  margin-top: 12px;
   opacity: 0;
-  width: 60px;
-  height: 60px;
+  width: 120px;
+  height: 120px;
   position: absolute;
-  left: 45px;
-  top: 15px;
+  left: 90px;
+  top: 30px;
   z-index: 1;
   opacity: 1; 
-  margin-left: 0px;
+  margin-left: 0px; 
   margin-top: 0px;
   
   animation-name: rotate;
@@ -52,7 +56,7 @@ path {
 
 #sun path {
   stroke-width: 0.18;
-  fill: #F3F3F3;
+  fill: #9ea1a4;
 }
 
 
@@ -69,20 +73,20 @@ path {
 /* Rain */
 .rain {
   position: absolute;
-  width: 70px;
-  height: 70px;
-  margin-top: -32px;
-  margin-left: 19px;
+  width: 140px;
+  height: 140px;
+  margin-top: -64px;
+  margin-left: 38px;
 }
 
 .drop {
   opacity: 1;
-  background: #F3F3F3;
+  background: #9ea1a4;
   display: block;
   float: left;
-  width: 3px;
-  height: 10px;
-  margin-left: 4px;
+  width: 6px;
+  height: 20px;
+  margin-left: 8px;
   border-radius: 0px 0px 6px 6px;
   
   animation-name: drop;
@@ -133,7 +137,7 @@ path {
 
 @keyframes drop {
   50% {
-    height: 45px;
+    height: 90px;
     opacity: 0;
   }
 
@@ -142,19 +146,19 @@ path {
   }
 
   100% {
-    height: 1px;
+    height: 2px;
     opacity: 0;
   }
 }
 
 .text {
 	font-family: Helvetica, 'Helvetica Neue', sans-serif;
-	letter-spacing: 1px;
+	letter-spacing: 2px;
 	text-align: center;
-	margin-left: -43px;
+	margin-left: -86px;
 	font-weight: bold;
-	margin-top: 20px;
-	font-size: 11px;
-	color: #F3F3F3;
-	width: 200px;
+	margin-top: 40px;
+	font-size: 22px;
+	color: #a0a0a0;
+	width: 400px;
 }

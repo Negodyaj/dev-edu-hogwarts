@@ -59,12 +59,12 @@ function App() {
 
   return (
     <>
+      <Loader />
       <div
         className={`flex-container${isModalOpen ? ' inactive' : ''} ${
           isDark ? 'dark-mode' : 'default-mode'
         }`}
       >
-        <Loader />
         <MainPanel />
         <main className={isCollapsed ? 'closed' : ' '}>
           <Routes>
