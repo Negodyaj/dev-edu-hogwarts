@@ -1,14 +1,6 @@
 @import './src/style/colors';
 
 .form-input {
-  width: 438px;
-  display: block;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  min-height: 56px;
-  background: $white;
-  border: 1px solid $medium-gray;
   outline-color: transparent;
   border-radius: 5px;
   padding: 14px 20px 15px 22px;
@@ -20,9 +12,6 @@
     color: $dark-gray;
   }
 
-  &:focus {
-    outline: 1px solid $lavender-color;
-  }
 }
 .readonly-input {
   cursor: auto;

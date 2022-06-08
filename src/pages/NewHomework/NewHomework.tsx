@@ -49,6 +49,8 @@ import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 import { CoursesPageState } from '../../store/reducers/courses.reducer';
 import { HomeworksPageState } from '../../store/reducers/homeworks.reducer';
 import { Input } from '../../components/styled/Input';
+import { Textarea } from '../../components/styled/Textarea';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
 
 export type AddHomeworkFormData = {
   startDate: string | Date;
@@ -99,6 +101,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
   const { links, inputLinkValue, group, selectGroupId, errorMessage, inProcess } = useSelector(
     (state: AppState) => state.newHomeworkFormState
   );
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const { prevPageURL, task } = useSelector(
     (state: AppState) => state.homeworkPageState as HomeworkPageState
   );
@@ -276,22 +279,18 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             type="text"
             register={method.register}
             placeholder="Введите название"
-          ></Input>
-          {/* <input
-            className={`form-input${method.formState.errors.name ? ' invalid-input' : ''}`}
-            type="text"
-            placeholder="Введите название"
-            {...method.register('name', { required: true })}
-          /> */}
+          />
         </div>
         <div className="invalid-feedback">{method.formState.errors.name?.message}</div>
 
         <div className="form-element">
           Описание задания
-          <textarea
-            className={`form-input${method.formState.errors.description ? ' invalid-input' : ''}`}
+          <Textarea
+            customClassName={`${method.formState.errors.description ? ' invalid-input1' : ''}`}
             placeholder="Введите текст"
-            {...method.register('description', { required: true })}
+            register={method.register}
+            name={'description'}
+            rules={{ required: true }}
           />
         </div>
         <div className="invalid-feedback">{method.formState.errors.description?.message}</div>
@@ -301,7 +300,9 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
           {links.length > 0 && memoizeMapLinks}
           <div className="form-input_link__container">
             <textarea
-              className={`form-input_link form-input${linkValue ? ' invalid-input' : ''}`}
+              className={`form-input_link textarea-style form-input${
+                linkValue ? ' invalid-input' : ''
+              } ${isDark ? 'dark-theme-textarea' : ''}  `}
               ref={refLinkName}
               value={inputLinkValue}
               onInput={(event) => {

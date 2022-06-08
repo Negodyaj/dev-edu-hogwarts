@@ -11,7 +11,6 @@ import { onRegistration } from '../../actions/registration.thunk';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginUrl } from '../../shared/consts';
-import { Input } from '../../components/styled/Input';
 
 export type RegisterFormData = {
   firstName: string;
@@ -92,10 +91,7 @@ export const RegistrationPage = () => {
                 Фамилия
                 <span className="asterisk">*</span>
               </label>
-              <Input
-                rules={{ required: true, maxLength: 20, pattern: /^[a-zа-яё]+$/i }}
-                register={method.register}
-                placeholder="Ефременков"
+              <input
                 type="text"
                 className="form-input"
                 placeholder="Ефременков"
@@ -109,10 +105,7 @@ export const RegistrationPage = () => {
                 <label htmlFor="firstName">
                   Имя<span className="asterisk">*</span>
                 </label>
-                <Input
-                  rules={{ required: true, maxLength: 20, pattern: /^[a-zа-яё]+$/i }}
-                  register={method.register}
-                  placeholder="Антон"
+                <input
                   type="text"
                   className="form-input"
                   placeholder="Антон"
@@ -123,7 +116,7 @@ export const RegistrationPage = () => {
               </div>
               <div className="form-element">
                 <label htmlFor="patronymic">Отчество</label>
-                {/* <input
+                <input
                   type="text"
                   className="form-input"
                   placeholder="Сергеевич"
@@ -149,8 +142,7 @@ export const RegistrationPage = () => {
                 <label htmlFor="password">
                   Пароль<span className="asterisk">*</span>
                 </label>
-                <Input register={method.register} name={'password'} type="password" />
-                {/* <input
+                <input
                   type="password"
                   className="custom-password form-input"
                   {...method.register('password')}
@@ -161,8 +153,7 @@ export const RegistrationPage = () => {
                 <label htmlFor="repeat-password">
                   Повторить пароль<span className="asterisk">*</span>
                 </label>
-                <Input register={method.register} name={'confirmPassword'} type="password" />
-                {/* <input
+                <input
                   type="password"
                   className="custom-password form-input"
                   {...method.register('confirmPassword')}
@@ -175,18 +166,7 @@ export const RegistrationPage = () => {
                 <label htmlFor="email">
                   E-mail<span className="asterisk">*</span>
                 </label>
-                <Input
-                  rules={{
-                    required: true,
-                    pattern:
-                      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-                  }}
-                  register={method.register}
-                  placeholder=""
-                  type="email"
-                  name="email"
-                ></Input>
-                {/* <input
+                <input
                   type="email"
                   id="email"
                   className="form-input"
@@ -197,17 +177,7 @@ export const RegistrationPage = () => {
               </div>
               <div className="form-element">
                 <label htmlFor="phoneNumber">Телефон</label>
-                <Input
-                  rules={{
-                    required: true,
-                    pattern: /^[0-9]+$/i,
-                  }}
-                  register={method.register}
-                  placeholder="+7(999)888-77-66"
-                  type="tel"
-                  name="phoneNumber"
-                ></Input>
-                {/* <input
+                <input
                   type="tel"
                   className="form-input"
                   placeholder="8(999)888-77-66"

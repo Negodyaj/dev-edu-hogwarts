@@ -128,7 +128,7 @@ export const SettingsPage = () => {
             <div className="form-grid-container">
               <div className="form-element password">
                 Пароль
-                <div className={`form-input ${isDark ? 'dark-theme-background' : ''}`}>
+                <div className={`fake-password-input ${isDark ? 'dark-theme-background' : ''}`}>
                   <div>
                     <div className="circle-password" />
                     <div className="circle-password" />
@@ -146,12 +146,20 @@ export const SettingsPage = () => {
               </div>
               <div className="form-element">
                 Email
-                <input
+                <Input
+                  readonly={true}
+                  customClassName="readonly-input"
+                  register={register}
+                  name={'email'}
+                  defaultValue={currentUser?.email}
+                  type={'text'}
+                ></Input>
+                {/* <input
                   className="form-input readonly-input"
                   defaultValue={currentUser?.email}
                   {...register('email')}
                   readOnly={true}
-                />
+                /> */}
                 <div className="invalid-feedback">{errors.email?.message}</div>
               </div>
 
