@@ -219,6 +219,7 @@ export const RegistrationPage = () => {
                 }}
                 name="policy"
                 isSingle={true}
+                required={true}
               />
               <label htmlFor="policy" id="policy-label">
                 Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями{' '}

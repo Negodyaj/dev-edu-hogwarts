@@ -233,7 +233,11 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
                 selected={currentRole === UserRole.Teacher ? selectedGroup : undefined}
               />
             ) : (
-              <CheckboxGroup checkboxArr={coursesData as CheckboxData[]} name="courseIds" />
+              <CheckboxGroup
+                checkboxArr={coursesData as CheckboxData[]}
+                name="courseIds"
+                required={true}
+              />
             )}
           </div>
         </div>
