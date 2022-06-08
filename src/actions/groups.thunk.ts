@@ -14,8 +14,6 @@ import { LoaderAction, loaderDecrement, loaderIncrement } from './loader.action'
 
 export const loadGroups = () => {
   return (dispatch: Dispatch<GroupsPageAction>, dispatchLoader: Dispatch<LoaderAction>) => {
-    // return (dispatchLoader: Dispatch<LoaderAction>) => {
-    //dispatch(loadGroupsStarted());
     dispatchLoader(loaderIncrement());
     baseWretch()
       .url(groupUrl)
@@ -30,6 +28,7 @@ export const loadGroups = () => {
             dispatch(selectGroup(dataGroup as GroupResponseWithUsers));
             dispatch(loadGroupsSuccess(groupsList));
             dispatch(selectTab(id));
+            // setTimeout(() => dispatchLoader(loaderDecrement()), 3000);
             dispatchLoader(loaderDecrement());
           });
       })
@@ -42,7 +41,6 @@ export const loadGroups = () => {
 
 export const loadGroupById = (groupId: number) => {
   return (dispatch: Dispatch<GroupsPageAction>, dispatchLoader: Dispatch<LoaderAction>) => {
-    //dispatch(loadGroupsStarted());
     dispatchLoader(loaderIncrement());
     baseWretch()
       .url(groupByIdUrl(groupId))

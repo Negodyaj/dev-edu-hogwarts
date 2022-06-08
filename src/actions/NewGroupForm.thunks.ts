@@ -20,7 +20,6 @@ import { LoaderAction, loaderDecrement, loaderIncrement } from './loader.action'
 
 export const loadCoursesAndUsers = () => {
   return (dispatch: Dispatch<NewGroupFormAction>, dispatchLoader: Dispatch<LoaderAction>) => {
-    // dispatch(loadStarted());
     dispatchLoader(loaderIncrement());
 
     baseWretch()
@@ -52,7 +51,6 @@ export const loadCoursesAndUsers = () => {
 
 export const loadGroup = (groupId: number) => {
   return (dispatch: Dispatch<NewGroupFormAction>, dispatchLoader: Dispatch<LoaderAction>) => {
-    // dispatch(loadStarted());
     dispatchLoader(loaderIncrement());
 
     baseWretch()

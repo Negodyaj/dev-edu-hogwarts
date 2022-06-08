@@ -6,7 +6,6 @@ import {
   LOAD_COURSES_SUCCESS,
   LOAD_FAIL,
   LOAD_GROUP_FOR_CHANGE,
-  LOAD_STARTED,
   LOAD_USERS_SUCCESS,
   NewGroupFormAction,
   RESET_NEW_GROUP_PAGE,
@@ -21,7 +20,6 @@ export interface NewGroupFormState {
   tutorIdsForGroup: number[];
   users: UserSimpleResponseWithRoles[];
   courses: CourseSimpleResponse[];
-  isLoading: boolean;
   errorMessage: string;
 }
 const initialState: NewGroupFormState = {
@@ -30,7 +28,6 @@ const initialState: NewGroupFormState = {
   tutorIdsForGroup: [],
   users: [],
   courses: [],
-  isLoading: false,
   errorMessage: '',
 };
 
@@ -39,15 +36,9 @@ export const NewGroupFormReducer: Reducer<NewGroupFormState, NewGroupFormAction>
   action
 ) => {
   switch (action.type) {
-    case LOAD_STARTED:
-      return {
-        ...state,
-        isLoading: true,
-      };
     case LOAD_FAIL: {
       return {
         ...state,
-        isLoading: false,
         errorMessage: action.payload,
       };
     }
@@ -55,14 +46,12 @@ export const NewGroupFormReducer: Reducer<NewGroupFormState, NewGroupFormAction>
       return {
         ...state,
         courses: action.payload,
-        isLoading: false,
       };
     }
     case LOAD_USERS_SUCCESS: {
       return {
         ...state,
         users: action.payload,
-        isLoading: false,
       };
     }
     case GET_DATA_FROM_FORM: {
@@ -75,7 +64,6 @@ export const NewGroupFormReducer: Reducer<NewGroupFormState, NewGroupFormAction>
       return {
         ...state,
         group: action.payload,
-        isLoading: false,
       };
     }
     case GET_TEACHERS_FOR_GROUP: {
@@ -96,7 +84,6 @@ export const NewGroupFormReducer: Reducer<NewGroupFormState, NewGroupFormAction>
         group: undefined,
         teacherIdsForGroup: [],
         tutorIdsForGroup: [],
-        isLoading: false,
         errorMessage: '',
       };
     }

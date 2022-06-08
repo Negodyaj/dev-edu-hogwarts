@@ -12,10 +12,6 @@ export const GET_TUTORS_FOR_GROUP = 'NewGroupForm/GET_TUTORS_FOR_GROUP' as const
 export const GET_TEACHERS_FOR_GROUP = 'NewGroupForm/GET_TEACHERS_FOR_GROUP' as const;
 export const RESET_NEW_GROUP_PAGE = 'NewGroupForm/RESET_NEW_GROUP_PAGE' as const;
 
-export const loadStarted = () => ({
-  type: LOAD_STARTED,
-});
-
 export const loadFail = (message: string) => ({
   type: LOAD_FAIL,
   payload: message,
@@ -61,7 +57,6 @@ export const resetNewGroupPage = () => ({
 });
 
 export type NewGroupFormAction =
-  | ReturnType<typeof loadStarted>
   | ReturnType<typeof loadFail>
   | ReturnType<typeof loadCoursesSuccess>
   | ReturnType<typeof loadUsersSuccess>
