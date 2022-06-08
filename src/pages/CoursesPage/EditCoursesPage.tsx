@@ -20,6 +20,7 @@ import './EditCoursesPage.scss';
 //import { getTopicsByCourseId } from '../../shared/consts';
 //import { CourseTopicsResponse } from '../../models/responses/CourseTopicsResponse';
 import { onCourseTopicsUpdate } from '../../actions/editCourses.thunk';
+import { DecrementLoader, IncrementLoader } from '../../actions/loader.action';
 //import { AppState } from '../../store/store';
 
 export type TopicFormData = {
@@ -64,11 +65,13 @@ export const EditCoursesPage = () => {
     if (courses && courses?.length > 0) dispatch(loadCoursePageTabs(courses as CourseResponse[]));
   }, [courses]);
   useEffect(() => {
+    dispatch(IncrementLoader());
     baseWretch()
       .url(`api/Courses/${selectedTabCoursePage}/topics`)
       .get()
       .json((tpcs) => {
         dispatch(setTopics(tpcs as TopicResponse[]));
+        dispatch(DecrementLoader());
       });
   }, [selectedTabCoursePage]);
 

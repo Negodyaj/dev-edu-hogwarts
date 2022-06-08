@@ -19,19 +19,15 @@ import {
   HomeworksPageAction,
   loadDraftHomeworksSuccess,
   loadHomeworksFail,
-  loadHomeworksStarted,
   loadHomeworksSuccess,
-  loadTasksStarted,
   loadTasksSuccess,
 } from './homeworks.actions';
 import {
   HomeworkPageAction,
   loadHomeworkFail,
-  loadHomeworkStarted,
   loadHomeworkSuccess,
   loadStudentHomework,
   loadTaskFailed,
-  loadTaskStarted,
   loadTaskSuccess,
 } from './homework.actions';
 import { AddHomeworkFormData } from '../pages/NewHomework/NewHomework';
@@ -56,20 +52,22 @@ import {
 import { ModalType } from '../shared/enums/modalType';
 import { addNotification, NotificationsContainerActions } from './notificationsContainer.actions';
 import { NotificationType } from '../shared/enums/NotificationType';
+import { DecrementLoader, IncrementLoader, LoaderAction } from './loader.action';
 
 export const loadHomeworks = (groupId: number) => {
   debugger;
-  return async (dispatch: Dispatch<HomeworksPageAction>) => {
-    dispatch(loadHomeworksStarted());
+  return async (dispatch: Dispatch<HomeworksPageAction | LoaderAction>) => {
+    dispatch(IncrementLoader());
 
     const data = await baseWretch().url(getHomeworksByGroupId(groupId)).get().json<Homework[]>();
     dispatch(loadHomeworksSuccess(data));
+    dispatch(DecrementLoader());
   };
 };
 
 export const loadHomework = (homeworkId: number) => {
-  return async (dispatch: Dispatch<HomeworkPageAction>) => {
-    dispatch(loadHomeworkStarted());
+  return async (dispatch: Dispatch<HomeworkPageAction | LoaderAction>) => {
+    dispatch(IncrementLoader());
 
     try {
       const homework = await baseWretch().url(homeworkById(homeworkId)).get().json<Homework>();
@@ -80,8 +78,10 @@ export const loadHomework = (homeworkId: number) => {
         .get()
         .json<StudentHomework>();
       dispatch(loadStudentHomework(studentHomework));
+      dispatch(DecrementLoader());
     } catch (error: any) {
       dispatch(loadHomeworkFail(error.message));
+      dispatch(DecrementLoader());
     }
   };
 };
@@ -146,14 +146,16 @@ export const createNewTaskByMethodist = (homeworkData: AddHomeworkFormData, link
 };
 
 export const loadDraftsByGroupId = (groupId: number) => {
-  return async (dispatch: Dispatch<HomeworksPageAction>) => {
-    dispatch(loadHomeworksStarted());
+  return async (dispatch: Dispatch<HomeworksPageAction | LoaderAction>) => {
+    dispatch(IncrementLoader());
 
     try {
       const drafts = await baseWretch().url(draftsByGroupId(groupId)).get().json<Task[]>();
       dispatch(loadDraftHomeworksSuccess(drafts));
+      dispatch(DecrementLoader());
     } catch (e: any) {
       dispatch(loadHomeworksFail(e.message));
+      dispatch(DecrementLoader());
     }
   };
 };
@@ -172,23 +174,29 @@ export const getTaskById = (taskId: number) => {
 };
 
 export const getCourses = () => {
-  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction | LoaderAction>) => {
     try {
+      dispatch(IncrementLoader());
       const courses = await baseWretch().url(coursesUrl).get().json<CourseSimpleResponse[]>();
       dispatch(loadCourses(courses));
+      dispatch(DecrementLoader());
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
+      dispatch(DecrementLoader());
     }
   };
 };
 
 export const tasksCountInGroup = (groupId: number) => {
-  return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
+  return async (dispatch: Dispatch<NewHomeworkFormAction | LoaderAction>) => {
     try {
+      dispatch(IncrementLoader());
       const group = await baseWretch().url(getHomeworksByGroupId(groupId)).get().json<Homework[]>();
       dispatch(getTasksCount(group));
+      dispatch(DecrementLoader());
     } catch (e: any) {
       dispatch(postHomeworkFail(e.message));
+      dispatch(DecrementLoader());
     }
   };
 };
@@ -277,8 +285,8 @@ export const deleteTask = (taskId: number | string) => {
 };
 
 export const loadTasksByCourse = (courseId: number) => {
-  return async (dispatch: Dispatch<HomeworksPageAction>) => {
-    dispatch(loadTasksStarted());
+  return async (dispatch: Dispatch<HomeworksPageAction | LoaderAction>) => {
+    dispatch(IncrementLoader());
     const tasks = await baseWretch().url(getTasksByCourseId(courseId)).get().json<Task[]>();
     const tasksWithNumbers = tasks.map((el, idx) => {
       return {
@@ -287,17 +295,20 @@ export const loadTasksByCourse = (courseId: number) => {
       };
     });
     dispatch(loadTasksSuccess(tasksWithNumbers));
+    dispatch(DecrementLoader());
   };
 };
 
 export const loadTask = (taskId: number) => {
-  return async (dispatch: Dispatch<HomeworkPageAction>) => {
-    dispatch(loadTaskStarted());
+  return async (dispatch: Dispatch<HomeworkPageAction | LoaderAction>) => {
+    dispatch(IncrementLoader());
     try {
       const task = await baseWretch().url(getTaskByIdUrl(taskId)).get().json<Task>();
       dispatch(loadTaskSuccess(task));
+      dispatch(DecrementLoader());
     } catch (error: any) {
       dispatch(loadTaskFailed(error.message));
+      dispatch(DecrementLoader());
     }
   };
 };
