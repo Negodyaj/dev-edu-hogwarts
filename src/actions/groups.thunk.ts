@@ -10,11 +10,12 @@ import {
   selectGroup,
   selectTab,
 } from './groups.actions';
-import { LoaderAction, loaderDecrement, loaderIncrement } from './loader.action';
+import { LoaderAction, DecrementLoader, IncrementLoader } from './loader.action';
 
 export const loadGroups = () => {
-  return (dispatch: Dispatch<GroupsPageAction>, dispatchLoader: Dispatch<LoaderAction>) => {
-    dispatchLoader(loaderIncrement());
+  // return (dispatchLoader: Dispatch<LoaderAction>) => {
+  return (dispatchLoader: Dispatch<LoaderAction>, dispatch: Dispatch<GroupsPageAction>) => {
+    dispatchLoader(IncrementLoader());
     baseWretch()
       .url(groupUrl)
       .get()
@@ -28,30 +29,32 @@ export const loadGroups = () => {
             dispatch(selectGroup(dataGroup as GroupResponseWithUsers));
             dispatch(loadGroupsSuccess(groupsList));
             dispatch(selectTab(id));
-            // setTimeout(() => dispatchLoader(loaderDecrement()), 3000);
-            dispatchLoader(loaderDecrement());
+            // setTimeout(() => dispatchLoader(DecrementLoader()), 3000);
+            dispatchLoader(DecrementLoader());
           });
       })
       .catch((error) => {
         dispatch(loadGroupsFail(error.message));
-        dispatchLoader(loaderDecrement());
+        dispatchLoader(DecrementLoader());
       });
+    // dispatchLoader(DecrementLoader());
+    // // setTimeout(() => dispatchLoader(DecrementLoader()), 3000);
   };
 };
 
 export const loadGroupById = (groupId: number) => {
   return (dispatch: Dispatch<GroupsPageAction>, dispatchLoader: Dispatch<LoaderAction>) => {
-    dispatchLoader(loaderIncrement());
+    dispatchLoader(IncrementLoader());
     baseWretch()
       .url(groupByIdUrl(groupId))
       .get()
       .json((GroupInfo) => {
         dispatch(selectGroup(GroupInfo as GroupResponseWithUsers));
-        dispatchLoader(loaderDecrement());
+        dispatchLoader(DecrementLoader());
       })
       .catch((error) => {
         dispatch(loadGroupsFail(error.message));
-        dispatchLoader(loaderDecrement());
+        dispatchLoader(DecrementLoader());
       });
   };
 };

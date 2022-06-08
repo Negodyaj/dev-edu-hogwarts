@@ -1,12 +1,12 @@
-export const LOADER_INCREMENT = 'loader/LOADER_INCREMENT ' as const;
-export const LOADER_DECREMENT = 'loader/LOADER_DECREMENT' as const;
+export const INCREMENT_LOADER = 'loader/INCREMENT_LOADER' as const;
+export const DECREMENT_LOADER = 'loader/DECREMENT_LOADER' as const;
 
-export const loaderIncrement = () => ({
-  type: LOADER_INCREMENT,
+export const IncrementLoader = () => ({
+  type: INCREMENT_LOADER,
 });
 
-export const loaderDecrement = () => ({
-  type: LOADER_DECREMENT,
+export const DecrementLoader = () => ({
+  type: DECREMENT_LOADER,
 });
 
-export type LoaderAction = ReturnType<typeof loaderDecrement> | ReturnType<typeof loaderIncrement>;
+export type LoaderAction = ReturnType<typeof DecrementLoader> | ReturnType<typeof IncrementLoader>;

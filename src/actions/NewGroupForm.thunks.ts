@@ -16,11 +16,11 @@ import {
   NewGroupFormAction,
 } from './NewGroupForm.actions';
 import { UserSimpleResponseWithRoles } from '../models/responses/UserResponse';
-import { LoaderAction, loaderDecrement, loaderIncrement } from './loader.action';
+import { LoaderAction, DecrementLoader, IncrementLoader } from './loader.action';
 
 export const loadCoursesAndUsers = () => {
   return (dispatch: Dispatch<NewGroupFormAction>, dispatchLoader: Dispatch<LoaderAction>) => {
-    dispatchLoader(loaderIncrement());
+    dispatchLoader(IncrementLoader());
 
     baseWretch()
       .url(coursesUrl)
@@ -39,11 +39,11 @@ export const loadCoursesAndUsers = () => {
             });
             dispatch(loadUsersSuccess(usersList as UserSimpleResponseWithRoles[]));
             dispatch(loadCoursesSuccess(data as CourseSimpleResponse[]));
-            dispatchLoader(loaderDecrement());
+            setTimeout(() => dispatchLoader(DecrementLoader()), 2000);
           })
           .catch((error) => {
             dispatch(loadFail(error.message));
-            dispatchLoader(loaderDecrement());
+            dispatchLoader(DecrementLoader());
           });
       });
   };
@@ -51,7 +51,7 @@ export const loadCoursesAndUsers = () => {
 
 export const loadGroup = (groupId: number) => {
   return (dispatch: Dispatch<NewGroupFormAction>, dispatchLoader: Dispatch<LoaderAction>) => {
-    dispatchLoader(loaderIncrement());
+    dispatchLoader(IncrementLoader());
 
     baseWretch()
       .url(groupByIdUrl(groupId))
@@ -71,11 +71,11 @@ export const loadGroup = (groupId: number) => {
         });
         dispatch(getTutorsForGroup(tutors));
         dispatch(loadGroupForChange(GroupInfo as GroupResponseWithUsers));
-        dispatchLoader(loaderDecrement());
+        dispatchLoader(DecrementLoader());
       })
       .catch((error) => {
         dispatch(loadFail(error.message));
-        dispatchLoader(loaderDecrement());
+        dispatchLoader(DecrementLoader());
       });
   };
 };

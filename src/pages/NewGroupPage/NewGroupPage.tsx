@@ -220,7 +220,6 @@ export const NewGroupPage = () => {
 
   return (
     <>
-      {/* {isLoading && <Loader />} */}
       <div className="new-group-page">
         <h2>{id ? `Редактирование группы "${group?.name}"` : 'Новая группа'}</h2>
         <FormProvider {...methods}>

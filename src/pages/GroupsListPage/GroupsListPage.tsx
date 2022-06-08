@@ -48,7 +48,6 @@ export const GroupsListPage = () => {
 
   return (
     <>
-      {/* {isLoading && <Loader />} */}
       {groups.length > lengthOfTabsRow ? (
         <div className="groups-header">
           <Button
