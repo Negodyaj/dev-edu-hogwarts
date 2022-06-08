@@ -5,7 +5,6 @@ import { MainPanelState } from '../../../store/reducers/mainPanel.reducer';
 import { AppState } from '../../../store/store';
 
 export const StyledMainPanel = styled.aside`
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   ${() => {
     const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
     return css`
