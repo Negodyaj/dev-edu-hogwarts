@@ -33,12 +33,13 @@ export const AllUsersPage = () => {
     (state: AppState) => state.allUsersPageState as AllUsersPageState
   );
 
+  const [listState] = useState<UserRowModel[]>(userList);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(onUsersLoad());
-  }, [userList]);
+  }, []);
 
-  const [listState] = useState<UserRowModel[]>(userList);
   const [filterRoleId, setFilterRoleId] = useState<UserRole>(UserRole.DefaultRole);
   const [filtredList, setFilteredList] = useState<UserRowModel[]>(userList);
   const [searchBarState, setSearchBarState] = useState('');

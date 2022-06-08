@@ -36,7 +36,9 @@ export const UserRow = (props: UserRowProps) => {
 
   function ChangeRole(id: number, role: number) {
     dispatch(toggleRole(id));
+
     dispatch(onAddRole(id, role));
+    //dispatch(onUsersLoad());
     console.log('added role ', role, id);
   }
 

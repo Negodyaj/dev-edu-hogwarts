@@ -2,7 +2,6 @@ import { Reducer } from 'react';
 import {
   ADD_ROLE,
   AllUsersPageActions,
-  DELETE_ROLE,
   LOAD_USERS,
   TOGGLE_ROLE,
 } from '../../actions/allUsers.actions';
@@ -31,11 +30,6 @@ export const allUsersPageReducer: Reducer<AllUsersPageState | undefined, AllUser
         userList: action.payload,
       };
     case ADD_ROLE:
-      return {
-        ...state,
-        userList: action.payload,
-      };
-    case DELETE_ROLE:
       return {
         ...state,
         userList: action.payload,
