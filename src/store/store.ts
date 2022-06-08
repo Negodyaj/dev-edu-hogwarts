@@ -35,6 +35,7 @@ import {
   notificationsContainerReducer,
   NotificationsContainerState,
 } from './reducers/notificationsContainer.reducer';
+import { LoaderReducer, LoaderState } from './reducers/loader.reducer';
 
 // Create an interface for the application state
 export interface AppState {
@@ -55,6 +56,7 @@ export interface AppState {
   registrationPageState: RegistrationPageState | undefined;
   editCoursesPageState: EditCoursesPageState | undefined;
   notificationsContainerState: NotificationsContainerState | undefined;
+  loaderState: LoaderState | undefined;
 }
 
 // Create the root reducer
@@ -76,6 +78,7 @@ const rootReducer = combineReducers<AppState>({
   registrationPageState: registrationPageReducer,
   editCoursesPageState: editCoursesPageReducer,
   notificationsContainerState: notificationsContainerReducer,
+  loaderState: LoaderReducer,
 });
 
 // Create a configure store function of type `AppState`

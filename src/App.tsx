@@ -32,6 +32,7 @@ import { EditTaskPage } from './pages/HomeworksPage/EditTaskPage';
 import { ModalWindowState } from './store/reducers/modalWindow.reducer';
 import { ModalWindow } from './components/ModalWindow/ModalWindow';
 import { GroupsListPage } from './pages/GroupsListPage/GroupsListPage';
+import { Loader } from './pages/Loader/Loader';
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ function App() {
           isDark ? 'dark-mode' : 'default-mode'
         }`}
       >
+        <Loader />
         <MainPanel />
         <main className={isCollapsed ? 'closed' : ' '}>
           <Routes>
