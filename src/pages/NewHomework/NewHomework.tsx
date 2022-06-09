@@ -44,8 +44,8 @@ import {
 } from '../../actions/modalWindow.actions';
 import { ModalType } from '../../shared/enums/modalType';
 import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
-import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
-import { CoursesPageState } from '../../store/reducers/courses.reducer';
+// import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
+// import { CoursesPageState } from '../../store/reducers/courses.reducer';
 import { Input } from '../../components/styled/Input';
 import { Textarea } from '../../components/styled/Textarea';
 
@@ -74,13 +74,14 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
     links,
     inputLinkValue,
     group,
+    course,
     selectGroupId,
     errorMessage,
     inProcess,
     selectedTaskCount,
   } = useSelector((state: AppState) => state.newHomeworkFormState);
   const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
-  const { courses } = useSelector((state: AppState) => state.coursesPageState as CoursesPageState);
+  // const { courses } = useSelector((state: AppState) => state.coursesPageState as CoursesPageState);
   const refLinkName = useRef<any>({});
   const [linkValue, setLinkValue] = useState<string | undefined>(undefined);
 
@@ -103,20 +104,11 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
       name: initialTask?.name ?? initialHomework?.task.name ?? '',
       description: initialTask?.description ?? initialHomework?.task.description ?? '',
       groupId: initialTask?.groupId ?? selectedGroup ?? initialHomework?.task.groupId ?? undefined,
-      courseIds: initialTask?.courseIds ?? [],
+      courseIds: [],
     },
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const coursesData = courses?.map((crs) => {
-    const courseData: CheckboxData = {
-      value: crs.id,
-      text: `${crs.name}`,
-      isChecked: false,
-    };
-    return courseData;
-  });
 
   const memoizeMapLinks = useMemo(() => {
     return links.map((item, index) => {
@@ -170,10 +162,10 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
     if (currentRole === UserRole.Methodist) {
       dispatch(getCourses());
     }
-    if (initialTask) {
+    if (initialTask && initialTask.links) {
       const linksInResp = initialTask?.links.split(' [link] ');
       linksInResp.forEach((link) => dispatch(addLink(link)));
-    } else if (initialHomework) {
+    } else if (initialHomework && initialHomework.task.links) {
       const linksInResp = initialHomework?.task.links.split(' [link] ');
       linksInResp.forEach((link) => dispatch(addLink(link)));
     }
@@ -204,7 +196,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             {currentRole === UserRole.Methodist ? 'Номер курса:' : 'Номер группы'}
           </div>
           <div className="radio-group-container flex-container">
-            {currentRole === UserRole.Teacher ? (
+            {currentRole === UserRole.Teacher && (
               <RadioGroup
                 radioData={currentRole === UserRole.Teacher ? group : []}
                 name="groupId"
@@ -215,8 +207,9 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
                     : undefined
                 }
               />
-            ) : (
-              <CheckboxGroup checkboxArr={coursesData as CheckboxData[]} name="courseIds" />
+            )}
+            {currentRole === UserRole.Methodist && (
+              <CheckboxGroup checkboxArr={course} name="courseIds" />
             )}
           </div>
         </div>
