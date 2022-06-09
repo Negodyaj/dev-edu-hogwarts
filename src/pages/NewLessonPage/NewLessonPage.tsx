@@ -16,6 +16,8 @@ import { LoginPageState } from '../../store/reducers/login.reducer';
 import { NewLessonPageState } from '../../store/reducers/newLessonPage.reducer';
 import { AppState } from '../../store/store';
 import './NewLessonPage.scss';
+import { Input } from '../../components/styled/Input';
+import { Textarea } from '../../components/styled/Textarea';
 
 export type NewLessonFormData = {
   id?: number;
@@ -113,13 +115,8 @@ export const NewLessonPage = () => {
     <FormProvider {...methods}>
       <form className="form-container homework-form">
         <div className="flex-between base-line">
-          <h2 className="homework-form_title">
-            {!isEditing ? `${'Новое занятие'}` : `${'Редактирование'}`}
-          </h2>
-          <LinkWithUnderline
-            path="new-lesson/unpublished"
-            text="Список сохраненных занятий"
-          ></LinkWithUnderline>
+          <h2 className="homework-form_title">{!isEditing ? 'Новое занятие' : 'Редактирование'}</h2>
+          <LinkWithUnderline path="new-lesson/unpublished" text="Список сохраненных занятий" />
         </div>
         <div className="form-element flex-container">
           Номер группы:
@@ -150,37 +147,42 @@ export const NewLessonPage = () => {
         </div>
         <div className="form-element">
           Название занятия
-          <input
-            className={`form-input${errors.name ? ' invalid-input' : ''}`}
+          <Input
+            customClassName={`${errors.name ? ' invalid-input' : ''}`}
             type="text"
+            register={register}
             placeholder="Введите название"
-            {...register('name', { required: 'Поле обязательно к заполнению' })}
+            name="name"
           />
         </div>
         <div className="invalid-feedback">{errors.name?.message}</div>
         <div className="form-element">
           Ссылка на видео
-          <input
-            className={`form-input${errors.linkToRecord ? ' invalid-input' : ''}`}
+          <Input
+            customClassName={`${errors.linkToRecord ? ' invalid-input' : ''}`}
             type="text"
-            placeholder="Ссылка на видео"
-            {...register('linkToRecord', {
+            name="linkToRecord"
+            register={register}
+            rules={{
               required: 'Поле обязательно к заполнению',
               pattern: {
                 value:
                   /^((ftp|http|https):\/\/)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/,
                 message: 'Некорректная ссылка',
               },
-            })}
+            }}
+            placeholder="Ссылка на видео"
           />
         </div>
         <div className="invalid-feedback">{errors.linkToRecord?.message}</div>
         <div className="form-element">
           Дополнительные материалы
-          <textarea
-            className={`form-input${errors.additionalMaterials ? ' invalid-input' : ''}`}
+          <Textarea
+            customClassName={`${errors.additionalMaterials ? ' invalid-input' : ''}`}
             placeholder="Введите текст"
-            {...register('additionalMaterials', { required: 'Поле обязательно к заполнению' })}
+            register={register}
+            name="additionalMaterials"
+            rules={{ required: 'Поле обязательно к заполнению' }}
           />
           <div className="invalid-feedback">{errors.additionalMaterials?.message}</div>
         </div>

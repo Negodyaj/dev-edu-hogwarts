@@ -14,7 +14,8 @@ export const EditTaskPage = () => {
   const { selectedTab } = useSelector((state: AppState) => state.homeworksPageState);
 
   useEffect(() => {
-    if (id) {
+    debugger;
+    if (id && !task) {
       dispatch(getTaskById(+id));
     }
     return () => {

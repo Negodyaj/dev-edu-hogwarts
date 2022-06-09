@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Datepicker.scss';
 import 'moment/locale/ru';
 import { SvgLessons } from '../SvgIcon/SvgFiles/SvgLessons';
-import { DatePicker, DatepickerInput } from './sryled/StyledDatepicker';
+import { DatePicker, DatepickerInput } from './styled/StyledDatepicker';
 import DateTime from 'react-datetime';
 import { AppState } from '../../store/store';
 import { useSelector } from 'react-redux';

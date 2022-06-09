@@ -16,7 +16,6 @@ import { saveEdit } from '../../../actions/newHomeworkForm.thunk';
 import { LoginPageState } from '../../../store/reducers/login.reducer';
 import { UserRole } from '../../../shared/enums/UserRole';
 import {
-  checkHomeworkLink,
   homeworkByIdLink,
   homeworkStudentAnswerEditLink,
   newHomeworkEditLink,
@@ -58,7 +57,12 @@ export const HomeworkCardContent = () => {
 
   useEffect(() => {
     if (answer && !location.pathname.includes('edit')) navigate(homeworkByIdLink(id));
-    else if (!answer && !location.pathname.includes('edit') && !location.pathname.includes('new'))
+    else if (
+      !answer &&
+      !location.pathname.includes('edit') &&
+      !location.pathname.includes('new') &&
+      currentRole === UserRole.Student
+    )
       navigate(`new`);
   }, [answer]);
 
@@ -108,8 +112,7 @@ export const HomeworkCardContent = () => {
           <span className="homework-description-title">Результат выполненного задания:</span>
         </>
       ) : (
-        currentRole === UserRole.Teacher &&
-        !location.pathname.includes(checkHomeworkLink) && (
+        currentRole === UserRole.Teacher && (
           <LinkWithUnderline text="Редактировать" path={newHomeworkEditLink(homework?.id)} />
         )
       )}

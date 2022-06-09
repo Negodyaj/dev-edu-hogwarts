@@ -10,8 +10,8 @@ import { RegistrationPageState } from '../../store/reducers/registration.reducer
 import { onRegistration } from '../../actions/registration.thunk';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginUrl } from '../../shared/consts';
 import { Input } from '../../components/styled/Input';
+import { useNavigate } from 'react-router-dom';
 
 export type RegisterFormData = {
   firstName: string;
@@ -29,6 +29,7 @@ export type RegisterFormData = {
 export const RegistrationPage = () => {
   const [check, setCheck] = useState(false);
   const [invisible, toggleInvisible] = useState('invisible');
+  const navigate = useNavigate();
 
   const schema = () =>
     yup.object().shape({
@@ -98,13 +99,6 @@ export const RegistrationPage = () => {
                 type={'text'}
                 placeholder="Ефременков"
               />
-              {/* <input
-                type="text"
-                className="form-input"
-                placeholder="Ефременков"
-                id="lastName"
-                {...method.register('lastName')}
-              /> */}
               <p className="attention">{errors.lastName?.message}</p>
             </div>
             <div className="form-grid-container">
@@ -128,12 +122,6 @@ export const RegistrationPage = () => {
                   type={'text'}
                   placeholder="Сергеевич"
                 />
-                {/* <input
-                  type="text"
-                  className="form-input"
-                  placeholder="Сергеевич"
-                  {...method.register('patronymic')}
-                /> */}
                 <p className="attention">{errors.patronymic?.message}</p>
               </div>
             </div>
@@ -160,11 +148,6 @@ export const RegistrationPage = () => {
                   name={'password'}
                   type={'password'}
                 />
-                {/* <input
-                  type="password"
-                  className="custom-password form-input"
-                  {...method.register('password')}
-                /> */}
                 <p className="attention">{errors.password?.message}</p>
               </div>
               <div className="form-element">
@@ -177,16 +160,6 @@ export const RegistrationPage = () => {
                   name={'confirmPassword'}
                   type={'password'}
                 />
-                {/* <input
-                  func wert(){
-                    ...
-                  }
-                   let a = new wert();
-                   let b = new wert();
-                  type="password"
-                  className="custom-password form-input"
-                  {...method.register('confirmPassword')}
-                /> */}
                 <p className="attention">{errors.confirmPassword?.message}</p>
               </div>
             </div>
@@ -201,13 +174,6 @@ export const RegistrationPage = () => {
                   type={'email'}
                   placeholder="example@example.com"
                 />
-                {/* <input
-                  type="email"
-                  id="email"
-                  className="form-input"
-                  placeholder="example@example.com"
-                  {...method.register('email')}
-                /> */}
                 <p className="attention">{errors.email?.message}</p>
               </div>
               <div className="form-element">
@@ -229,13 +195,12 @@ export const RegistrationPage = () => {
               <Button
                 text="Зарегистрироваться"
                 model={ButtonModel.Colored}
-                type={check ? ButtonType.submit : ButtonType.button}
+                type={ButtonType.submit}
                 width="238"
-                onClick={() => (check ? toggleInvisible('invisible') : toggleInvisible(''))}
               />
               <Button
                 text="Отмена"
-                url={loginUrl}
+                onClick={() => navigate(-1)}
                 model={ButtonModel.Text}
                 type={ButtonType.reset}
                 width="190"

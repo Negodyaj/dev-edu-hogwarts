@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import moment from 'moment';
+import { UserRole } from '../../../shared/enums/UserRole';
 
 export const validationSchema = yup.object().shape({
   name: yup.string().required('Введите название'),
@@ -35,7 +36,8 @@ export const validationSchema = yup.object().shape({
         return moment(date).isAfter(dayOf);
       }),
     }),
-  groupId: yup
-    .number()
-    .when('mode', { is: 'teacher', then: yup.number().required('Не выбрана ни одна группа') }),
+  groupId: yup.mixed().when('$role', {
+    is: (role: UserRole) => role === UserRole.Teacher,
+    then: yup.mixed().required('Не выбрана ни одна группа'),
+  }),
 });

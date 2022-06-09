@@ -5,6 +5,7 @@
   border-radius: 5px;
   padding: 14px 20px 15px 22px;
   margin-top: 10px;
+  border: 1px solid $medium-gray;
   transition: outline-color .3s ease;
 
   &::placeholder {
@@ -39,7 +40,7 @@
     margin-top: 50px;
   }
 
-  &.with-dropdown { 
+  &.with-dropdown {
     align-items: center;
     margin-bottom: 10px;
 

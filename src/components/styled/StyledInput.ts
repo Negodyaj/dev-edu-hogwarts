@@ -20,8 +20,7 @@ export const StyledInput = styled.input<StyledInputProps>`
   border-radius: 5px;
   padding: 14px 20px 15px 22px;
   margin-top: 10px;
-  transition: outline-color 0.3s ease;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition: outline-color 0.3s ease, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   &::placeholder {
     font-weight: 400;
     color: ${darkGrayColor};

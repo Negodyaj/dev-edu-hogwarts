@@ -113,7 +113,7 @@ export const ellipseStyleWithColor = (isDark: boolean, colorModel: ButtonModel) 
         }
       }
       color: ${lavenderColor};
-      &:hover,
+      &:hover:not(&:disabled),
       &:active {
         background-color: ${lavenderColor};
         color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
@@ -127,7 +127,7 @@ export const ellipseStyleWithColor = (isDark: boolean, colorModel: ButtonModel) 
       &:disabled {
         border: 1px solid ${isDark ? darkTheme.mediumGrayColor : defaultTheme.mediumGrayColor};
         color: ${darkGrayColor};
-        cursor: none;
+        cursor: auto;
         svg {
           path {
             fill: ${darkGrayColor};

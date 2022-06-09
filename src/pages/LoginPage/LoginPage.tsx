@@ -62,7 +62,7 @@ export const LoginPage = () => {
             type={'text'}
             register={register}
             required={true}
-          ></Input>
+          />
         </div>
         {errors.email && <div className="invalid-feedback">{errors.email?.message}</div>}
         <div className="form-element">
@@ -72,13 +72,11 @@ export const LoginPage = () => {
             defaultValue={'password'}
             type={'password'}
             register={register}
-          ></Input>
+          />
         </div>
         {errors.password && <div className="invalid-feedback">{errors.password?.message}</div>}
         {errorMessage && (
-          <div className="invalid-feedback">
-            {errorMessage === 'Authorization exception' && 'Неправильные логин или пароль'}
-          </div>
+          <div className="invalid-feedback">{errorMessage && 'Неправильные логин или пароль'}</div>
         )}
         <div className="buttons-group">
           <Button

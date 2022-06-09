@@ -20,7 +20,6 @@ export const DropDownList = styled.div<StyledDropDownProps>`
   ${({ dropDownProps, isDark }) => {
     return css`
       display: flex;
-      min-width: 148px;
       width: 100%;
       font-weight: 600;
       cursor: pointer;

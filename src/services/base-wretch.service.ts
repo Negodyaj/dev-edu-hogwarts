@@ -12,12 +12,18 @@ export const baseWretch = () =>
   wretch()
     .url(`${baseUrl}/`)
     .auth(`Bearer ${getToken()}`)
-    .catcher(401, (error) => console.log(error.response))
+    .catcher(401, (error) => {
+      throw new Error(error.message);
+    })
     .catcher(403, (error) => {
       throw new Error((JSON.parse(error.message) as Errors).Message);
     })
     .catcher(404, (error) => {
       throw new Error(error.message);
     })
-    .catcher(409, (error) => console.log(error.response))
-    .catcher(422, (error) => console.log(error.response));
+    .catcher(409, (error) => {
+      throw new Error(error.message);
+    })
+    .catcher(422, (error) => {
+      throw new Error(error.message);
+    });
