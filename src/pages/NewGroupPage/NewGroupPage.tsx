@@ -70,6 +70,7 @@ export const paymentsCount = [
 ];
 export const NewGroupPage = () => {
   const { id } = useParams();
+  // const [groupIdForUpdate, setGroupIdForUpdate] = useState<number>(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { group, users, courses, isLoading, teacherIdsForGroup, tutorIdsForGroup } = useSelector(
@@ -105,7 +106,17 @@ export const NewGroupPage = () => {
     if (id) {
       dispatch(loadGroup(+id));
     } else {
-      reset();
+      reset({
+        name: '',
+        endDate: convertDate(new Date()),
+        startDate: convertDate(new Date()),
+        timetable: '',
+        paymentPerMonth: 0,
+        paymentsCount: 3,
+        teacherIds: [],
+        tutorIds: [],
+        courseId: 0,
+      });
       dispatch(resetNewGroupPage());
     }
     dispatch(loadCoursesAndUsers());
