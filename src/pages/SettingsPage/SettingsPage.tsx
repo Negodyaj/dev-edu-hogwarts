@@ -12,8 +12,8 @@ import { AppState } from '../../store/store';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { updateUserData } from '../../actions/settings.thunk';
 import { UserResponse } from '../../models/responses/UserResponse';
-// import { SettingsPageState } from '../../store/reducers/settings.reducer';
-// import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
+import { SettingsPageState } from '../../store/reducers/settings.reducer';
+import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Input } from '../../components/styled/Input';
@@ -66,193 +66,136 @@ export const SettingsPage = () => {
     formState: { errors },
   } = useForm<UserResponse>(formOptions);
 
-  // const { isLoading } = useSelector(
-  //   (state: AppState) => state.settingsPageState as SettingsPageState
-  // );
+  const { isLoading } = useSelector(
+    (state: AppState) => state.settingsPageState as SettingsPageState
+  );
 
   return (
     <>
-      {/* {/* {isLoading ? (
-        <Loader /> */}
-      {/* ) : ( */}
-      <div className="settings-container">
-        <h2 className="settings-title">Настройки аккаунта</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex-container">
-            <div className="settings-content">
-              <div className="form-element last-name-form-element">
-                Фамилия
-                <Input
-                  register={register}
-                  name={'lastName'}
-                  defaultValue={currentUser?.lastName}
-                  type={'text'}
-                ></Input>
-                <div className="invalid-feedback">{errors.lastName?.message}</div>
-              </div>
-              <div className="form-element">
-                Имя
-                <Input
-                  register={register}
-                  name={'firstName'}
-                  defaultValue={currentUser?.firstName}
-                  type={'text'}
-                ></Input>
-                <div className="invalid-feedback">{errors.firstName?.message}</div>
-              </div>
-              <div className="form-element">
-                Отчество
-                <Input
-                  register={register}
-                  name={'patronymic'}
-                  defaultValue={currentUser?.patronymic}
-                  type={'text'}
-                ></Input>
-                <div className="invalid-feedback">{errors.patronymic?.message}</div>
-              </div>
-              <div className="form-element">
-                Дата рождения
-                <Controller
-                  name="birthDate"
-                  defaultValue={currentUser?.birthDate}
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field }) => <Datepicker field={field} />}
-                />
-              </div>
-            </div>
-            <div className="settings-photo">
-              <AvatarUploader photo={currentUser?.photo} />
-            </div>
-          </div>
-          <div className="form-grid-container">
-            <div className="form-element password">
-              Пароль
-              <div className={`fake-password-input ${isDark ? 'dark-theme-background' : ''}`}>
-                <div>
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="settings-container">
+          <h2 className="settings-title">Настройки аккаунта</h2>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex-container">
+              <div className="settings-content">
+                <div className="form-element last-name-form-element">
+                  Фамилия
+                  <Input
+                    register={register}
+                    name={'lastName'}
+                    defaultValue={currentUser?.lastName}
+                    type={'text'}
+                  ></Input>
+                  <div className="invalid-feedback">{errors.lastName?.message}</div>
                 </div>
-                <Link to={'/change-password'}>
-                  <SvgPencil />
-                </Link>
-              </div>
-            </div>
-            <div className="form-element">
-              Email
-              <Input
-                readonly={true}
-                customClassName="readonly-input"
-                register={register}
-                name={'email'}
-                defaultValue={currentUser?.email}
-                type={'text'}
-              ></Input>
-              <div className="invalid-feedback">{errors.email?.message}</div>
-            </div>
-            <div className="form-element">
-              Ссылка на GitHub
-              <Input
-                register={register}
-                name={'gitHubAccount'}
-                defaultValue={currentUser?.gitHubAccount}
-                type={'text'}
-              ></Input>
-              <div className="invalid-feedback">{errors.gitHubAccount?.message}</div>
-            </div>
-            <div className="form-element">
-              Телефон
-              <Input
-                register={register}
-                name={'phoneNumber'}
-                defaultValue={currentUser?.phoneNumber}
-                type={'tel'}
-              ></Input>
-              <div className="invalid-feedback">{errors.phoneNumber?.message}</div>
-            </div>
-            <div className="form-element">
-              Дата рождения
-              <Controller
-                name="birthDate"
-                defaultValue={currentUser?.birthDate}
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => <Datepicker field={field} />}
-              />
-            </div>
-          </div>
-          <div className="settings-photo">
-            <AvatarUploader photo={currentUser?.photo} />
-          </div>
-
-          <div className="form-grid-container">
-            <div className="form-element password">
-              Пароль
-              <div className="form-input">
-                <div>
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
-                  <div className="circle-password" />
+                <div className="form-element">
+                  Имя
+                  <Input
+                    register={register}
+                    name={'firstName'}
+                    defaultValue={currentUser?.firstName}
+                    type={'text'}
+                  ></Input>
+                  <div className="invalid-feedback">{errors.firstName?.message}</div>
                 </div>
-                <Link to={'/change-password'}>
-                  <SvgPencil />
-                </Link>
+                <div className="form-element">
+                  Отчество
+                  <Input
+                    register={register}
+                    name={'patronymic'}
+                    defaultValue={currentUser?.patronymic}
+                    type={'text'}
+                  ></Input>
+                  <div className="invalid-feedback">{errors.patronymic?.message}</div>
+                </div>
+                <div className="form-element">
+                  Дата рождения
+                  <Controller
+                    name="birthDate"
+                    defaultValue={currentUser?.birthDate}
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field }) => <Datepicker field={field} />}
+                  />
+                </div>
+              </div>
+              <div className="settings-photo">
+                <AvatarUploader photo={currentUser?.photo} />
               </div>
             </div>
-            <div className="form-element">
-              Email
-              <input
-                className="form-input readonly-input"
-                defaultValue={currentUser?.email}
-                {...register('email')}
-                readOnly={true}
-              />
-              <div className="invalid-feedback">{errors.email?.message}</div>
-            </div>
+            <div className="form-grid-container">
+              <div className="form-element password">
+                Пароль
+                <div className={`fake-password-input ${isDark ? 'dark-theme-background' : ''}`}>
+                  <div>
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                    <div className="circle-password" />
+                  </div>
+                  <Link to={'/change-password'}>
+                    <SvgPencil />
+                  </Link>
+                </div>
+              </div>
+              <div className="form-element">
+                Email
+                <Input
+                  readonly={true}
+                  customClassName="readonly-input"
+                  register={register}
+                  name={'email'}
+                  defaultValue={currentUser?.email}
+                  type={'text'}
+                ></Input>
+                {/* <input
+                  className="form-input readonly-input"
+                  defaultValue={currentUser?.email}
+                  {...register('email')}
+                  readOnly={true}
+                /> */}
+                <div className="invalid-feedback">{errors.email?.message}</div>
+              </div>
 
-            <div className="form-element">
-              Ссылка на GitHub
-              <input
-                className="form-input"
-                defaultValue={currentUser?.gitHubAccount}
-                {...register('gitHubAccount')}
-              />
-              <div className="invalid-feedback">{errors.gitHubAccount?.message}</div>
+              <div className="form-element">
+                Ссылка на GitHub
+                <Input
+                  register={register}
+                  name={'gitHubAccount'}
+                  defaultValue={currentUser?.gitHubAccount}
+                  type={'text'}
+                ></Input>
+                <div className="invalid-feedback">{errors.gitHubAccount?.message}</div>
+              </div>
+              <div className="form-element">
+                Телефон
+                <Input
+                  register={register}
+                  name={'phoneNumber'}
+                  defaultValue={currentUser?.phoneNumber}
+                  type={'tel'}
+                ></Input>
+                <div className="invalid-feedback">{errors.phoneNumber?.message}</div>
+              </div>
             </div>
-            <div className="form-element">
-              Телефон
-              <input
-                className="form-input"
-                type="tel"
-                defaultValue={currentUser?.phoneNumber}
-                {...register('phoneNumber')}
+            <div className="buttons-group">
+              <Button
+                text={'Сохранить'}
+                type={ButtonType.submit}
+                model={ButtonModel.Colored}
+                width="190"
               />
-              <div className="invalid-feedback">{errors.phoneNumber?.message}</div>
+              <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text} />
             </div>
-          </div>
-          <div className="buttons-group">
-            <Button
-              text={'Сохранить'}
-              type={ButtonType.submit}
-              model={ButtonModel.Colored}
-              width="190"
-            />
-            <Button text={'Отмена'} type={ButtonType.reset} model={ButtonModel.Text} />
-          </div>
-        </form>
-      </div>
-      {/* )} */}
+          </form>
+        </div>
+      )}
     </>
   );
 };
