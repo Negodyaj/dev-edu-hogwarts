@@ -1,5 +1,5 @@
-export const enum GroupStatus {
-  Forming,
+export enum GroupStatus {
+  Forming = 1,
   ReadyToStudy,
   InProgress,
   Completed,

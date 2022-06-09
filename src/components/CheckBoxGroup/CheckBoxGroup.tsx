@@ -3,6 +3,7 @@ import { CheckboxBtn, CheckboxData } from './CheckBox/CheckBox';
 export type CheckboxGroupProps = {
   checkboxArr: CheckboxData[];
   name: string;
+  defaultValue?: number[];
 };
 
 export const CheckboxGroup = (props: CheckboxGroupProps) => {

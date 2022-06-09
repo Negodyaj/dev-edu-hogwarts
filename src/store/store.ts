@@ -12,7 +12,7 @@ Redux Thunk middleware allows you to write action creators that return a functio
 import thunk from 'redux-thunk';
 import { lessonsPageReducer, LessonsPageState } from './reducers/lessons.reducer';
 import { loginPageReducer, LoginPageState } from './reducers/login.reducer';
-import { homeworksPageReducer, HomeWorkPageState } from './reducers/homeworks.reducer';
+import { homeworksPageReducer, HomeworksPageState } from './reducers/homeworks.reducer';
 
 // Import reducers and state type
 import { homeworkPageReducer, HomeworkPageState } from './reducers/homework.reducer';
@@ -27,6 +27,7 @@ import {
 import { GeneralProgressState, generalProgressReducer } from './reducers/generalProgress.reducer';
 import { NewGroupFormReducer, NewGroupFormState } from './reducers/NewGroupForm.reducer';
 import { settingsPageReducer, SettingsPageState } from './reducers/settings.reducer';
+import { coursesPageReducer, CoursesPageState } from './reducers/courses.reducer';
 import { modalWindowReducer, ModalWindowState } from './reducers/modalWindow.reducer';
 import { registrationPageReducer, RegistrationPageState } from './reducers/registration.reducer';
 import { editCoursesPageReducer, EditCoursesPageState } from './reducers/editCourses.reducer';
@@ -35,14 +36,16 @@ import {
   NotificationsContainerState,
 } from './reducers/notificationsContainer.reducer';
 import { studentsListPageReducer, StudentsListPageState } from './reducers/studentsList.reducer';
+import { NewLessonPageReducer, NewLessonPageState } from './reducers/newLessonPage.reducer';
 
 // Create an interface for the application state
 export interface AppState {
-  homeworksPageState: HomeWorkPageState;
+  homeworksPageState: HomeworksPageState;
   newHomeworkFormState: NewHomeworkFormState;
   notificationsPageState: NotificationsPageState | undefined;
   loginPageState: LoginPageState | undefined;
   lessonsPageState: LessonsPageState | undefined;
+  coursesPageState: CoursesPageState;
   homeworkPageState: HomeworkPageState;
   mainPanelState: MainPanelState | undefined;
   attendanceJournalState: AttendanceJournalState;
@@ -55,6 +58,7 @@ export interface AppState {
   editCoursesPageState: EditCoursesPageState | undefined;
   notificationsContainerState: NotificationsContainerState | undefined;
   studentsListPageState: StudentsListPageState;
+  newLessonPageState: NewLessonPageState | undefined;
 }
 
 // Create the root reducer
@@ -64,6 +68,7 @@ const rootReducer = combineReducers<AppState>({
   homeworkPageState: homeworkPageReducer,
   homeworksPageState: homeworksPageReducer,
   newHomeworkFormState: newHomeworkFormReducer,
+  coursesPageState: coursesPageReducer,
   lessonsPageState: lessonsPageReducer,
   mainPanelState: mainPanelReducer,
   attendanceJournalState: attendanceJournalReducer,
@@ -76,6 +81,7 @@ const rootReducer = combineReducers<AppState>({
   editCoursesPageState: editCoursesPageReducer,
   notificationsContainerState: notificationsContainerReducer,
   studentsListPageState: studentsListPageReducer,
+  newLessonPageState: NewLessonPageReducer,
 });
 
 // Create a configure store function of type `AppState`

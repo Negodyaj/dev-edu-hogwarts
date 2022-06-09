@@ -5,7 +5,32 @@
   font-size: 18px;
   max-width: fit-content;
   margin: 0;
-
+  .textarea-style {
+    background: $white;
+    border: 1px solid $medium-gray;
+    outline-color: transparent;
+    border-radius: 5px;
+    padding: 14px 20px 15px 22px;
+    margin-top: 10px;
+    transition: outline-color 0.3s ease;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    &:focus {
+      outline: 1px solid $lavender-color;
+    }
+    &::placeholder {
+      font-weight: 400;
+      color: $dark-gray;
+    }
+  }
+  .dark-theme-textarea{
+    color: #8A8A8A;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    border: 1px solid #535353;
+    background-color: #1A1D1F;
+  }
+  .title-number-groups {
+    margin-right: 10px;
+  }
   & .homework-form_title {
     font-size: 22px;
     font-weight: 600;
@@ -25,7 +50,11 @@
       column-gap: 70px;
     }
   }
-
+  .courses-list {
+    .custom-checkbox:nth-child(1) {
+      margin-left: 37px;
+    }
+  }
   .btn ~ .btn {
     margin-left: 30px;
   }
@@ -55,6 +84,16 @@
 
   .radio-group-container {
     max-width: 690px;
+  }
+
+  .list-view-input {
+    width: auto;
+    background: transparent;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
   }
 
   .form-input_link__container {
@@ -113,5 +152,4 @@
   &:hover {
     background-color: $lavender-button-hover;
   }
-
 }

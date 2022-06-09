@@ -1,14 +1,6 @@
 @import './src/style/colors';
 
 .form-input {
-  width: 438px;
-  display: block;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: inherit;
-  min-height: 56px;
-  background: $white;
-  border: 1px solid $medium-gray;
   outline-color: transparent;
   border-radius: 5px;
   padding: 14px 20px 15px 22px;
@@ -20,11 +12,15 @@
     color: $dark-gray;
   }
 
+}
+.readonly-input {
+  cursor: auto;
+  background-color: $medium-gray;
+  color:$dark-gray;
   &:focus {
-    outline: 1px solid $lavender-color;
+    outline: none;
   }
 }
-
 .homework-form .form-input {
   width: 870px;
 }
@@ -41,6 +37,17 @@
 
   &:first-child {
     margin-top: 50px;
+  }
+
+  &.with-dropdown { 
+    align-items: center;
+    margin-bottom: 10px;
+
+    .drop-down-filter svg {
+      border: 1px solid $medium-gray;
+      border-radius: 5px;
+      background-color: $white;
+    }
   }
 }
 

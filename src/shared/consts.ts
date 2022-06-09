@@ -6,6 +6,14 @@ export const usersUrl = 'api/Users';
 export const studentsUrl = `${usersUrl}/students`;
 export const groupUrl = 'api/Groups';
 export const taskUrl = 'api/tasks';
+export const addNewTaskUrl = 'api/tasks/teacher';
+export const updateTaskUrl = (taskId: number) => `api/Tasks/${taskId}`;
+export const addNewTaskUrlByMethodist = 'api/tasks/methodist';
+export const getHomeworkById = (id: number) => `api/homeworks/${id}`;
+export const getTaskByIdUrl = (id: number) => `api/Tasks/${id}`;
+export const studentHomeworkById = (id: number) => `api/student-homeworks/${id}`;
+export const getTasksByCourseId = (courseId: number) => `api/Tasks/by-course/${courseId}`;
+export const getStudentAnswerByTaskId = (taskId: number) => `${taskUrl}/${taskId}/answer`;
 export const registerUrl = 'register';
 export const coursesUrl = 'api/Courses';
 export const addNewTaskByTeacherUrl = `${taskUrl}/teacher`;
@@ -28,15 +36,22 @@ export const updateAttendanceForLesson = (
   studentId: number,
   attendanceType: string
 ) => `${lessonsUrl}/${lessonId}/student/${studentId}/attendance/${attendanceType}`;
-export const lessonsByGroupId = (groupId: number) => {
-  return `${lessonsUrl}/by-group/${groupId}`;
+export const getUrlLessonsByGroupId = (groupId: number) => {
+  return `${lessonsUrl}/by-groupId/${groupId}`;
 };
-export const getStudentAnswerByTaskId = (taskId: number) => `${taskUrl}/${taskId}/answer`;
+export const getUrlUnpublishedLessonsByGroupId = (groupId: number) => {
+  return `${lessonsUrl}/unpublished/by-groupId/${groupId}`;
+};
 export const updateUserUrl = (id: number) => `${usersUrl}/${id}`;
-export const GroupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
+export const groupByIdUrl = (groupId: number) => `${groupUrl}/${groupId}`;
 export const updatePassword = 'api/Users/password';
 export const getTopicsByCourseId = (courseId: number) => `api/Courses/${courseId}/topics`;
 export const postTopic = 'api/Topics';
-export const updateCourseProgram = (courseId: number) => `/api/Courses/${courseId}/program`;
+export const updateCourseProgram = (courseId: number) => `api/Courses/${courseId}/program`;
 export const getAllAnswersEachStudentsByTaskIdUrl = (id: number) =>
   `api/student-homeworks/task/${id}/answers`;
+export const addUserInGroup = (groupId: number, userId: number, userRole: string) =>
+  `${groupUrl}/${groupId}/user/${userId}/role/${userRole}`;
+export const deleteUserFromGroup = (groupId: number, userId: number) =>
+  `${groupUrl}/${groupId}/user/${userId}`;
+export const getUrlLessonsFullInfo = (id: number) => `api/Lessons/${id}/full-info`;

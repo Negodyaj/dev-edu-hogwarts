@@ -14,7 +14,7 @@ import { NewHomework } from './pages/NewHomework/NewHomework';
 import { HomeworkReviewPage } from './pages/HomeworkReviewPage/HomeworkReviewPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getCurrentUser } from './services/auth.service';
+import { getCourses, getCurrentUser } from './services/auth.service';
 import { HomeworkPage } from './pages/HomeworksPage/HomeworkPage/HomeworkPage';
 import { HomeworkEditPage } from './pages/HomeworksPage/HomeworkPage/HomeworkEditPage';
 import { PaymentsPage } from './pages/PaymentsPage/PaymentsPage';
@@ -32,6 +32,7 @@ import { EditTaskPage } from './pages/HomeworksPage/EditTaskPage';
 import { ModalWindowState } from './store/reducers/modalWindow.reducer';
 import { ModalWindow } from './components/ModalWindow/ModalWindow';
 import { GroupsListPage } from './pages/GroupsListPage/GroupsListPage';
+import { NewLessonPage } from './pages/NewLessonPage/NewLessonPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
     } else {
       navigate('/');
     }
+    getCourses(dispatch);
   }, []);
 
   const { isCollapsed } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
@@ -72,6 +74,9 @@ function App() {
             <Route path="homeworks/:id/new" element={<HomeworkPage />} />
             <Route path="homeworks/:id/edit" element={<HomeworkEditPage />} />
             <Route path="lessons" element={<LessonsPage />} />
+            <Route path="new-lesson" element={<NewLessonPage />} />
+            <Route path="new-lesson/unpublished" element={<LessonsPage />} />
+            <Route path="new-lesson/unpublished/:id" element={<NewLessonPage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="/change-password" element={<SettingsPassword />} />
             <Route path="courses" element={<CoursesPage />} />
