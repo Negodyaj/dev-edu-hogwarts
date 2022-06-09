@@ -11,6 +11,20 @@
   transform: rotate(180deg);
 }
 
+.content-container {
+
+}
+
+.relative {
+  position: relative;
+}
+
+.filter-list-wrapper {
+  width: max-content;
+  position: absolute;
+  top: -30px;
+  right: 30px;
+}
 .lessons-container{
   border-radius: 15px;
   position: relative;
@@ -21,19 +35,15 @@
     border-top: 1px solid $medium-gray;
   }
 }
-.grid{
-  display: grid;
-  grid-template-columns: 250px 470px;
-  grid-template-rows: 1fr;
-}
+// .grid{
+//   display: grid;
+//   grid-template-columns: 250px 470px;
+//   grid-template-rows: 1fr;
+// }
 
 .lesson-container {
-  padding-top: 50px;
-  margin-left: 45px;
-  margin-right: 120px;
-  position: relative;
-  
   &.active{
+    
     button{
       transform: rotateZ(180deg);
     }
@@ -58,7 +68,7 @@
     text-align: center;
     background-color: $white;
     position: absolute;
-    right: -75px;
+    right: 45px;
     cursor: pointer;
     transition: all 0.1s ease-in-out;
 
@@ -76,11 +86,12 @@
 
   .header-container {
     padding-bottom: 30px;
+    padding-right: 75px;
     line-height: 21px;
-    display: flex;    
+    display: flex;
+
     .lesson-main-info{
       display: flex;
-      justify-content: space-around;
     }
     .lesson-name{
       margin-right: 50px;
@@ -90,43 +101,13 @@
     .lesson-date{
       margin-right: 90px;
     }
-    .lesson-theme{
-      width: 470px;
-    }
-  
-  .accordion-content-container{
-    width: 775px;
+
+    
+  .accordion-content-container {
     padding-top: 30px;
     padding-bottom: 30px;
     border-top: 1px solid $medium-gray;
-    .video-container{      
-      .video-txt{
-        grid-column: 1;
-      }
-      .video-link{
-        grid-column: 2;
-        margin-left: 59px;
-        text-decoration: none;
-      }
-    }
-    .additional-container{      
-      .additional-txt{
-        grid-column: 1;
-      }
-      .additional-info{
-        grid-column: 2;
-        margin-left: 59px;
-      }
-    }
-    // .master-lesson-container{
-    //   position: relative;
-    // }
-    // select {
-    //   position: absolute;
-    //   top: 10px;
-    // }
-
-    
+       
 
   }
   .container-250{
@@ -140,4 +121,22 @@
     
   }
   
+}
+
+.additional-info {
+  margin-left: 84px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.video-container {
+  display: flex;
+  align-items: center;
+  .video-txt{
+    white-space: nowrap;
+  }
+  .video-link{
+    display: block;
+    margin-left: 175px;
+  }
 }

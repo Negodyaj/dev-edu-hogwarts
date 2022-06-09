@@ -50,14 +50,14 @@ export const Lesson = (props: LessonProps) => {
       </div>
       {isExpanded && (
         <div className="accordion-content-container">
-          <div className="video-container grid">
+          <div className="video-container">
             <div className="video-txt container-250">Ссылка на видео</div>
             <a className="video-link container-470" href={lesson.videoLink}>
               {lesson.videoLink}
             </a>
           </div>
-          <div className="additional-container grid">
-            <div className="additional-txt">Дополнительные материалы</div>
+          <div className="video-container">
+            <div className="video-txt">Дополнительные материалы</div>
             <div className="additional-info">{lesson.additionalInfo}</div>
           </div>
         </div>

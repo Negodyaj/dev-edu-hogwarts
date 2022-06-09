@@ -69,11 +69,9 @@ export const NewLessonPage = () => {
 
   useEffect(() => {
     if (
-      !(
-        currentRole === UserRole.Teacher ||
-        currentRole === UserRole.Admin ||
-        currentRole === UserRole.Tutor
-      )
+      currentRole !== UserRole.Teacher &&
+      currentRole !== UserRole.Admin &&
+      currentRole !== UserRole.Tutor
     )
       navigate('/lessons', { replace: true });
     reset(lessonsData);

@@ -83,8 +83,10 @@ export const LessonsPage = () => {
       />
       {lessonsToDisplay && lessonsToDisplay.length > 0 ? (
         <>
-          {!isEditing && <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />}
-          <div className="lessons-container">
+          <div className="content-container relative">
+            <div className="filter-list-wrapper">
+              {!isEditing && <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />}
+            </div>
             {lessonsToDisplay?.map((lesson) => (
               <Lesson
                 key={lesson.id}
