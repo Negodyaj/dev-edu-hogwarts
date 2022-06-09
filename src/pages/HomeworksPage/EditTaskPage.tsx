@@ -21,7 +21,7 @@ export const EditTaskPage = () => {
     return () => {
       dispatch(getTask(undefined));
     };
-  }, []);
+  }, [task]);
 
   return (
     <>{inProcess ? <Loader /> : <NewHomework initialTask={task} selectedGroup={selectedTab} />}</>

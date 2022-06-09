@@ -2,10 +2,11 @@ import './HomeworkCard.scss';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../store/store';
 // import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
-import { taskEditLink } from '../../../components/MainPanel/Navigation/constants';
+// import { taskEditLink } from '../../../components/MainPanel/Navigation/constants';
 // import { Link } from 'react-router-dom';
 // import { setPrevURL } from '../../../actions/homework.actions';
-import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
+// import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
+import { Link } from 'react-router-dom';
 // import { useMemo } from 'react';
 
 export const TaskCardContent = () => {
@@ -26,7 +27,11 @@ export const TaskCardContent = () => {
             </a>
           ))
         : ''}
-      {task && <LinkWithUnderline path={taskEditLink(task.id)} text="Редактировать" />}
+      {task && (
+        <Link to={`/new-homework/edit-task/${task.id}`} className="link-with-text-decoration">
+          Редактировать
+        </Link>
+      )}
     </>
   );
 };

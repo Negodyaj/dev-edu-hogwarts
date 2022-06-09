@@ -109,19 +109,14 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const coursesData =
-    currentRole === UserRole.Methodist
-      ? initialTask
-        ? initialTask.courseIds
-        : courses?.map((crs) => {
-            const courseData: CheckboxData = {
-              value: crs.id,
-              text: `${crs.name}`,
-              isChecked: false,
-            };
-            return courseData;
-          })
-      : undefined;
+  const coursesData = courses?.map((crs) => {
+    const courseData: CheckboxData = {
+      value: crs.id,
+      text: `${crs.name}`,
+      isChecked: false,
+    };
+    return courseData;
+  });
 
   const memoizeMapLinks = useMemo(() => {
     return links.map((item, index) => {
