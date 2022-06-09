@@ -1,5 +1,5 @@
-@import './src/style/colors';
-@import 'style/commonFormStyles';
+@import "./src/style/colors";
+@import "style/commonFormStyles";
 
 * {
   margin: 0;
@@ -9,7 +9,7 @@
 body {
   margin: 0;
   background-color: $background-color;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -36,11 +36,11 @@ main {
   }
 }
 
-::-moz-selection{
+::-moz-selection {
   background-color: $selection-color;
 }
 
-::selection{
+::selection {
   background-color: $selection-color;
 }
 
@@ -56,17 +56,23 @@ main {
 .flex-container {
   display: flex;
 }
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s !important;
+}
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: $dark-gray;
   opacity: 1; /* Firefox */
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: $dark-gray;
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
+::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: $dark-gray;
 }
 
