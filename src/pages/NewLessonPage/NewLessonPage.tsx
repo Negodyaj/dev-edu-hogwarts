@@ -190,7 +190,6 @@ export const NewLessonPage = () => {
             onClick={onCncel}
           />
         </div>
-        {errors && <div className="invalid-feedback">Something wents wrong...</div>}
       </form>
     </FormProvider>
   );
