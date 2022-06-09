@@ -5,6 +5,7 @@ import {
   DraggableProvidedDragHandleProps,
 } from 'react-beautiful-dnd';
 import { useState } from 'react';
+// import { baseWretch } from '../../../../services/base-wretch.service';
 
 export type ListViewItemProps = {
   lesson: ListViewLessons;
@@ -18,7 +19,12 @@ export type ListViewItemProps = {
     isDragDisabled: boolean;
   } | null;
 };
-
+export type TopicFormData = {
+  id: number;
+  name: string;
+  position: number;
+  duration: number;
+};
 export const ListViewItem = (props: ListViewItemProps) => {
   const headItemStyleName = props.head ? 'title-head__item' : '';
   const [hoursCount, setHoursCount] = useState(props.lesson.hoursCount);

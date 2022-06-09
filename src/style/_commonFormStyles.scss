@@ -24,7 +24,14 @@
     outline: 1px solid $lavender-color;
   }
 }
-
+.readonly-input {
+  cursor: auto;
+  background-color: $medium-gray;
+  color:$dark-gray;
+  &:focus {
+    outline: none;
+  }
+}
 .homework-form .form-input {
   width: 870px;
 }
@@ -41,6 +48,17 @@
 
   &:first-child {
     margin-top: 50px;
+  }
+
+  &.with-dropdown { 
+    align-items: center;
+    margin-bottom: 10px;
+
+    .drop-down-filter svg {
+      border: 1px solid $medium-gray;
+      border-radius: 5px;
+      background-color: $white;
+    }
   }
 }
 
