@@ -56,7 +56,7 @@ export const Lesson = (props: LessonProps) => {
               {lesson.videoLink}
             </a>
           </div>
-          <div className="video-container">
+          <div className="additional-container">
             <div className="video-txt">Дополнительные материалы</div>
             <div className="additional-info">{lesson.additionalInfo}</div>
           </div>
