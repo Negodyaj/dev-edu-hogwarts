@@ -33,7 +33,7 @@
 }
 
 .lesson-container {
-  padding-right: 85px;
+  padding-right: 120px;
   position: relative;
   &.active{
     button{
@@ -101,6 +101,10 @@
   border-top: 1px solid $medium-gray;
   border-bottom: 1px solid $medium-gray;
   word-break: break-all;
+}
+
+.accordion-content-container:last-child {
+  border-bottom: none;
 }
 
 .additional-container {

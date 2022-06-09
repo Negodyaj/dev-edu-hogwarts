@@ -104,6 +104,7 @@ export const NewLessonPage = () => {
   });
 
   const onCncel = () => {
+    if (id) navigate('/new-lesson/unpublished');
     reset();
     navigate(-1);
   };
