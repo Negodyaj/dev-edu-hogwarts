@@ -14,6 +14,7 @@ export const StyledInput = styled.input<StyledInputProps>`
   font-weight: inherit;
   font-size: inherit;
   min-height: 56px;
+  background: $white;
   border: 1px solid ${darkTheme.selectionColor};
   outline-color: transparent;
   border-radius: 5px;
@@ -24,6 +25,10 @@ export const StyledInput = styled.input<StyledInputProps>`
   &::placeholder {
     font-weight: 400;
     color: ${darkGrayColor};
+  }
+
+  &:focus {
+    outline: 1px solid $lavender-color;
   }
   .custom-password {
     font-size: 30px;
