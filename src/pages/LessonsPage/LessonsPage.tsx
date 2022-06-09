@@ -11,6 +11,11 @@ import { LessonsPageState } from '../../store/reducers/lessons.reducer';
 import { loadLessons, loadLessonsDraft } from '../../actions/lessons.thunks';
 import { filterLessons, selectTab, setIsEdit } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
+import { LoginPageState } from '../../store/reducers/login.reducer';
+import { UserRole } from '../../shared/enums/UserRole';
+import { Button, ButtonModel } from '../../components/Button/Button';
+import { Icon } from '../../shared/enums/Icon';
+import { useNavigate } from 'react-router-dom';
 
 const lessonsFilterData: FilterItem[] = [
   { id: Period.All, name: 'Все' },
@@ -24,6 +29,8 @@ export const LessonsPage = () => {
   const { lessons, filteredLessons, tabs, selectedTab, isEditing } = useSelector(
     (state: AppState) => state.lessonsPageState as LessonsPageState
   );
+  const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.pathname.includes('unpublished')) dispatch(setIsEdit(true));
@@ -101,6 +108,23 @@ export const LessonsPage = () => {
         </>
       ) : (
         <span className="lack-of-homeworks">Занятий еще нет</span>
+      )}
+      {(currentRole === UserRole.Teacher ||
+        currentRole === UserRole.Admin ||
+        currentRole === UserRole.Tutor) && (
+        <div className="buttons-group flex-container buttons-after-list">
+          <Button
+            model={ButtonModel.Colored}
+            text="Добавить занятие"
+            icon={Icon.Plus}
+            onClick={() => navigate('/new-lesson')}
+          />
+          <Button
+            model={ButtonModel.White}
+            text="Сохраненные занятия"
+            onClick={() => navigate('/new-lesson/unpublished')}
+          />
+        </div>
       )}
     </>
   );

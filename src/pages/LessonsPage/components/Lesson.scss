@@ -21,7 +21,7 @@
   top: -30px;
   right: 30px;
 }
-.lessons-container{
+.lessons-container {
   border-radius: 15px;
   position: relative;
   padding-right: 85px;
@@ -34,6 +34,7 @@
 
 .lesson-container {
   padding-right: 85px;
+  position: relative;
   &.active{
     button{
       transform: rotateZ(180deg);
@@ -42,8 +43,8 @@
 
   .link-wrapper {
     position: absolute;
-    right: -75px;
-    top: 20px;
+    right: 45px;
+    top: -34px;
     a {
       font-size: 14px;
     }
