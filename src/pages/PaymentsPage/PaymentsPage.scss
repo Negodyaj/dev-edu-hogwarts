@@ -23,5 +23,18 @@
   }
  
 }
+
+.payments-page-grid {
+  display: grid;  
+  grid-template-columns: 210px 1fr 1fr 1fr 1fr;
+  align-items: end;
+}
+.payment-cell{
+  justify-self: center;
+  
+}
+.margin-top{
+  margin-top: 25px;
+}
   
 
