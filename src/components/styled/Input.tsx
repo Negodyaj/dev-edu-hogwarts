@@ -16,12 +16,14 @@ export type InputProps = {
   required?: boolean;
   register: UseFormRegister<any>;
   rules?: RegisterOptions;
+  readonly?: boolean;
 };
 export const Input = (props: InputProps) => {
   const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   return (
     <>
       <StyledInput
+        readOnly={props.readonly}
         placeholder={props.placeholder}
         type={props.type}
         inputProps={props}

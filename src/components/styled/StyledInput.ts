@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { darkGrayColor, darkTheme, defaultTheme } from '../../shared/colors';
+import { darkGrayColor, darkTheme, defaultTheme, lavenderColor } from '../../shared/colors';
 import { InputProps } from './Input';
 
 export type StyledInputProps = {
@@ -15,7 +15,7 @@ export const StyledInput = styled.input<StyledInputProps>`
   font-size: inherit;
   min-height: 56px;
   background: $white;
-  border: 1px solid $medium-gray;
+  border: 1px solid ${darkTheme.selectionColor};
   outline-color: transparent;
   border-radius: 5px;
   padding: 14px 20px 15px 22px;
@@ -24,7 +24,7 @@ export const StyledInput = styled.input<StyledInputProps>`
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   &::placeholder {
     font-weight: 400;
-    color: $dark-gray;
+    color: ${darkGrayColor};
   }
 
   &:focus {
@@ -41,9 +41,21 @@ export const StyledInput = styled.input<StyledInputProps>`
       text-align: ${inputProps.textAlign};
       width: ${inputProps.width};
       color: ${darkGrayColor};
-      border: 1px solid ${isDark ? darkTheme.mediumGrayColor : defaultTheme.mediumGrayColor};
-      background-color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor} !important;
+      border: 1px solid
+        ${inputProps.customClassName
+          ? defaultTheme.mediumGrayColor
+          : isDark
+          ? darkTheme.mediumGrayColor
+          : defaultTheme.mediumGrayColor};
+      background-color: ${inputProps.customClassName
+        ? defaultTheme.mediumGrayColor
+        : isDark
+        ? darkTheme.whiteColor
+        : defaultTheme.whiteColor};
       outline: ${inputProps.isInvalid ? '1px solid rgba(255, 41, 0, 0.78)' : ''};
+      &:focus {
+        outline: 1px solid ${!inputProps.readonly ? lavenderColor : 'transparent'};
+      }
     `;
   }}
 `;
