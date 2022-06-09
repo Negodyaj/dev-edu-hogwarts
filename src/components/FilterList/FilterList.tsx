@@ -35,6 +35,7 @@ export const FilterList = (props: FilterListProps) => {
   const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const filterData = props.data;
   const selectedItem = props.selected ? filterData.find((x) => x.id === props.selected) : undefined;
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [item, setItem] = useState<FilterItem>(selectedItem ?? filterData[0]);
 

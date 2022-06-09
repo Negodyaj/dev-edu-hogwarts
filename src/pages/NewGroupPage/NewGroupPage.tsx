@@ -28,6 +28,7 @@ import {
 } from '../../actions/NewGroupForm.actions';
 import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import { useParams } from 'react-router-dom';
+import { Input } from '../../components/styled/Input';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { GroupResponse } from '../../models/responses/GroupResponse';
 import { convertDate } from '../../shared/helpers/dateHelpers';
@@ -347,21 +348,24 @@ export const NewGroupPage = () => {
             <div className="form-grid-container">
               <div className="form-element">
                 Название
-                <input
-                  defaultValue={group?.name}
-                  className="form-input"
+                <Input
                   placeholder="Введите название"
-                  {...register('name', { required: true })}
-                />
-                {errors.name && <span>Вы не указали название</span>}
+                  name={'name'}
+                  register={register}
+                  type="text"
+                  rules={{ required: true }}
+                ></Input>
+                {errors.name && <span className="invalid-feedback">Вы не указали название</span>}
               </div>
               <div className="form-element">
                 Расписание занятий
-                <input
-                  className="form-input"
-                  defaultValue={group?.timetable}
+                <Input
                   placeholder="Введите текст"
-                  {...register('timetable', { required: true })}
+                  defaultValue={group?.timetable}
+                  register={register}
+                  name="timetable"
+                  rules={{ required: true }}
+                  type="text"
                 />
                 {errors.timetable && <span>Вы не составили расписание</span>}
               </div>
@@ -399,12 +403,13 @@ export const NewGroupPage = () => {
               </div>
               <div>
                 Оплата за месяц
-                <input
+                <Input
                   type="number"
-                  className="form-input"
                   defaultValue={group?.paymentPerMonth}
                   placeholder="Введите сумму"
-                  {...register('paymentPerMonth', { required: true, pattern: /^[ 0-9]+$/ })}
+                  register={register}
+                  name="paymentPerMonth"
+                  rules={{ required: true, pattern: /^[ 0-9]+$/ }}
                 />
                 {errors.paymentPerMonth?.type === 'required' && <span>Вы не ввели сумму</span>}
                 {errors.paymentPerMonth?.type === 'pattern' && (

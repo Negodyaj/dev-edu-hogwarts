@@ -9,13 +9,16 @@ export interface UserSimpleResponse {
   photo: string;
 }
 
-export interface UserResponse extends UserSimpleResponse {
+export interface UserInfoShortOutputModel extends UserSimpleResponse {
+  phoneNumber?: string;
+}
+
+export interface UserResponse extends UserInfoShortOutputModel {
   roles: UserRole[];
   patronymic: string;
   username: string;
   registrationDate: string;
   birthDate: string;
-  phoneNumber: string;
   exileDate: string;
   gitHubAccount: string;
   city: 1;

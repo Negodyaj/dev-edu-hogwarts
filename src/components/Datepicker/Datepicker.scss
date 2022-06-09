@@ -6,7 +6,12 @@ $border-radius: 7px;
   border: 0;
   padding: 0;
 }
-
+.blck{
+  .rdtPicker{
+    background: #1A1D1F;
+    color: #8A8A8A;
+  }
+}
 .date-picker{
   display: flex;
   justify-content: space-between;
