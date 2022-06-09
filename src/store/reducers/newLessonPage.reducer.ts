@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { Reducer } from 'react';
 import {
-  GET_DATA_TO_EDIT,
+  GET_DATA_TO_EDIT_SUCSSES,
   NewLessonPageAction,
   RESET_DATA_TO_CREATE,
   UPLOAD_LESSONS_FAIL,
@@ -13,7 +13,7 @@ import { NewLessonFormData } from '../../pages/NewLessonPage/NewLessonPage';
 export interface NewLessonPageState {
   message?: string;
   isLoading: boolean;
-  lessonsData?: NewLessonFormData;
+  lessonsData: NewLessonFormData;
 }
 
 const initialLessonsData: NewLessonFormData = {
@@ -40,6 +40,7 @@ export const NewLessonPageReducer: Reducer<NewLessonPageState | undefined, NewLe
       return {
         ...state,
         isLoading: true,
+        message: undefined,
       };
     case UPLOAD_LESSONS_SUCSSES:
       return {
@@ -50,17 +51,19 @@ export const NewLessonPageReducer: Reducer<NewLessonPageState | undefined, NewLe
       return {
         ...state,
         isLoading: false,
-        errorMessage: action.payload,
+        message: action.payload,
       };
-    case GET_DATA_TO_EDIT:
+    case GET_DATA_TO_EDIT_SUCSSES:
       return {
         ...state,
         lessonsData: action.payload,
+        isLoading: false,
       };
     case RESET_DATA_TO_CREATE:
       return {
         ...state,
         lessonsData: initialLessonsData,
+        message: undefined,
       };
     default:
       return state;

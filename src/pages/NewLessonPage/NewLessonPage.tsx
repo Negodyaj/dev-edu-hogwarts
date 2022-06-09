@@ -3,16 +3,13 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { setIsEdit } from '../../actions/lessons.actions';
-import { getDataToEdit, resetDataToCreate } from '../../actions/newLessonPage.action';
-import { updateLesson, uploadLesson } from '../../actions/newLessonPage.thunk';
+import { resetDataToCreate } from '../../actions/newLessonPage.action';
+import { getLessonsInfo, updateLesson, uploadLesson } from '../../actions/newLessonPage.thunk';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { LinkWithUnderline } from '../../components/LinkWithUnderline/LinkWithUnderline';
 import { RadioData } from '../../components/RadioGroup/RadioButton/RadioButton';
 import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
-import { LessonFullInfoResponse } from '../../models/responses/LessonResponse';
-import { baseWretch } from '../../services/base-wretch.service';
-import { getUrlLessonsFullInfo } from '../../shared/consts';
 import { LessonsPageState } from '../../store/reducers/lessons.reducer';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { NewLessonPageState } from '../../store/reducers/newLessonPage.reducer';
@@ -33,12 +30,28 @@ export const NewLessonPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const { lessonsData } = useSelector(
+  const { lessonsData, message } = useSelector(
     (state: AppState) => state.newLessonPageState as NewLessonPageState
   );
   const { isEditing, selectedTab } = useSelector(
     (state: AppState) => state.lessonsPageState as LessonsPageState
   );
+  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const navigate = useNavigate();
+
+  const initFields = () => {
+    if (id) {
+      dispatch(getLessonsInfo(+id));
+      dispatch(setIsEdit(true));
+    } else {
+      dispatch(resetDataToCreate());
+      dispatch(setIsEdit(false));
+    }
+  };
+
+  useEffect(() => {
+    initFields();
+  }, []);
 
   const methods = useForm<NewLessonFormData>({
     defaultValues: lessonsData,
@@ -52,38 +65,9 @@ export const NewLessonPage = () => {
     handleSubmit,
   } = methods;
 
-  const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
-  const navigate = useNavigate();
-
-  const initFields = async () => {
-    if (id) {
-      const fullLessonsData: LessonFullInfoResponse = await baseWretch()
-        .url(getUrlLessonsFullInfo(+id))
-        .get()
-        .json();
-
-      const lessonsFormData: NewLessonFormData = {
-        id: fullLessonsData.id,
-        date: fullLessonsData.date,
-        additionalMaterials: fullLessonsData.additionalMaterials,
-        isPublished: false,
-        linkToRecord: fullLessonsData.linkToRecord,
-        name: fullLessonsData.name,
-        groupId: selectedTab,
-      };
-
-      dispatch(getDataToEdit(lessonsFormData));
-      dispatch(setIsEdit(true));
-    }
-  };
-
   useEffect(() => {
-    if (id) initFields();
-    else {
-      dispatch(resetDataToCreate());
-      dispatch(setIsEdit(false));
-    }
-  }, [location.pathname]);
+    reset(lessonsData);
+  }, [lessonsData]);
 
   const onPublishHandler = handleSubmit((data: NewLessonFormData) => {
     data.isPublished = true;
@@ -91,9 +75,11 @@ export const NewLessonPage = () => {
     else {
       data.id = +id!;
       dispatch(updateLesson(data));
+      if (!message) navigate('/lessons', { replace: true });
     }
     dispatch(resetDataToCreate());
     reset();
+    navigate('/lessons', { replace: true });
   });
 
   const onSaveHandler = handleSubmit((data: NewLessonFormData) => {
@@ -102,10 +88,17 @@ export const NewLessonPage = () => {
     else {
       data.id = +id!;
       dispatch(updateLesson(data));
+      if (!message) navigate('/new-lesson/unpublished', { replace: true });
     }
     dispatch(resetDataToCreate());
     reset();
+    navigate(-1);
   });
+
+  const onCncel = () => {
+    reset();
+    navigate(-1);
+  };
 
   return (
     <FormProvider {...methods}>
@@ -122,21 +115,21 @@ export const NewLessonPage = () => {
         <div className="form-element flex-container">
           Номер группы:
           {isEditing ? (
-            ` ${selectedTab}`
+            `   ${selectedTab}`
           ) : (
             <div className="radio-group-container flex-container">
               {currentUser?.groups && (
                 <RadioGroup
                   radioData={currentUser.groups?.map((group) => {
-                    return { text: group.name, value: group.id } as RadioData;
+                    return { text: group.name, value: group.id, key: group.id } as RadioData;
                   })}
                   name="groupId"
+                  selected={selectedTab}
                 />
               )}
             </div>
           )}
         </div>
-        <span className="invalid-feedback">{errors?.groupId?.message}</span>
         <div className="form-element">
           Дата проведения занятия
           <Controller
@@ -155,16 +148,17 @@ export const NewLessonPage = () => {
             {...register('name', { required: true })}
           />
         </div>
-        <div className="invalid-feedback">{errors.date?.message}</div>
+        <div className="invalid-feedback">{errors.name?.message}</div>
         <div className="form-element">
           Ссылка на видео
           <input
             className={`form-input${errors.linkToRecord ? ' invalid-input' : ''}`}
             type="text"
             placeholder="Ссылка на видео"
-            {...register('linkToRecord', { required: false })}
+            {...register('linkToRecord', { required: true })}
           />
         </div>
+        <div className="invalid-feedback">{errors.linkToRecord?.message}</div>
         <div className="form-element">
           Дополнительные материалы
           <textarea
@@ -172,6 +166,7 @@ export const NewLessonPage = () => {
             placeholder="Введите текст"
             {...register('additionalMaterials', { required: true })}
           />
+          <div className="invalid-feedback">{errors.additionalMaterials?.message}</div>
         </div>
         <div className="buttons-group">
           <Button
@@ -192,9 +187,10 @@ export const NewLessonPage = () => {
             text="Отмена"
             type={ButtonType.reset}
             model={ButtonModel.Text}
-            onClick={() => navigate(-1)}
+            onClick={onCncel}
           />
         </div>
+        {errors && <div className="invalid-feedback">Something wents wrong...</div>}
       </form>
     </FormProvider>
   );
