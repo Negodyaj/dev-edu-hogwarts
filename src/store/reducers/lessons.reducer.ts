@@ -6,6 +6,7 @@ import {
   LOAD_TABS,
   LOAD_LESSONS_SUCCESS,
   LOAD_LESSONS_FAIL,
+  SET_IS_EDIT,
 } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
 import { TabData } from '../../models/TabData';
@@ -17,6 +18,7 @@ export interface LessonsPageState {
   selectedTab: number;
   lessons?: LessonResponse[];
   errorMessage: string;
+  isEditing: boolean;
 }
 
 export const initialState: LessonsPageState = {
@@ -25,6 +27,7 @@ export const initialState: LessonsPageState = {
   tabs: [],
   selectedTab: -1,
   errorMessage: '',
+  isEditing: false,
 };
 
 export const lessonsPageReducer: Reducer<LessonsPageState | undefined, LessonsPageActions> = (
@@ -69,6 +72,12 @@ export const lessonsPageReducer: Reducer<LessonsPageState | undefined, LessonsPa
       return {
         ...state,
         errorMessage: action.payload,
+      };
+    }
+    case SET_IS_EDIT: {
+      return {
+        ...state,
+        isEditing: action.payload,
       };
     }
     default:

@@ -35,6 +35,8 @@ import {
   notificationsContainerReducer,
   NotificationsContainerState,
 } from './reducers/notificationsContainer.reducer';
+import { studentsListPageReducer, StudentsListPageState } from './reducers/studentsList.reducer';
+import { NewLessonPageReducer, NewLessonPageState } from './reducers/newLessonPage.reducer';
 import { LoaderReducer, LoaderState } from './reducers/loader.reducer';
 
 // Create an interface for the application state
@@ -56,6 +58,8 @@ export interface AppState {
   registrationPageState: RegistrationPageState | undefined;
   editCoursesPageState: EditCoursesPageState | undefined;
   notificationsContainerState: NotificationsContainerState | undefined;
+  studentsListPageState: StudentsListPageState;
+  newLessonPageState: NewLessonPageState | undefined;
   loaderState: LoaderState | undefined;
 }
 
@@ -79,6 +83,8 @@ const rootReducer = combineReducers<AppState>({
   editCoursesPageState: editCoursesPageReducer,
   notificationsContainerState: notificationsContainerReducer,
   loaderState: LoaderReducer,
+  studentsListPageState: studentsListPageReducer,
+  newLessonPageState: NewLessonPageReducer,
 });
 
 // Create a configure store function of type `AppState`

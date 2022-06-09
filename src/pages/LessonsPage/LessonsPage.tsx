@@ -8,9 +8,14 @@ import { Period } from '../../shared/enums/Period';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { LessonsPageState } from '../../store/reducers/lessons.reducer';
-import { loadLessons } from '../../actions/lessons.thunks';
-import { filterLessons, selectTab } from '../../actions/lessons.actions';
+import { loadLessons, loadLessonsDraft } from '../../actions/lessons.thunks';
+import { filterLessons, selectTab, setIsEdit } from '../../actions/lessons.actions';
 import { LessonResponse } from '../../models/responses/LessonResponse';
+import { LoginPageState } from '../../store/reducers/login.reducer';
+import { UserRole } from '../../shared/enums/UserRole';
+import { Button, ButtonModel } from '../../components/Button/Button';
+import { Icon } from '../../shared/enums/Icon';
+import { useNavigate } from 'react-router-dom';
 
 const lessonsFilterData: FilterItem[] = [
   { id: Period.All, name: 'Все' },
@@ -21,16 +26,23 @@ const lessonsFilterData: FilterItem[] = [
 export const LessonsPage = () => {
   const dispatch = useDispatch();
   const [activeLesson, setActiveLesson] = useState(0);
-
-  const { lessons, filteredLessons, tabs, selectedTab } = useSelector(
+  const { lessons, filteredLessons, tabs, selectedTab, isEditing } = useSelector(
     (state: AppState) => state.lessonsPageState as LessonsPageState
   );
+  const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname.includes('unpublished')) dispatch(setIsEdit(true));
+    else dispatch(setIsEdit(false));
+  }, [location.pathname]);
 
   useEffect(() => {
     if (selectedTab > 0) {
-      dispatch(loadLessons(selectedTab));
+      if (!isEditing) dispatch(loadLessons(selectedTab));
+      else dispatch(loadLessonsDraft(selectedTab));
     }
-  }, [selectedTab]);
+  }, [selectedTab, isEditing]);
 
   const onElementClick = (id: number) => {
     setActiveLesson(id === activeLesson ? 0 : id);
@@ -51,13 +63,17 @@ export const LessonsPage = () => {
     dispatch(filterLessons(lessonsToDisplay as LessonResponse[]));
   };
 
-  const newLessons = filteredLessons?.map((item) => {
+  useEffect(() => {
+    applyLessonsFilter(lessonsFilterData[0]);
+  }, [lessons, location.pathname]);
+
+  const lessonsToDisplay = filteredLessons?.map((item) => {
     const lessonModel: LessonModel = {
       id: item.id,
-      name: 'Имя', //заменить методом (пока сортировка по дате) (взять данные, которых нет, с бэка)!
+      serialNumber: item.number,
+      name: `Занятие ${item.number}`,
       date: item.date,
-      theme: 'Тема', //заменить (взять данные, которых нет, с бэка)!
-      //theme: item.name,
+      theme: item.name,
       videoLink: item.linkToRecord,
       additionalInfo: item.additionalMaterials,
     };
@@ -72,18 +88,44 @@ export const LessonsPage = () => {
         onClick={selectTab}
         course={true}
       />
-      <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />
-      <div className="lessons-container">
-        {newLessons?.map((lesson) => (
-          <Lesson
-            data={lesson}
-            id={lesson.id}
-            key={lesson.id}
-            activeLessonId={activeLesson}
-            onClick={onElementClick}
+      {lessonsToDisplay && lessonsToDisplay.length > 0 ? (
+        <>
+          <div className="content-container relative">
+            <div className="filter-list-wrapper">
+              {!isEditing && <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />}
+            </div>
+            {lessonsToDisplay?.map((lesson) => (
+              <Lesson
+                key={lesson.id}
+                data={lesson}
+                id={lesson.id}
+                activeLessonId={activeLesson}
+                onClick={onElementClick}
+                isEditing={isEditing}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <span className="lack-of-homeworks">Занятий еще нет</span>
+      )}
+      {(currentRole === UserRole.Teacher ||
+        currentRole === UserRole.Admin ||
+        currentRole === UserRole.Tutor) && (
+        <div className="buttons-group flex-container buttons-after-list">
+          <Button
+            model={ButtonModel.Colored}
+            text="Добавить занятие"
+            icon={Icon.Plus}
+            onClick={() => navigate('/new-lesson')}
           />
-        ))}
-      </div>
+          <Button
+            model={ButtonModel.White}
+            text="Сохраненные занятия"
+            onClick={() => navigate('/new-lesson/unpublished')}
+          />
+        </div>
+      )}
     </>
   );
 };

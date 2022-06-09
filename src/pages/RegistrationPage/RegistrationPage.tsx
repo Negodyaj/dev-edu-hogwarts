@@ -11,6 +11,7 @@ import { onRegistration } from '../../actions/registration.thunk';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginUrl } from '../../shared/consts';
+import { Input } from '../../components/styled/Input';
 
 export type RegisterFormData = {
   firstName: string;
@@ -91,13 +92,19 @@ export const RegistrationPage = () => {
                 Фамилия
                 <span className="asterisk">*</span>
               </label>
-              <input
+              <Input
+                register={method.register}
+                name={'lastName'}
+                type={'text'}
+                placeholder="Ефременков"
+              />
+              {/* <input
                 type="text"
                 className="form-input"
                 placeholder="Ефременков"
                 id="lastName"
                 {...method.register('lastName')}
-              />
+              /> */}
               <p className="attention">{errors.lastName?.message}</p>
             </div>
             <div className="form-grid-container">
@@ -105,23 +112,28 @@ export const RegistrationPage = () => {
                 <label htmlFor="firstName">
                   Имя<span className="asterisk">*</span>
                 </label>
-                <input
-                  type="text"
-                  className="form-input"
+                <Input
+                  register={method.register}
+                  name={'firstName'}
+                  type={'text'}
                   placeholder="Антон"
-                  id="firstName"
-                  {...method.register('firstName')}
                 />
                 <p className="attention">{errors.firstName?.message}</p>
               </div>
               <div className="form-element">
                 <label htmlFor="patronymic">Отчество</label>
-                <input
+                <Input
+                  register={method.register}
+                  name={'patronymic'}
+                  type={'text'}
+                  placeholder="Сергеевич"
+                />
+                {/* <input
                   type="text"
                   className="form-input"
                   placeholder="Сергеевич"
                   {...method.register('patronymic')}
-                />
+                /> */}
                 <p className="attention">{errors.patronymic?.message}</p>
               </div>
             </div>
@@ -142,22 +154,39 @@ export const RegistrationPage = () => {
                 <label htmlFor="password">
                   Пароль<span className="asterisk">*</span>
                 </label>
-                <input
+                <Input
+                  // customClassName="custom-password"
+                  register={method.register}
+                  name={'password'}
+                  type={'password'}
+                />
+                {/* <input
                   type="password"
                   className="custom-password form-input"
                   {...method.register('password')}
-                />
+                /> */}
                 <p className="attention">{errors.password?.message}</p>
               </div>
               <div className="form-element">
                 <label htmlFor="repeat-password">
                   Повторить пароль<span className="asterisk">*</span>
                 </label>
-                <input
+                <Input
+                  // customClassName="custom-password"
+                  register={method.register}
+                  name={'confirmPassword'}
+                  type={'password'}
+                />
+                {/* <input
+                  func wert(){
+                    ...
+                  }
+                   let a = new wert();
+                   let b = new wert();
                   type="password"
                   className="custom-password form-input"
                   {...method.register('confirmPassword')}
-                />
+                /> */}
                 <p className="attention">{errors.confirmPassword?.message}</p>
               </div>
             </div>
@@ -166,22 +195,28 @@ export const RegistrationPage = () => {
                 <label htmlFor="email">
                   E-mail<span className="asterisk">*</span>
                 </label>
-                <input
+                <Input
+                  register={method.register}
+                  name={'email'}
+                  type={'email'}
+                  placeholder="example@example.com"
+                />
+                {/* <input
                   type="email"
                   id="email"
                   className="form-input"
                   placeholder="example@example.com"
                   {...method.register('email')}
-                />
+                /> */}
                 <p className="attention">{errors.email?.message}</p>
               </div>
               <div className="form-element">
                 <label htmlFor="phoneNumber">Телефон</label>
-                <input
-                  type="tel"
-                  className="form-input"
+                <Input
+                  register={method.register}
+                  name={'phoneNumber'}
+                  type={'tel'}
                   placeholder="8(999)888-77-66"
-                  {...method.register('phoneNumber')}
                 />
                 <p className="attention">{errors.phoneNumber?.message}</p>
               </div>
@@ -219,6 +254,7 @@ export const RegistrationPage = () => {
                 }}
                 name="policy"
                 isSingle={true}
+                required={true}
               />
               <label htmlFor="policy" id="policy-label">
                 Настоящим подтверждаю, что я ознакомлен <br />и согласен с условиями{' '}
