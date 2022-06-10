@@ -51,6 +51,8 @@ import { Textarea } from '../../components/styled/Textarea';
 import { StyledValidationError } from '../../components/styled/StyledValidationError';
 import { StyledTextarea } from '../../components/styled/StyledTextarea';
 import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
+import { addNotification } from '../../actions/notificationsContainer.actions';
+import { NotificationType } from '../../shared/enums/NotificationType';
 
 export type AddHomeworkFormData = {
   startDate: string | Date;
@@ -130,6 +132,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
     if (isPublish) {
       dispatch(createNewHomework(formData));
     } else {
+      dispatch(addNotification({ type: NotificationType.Bad, text: 'Даты не сохранены' }));
       const roleFunction = returnFunctionByRole(currentRole);
       dispatch(roleFunction(formData, links));
     }

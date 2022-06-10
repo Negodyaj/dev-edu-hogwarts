@@ -23,6 +23,7 @@ export const HomeworksPage = () => {
   const { task } = useSelector((state: AppState) => state.homeworkPageState);
   const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
   const { courses } = useSelector((state: AppState) => state.coursesPageState);
+
   useEffect(() => {
     if (courses && courses?.length > 0)
       if (currentRole == UserRole.Methodist) {
@@ -43,7 +44,13 @@ export const HomeworksPage = () => {
   }, [selectedTab, task]);
   return (
     <div>
-      <TabContainer tabContainerData={tabs} selectedTab={selectedTab} onClick={selectTab} />
+      <TabContainer
+        course={currentRole === UserRole.Methodist}
+        group={currentRole !== UserRole.Methodist}
+        tabContainerData={tabs}
+        selectedTab={selectedTab}
+        onClick={selectTab}
+      />
       {currentRole == UserRole.Methodist ? (
         tasks && tasks.length > 0 ? (
           tasks?.map((tsk) => <TaskCard data={tsk} key={tsk.id} />)
