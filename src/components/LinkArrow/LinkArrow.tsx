@@ -1,5 +1,8 @@
-import { Link } from 'react-router-dom';
 import { SvgArrow } from '../SvgIcon/SvgFiles/SvgArrow';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
+import { StyledLinkArrow } from './styled/StyledLinkArrow';
 
 export type LinkArrowProps = {
   text: string;
@@ -7,10 +10,12 @@ export type LinkArrowProps = {
 };
 
 export const LinkArrow = (props: LinkArrowProps) => {
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
+
   return (
-    <Link className="link-arrow" to={`/${props.to}`}>
+    <StyledLinkArrow isDarkMode={isDark} className="link-arrow" to={`/${props.to}`}>
       {props.text}
       <SvgArrow direction="right" />
-    </Link>
+    </StyledLinkArrow>
   );
 };

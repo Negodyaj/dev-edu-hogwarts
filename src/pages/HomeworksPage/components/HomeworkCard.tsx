@@ -6,19 +6,21 @@ import { HomeworkProps, HomeworkStatus } from '../../../models/HomeworkCardData'
 import { LinkArrow } from '../../../components/LinkArrow/LinkArrow';
 import { LoginPageState } from '../../../store/reducers/login.reducer';
 import { UserRole } from '../../../shared/enums/UserRole';
+import { MainPanelState } from '../../../store/reducers/mainPanel.reducer';
+import { ContentContainer } from '../../../components/styled/ContentContainer';
 
 export const HomeworkCard = (props: HomeworkProps) => {
   const { homework, studentHomeworkProgress } = useSelector(
     (state: AppState) => state.homeworkPageState
   );
   const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const homeworkId = props.data?.id ?? homework?.id;
 
   return (
-    <div
-      className={`homework-card-content content-container ${
-        props.children ? 'one-card-content' : ''
-      }`}
+    <ContentContainer
+      isDarkMode={isDark}
+      className={`homework-card-content${props.children ? ' one-card-content' : ''}`}
     >
       <span className="task-number">Задание {props.data?.number}</span>
       <div className="homework-card-description">
@@ -46,6 +48,6 @@ export const HomeworkCard = (props: HomeworkProps) => {
           }
         </span>
       )}
-    </div>
+    </ContentContainer>
   );
 };

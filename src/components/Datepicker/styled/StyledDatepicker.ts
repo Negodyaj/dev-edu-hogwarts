@@ -39,7 +39,7 @@ export const DatePicker = styled.div<{ isDark: boolean }>`
     height: 24px;
 
     & svg path {
-      stroke: $dark-gray;
+      stroke: ${(props) => (props.isDark ? darkTheme.mediumGrayColor : defaultTheme.blackColor)};
     }
   }
   background-color: ${(props) => (props.isDark ? darkTheme.whiteColor : defaultTheme.whiteColor)};

@@ -1,5 +1,8 @@
-import { Link } from 'react-router-dom';
-import './LinkWithUnderline.scss';
+import './StyledLinkWithUnderline';
+import { StyledLinkWithUnderline } from './StyledLinkWithUnderline';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../store/store';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
 
 export type LinkWithUnderlineProps = {
   text: string;
@@ -7,9 +10,15 @@ export type LinkWithUnderlineProps = {
 };
 
 export const LinkWithUnderline = (props: LinkWithUnderlineProps) => {
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
+
   return (
-    <Link to={`/${props.path}`} className="link-with-text-decoration">
+    <StyledLinkWithUnderline
+      isDarkMode={isDark}
+      to={`/${props.path}`}
+      className="link-with-text-decoration"
+    >
       {props.text}
-    </Link>
+    </StyledLinkWithUnderline>
   );
 };

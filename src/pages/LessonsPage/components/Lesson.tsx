@@ -1,9 +1,18 @@
-import styles from '../../LessonsPage/components/Lesson.scss';
-import classNames from 'classnames';
+import '../../LessonsPage/components/Lesson.scss';
+// import classNames from 'classnames';
 import { SvgArrow } from '../../../components/SvgIcon/SvgFiles/SvgArrow';
 import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
+// import { StyledButton } from '../../../components/Button/styled/StyledButton';
+// import { useSelector } from 'react-redux';
+// import { AppState } from '../../../store/store';
+// import { MainPanelState } from '../../../store/reducers/mainPanel.reducer';
+import { ButtonModel } from '../../../components/Button/Button';
+import { StyledButton } from '../../../components/Button/styled/StyledButton';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../store/store';
+import { MainPanelState } from '../../../store/reducers/mainPanel.reducer';
 
-const cx = classNames.bind(styles);
+// const cx = classNames.bind(styles);
 
 export type LessonProps = {
   id: number;
@@ -26,6 +35,7 @@ export type LessonModel = {
 export const Lesson = (props: LessonProps) => {
   const lesson = props.data;
   const isExpanded = props.activeLessonId === lesson.serialNumber;
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
 
   const toggleAccordionItem = () => {
     props.onClick(lesson.serialNumber);
@@ -38,9 +48,14 @@ export const Lesson = (props: LessonProps) => {
           <LinkWithUnderline path={`new-lesson/unpublished/${lesson.id}`} text="Редактировать" />
         </div>
       )}
-      <button className={cx('circle', { 'is-active': isExpanded })} onClick={toggleAccordionItem}>
+      <StyledButton
+        className={isExpanded ? 'active' : ''}
+        isDark={isDark}
+        buttonProps={{ model: ButtonModel.EllipseWhite }}
+        onClick={toggleAccordionItem}
+      >
         <SvgArrow direction="bottom" />
-      </button>
+      </StyledButton>
       <div className="header-container">
         <div className="lesson-main-info">
           <div className="lesson-name">{lesson.name}</div>

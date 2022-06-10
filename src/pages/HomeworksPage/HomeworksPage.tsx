@@ -42,38 +42,36 @@ export const HomeworksPage = () => {
     }
   }, [selectedTab, task]);
   return (
-    <>
-      <div>
-        <TabContainer tabContainerData={tabs} selectedTab={selectedTab} onClick={selectTab} />
-        {currentRole == UserRole.Methodist ? (
-          tasks && tasks.length > 0 ? (
-            tasks?.map((tsk) => <TaskCard data={tsk} key={tsk.id} />)
-          ) : (
-            <span className="lack-of-homeworks">Домашних заданий еще нет</span>
-          )
-        ) : homeworks && homeworks.length > 0 ? (
-          homeworks.map((hwk) => <HomeworkCard data={hwk} key={hwk.id} />)
+    <div>
+      <TabContainer tabContainerData={tabs} selectedTab={selectedTab} onClick={selectTab} />
+      {currentRole == UserRole.Methodist ? (
+        tasks && tasks.length > 0 ? (
+          tasks?.map((tsk) => <TaskCard data={tsk} key={tsk.id} />)
         ) : (
           <span className="lack-of-homeworks">Домашних заданий еще нет</span>
-        )}
-        {(currentRole === UserRole.Teacher || currentRole === UserRole.Methodist) && (
-          <div className="buttons-group flex-container buttons-after-list">
+        )
+      ) : homeworks && homeworks.length > 0 ? (
+        homeworks.map((hwk) => <HomeworkCard data={hwk} key={hwk.id} />)
+      ) : (
+        <span className="lack-of-homeworks">Домашних заданий еще нет</span>
+      )}
+      {(currentRole === UserRole.Teacher || currentRole === UserRole.Methodist) && (
+        <div className="buttons-group flex-container buttons-after-list">
+          <Button
+            model={ButtonModel.Colored}
+            text="Добавить задание"
+            icon={Icon.Plus}
+            onClick={() => navigate(newHomeworkLink)}
+          />
+          {currentRole !== UserRole.Methodist && (
             <Button
-              model={ButtonModel.Colored}
-              text="Добавить задание"
-              icon={Icon.Plus}
-              onClick={() => navigate(newHomeworkLink)}
+              model={ButtonModel.White}
+              text="Сохраненные задания"
+              onClick={() => navigate('drafts')}
             />
-            {currentRole !== UserRole.Methodist && (
-              <Button
-                model={ButtonModel.White}
-                text="Сохраненные задания"
-                onClick={() => navigate('drafts')}
-              />
-            )}
-          </div>
-        )}
-      </div>
-    </>
+          )}
+        </div>
+      )}
+    </div>
   );
 };

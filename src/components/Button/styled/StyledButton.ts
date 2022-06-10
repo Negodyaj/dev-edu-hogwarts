@@ -15,12 +15,14 @@ export type StyledButtonProps = {
 
 export const coloredStyle = (isDark: boolean, props: ButtonProps) => {
   return css`
-    display: flex;
-    justify-content: space-between;
     background-color: ${lavenderColor};
     color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
     border: 0;
     width: ${props.width}px;
+
+    path {
+      stroke: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
+    }
 
     &.unavailable,
     &:disabled {
@@ -98,50 +100,57 @@ export const ellipseStyleWithColor = (isDark: boolean, colorModel: ButtonModel) 
       }
     `;
   }
+};
 
-  if (colorModel == ButtonModel.EllipseWhite) {
-    return css`
-      border-radius: 50%;
-      padding: 12px;
-      margin: 20px 50px;
-      width: 45px;
-      min-width: 45px;
-      height: 45px;
-      line-height: 12px;
-      border: 1px solid ${isDark ? darkTheme.mediumGrayColor : defaultTheme.mediumGrayColor};
+export const ellipseStyleWhite = (isDark: boolean) => {
+  return css`
+    position: relative;
+    border-radius: 50%;
+    padding: 12px;
+    margin: 20px 50px;
+    width: 45px;
+    min-width: 45px;
+    height: 45px;
+    background-color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
+    border: 1px solid ${isDark ? darkTheme.mediumGrayColor : defaultTheme.mediumGrayColor};
+    svg {
+      position: absolute;
+      top: calc(50% - 12px);
+      left: calc(50% - 12px);
+      path {
+        fill: ${lavenderColor};
+      }
+    }
+    color: ${lavenderColor};
+    &:hover:not(&:disabled),
+    &:active {
+      background-color: ${lavenderColor};
+      color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
       svg {
         path {
-          fill: ${lavenderColor};
+          fill: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
         }
       }
-      color: ${lavenderColor};
-      &:hover:not(&:disabled),
-      &:active {
-        background-color: ${lavenderColor};
-        color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
-        svg {
-          path {
-            fill: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
-          }
+    }
+    &.unavailable,
+    &:disabled {
+      border: 1px solid ${isDark ? darkTheme.mediumGrayColor : defaultTheme.mediumGrayColor};
+      color: ${darkGrayColor};
+      cursor: auto;
+      svg {
+        path {
+          fill: ${darkGrayColor};
         }
       }
-      &.unavailable,
-      &:disabled {
-        border: 1px solid ${isDark ? darkTheme.mediumGrayColor : defaultTheme.mediumGrayColor};
-        color: ${darkGrayColor};
-        cursor: auto;
-        svg {
-          path {
-            fill: ${darkGrayColor};
-          }
-        }
-      }
-    `;
-  }
+    }
+  `;
 };
 
 export const StyledButton = styled.button<StyledButtonProps>`
   font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 400;
   border-radius: 5px;
   font-size: 18px;
@@ -149,6 +158,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
   margin: 0;
   padding: 15px 30px;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
   ${({ buttonProps, isDark }) => {
     switch (buttonProps?.model) {
       case ButtonModel.Colored:
@@ -158,7 +168,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
       case ButtonModel.EllipseColored:
         return ellipseStyleWithColor(isDark, ButtonModel.EllipseColored);
       case ButtonModel.EllipseWhite:
-        return ellipseStyleWithColor(isDark, ButtonModel.EllipseWhite);
+        return ellipseStyleWhite(isDark);
       case ButtonModel.Text:
         return buttonTextStyle();
       default:
