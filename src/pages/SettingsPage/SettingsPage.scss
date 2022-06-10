@@ -37,8 +37,8 @@
   }
 
   .circle-password {
-    width: 8px;
-    height: 8px;
+    width: 4px;
+    height: 4px;
     background-color: #8a8a8a;
     border-radius: 50px;
     display: inline-block;
@@ -72,17 +72,15 @@
     grid-column: 1/2;
 
     & > .fake-password-input {
-      background-color: transparent;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
       outline-color: transparent;
       border-radius: 5px;
       border: 1px solid #DBDBDB;
       padding: 14px 20px 15px 22px;
       margin-top: 10px;
-      transition: outline-color .3s ease;
+      transition: outline-color .3s ease, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
       background-color: white;
       &::placeholder {
         font-weight: 400;

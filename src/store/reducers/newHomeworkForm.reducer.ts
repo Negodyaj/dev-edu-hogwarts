@@ -18,6 +18,7 @@ import {
 } from '../../actions/newHomeworkForm.action';
 import { RadioData } from '../../components/RadioGroup/RadioButton/RadioButton';
 import { Task } from '../../models/responses/HomeworksResponse';
+import { CheckboxData } from '../../components/CheckBoxGroup/CheckBox/CheckBox';
 
 export interface NewHomeworkFormState {
   links: string[];
@@ -29,7 +30,7 @@ export interface NewHomeworkFormState {
   errorMessage?: string;
   inProcess: boolean;
   task?: Task;
-  course: RadioData[];
+  course: CheckboxData[];
 }
 
 const initialState: NewHomeworkFormState = {

@@ -39,8 +39,9 @@ export const setCourses = (courses: CheckboxData[]) => ({
 export const loadCourses = (courses: CourseSimpleResponse[]) => ({
   type: LOAD_COURSES,
   payload: [...courses].map((item) => ({
-    text: item.name,
     value: item.id,
+    text: `${item.name}`,
+    isChecked: false,
   })),
 });
 

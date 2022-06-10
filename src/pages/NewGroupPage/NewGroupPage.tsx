@@ -38,6 +38,7 @@ import {
   getGroupStatusLocalNameReverse,
 } from '../../shared/helpers/translations';
 import { groupStatusEnumReverse } from '../../shared/helpers/groupStatusForEnum';
+import { StyledValidationError } from '../../components/styled/StyledValidationError';
 
 export type GroupFormData = {
   name: string;
@@ -281,6 +282,7 @@ export const NewGroupPage = () => {
   }
 
   const onSubmit = (data: GroupFormData) => {
+    debugger;
     if (typeof data.teacherIds === 'string') data.teacherIds = [+data.teacherIds];
     if (id) {
       updateGroup(+id, data);
@@ -326,7 +328,9 @@ export const NewGroupPage = () => {
                     callback={(item) => setValue('courseId', item.id)}
                   />
                 )}
-                {errors.courseId && <span>Вы не выбрали курс</span>}
+                {errors.courseId && (
+                  <StyledValidationError>Вы не выбрали курс</StyledValidationError>
+                )}
               </div>
               {id && (
                 <div className="form-element with-dropdown choose-status">
@@ -354,8 +358,10 @@ export const NewGroupPage = () => {
                   register={register}
                   type="text"
                   rules={{ required: true }}
-                ></Input>
-                {errors.name && <span className="invalid-feedback">Вы не указали название</span>}
+                />
+                {errors.name && (
+                  <StyledValidationError>Вы не указали название</StyledValidationError>
+                )}
               </div>
               <div className="form-element">
                 Расписание занятий
@@ -367,7 +373,9 @@ export const NewGroupPage = () => {
                   rules={{ required: true }}
                   type="text"
                 />
-                {errors.timetable && <span>Вы не составили расписание</span>}
+                {errors.timetable && (
+                  <StyledValidationError>Вы не составили расписание</StyledValidationError>
+                )}
               </div>
             </div>
             <div className="form-element form-grid-container">
@@ -411,9 +419,11 @@ export const NewGroupPage = () => {
                   name="paymentPerMonth"
                   rules={{ required: true, pattern: /^[ 0-9]+$/ }}
                 />
-                {errors.paymentPerMonth?.type === 'required' && <span>Вы не ввели сумму</span>}
+                {errors.paymentPerMonth?.type === 'required' && (
+                  <StyledValidationError>Вы не ввели сумму</StyledValidationError>
+                )}
                 {errors.paymentPerMonth?.type === 'pattern' && (
-                  <span>Проверьте корректность данных</span>
+                  <StyledValidationError>Проверьте корректность данных</StyledValidationError>
                 )}
               </div>
             </div>

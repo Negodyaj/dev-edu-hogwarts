@@ -1,4 +1,5 @@
 import { UserSimpleResponse } from './UserResponse';
+import { GroupResponse } from './GroupResponse';
 
 export interface Homework {
   id: number;
@@ -7,6 +8,7 @@ export interface Homework {
   status: StudentHomeworkStatus;
   number: number;
   task: Task;
+  group: GroupResponse;
 }
 
 export interface Task {

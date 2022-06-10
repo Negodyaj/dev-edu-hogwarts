@@ -5,8 +5,6 @@ import { StyledDropDownProps } from './DropDownList';
 
 export const textAlign = (align: Align) => {
   switch (align) {
-    case Align.Center:
-      return css`center`;
     case Align.Left:
       return css`
         text-align: left;
@@ -27,8 +25,8 @@ export const DropDownContainer = styled.div<StyledDropDownProps>`
       position: absolute;
       padding: 10px 20px;
       max-height: 152px;
-      min-width: 140px;
-      box-shadow: 4px 7px 15px rgba(0, 0, 0, 0.1);
+      min-width: fit-content;
+      box-shadow: 4px 7px 15px 0 rgba(0, 0, 0, 0.1);
       border-radius: 15px;
       z-index: 6;
     `;

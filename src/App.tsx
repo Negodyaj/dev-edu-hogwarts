@@ -33,6 +33,7 @@ import { ModalWindowState } from './store/reducers/modalWindow.reducer';
 import { ModalWindow } from './components/ModalWindow/ModalWindow';
 import { GroupsListPage } from './pages/GroupsListPage/GroupsListPage';
 import { NewLessonPage } from './pages/NewLessonPage/NewLessonPage';
+import { StyledAppContainer } from './components/styled/StyledAppContainer';
 
 function App() {
   const dispatch = useDispatch();
@@ -59,10 +60,9 @@ function App() {
 
   return (
     <>
-      <div
-        className={`flex-container${isModalOpen ? ' inactive' : ''} ${
-          isDark ? 'dark-mode' : 'default-mode'
-        }`}
+      <StyledAppContainer
+        isDarkMode={isDark}
+        className={`flex-container${isModalOpen ? ' inactive' : ''}`}
       >
         <MainPanel />
         <main className={isCollapsed ? 'closed' : ' '}>
@@ -97,7 +97,7 @@ function App() {
           </Routes>
           <NotificationsContainer />
         </main>
-      </div>
+      </StyledAppContainer>
       {isModalOpen && <ModalWindow />}
     </>
   );

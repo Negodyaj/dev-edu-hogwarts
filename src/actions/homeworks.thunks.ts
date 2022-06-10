@@ -38,7 +38,6 @@ import { AddHomeworkFormData } from '../pages/NewHomework/NewHomework';
 import {
   getTask,
   getTasksCount,
-  //getTasksCountInCourse,
   loadCourses,
   NewHomeworkFormAction,
   postHomeworkFail,
@@ -193,22 +192,12 @@ export const tasksCountInGroup = (groupId: number) => {
   };
 };
 
-// export const tasksCountInCourse = (courseId: number[]) => {
-//   return async (dispatch: Dispatch<NewHomeworkFormAction>) => {
-//     try {
-//       const course = await baseWretch().url(courseById(courseId)).get().json<CourseResponse>();
-//       dispatch(getTasksCountInCourse(course.tasks));
-//     } catch (e: any) {
-//       dispatch(postHomeworkFail(e.message));
-//     }
-//   };
-// };
-
 export const updateTask = (taskId: number, data: AddHomeworkFormData) => {
   return async (dispatch: Dispatch<NewHomeworkFormAction | NotificationsContainerActions>) => {
     dispatch(postHomeworkStarted());
     if (taskId < 0) {
-      dispatch(postHomeworkFail('Что-то пошло не так'));
+      dispatch(addNotification({ type: NotificationType.Bad, text: 'Произошла ошибка' }));
+      return;
     }
     try {
       const task = {

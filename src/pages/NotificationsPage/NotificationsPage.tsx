@@ -2,12 +2,12 @@ import { baseWretch } from '../../services/base-wretch.service';
 import { setNotifications } from '../../actions/notifications.actions';
 import { NotificationResponse } from '../../models/responses/NotificationResponse';
 import { NotificationsCard } from '../NotificationsPage/components/NotificationsCard';
-// import { FilterItem, FilterList } from '../../components/FilterList/FilterList';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import { useEffect } from 'react';
 import { NotificationsPageState } from '../../store/reducers/notifications.reducer';
-// import { FilterItem } from '../../components/FilterList/FilterList';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
+import { ContentContainer } from '../../components/styled/ContentContainer';
 
 export const NotificationsPage = () => {
   const dispatch = useDispatch();
@@ -17,36 +17,20 @@ export const NotificationsPage = () => {
       .get()
       .json((data) => dispatch(setNotifications(data as NotificationResponse[])));
   }, []);
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
 
   const { filteredNotifications } = useSelector(
     (state: AppState) => state.notificationsPageState as NotificationsPageState
   );
 
-  // const applyNotificationsFilter = (item: FilterItem) => {
-  //   console.log(item);
-  //   const notificationsToDisplay = notifications.filter((elem) => {
-  //     if (item.id === 1) {
-  //       return elem;
-  //     } else {
-  //       return elem.readed === false;
-  //     }
-  //   });
-
-  //   dispatch(filterNotification(notificationsToDisplay));
-  // };
-
-  // const notificationsFilterData: FilterItem[] = [
-  //   { id: 1, name: 'Все' },
-  //   { id: 2, name: 'Непрочитанные' },
-  // ];
   return (
     <div className="notifications-page">
       {/* <FilterList data={notificationsFilterData} callback={applyNotificationsFilter} /> */}
-      <div className="card-container content-container">
+      <ContentContainer isDarkMode={isDark} className="card-container">
         {filteredNotifications.map((notification: any) => (
           <NotificationsCard data={notification} />
         ))}
-      </div>
+      </ContentContainer>
     </div>
   );
 };

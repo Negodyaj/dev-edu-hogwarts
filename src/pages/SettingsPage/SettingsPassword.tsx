@@ -12,6 +12,7 @@ import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { settingsLink } from '../../components/MainPanel/Navigation/constants';
 import { Input } from '../../components/styled/Input';
+import { StyledValidationError } from '../../components/styled/StyledValidationError';
 
 export type FormPasswordData = {
   oldPassword: string;
@@ -36,7 +37,7 @@ export const SettingsPassword = () => {
       newPasswordRepeat: Yup.string()
         .required('Введите новый пароль')
         .oneOf([Yup.ref('newPassword')], 'Пароли должны совпадать'),
-      oldPassword: Yup.string(),
+      oldPassword: Yup.string().required('Введите старый пароль'),
     });
   const formOptions = { resolver: yupResolver(validationSchema()) };
   const {
@@ -58,17 +59,17 @@ export const SettingsPassword = () => {
               <div className="form-element">
                 <p>Cтарый пароль</p>
                 <Input type="password" register={register} name="oldPassword" />
-                <div className="invalid-feedback">{errors.oldPassword?.message}</div>
+                <StyledValidationError>{errors.oldPassword?.message}</StyledValidationError>
               </div>
               <div className="form-element">
                 <p>Новый пароль</p>
                 <Input type="password" register={register} name="newPassword" />
-                <div className="invalid-feedback">{errors.newPassword?.message}</div>
+                <StyledValidationError>{errors.newPassword?.message}</StyledValidationError>
               </div>
               <div className="form-element">
                 <p>Повторите новый пароль</p>
                 <Input type="password" register={register} name="newPasswordRepeat" />
-                <div className="invalid-feedback">{errors.newPasswordRepeat?.message}</div>
+                <StyledValidationError>{errors.newPasswordRepeat?.message}</StyledValidationError>
               </div>
             </div>
             <div className="buttons-group">

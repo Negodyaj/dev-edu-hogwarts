@@ -1,17 +1,15 @@
 import './HomeworkCard.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AppState } from '../../../store/store';
 // import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
-import { newHomeworkLink } from '../../../components/MainPanel/Navigation/constants';
+// import { taskEditLink } from '../../../components/MainPanel/Navigation/constants';
+// import { Link } from 'react-router-dom';
+// import { setPrevURL } from '../../../actions/homework.actions';
+// import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
 import { Link } from 'react-router-dom';
-import { setPrevURL } from '../../../actions/homework.actions';
 // import { useMemo } from 'react';
 
 export const TaskCardContent = () => {
-  const dispatch = useDispatch();
-  const setPrev = () => {
-    dispatch(setPrevURL(location.pathname));
-  };
   const { task } = useSelector((state: AppState) => state.homeworkPageState);
   return (
     <>
@@ -30,7 +28,7 @@ export const TaskCardContent = () => {
           ))
         : ''}
       {task && (
-        <Link to={`..${newHomeworkLink}`} className="link-with-text-decoration" onClick={setPrev}>
+        <Link to={`/new-homework/edit-task/${task.id}`} className="link-with-text-decoration">
           Редактировать
         </Link>
       )}

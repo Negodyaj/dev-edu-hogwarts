@@ -1,18 +1,5 @@
 @import './src/style/colors';
 
-.form-input {
-  outline-color: transparent;
-  border-radius: 5px;
-  padding: 14px 20px 15px 22px;
-  margin-top: 10px;
-  transition: outline-color .3s ease;
-
-  &::placeholder {
-    font-weight: 400;
-    color: $dark-gray;
-  }
-
-}
 .readonly-input {
   cursor: auto;
   background-color: $medium-gray;
@@ -39,7 +26,7 @@
     margin-top: 50px;
   }
 
-  &.with-dropdown { 
+  &.with-dropdown {
     align-items: center;
     margin-bottom: 10px;
 
@@ -82,10 +69,4 @@ h2 {
 
 .invalid-input {
   outline: 1px solid rgba(255, 41, 0, 0.78);
-}
-
-.invalid-feedback {
-  margin-top: 10px;
-  color: #F45B69;
-  font-size: 15px;
 }

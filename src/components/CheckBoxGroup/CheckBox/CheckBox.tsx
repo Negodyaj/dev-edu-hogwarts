@@ -20,33 +20,24 @@ export type CheckboxData = {
 export const CheckboxBtn = (props: CheckboxProps) => {
   const { register, watch } = useFormContext();
 
+  const check = () => {
+    if (props.isSingle) {
+      return props.data.isChecked;
+    }
+    return watch(props.name)?.find((x: number) => x === props.data.value);
+  };
+
   return (
     <label className="custom-checkbox">
-      {props.required ? (
-        <InvisibleInput
-          type="checkbox"
-          value={props.data.value}
-          checked={
-            (props.isSingle ? props.data.isChecked : watch(props.name) == props.data.value) ||
-            (!props.isSingle && watch(props.name)?.find((x: number) => x === props.data.value))
-          }
-          {...register(props.name, {
-            required: true,
-          })}
-          // onChange={props.onClick}
-        />
-      ) : (
-        <InvisibleInput
-          type="checkbox"
-          value={props.data.value}
-          checked={
-            (props.isSingle ? props.data.isChecked : watch(props.name) == props.data.value) ||
-            (!props.isSingle && watch(props.name)?.find((x: number) => x === props.data.value))
-          }
-          {...register(props.name)}
-          // onChange={props.onClick}
-        />
-      )}
+      <InvisibleInput
+        type="checkbox"
+        value={props.data.value}
+        checked={check()}
+        onClick={props.onClick}
+        {...register(props.name, {
+          required: props.required,
+        })}
+      />
       <span className="custom-checkbox-text">{props.data.text}</span>
     </label>
   );

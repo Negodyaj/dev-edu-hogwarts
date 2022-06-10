@@ -27,6 +27,7 @@ export interface HomeworksPageState {
   errorMessage: string;
   courses: CourseResponse[];
   draftHomeworks?: Task[];
+  courseTabs?: TabData[];
 }
 
 const initialState: HomeworksPageState = {
@@ -55,8 +56,8 @@ export const homeworksPageReducer: Reducer<HomeworksPageState, HomeworksPageActi
       const tabs: TabData[] = action.payload.map((group) => {
         const tabData: TabData = {
           id: group.id,
-          text: group.course.name,
-          icon: CourseIcon[group.course.id],
+          text: group.name,
+          icon: CourseIcon[group.id],
         };
         return tabData;
       });
@@ -78,7 +79,7 @@ export const homeworksPageReducer: Reducer<HomeworksPageState, HomeworksPageActi
       });
       return {
         ...state,
-        tabs: tabs,
+        courseTabs: tabs,
         selectedTab: tabs[0]?.id,
         homeworks: [],
       };

@@ -19,7 +19,7 @@ export const StyledButtonWithLink = styled.a<StyledButtonProps>`
   padding: 15px 30px;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   ${({ buttonProps, isDark }) => {
-    switch (buttonProps.model) {
+    switch (buttonProps?.model) {
       case ButtonModel.Colored:
         return coloredStyle(isDark, buttonProps);
       case ButtonModel.White:
@@ -30,7 +30,8 @@ export const StyledButtonWithLink = styled.a<StyledButtonProps>`
         return ellipseStyleWithColor(isDark, ButtonModel.EllipseWhite);
       case ButtonModel.Text:
         return buttonTextStyle();
-        return;
+      default:
+        break;
     }
   }}
 `;

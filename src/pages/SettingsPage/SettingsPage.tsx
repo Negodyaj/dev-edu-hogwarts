@@ -18,6 +18,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Input } from '../../components/styled/Input';
 import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
+import { StyledValidationError } from '../../components/styled/StyledValidationError';
 
 export const SettingsPage = () => {
   const { currentUser } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
@@ -87,8 +88,8 @@ export const SettingsPage = () => {
                     name={'lastName'}
                     defaultValue={currentUser?.lastName}
                     type={'text'}
-                  ></Input>
-                  <div className="invalid-feedback">{errors.lastName?.message}</div>
+                  />
+                  <StyledValidationError>{errors.lastName?.message}</StyledValidationError>
                 </div>
                 <div className="form-element">
                   Имя
@@ -97,8 +98,8 @@ export const SettingsPage = () => {
                     name={'firstName'}
                     defaultValue={currentUser?.firstName}
                     type={'text'}
-                  ></Input>
-                  <div className="invalid-feedback">{errors.firstName?.message}</div>
+                  />
+                  <StyledValidationError>{errors.firstName?.message}</StyledValidationError>
                 </div>
                 <div className="form-element">
                   Отчество
@@ -107,8 +108,8 @@ export const SettingsPage = () => {
                     name={'patronymic'}
                     defaultValue={currentUser?.patronymic}
                     type={'text'}
-                  ></Input>
-                  <div className="invalid-feedback">{errors.patronymic?.message}</div>
+                  />
+                  <StyledValidationError>{errors.patronymic?.message}</StyledValidationError>
                 </div>
                 <div className="form-element">
                   Дата рождения
@@ -129,7 +130,7 @@ export const SettingsPage = () => {
               <div className="form-element password">
                 Пароль
                 <div className={`fake-password-input ${isDark ? 'dark-theme-background' : ''}`}>
-                  <div>
+                  <div className="flex-container">
                     <div className="circle-password" />
                     <div className="circle-password" />
                     <div className="circle-password" />
@@ -148,19 +149,12 @@ export const SettingsPage = () => {
                 Email
                 <Input
                   readonly={true}
-                  customClassName="readonly-input"
                   register={register}
                   name={'email'}
                   defaultValue={currentUser?.email}
                   type={'text'}
-                ></Input>
-                {/* <input
-                  className="form-input readonly-input"
-                  defaultValue={currentUser?.email}
-                  {...register('email')}
-                  readOnly={true}
-                /> */}
-                <div className="invalid-feedback">{errors.email?.message}</div>
+                />
+                <StyledValidationError>{errors.email?.message}</StyledValidationError>
               </div>
 
               <div className="form-element">
@@ -170,8 +164,8 @@ export const SettingsPage = () => {
                   name={'gitHubAccount'}
                   defaultValue={currentUser?.gitHubAccount}
                   type={'text'}
-                ></Input>
-                <div className="invalid-feedback">{errors.gitHubAccount?.message}</div>
+                />
+                <StyledValidationError>{errors.gitHubAccount?.message}</StyledValidationError>
               </div>
               <div className="form-element">
                 Телефон
@@ -180,8 +174,8 @@ export const SettingsPage = () => {
                   name={'phoneNumber'}
                   defaultValue={currentUser?.phoneNumber}
                   type={'tel'}
-                ></Input>
-                <div className="invalid-feedback">{errors.phoneNumber?.message}</div>
+                />
+                <StyledValidationError>{errors.phoneNumber?.message}</StyledValidationError>
               </div>
             </div>
             <div className="buttons-group">

@@ -16,6 +16,8 @@ import { UserRole } from '../../shared/enums/UserRole';
 import { Button, ButtonModel } from '../../components/Button/Button';
 import { Icon } from '../../shared/enums/Icon';
 import { useNavigate } from 'react-router-dom';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
+import { ContentContainer } from '../../components/styled/ContentContainer';
 
 const lessonsFilterData: FilterItem[] = [
   { id: Period.All, name: 'Все' },
@@ -30,6 +32,7 @@ export const LessonsPage = () => {
     (state: AppState) => state.lessonsPageState as LessonsPageState
   );
   const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,7 +93,7 @@ export const LessonsPage = () => {
       />
       {lessonsToDisplay && lessonsToDisplay.length > 0 ? (
         <>
-          <div className="content-container relative">
+          <ContentContainer isDarkMode={isDark} className="relative">
             <div className="filter-list-wrapper">
               {!isEditing && <FilterList data={lessonsFilterData} callback={applyLessonsFilter} />}
             </div>
@@ -104,7 +107,7 @@ export const LessonsPage = () => {
                 isEditing={isEditing}
               />
             ))}
-          </div>
+          </ContentContainer>
         </>
       ) : (
         <span className="lack-of-homeworks">Занятий еще нет</span>
