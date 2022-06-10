@@ -10,9 +10,9 @@ export type StyledDropDownProps = {
 export const justifyContent = (justify: Align) => {
   switch (justify) {
     case Align.Center:
-      return css`center`;
+      return 'center';
     case Align.Left:
-      return css`flex-start`;
+      return 'flex-start';
   }
 };
 
@@ -52,7 +52,6 @@ export const DropDownList = styled.div<StyledDropDownProps>`
 
       & svg {
         margin-left: 4px;
-        background-color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
       }
     `;
   }}

@@ -9,4 +9,9 @@ export const StyledAppContainer = styled.body<{ isDarkMode: boolean }>`
   a {
     color: ${(props) => (props.isDarkMode ? darkTheme.darkLavender : defaultTheme.darkLavender)};
   }
+
+  input,
+  textarea {
+    color: ${(props) => (props.isDarkMode ? darkTheme.blackColor : defaultTheme.blackColor)};
+  }
 `;

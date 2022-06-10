@@ -13,7 +13,7 @@ export const DropDownRoll = styled.ul<StyledDropDownRoll>`
       padding: 0;
       line-height: 18px;
       width: max-content;
-      min-width: 99px;
+      min-width: fit-content;
       max-height: 132px;
       overflow: ${dropDownProps.data.length > 4 ? 'auto' : ''};
       padding-right: ${dropDownProps.data.length > 4 ? '10px' : 0};

@@ -48,7 +48,7 @@ export const StyledInput = styled.input<StyledInputProps>`
       width: ${inputProps?.width};
       color: ${darkGrayColor};
       border: 1px solid
-        ${inputProps?.customClassName
+        ${inputProps?.readonly
           ? defaultTheme.mediumGrayColor
           : isDark
           ? darkTheme.mediumGrayColor

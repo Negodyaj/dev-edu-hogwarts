@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../../store/store';
 // import { AttendanceTypes } from '../../../models/JournalModels';
 import { MainPanelState } from '../../../store/reducers/mainPanel.reducer';
-import { FilterItem, FilterList } from '../../FilterList/FilterList';
+import { Align, FilterItem, FilterList } from '../../FilterList/FilterList';
 import { setStudentAttendance } from '../../../actions/attendanceJournal.actions';
 import { attendanceTypesFilter } from '../../../models/JournalModels';
 
@@ -53,6 +53,7 @@ export const AttendanceScrollContent = ({ control, setState }: SwiperProps) => {
                   data={attendanceTypesFilter}
                   callback={bindingCallback}
                   arrowHidden={true}
+                  cssAlign={Align.Left}
                   selected={student.check}
                 />
               </div>
