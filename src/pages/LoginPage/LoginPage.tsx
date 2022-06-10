@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { authUser } from '../../actions/login.thunk';
 import { Input } from '../../components/styled/Input';
+import { StyledValidationError } from '../../components/styled/StyledValidationError';
 
 export type LoginFormData = {
   email: string;
@@ -64,19 +65,24 @@ export const LoginPage = () => {
             required={true}
           />
         </div>
-        {errors.email && <div className="invalid-feedback">{errors.email?.message}</div>}
+        {errors.email && <StyledValidationError>{errors.email?.message}</StyledValidationError>}
         <div className="form-element">
           Пароль
           <Input
+            customClassName={'custom-password'}
             name={'password'}
             defaultValue={'password'}
             type={'password'}
             register={register}
           />
         </div>
-        {errors.password && <div className="invalid-feedback">{errors.password?.message}</div>}
+        {errors.password && (
+          <StyledValidationError>{errors.password?.message}</StyledValidationError>
+        )}
         {errorMessage && (
-          <div className="invalid-feedback">{errorMessage && 'Неправильные логин или пароль'}</div>
+          <StyledValidationError>
+            {errorMessage && 'Неправильные логин или пароль'}
+          </StyledValidationError>
         )}
         <div className="buttons-group">
           <Button

@@ -18,6 +18,7 @@ import { AppState } from '../../store/store';
 import './NewLessonPage.scss';
 import { Input } from '../../components/styled/Input';
 import { Textarea } from '../../components/styled/Textarea';
+import { StyledValidationError } from '../../components/styled/StyledValidationError';
 
 export type NewLessonFormData = {
   id?: number;
@@ -105,7 +106,7 @@ export const NewLessonPage = () => {
     navigate(-1);
   });
 
-  const onCncel = () => {
+  const onCancel = () => {
     if (id) navigate('/new-lesson/unpublished');
     reset();
     navigate(-1);
@@ -150,12 +151,13 @@ export const NewLessonPage = () => {
           <Input
             customClassName={`${errors.name ? ' invalid-input' : ''}`}
             type="text"
-            register={register}
             placeholder="Введите название"
             name="name"
+            register={register}
+            required={true}
           />
         </div>
-        <div className="invalid-feedback">{errors.name?.message}</div>
+        <StyledValidationError>{errors.name?.message}</StyledValidationError>
         <div className="form-element">
           Ссылка на видео
           <Input
@@ -174,7 +176,7 @@ export const NewLessonPage = () => {
             placeholder="Ссылка на видео"
           />
         </div>
-        <div className="invalid-feedback">{errors.linkToRecord?.message}</div>
+        <StyledValidationError>{errors.linkToRecord?.message}</StyledValidationError>
         <div className="form-element">
           Дополнительные материалы
           <Textarea
@@ -184,7 +186,7 @@ export const NewLessonPage = () => {
             name="additionalMaterials"
             rules={{ required: 'Поле обязательно к заполнению' }}
           />
-          <div className="invalid-feedback">{errors.additionalMaterials?.message}</div>
+          <StyledValidationError>{errors.additionalMaterials?.message}</StyledValidationError>
         </div>
         <div className="buttons-group">
           <Button
@@ -205,7 +207,7 @@ export const NewLessonPage = () => {
             text="Отмена"
             type={ButtonType.reset}
             model={ButtonModel.Text}
-            onClick={onCncel}
+            onClick={onCancel}
           />
         </div>
       </form>

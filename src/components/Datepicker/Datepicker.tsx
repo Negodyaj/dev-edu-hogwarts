@@ -17,7 +17,7 @@ const Datepicker = (props: DPprops) => {
   const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
   return (
     <DateTime
-      className={isDark ? 'blck' : ''}
+      className={isDark ? ' black' : ''}
       locale="ru"
       {...props.field}
       initialValue={new Date()}
@@ -25,7 +25,8 @@ const Datepicker = (props: DPprops) => {
       renderInput={(propsInput: string, openCalendar: Function) => {
         return (
           <DatePicker
-            className={`date-picker form-input ${isOpen ? 'active-dp' : ''}`}
+            isDark={isDark}
+            className={`date-picker ${isOpen ? 'active-dp' : ''}`}
             onFocus={() => setIsOpen(true)}
             onBlur={() => setIsOpen(false)}
           >

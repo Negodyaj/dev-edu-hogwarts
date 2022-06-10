@@ -6,7 +6,7 @@ import { baseWretch } from '../../../services/base-wretch.service';
 import { postStudentAnswer } from '../../../shared/consts';
 import { useDispatch, useSelector } from 'react-redux';
 import { editHomework, loadStudentHomework } from '../../../actions/homework.actions';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { AppState } from '../../../store/store';
 import { LinkWithUnderline } from '../../../components/LinkWithUnderline/LinkWithUnderline';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -20,10 +20,19 @@ import {
   homeworkStudentAnswerEditLink,
   newHomeworkEditLink,
 } from '../../../components/MainPanel/Navigation/constants';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { StyledValidationError } from '../../../components/styled/StyledValidationError';
 
 export const HomeworkCardContent = () => {
-  // debugger;
-  const method = useForm<HomeworkFormData>();
+  const validationSchema = yup.object().shape({
+    answer: yup
+      .string()
+      .matches(/^[a-z]+:\/\//i, 'Введите корректную ссылку')
+      .required('Введите ссылку'),
+  });
+
+  const method = useForm<HomeworkFormData>({ resolver: yupResolver(validationSchema) });
   const dispatch = useDispatch();
   const { homework, studentHomeworkProgress, isEdit } = useSelector(
     (state: AppState) => state.homeworkPageState
@@ -100,6 +109,9 @@ export const HomeworkCardContent = () => {
                   inputName="answer"
                   inputValue={answer}
                 />
+                <StyledValidationError>
+                  {method.formState.errors.answer?.message}
+                </StyledValidationError>
               </form>
             </FormProvider>
           )}

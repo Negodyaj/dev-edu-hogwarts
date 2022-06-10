@@ -5,12 +5,15 @@ import { useState } from 'react';
 import SwiperCore from 'swiper';
 import { useLocation } from 'react-router-dom';
 import { AttendanceRatingColumn } from './components/AttendanceRatingColumn';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AttendanceHead } from './components/AttendanceHead';
 import { GeneralProgressHead } from './components/GeneralProgressHead';
 import { AttendanceScrollContent } from './components/AttendanceScrollContent';
 import { GeneralProgressScrollContent } from './components/GeneralProgressScrollContent';
 import { journalLink } from '../MainPanel/Navigation/constants';
+import { SortButton } from './components/SortButton';
+import { AppState } from '../../store/store';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
 
 type JournalProps = {
   filteredData: any;
@@ -22,9 +25,9 @@ export const Journal = ({ filteredData, filter }: JournalProps) => {
   const location = useLocation();
   const [firstSwiper, setFirstSwiper] = useState<SwiperCore>();
   const [secondSwiper, setSecondSwiper] = useState<SwiperCore>();
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
 
   const filterName = (element: HTMLButtonElement) => {
-    // debugger;
     if (element.dataset.sortName === 'reset') {
       dispatch(filter(filteredData.sort((a: any, b: any) => a.LastName.localeCompare(b.LastName))));
     }
@@ -41,13 +44,13 @@ export const Journal = ({ filteredData, filter }: JournalProps) => {
           <b>ФИО студента</b>
         </div>
         <div className="one-block students-list">
-          <button
-            className="btn btn-text"
+          <SortButton
+            isDark={isDark}
             onClick={(e) => filterName(e.currentTarget)}
             data-sort-name="reset"
           >
             Сортировать по фамилии
-          </button>
+          </SortButton>
         </div>
         {filteredData.map((student: any) => (
           <div

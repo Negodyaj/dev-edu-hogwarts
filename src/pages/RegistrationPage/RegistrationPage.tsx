@@ -12,6 +12,9 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Input } from '../../components/styled/Input';
 import { useNavigate } from 'react-router-dom';
+import { StyledValidationError } from '../../components/styled/StyledValidationError';
+import { InvisibleInput } from '../../components/styled/InvisibleInput';
+import moment from 'moment';
 
 export type RegisterFormData = {
   firstName: string;
@@ -24,11 +27,12 @@ export type RegisterFormData = {
   city: 1;
   username: string;
   confirmPassword: string;
+  policy: boolean;
 };
 
 export const RegistrationPage = () => {
   const [check, setCheck] = useState(false);
-  const [invisible, toggleInvisible] = useState('invisible');
+  const [validationCheckError, setValidationCheckError] = useState('');
   const navigate = useNavigate();
 
   const schema = () =>
@@ -56,29 +60,47 @@ export const RegistrationPage = () => {
       confirmPassword: yup
         .string()
         .required('Обязательно для заполнения')
-        .min(8, 'Минимальная длина - 8 знаков')
         .oneOf([yup.ref('password'), null], 'Пароли не совпадают'),
       birthDate: yup
         .date()
         .min(new Date('01.01.1900'), 'Введите корректную дату')
-        .max(new Date('01.01.2021'), 'Введите корректную дату')
+        .max(
+          new Date(`01.01.${moment().subtract(14, 'years').format('YYYY')}`),
+          'Введите корректную дату'
+        )
         .required('Введите корректную дату'),
       phoneNumber: yup
         .string()
         .notRequired()
         .matches(/^[0-9-]+$/, 'Введите номер в формате 8-ххх-ххх-хх-хх'),
+      policy: yup
+        .boolean()
+        .oneOf([false], 'Необходимо принять условия политики конфиденциальности'),
     });
 
-  const method = useForm<RegisterFormData>({ resolver: yupResolver(schema()) });
+  const method = useForm<RegisterFormData>({
+    resolver: yupResolver(schema()),
+    defaultValues: {
+      policy: false,
+    },
+  });
   const {
     formState: { errors },
   } = method;
-  const { isLoading } = useSelector(
+  const { isLoading, errorMessage } = useSelector(
     (state: AppState) => state.registrationPageState as RegistrationPageState
   );
   const dispatch = useDispatch();
   const onSubmit = (data: RegisterFormData) => {
+    debugger;
+    if (!data.policy) {
+      return;
+    }
     dispatch(onRegistration(data));
+
+    if (!errorMessage) {
+      navigate('/login');
+    }
   };
 
   return (
@@ -99,7 +121,7 @@ export const RegistrationPage = () => {
                 type={'text'}
                 placeholder="Ефременков"
               />
-              <p className="attention">{errors.lastName?.message}</p>
+              <StyledValidationError>{errors.lastName?.message}</StyledValidationError>
             </div>
             <div className="form-grid-container">
               <div className="form-element">
@@ -112,7 +134,7 @@ export const RegistrationPage = () => {
                   type={'text'}
                   placeholder="Антон"
                 />
-                <p className="attention">{errors.firstName?.message}</p>
+                <StyledValidationError>{errors.firstName?.message}</StyledValidationError>
               </div>
               <div className="form-element">
                 <label htmlFor="patronymic">Отчество</label>
@@ -122,7 +144,7 @@ export const RegistrationPage = () => {
                   type={'text'}
                   placeholder="Сергеевич"
                 />
-                <p className="attention">{errors.patronymic?.message}</p>
+                <StyledValidationError>{errors.patronymic?.message}</StyledValidationError>
               </div>
             </div>
             <div className="form-grid-container">
@@ -134,7 +156,7 @@ export const RegistrationPage = () => {
                   rules={{ required: true }}
                   render={({ field }) => <Datepicker field={field} />}
                 />
-                <p className="attention">{errors.birthDate?.message}</p>
+                <StyledValidationError>{errors.birthDate?.message}</StyledValidationError>
               </div>
             </div>
             <div className="form-grid-container">
@@ -142,13 +164,8 @@ export const RegistrationPage = () => {
                 <label htmlFor="password">
                   Пароль<span className="asterisk">*</span>
                 </label>
-                <Input
-                  // customClassName="custom-password"
-                  register={method.register}
-                  name={'password'}
-                  type={'password'}
-                />
-                <p className="attention">{errors.password?.message}</p>
+                <Input register={method.register} name={'password'} type={'password'} />
+                <StyledValidationError>{errors.password?.message}</StyledValidationError>
               </div>
               <div className="form-element">
                 <label htmlFor="repeat-password">
@@ -160,7 +177,7 @@ export const RegistrationPage = () => {
                   name={'confirmPassword'}
                   type={'password'}
                 />
-                <p className="attention">{errors.confirmPassword?.message}</p>
+                <StyledValidationError>{errors.confirmPassword?.message}</StyledValidationError>
               </div>
             </div>
             <div className="form-grid-container">
@@ -174,7 +191,7 @@ export const RegistrationPage = () => {
                   type={'email'}
                   placeholder="example@example.com"
                 />
-                <p className="attention">{errors.email?.message}</p>
+                <StyledValidationError>{errors.email?.message}</StyledValidationError>
               </div>
               <div className="form-element">
                 <label htmlFor="phoneNumber">Телефон</label>
@@ -184,7 +201,7 @@ export const RegistrationPage = () => {
                   type={'tel'}
                   placeholder="8(999)888-77-66"
                 />
-                <p className="attention">{errors.phoneNumber?.message}</p>
+                <StyledValidationError>{errors.phoneNumber?.message}</StyledValidationError>
               </div>
             </div>
             <p className="warning-validation">
@@ -195,6 +212,15 @@ export const RegistrationPage = () => {
               <Button
                 text="Зарегистрироваться"
                 model={ButtonModel.Colored}
+                onClick={() => {
+                  if (!check) {
+                    setValidationCheckError(
+                      'Необходимо принять условия политики конфиденциальности'
+                    );
+                  } else {
+                    setValidationCheckError('');
+                  }
+                }}
                 type={ButtonType.submit}
                 width="238"
               />
@@ -206,6 +232,12 @@ export const RegistrationPage = () => {
                 width="190"
               />
             </div>
+            <InvisibleInput
+              type="checkbox"
+              checked={check}
+              value={`${check}`}
+              {...method.register('policy', { required: true })}
+            />
             <div className="flex-container">
               <CheckboxBtn
                 data={{
@@ -215,7 +247,7 @@ export const RegistrationPage = () => {
                 }}
                 onClick={() => {
                   setCheck(!check);
-                  toggleInvisible('invisible');
+                  setValidationCheckError('');
                 }}
                 name="policy"
                 isSingle={true}
@@ -226,11 +258,11 @@ export const RegistrationPage = () => {
                 <a href={'#'} className="link-policy" aria-label="policy">
                   политики конфиденциальности
                 </a>
-                <p className={`attention ${invisible}`}>
-                  Необходимо принять условия политики конфиденциальности
-                </p>
               </label>
             </div>
+            <StyledValidationError>
+              {validationCheckError ? validationCheckError : errors.policy?.message}
+            </StyledValidationError>
           </form>
         </div>
       </FormProvider>

@@ -6,44 +6,16 @@ $border-radius: 7px;
   border: 0;
   padding: 0;
 }
-.blck{
+.black{
   .rdtPicker{
     background: #1A1D1F;
     color: #8A8A8A;
   }
 }
-.date-picker{
-  display: flex;
-  justify-content: space-between;
-
-  & .form-control {
-    @include border-padding-zero;
-    font-family: inherit;
-    outline: 0;
-    width: 100%;
-    font-weight: 400;
-    font-size: 18px;
-  }
-
-  &.active-dp {
-    outline: 1px solid $lavender-color;
-  }
-
-  & .date-picker__button{
-    @include border-padding-zero;
-    background-color: transparent;
-    cursor: pointer;
-    height: 24px;
-
-    & svg path {
-      stroke: $dark-gray;
-    }
-  }
-}
 
 .rdt {
   position: relative;
-  width: 100%;
+  width: fit-content;
 }
 
 table {

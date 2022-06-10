@@ -1,12 +1,14 @@
 import './InputLink.scss';
 import '../InputTextarea/InputTextarea.scss';
-import { useFormContext } from 'react-hook-form';
+import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { SvgButtonFly } from '../SvgIcon/SvgFiles/SvgButtonFly';
+import { Input } from '../styled/Input';
 
 export type InputLinkProps = {
   placeholder: string;
-  inputName?: string;
+  inputName: string;
   inputValue?: string;
+  rules?: RegisterOptions;
 };
 
 export const InputLink = (props: InputLinkProps) => {
@@ -14,10 +16,13 @@ export const InputLink = (props: InputLinkProps) => {
 
   return (
     <div className="input-link">
-      <input
+      <Input
+        type="text"
+        name={props.inputName}
+        register={register}
+        rules={props.rules}
         placeholder={props.placeholder}
         defaultValue={props.inputValue}
-        {...register(`${props.inputName}`)}
       />
       <button className="button-fly">
         <SvgButtonFly />

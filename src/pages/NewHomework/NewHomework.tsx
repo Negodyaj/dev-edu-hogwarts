@@ -4,7 +4,7 @@ import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import { Button, ButtonModel, ButtonType } from '../../components/Button/Button';
 import { Icon } from '../../shared/enums/Icon';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store/store';
 import {
@@ -48,6 +48,9 @@ import { CheckboxGroup } from '../../components/CheckBoxGroup/CheckBoxGroup';
 // import { CoursesPageState } from '../../store/reducers/courses.reducer';
 import { Input } from '../../components/styled/Input';
 import { Textarea } from '../../components/styled/Textarea';
+import { StyledValidationError } from '../../components/styled/StyledValidationError';
+import { StyledTextarea } from '../../components/styled/StyledTextarea';
+import { MainPanelState } from '../../store/reducers/mainPanel.reducer';
 
 export type AddHomeworkFormData = {
   startDate: string | Date;
@@ -69,6 +72,7 @@ type HomeworkFormProps = {
 export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: HomeworkFormProps) => {
   const [isPublish, setIsPublish] = useState(true);
   const isEdit = location.pathname.includes('edit');
+  const { isDark } = useSelector((state: AppState) => state.mainPanelState as MainPanelState);
 
   const {
     links,
@@ -81,7 +85,6 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
     selectedTaskCount,
   } = useSelector((state: AppState) => state.newHomeworkFormState);
   const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
-  // const { courses } = useSelector((state: AppState) => state.coursesPageState as CoursesPageState);
   const refLinkName = useRef<any>({});
   const [linkValue, setLinkValue] = useState<string | undefined>(undefined);
 
@@ -193,27 +196,30 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
 
         <div className="form-element flex-container">
           <div className="title-number-groups">
-            {currentRole === UserRole.Methodist ? 'Номер курса:' : 'Номер группы'}
+            {currentRole === UserRole.Methodist ? 'Номер курса:' : 'Название группы:'}
           </div>
           <div className="radio-group-container flex-container">
-            {currentRole === UserRole.Teacher && (
-              <RadioGroup
-                radioData={currentRole === UserRole.Teacher ? group : []}
-                name="groupId"
-                callback={getId}
-                selected={
-                  currentRole === UserRole.Teacher
-                    ? selectedGroup ?? initialTask?.groupId ?? initialHomework?.group.id
-                    : undefined
-                }
-              />
-            )}
+            {currentRole === UserRole.Teacher &&
+              (isEdit ? (
+                <span>{initialHomework?.group.name}</span>
+              ) : (
+                <RadioGroup
+                  radioData={currentRole === UserRole.Teacher ? group : []}
+                  name="groupId"
+                  callback={getId}
+                  selected={
+                    currentRole === UserRole.Teacher
+                      ? selectedGroup ?? initialTask?.groupId ?? initialHomework?.group.id
+                      : undefined
+                  }
+                />
+              ))}
             {currentRole === UserRole.Methodist && (
               <CheckboxGroup checkboxArr={course} name="courseIds" />
             )}
           </div>
         </div>
-        <span className="invalid-feedback">{method.formState.errors.groupId?.message}</span>
+        <StyledValidationError>{method.formState.errors.groupId?.message}</StyledValidationError>
 
         {currentRole !== UserRole.Methodist && (
           <div className="form-element">
@@ -251,7 +257,9 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
                 rules={{ required: isPublish }}
                 render={({ field }) => <Datepicker field={field} />}
               />
-              <div className="invalid-feedback">{method.formState.errors.endDate?.message}</div>
+              <StyledValidationError>
+                {method.formState.errors.endDate?.message}
+              </StyledValidationError>
             </div>
           </div>
         )}
@@ -265,7 +273,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             placeholder="Введите название"
           />
         </div>
-        <div className="invalid-feedback">{method.formState.errors.name?.message}</div>
+        <StyledValidationError>{method.formState.errors.name?.message}</StyledValidationError>
 
         <div className="form-element">
           Описание задания
@@ -277,17 +285,20 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             placeholder="Введите текст"
           />
         </div>
-        <div className="invalid-feedback">{method.formState.errors.description?.message}</div>
+        <StyledValidationError>
+          {method.formState.errors.description?.message}
+        </StyledValidationError>
 
         <div className="form-element">
           Полезные ссылки
           {links.length > 0 && memoizeMapLinks}
           <div className="form-input_link__container">
-            <textarea
-              className={`form-input_link form-input${linkValue ? ' invalid-input' : ''}`}
+            <StyledTextarea
+              isDark={isDark}
+              className={`form-input_link${linkValue ? ' invalid-input' : ''}`}
               ref={refLinkName}
               value={inputLinkValue}
-              onInput={(event) => {
+              onInput={(event: FormEvent<HTMLTextAreaElement>) => {
                 const value = (event.target as HTMLTextAreaElement).value;
                 dispatch(setValueInInput(value));
                 addLinkInForm(value);
@@ -311,7 +322,7 @@ export const NewHomework = ({ initialTask, initialHomework, selectedGroup }: Hom
             />
           </div>
         </div>
-        {linkValue && <div className="invalid-feedback">{linkValue}</div>}
+        {linkValue && <StyledValidationError>{linkValue}</StyledValidationError>}
 
         <div className="buttons-group">
           {currentRole === UserRole.Teacher && !initialHomework && (
