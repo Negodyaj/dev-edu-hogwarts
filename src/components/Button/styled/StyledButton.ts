@@ -15,6 +15,8 @@ export type StyledButtonProps = {
 
 export const coloredStyle = (isDark: boolean, props: ButtonProps) => {
   return css`
+    display: flex;
+    justify-content: space-between;
     background-color: ${lavenderColor};
     color: ${isDark ? darkTheme.whiteColor : defaultTheme.whiteColor};
     border: 0;

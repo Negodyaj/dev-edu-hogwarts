@@ -17,6 +17,7 @@ export const StyledMainPanel = styled.aside`
       }
       .nav-link,
       button:not(.collapse-button) {
+        transition: all 0.1s ease;
         color: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
         path {
           stroke: ${isDark ? darkTheme.blackColor : defaultTheme.blackColor};
