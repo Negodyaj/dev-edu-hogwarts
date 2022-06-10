@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadHomeworkPageTabsCourses, selectTab } from '../../actions/homeworks.actions';
+import { selectTab } from '../../actions/homeworks.actions';
 import { loadHomeworks, loadTasksByCourse } from '../../actions/homeworks.thunks';
 import { TabContainer } from '../../components/TabContainer/TabContainer';
 import { AppState } from '../../store/store';
 import { HomeworkCard } from './components/HomeworkCard';
-import { CourseResponse } from '../../models/responses/CourseResponse';
 import { TaskCard } from './components/TaskCard';
 import { LoginPageState } from '../../store/reducers/login.reducer';
 import { UserRole } from '../../shared/enums/UserRole';
@@ -17,19 +16,11 @@ import { newHomeworkLink } from '../../components/MainPanel/Navigation/constants
 export const HomeworksPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { tabs, selectedTab, tasks, homeworks } = useSelector(
+  const { tabs, selectedTab, tasks, homeworks, courseTabs } = useSelector(
     (state: AppState) => state.homeworksPageState
   );
   const { task } = useSelector((state: AppState) => state.homeworkPageState);
   const { currentRole } = useSelector((state: AppState) => state.loginPageState as LoginPageState);
-  const { courses } = useSelector((state: AppState) => state.coursesPageState);
-
-  useEffect(() => {
-    if (courses && courses?.length > 0)
-      if (currentRole == UserRole.Methodist) {
-        dispatch(loadHomeworkPageTabsCourses(courses as CourseResponse[]));
-      }
-  }, [courses]);
 
   useEffect(() => {
     if (selectedTab > 0 && currentRole != UserRole.Methodist) {
@@ -47,7 +38,7 @@ export const HomeworksPage = () => {
       <TabContainer
         course={currentRole === UserRole.Methodist}
         group={currentRole !== UserRole.Methodist}
-        tabContainerData={tabs}
+        tabContainerData={currentRole === UserRole.Methodist ? courseTabs : tabs}
         selectedTab={selectedTab}
         onClick={selectTab}
       />

@@ -27,6 +27,7 @@ export interface HomeworksPageState {
   errorMessage: string;
   courses: CourseResponse[];
   draftHomeworks?: Task[];
+  courseTabs?: TabData[];
 }
 
 const initialState: HomeworksPageState = {
@@ -78,7 +79,7 @@ export const homeworksPageReducer: Reducer<HomeworksPageState, HomeworksPageActi
       });
       return {
         ...state,
-        tabs: tabs,
+        courseTabs: tabs,
         selectedTab: tabs[0]?.id,
         homeworks: [],
       };

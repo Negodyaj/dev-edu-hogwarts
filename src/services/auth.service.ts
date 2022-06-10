@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
 import { loadCourses } from '../actions/courses.actions';
-import { loadHomeworkPageTabs } from '../actions/homeworks.actions';
+import { loadHomeworkPageTabs, loadHomeworkPageTabsCourses } from '../actions/homeworks.actions';
 import { loadLessonPageTabs } from '../actions/lessons.actions';
 import { setCurrentUser } from '../actions/login.actions';
 import { loadGroups } from '../actions/newHomeworkForm.action';
@@ -37,12 +37,14 @@ export const getCurrentUser = (dispatch: Dispatch<any>) => {
       dispatch(loadGeneralProgressTabs(groups));
     });
 };
+
 export const getCourses = (dispatch: Dispatch<any>) => {
   baseWretch()
     .url('api/Courses')
     .get()
     .json((data) => {
       dispatch(loadCourses(data as CourseResponse[]));
+      dispatch(loadHomeworkPageTabsCourses(data as CourseResponse[]));
     });
 };
 const parseToken = (token: string) => {

@@ -38,7 +38,6 @@ import { AddHomeworkFormData } from '../pages/NewHomework/NewHomework';
 import {
   getTask,
   getTasksCount,
-  //getTasksCountInCourse,
   loadCourses,
   NewHomeworkFormAction,
   postHomeworkFail,
