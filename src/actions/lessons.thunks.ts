@@ -5,13 +5,13 @@ import { getUrlLessonsByGroupId, getUrlUnpublishedLessonsByGroupId } from '../sh
 import {
   LessonsPageActions,
   loadLessonsFail,
-  loadLessonsStarted,
+  // loadLessonsStarted,
   loadLessonsSuccess,
 } from './lessons.actions';
 
 export const loadLessons = (groupId: number) => {
   return async (dispatch: Dispatch<LessonsPageActions>) => {
-    dispatch(loadLessonsStarted());
+    // dispatch(loadLessonsStarted());
 
     try {
       const lessonsResponse: LessonResponse[] = await baseWretch()
@@ -27,7 +27,7 @@ export const loadLessons = (groupId: number) => {
 
 export const loadLessonsDraft = (groupId: number) => {
   return async (dispatch: Dispatch<LessonsPageActions>) => {
-    dispatch(loadLessonsStarted());
+    // dispatch(loadLessonsStarted());
 
     try {
       const lessonsResponse: LessonResponse[] = await baseWretch()

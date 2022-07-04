@@ -17,10 +17,6 @@ export const selectTab = (tabId: number) => ({
   payload: tabId,
 });
 
-export const loadGroupsStarted = () => ({
-  type: LOAD_GROUPS_STARTED,
-});
-
 export const loadGroupsSuccess = (groups: GroupResponse[]) => ({
   type: LOAD_GROUPS_SUCCESS,
   payload: groups,
@@ -35,5 +31,4 @@ export type GroupsPageAction =
   | ReturnType<typeof loadGroupsSuccess>
   | ReturnType<typeof selectGroup>
   | ReturnType<typeof selectTab>
-  | ReturnType<typeof loadGroupsFail>
-  | ReturnType<typeof loadGroupsStarted>;
+  | ReturnType<typeof loadGroupsFail>;

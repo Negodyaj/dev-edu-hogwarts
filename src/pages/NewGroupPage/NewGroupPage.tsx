@@ -26,7 +26,7 @@ import {
   getTutorsForGroup,
   resetNewGroupPage,
 } from '../../actions/NewGroupForm.actions';
-import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
+//import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import { useParams } from 'react-router-dom';
 import { Input } from '../../components/styled/Input';
 import Datepicker from '../../components/Datepicker/Datepicker';
@@ -74,7 +74,7 @@ export const NewGroupPage = () => {
   // const [groupIdForUpdate, setGroupIdForUpdate] = useState<number>(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { group, users, courses, isLoading, teacherIdsForGroup, tutorIdsForGroup } = useSelector(
+  const { group, users, courses, teacherIdsForGroup, tutorIdsForGroup } = useSelector(
     (state: AppState) => state.newGroupFormState as NewGroupFormState
   );
   // добавить useEffect, который по id задиспетчит thunk, который получит данные о группе и запишет их в стейт этой страницы
@@ -292,7 +292,6 @@ export const NewGroupPage = () => {
 
   return (
     <>
-      {isLoading && <Loader />}
       <div className="new-group-page">
         <h2>{id ? `Редактирование группы "${group?.name}"` : 'Новая группа'}</h2>
         <FormProvider {...methods}>

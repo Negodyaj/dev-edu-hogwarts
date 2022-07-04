@@ -4,11 +4,9 @@ import {
   SELECT_TAB,
   LOAD_TABS,
   EDIT_HOMEWORK_STATUS,
-  LOAD_HOMEWORKS_STARTED,
   LOAD_HOMEWORKS_SUCCESS,
   LOAD_HOMEWORKS_FAIL,
   LOAD_DRAFT_HOMEWORKS_SUCCESS,
-  LOAD_TASKS_STARTED,
   LOAD_TASKS_SUCCESS,
   LOAD_TASKS_FAILED,
   LOAD_BYCOURSE,
@@ -23,7 +21,6 @@ export interface HomeworksPageState {
   selectedTab: number;
   homeworks?: Homework[];
   tasks?: Task[];
-  isLoading: boolean;
   errorMessage: string;
   courses: CourseResponse[];
   draftHomeworks?: Task[];
@@ -35,7 +32,6 @@ const initialState: HomeworksPageState = {
   homeworks: [],
   courses: [],
   tasks: [],
-  isLoading: false,
   errorMessage: '',
   draftHomeworks: undefined,
 };
@@ -83,18 +79,10 @@ export const homeworksPageReducer: Reducer<HomeworksPageState, HomeworksPageActi
         homeworks: [],
       };
     }
-    case LOAD_HOMEWORKS_STARTED: {
-      return {
-        ...state,
-        isLoading: true,
-        errorMessage: '',
-      };
-    }
     case LOAD_HOMEWORKS_SUCCESS: {
       return {
         ...state,
         homeworks: action.payload,
-        isLoading: false,
         errorMessage: '',
       };
     }
@@ -102,35 +90,24 @@ export const homeworksPageReducer: Reducer<HomeworksPageState, HomeworksPageActi
       return {
         ...state,
         draftHomeworks: action.payload,
-        isLoading: false,
         errorMessage: '',
       };
     }
     case LOAD_HOMEWORKS_FAIL: {
       return {
         ...state,
-        isLoading: false,
         errorMessage: action.payload,
-      };
-    }
-    case LOAD_TASKS_STARTED: {
-      return {
-        ...state,
-        isLoading: true,
-        errorMessage: '',
       };
     }
     case LOAD_TASKS_SUCCESS: {
       return {
         ...state,
         tasks: [...action.payload],
-        isLoading: false,
       };
     }
     case LOAD_TASKS_FAILED: {
       return {
         ...state,
-        isLoading: false,
         errorMessage: action.payload,
       };
     }

@@ -10,10 +10,12 @@ import {
   loadHomeworkStarted,
   loadStudentHomework,
 } from './homework.actions';
+import { DecrementLoader, IncrementLoader, LoaderAction } from './loader.action';
 
 export const saveEdit = (data: HomeworkFormData, progressId?: number) => {
-  return async (dispatch: Dispatch<HomeworkPageAction>) => {
+  return async (dispatch: Dispatch<HomeworkPageAction | LoaderAction>) => {
     dispatch(loadHomeworkStarted());
+    dispatch(IncrementLoader());
 
     try {
       if (progressId) {
@@ -27,9 +29,11 @@ export const saveEdit = (data: HomeworkFormData, progressId?: number) => {
           .json();
         dispatch(loadStudentHomework(studentHomework));
         dispatch(loadAnswer(studentHomework.answer));
+        dispatch(DecrementLoader());
       }
     } catch (error: any) {
       dispatch(loadHomeworkFail(error.message));
+      dispatch(DecrementLoader());
     }
   };
 };

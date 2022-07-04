@@ -9,12 +9,12 @@ import { GroupResponse } from '../../models/responses/GroupResponse';
 import { Icon } from '../../shared/enums/Icon';
 import { GroupsPageState } from '../../store/reducers/groups.reducer';
 import { AppState } from '../../store/store';
-import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
+//import { Loader } from '../HomeworksPage/HomeworkPage/Loader';
 import './GroupsListPage.scss';
 import { CourseIcon } from '../../components/SvgIcon/CoursesTabIcons';
 
 export const GroupsListPage = () => {
-  const { groups, selectedGroup, selectedTab, isLoading } = useSelector(
+  const { groups, selectedGroup, selectedTab } = useSelector(
     (state: AppState) => state.groupsPageState as GroupsPageState
   );
 
@@ -48,7 +48,6 @@ export const GroupsListPage = () => {
 
   return (
     <>
-      {isLoading && <Loader />}
       {groups.length > lengthOfTabsRow ? (
         <div className="groups-header">
           <Button
@@ -125,7 +124,7 @@ export const GroupsListPage = () => {
               </div>
             </div>
             <div className="groups-link">
-              <LinkWithUnderline path="#" text="Редактировать список группы" />
+              <LinkWithUnderline path="students-list" text="Редактировать список группы" />
             </div>
           </div>
         </div>

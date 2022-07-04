@@ -33,6 +33,7 @@ import { ModalWindowState } from './store/reducers/modalWindow.reducer';
 import { ModalWindow } from './components/ModalWindow/ModalWindow';
 import { GroupsListPage } from './pages/GroupsListPage/GroupsListPage';
 import { NewLessonPage } from './pages/NewLessonPage/NewLessonPage';
+import { Loader } from './pages/Loader/Loader';
 
 function App() {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ function App() {
 
   return (
     <>
+      <Loader />
       <div
         className={`flex-container${isModalOpen ? ' inactive' : ''} ${
           isDark ? 'dark-mode' : 'default-mode'
